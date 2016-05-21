@@ -1,0 +1,486 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title></title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <style>
+            .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+              text-transform: none;
+            }
+            .reveal h2 {
+                font-size: 60px;
+            }
+            .ome_theme {
+                background-image: url("images/ome-icon-opacity.png");
+                background-color: #f2f6f9;
+                background-repeat: no-repeat;
+                background-position: right -270px top -120px;
+            }
+            .reveal {
+                text-transform: none;   !important
+            }
+
+            .reveal section img {
+                border-width:0;
+                border-color: white;
+            }
+
+            .img_panel {
+                width: 150px;
+            }
+
+            .nobullet li {
+                list-style: none;
+            }
+
+            table.centre {
+                width: 100%;
+            }
+
+            .reveal .centre td {
+                text-align: center;
+            }
+
+            .rot90 {
+                -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+            }
+
+            .reveal .title {
+                position:absolute;
+                bottom:100%;
+                margin:5px;
+                color:red;
+            }
+
+        </style>
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body class="ome_theme">
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section>
+                    <h1></h1>
+                    <h3></h3>
+                    <p>
+                        <small>
+                            Will Moore
+                        </small>
+                    </p>
+                </section>
+
+                <!-- talk outline -->
+                <section>
+                    <h2>OMERO.figure</h2>
+
+                    <ul>
+                        <li>Background</li>
+                        <li>Demo</li>
+                        <li>Tech</li>
+                        <li>Related software</li>
+                        <li>Next steps</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Figure creation takes time</h2>
+
+                    <img style="height:500px; border-width:5px" src="http://jcb.rupress.org/content/179/2/187/F3.large.jpg"/>
+
+                    <br>
+                    <small><a target="new" href="http://jcb.rupress.org/content/179/2/187">Porter 2007</a></small>
+                    
+                </section>
+
+
+                <section>
+                    <h2>No metadata, context,<br> links to data, etc</h2>
+
+                    <img style="height:500px; border-width:5px" src="http://jcb.rupress.org/content/179/2/187/F5.large.jpg"/>
+
+                    <br>
+                    <small><a target="new" href="http://jcb.rupress.org/content/179/2/187">Porter 2007</a></small>
+                    
+                </section>
+
+
+                <section>
+                    <h2>Figures in OMERO 4.4.10...</h2>
+
+                    <ul class="nobullet">
+                        <li>&#10004; Various scripts for different figures</li>
+                        <li>&#10004; Use metadata (E.g. pixel size, channels, ROIs etc)</li>
+                        <li>&#10004; Figure is linked to data</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>OMERO 4.4.10 Script UIs</h2>
+
+                    <img style="height:500px" src="images/split-view-insight.png"/>
+                    <img style="height:500px" src="images/split-view-web.png"/>
+                </section>
+
+
+                <section>
+                    <h2>Figures in OMERO 4.4.10</h2>
+
+                    <ul class="nobullet">
+                        <li>&#10008; No flexibility
+                            <ul>
+                                <li>- fixed layouts with params</li>
+                                <li>- requests for more (forums / Leuven / Dundee)</li>
+                            </ul>
+                        </li>
+                        <li>&#10008; Layout code in Python is horrible!</li>
+                        <li>&#10008; Export as bitmap: Can't edit layout / text</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Feature Wish List</h2>
+
+                        <ul>
+                            <li>Flexible Layout (drag to move)</li>
+                            <li>Edit multiple panels at once</li>
+                            <li>Full use of OMERO metadata</li>
+                            <li>Export as PDF (edit in Illustrator etc)</li>
+                            <li>Bonus: share/publish figures</li>
+                        </ul>
+                </section>
+
+
+                <section style="width:110%">
+                    <h2>Brief History</h2>
+
+                        <ul class="nobullet">
+                            <li>&#10047;
+                                <a href="https://github.com/will-moore/weblabs/commit/165fe9813041f4599c98a3832b8241d44a16d5c3">
+                                github.com/will-moore/weblabs</a> Initial Commit - May 2013</li>
+                            <li>&#10047;
+                                <a href="https://github.com/will-moore/webfigure/commit/e33be27d212ea38ee8de7f37d2fb4fafdc27bcd9">
+                                github.com/will-moore/webfigure</a> New Repo - Sept 2013</li>
+
+                            <li>&#10047; <a href="https://github.com/openmicroscopy/openmicroscopy/pull/1690">
+                                PR #1690</a> for dev_4_4 (TEMP)
+                            </li>
+                            <li>&#10047; Tested on howe by several users - positive feedback &#9786;
+                            </li>
+                            <li>&#10047; Many issues & new features addressed...</li>
+                        </ul>
+                </section>
+
+
+                <section>
+                    <h2>RFEs & Bugs</h2>
+
+                    <pre><code class="javascript">
+---- Before deploying on nightshade ----
+Save to OMERO (and open saved Figures)      Done
+Free-text, figure name                      Done
+Open files list                             Done
+Drag to select panels                       Done
+Arrow keys to nudge selected panels         Done
+Show actual times                           Done
+
+---- Other feedback RFEs ----
+Address interpolation issues
+Landscape canvas
+Set Image ID                                Done
+Max Intensity Projection
+Copy viewport location -> Rectangle
+User-defined spacing
+Attach pdf to ALL source images             Done
+2nd page of pdf with image links etc
+Vertical labels                             Done
+Keep-alive ping from webfigure              Done
+Bug: Zoom centering                         Done
+Grid alignment with labels
+Label edits saved with loss of focus        Done
+Free label for titles/row headers etc.
+
+---- Will's other TODOs ---
+Panel Borders
+Export tiffs with pdf (tiffs -> pdf)
+Export to image (png/jpeg)
+Send to Panel to Back / Bring to Front
+Set x, y, w, h
+Alignment guides on drag / resize
+Rotate Image within panel
+Shapes from OMERO ROIs
+                    </code></pre>
+                </section>
+
+
+                <section>
+                    <h2>Demo...</h2>
+
+                    <img style="height:550px" src="images/demo-screen-shot.png"/> <br>
+                    <small>See <a href="http://www.youtube.com/watch?v=anJPPx7uoUM">Older Demo</a> on youtube</small>
+
+                </section>
+
+
+                <section>
+                    <h2>Key Features</h2>
+
+                    <ul>
+                        <li>Each ‘panel’ is an independent viewer</li>
+                        <li>Select multiple panels to co-edit</li>
+                        <li>Full undo/redo</li>
+                        <li>Save as orig file (json)</li>
+                        <li>URL per file - bookmark, share, 'publish' etc</li>
+                        <li>Script to create PDF from json</li>
+                        <li>"Template" for figures</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Tools & Tech</h2>
+
+                    <ul>
+                        <li><a href="http://backbonejs.org/">backbone.js</a> (MVC - also angular.js, ember.js etc)
+                            <ul>
+                                <li>model</li>
+                                <li>events</li>
+                                <li>view</li>
+                                <li>templating</li>
+                                <li>router</li>
+                            </ul>
+                        </li>
+                        <li><a href="http://getbootstrap.com/">Bootstrap</a> - css, icons, js</li>
+                        <li><a href="http://craig.is/killing/mice">Mousetrap</a> - Keyboard bindings</li>
+                        <li><a href="http://raphaeljs.com/">Raphael</a> - Drag handles etc</li>
+                        <li><a href="http://www.reportlab.com/software/opensource/">Reportlab</a> - PDF generation</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Data Model</h2>
+
+                    <pre><code class="javascript">
+    panel = {
+        "imageId":205,
+        "name":"121-Control siRNA.ome.tiff",
+        "orig_width":163,
+        "orig_height":194,
+        "sizeT":23,
+        "sizeZ":6,
+        "theZ":2,
+        "theT":17,
+        "pixel_size":0.3312,
+        "zoom":188,
+        "dx":9.15,
+        "dy":12.7,
+        "width":102.4,
+        "height":102.5,
+        "y":641.1,
+        "x":191.9
+        "labels":[{"time":"hrs:mins","size":"14","position":"top","color":"000000"}],
+        "channels":[{"color":"FFFFFF","active":true,"window":{"max":743,"min":87,"end":345,"start":119},"emissionWave":528,"label":"528"}],
+        "deltaT":[5744,6047,6348,6649,6951,7254,7556,7858,8162,8464,8764,9065,9368,9671,9973,10274,10577,10879,11178,11483,11786,12090,12387],
+        "selected":false,
+        "datasetId":"",
+        "datasetName":"Multiple",
+    }
+
+                    </code></pre>
+                </section>
+
+
+                <section>
+                    <h2>Data Flow & Storage <br>&nbsp</h2>
+                    <div style="position:relative; background: white">
+                        <div class="title">Browser</div>
+                        <table class="centre" style="border: solid red 1px; position:relative">
+                            <tr><td>Javascript (Backbone.Model)</td></tr>
+                            <tr><td>&#8597;</td></tr>
+                            <tr><td>json</td></tr>
+                        </table>
+                    </div>
+                    <table class="centre" style="margin: 20px 0">
+                        <tr><td>&#8597;</td></tr>
+                        <tr><td>POST json string</td></tr>
+                        <tr><td> &#8597; &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                        &nbsp &nbsp &nbsp &nbsp &nbsp &darr;</td></tr>
+                    </table>
+                     <div style="position:relative; background: white">
+                        <div class="title">OMERO</div>
+                        <table class="centre" style="border: solid red 1px">
+                            <tr>
+                                <td style="width:50%">Save as Orig File<br>(retrieved by namespace)</td>
+                                <td style="width:50%">Export to PDF<br>(attached to all images)</td>
+                            </tr>
+                        </table>
+                    </div>
+                </section>
+
+
+                <section>
+                    <h2>FigureJ</h2>
+                    <img src="images/figureJ.png" style="height: 500px">
+                    <br>
+
+                    <small>
+                        <a target="new" href="http://imagejdocu.tudor.lu/doku.php?id=plugin:utilities:figurej:start">
+                            FigureJ
+                        </a>
+                    </small>
+                </section>
+
+
+                <section>
+                    <h2>Scientifig</h2>
+
+                    <img src="images/scientifig.png" style="height: 500px">
+                    <br>
+
+                    <small>
+                        <a target="new" href="http://srv-gred.u-clermont1.fr/labmirouse/software/">
+                            Scientifig
+                        </a>
+                    </small>
+                </section>
+
+
+                <section>
+                    <h2>Macnification "Light Table"</h2>
+
+                    <img src="images/macnification.png" style="height: 500px">
+                    <br>
+
+                    <small>
+                        <a target="new" href="http://www.orbicule.com/macnification/screencasts/lt.mov">
+                            Macnification - Light Table
+                        </a>
+                    </small>
+                </section>
+
+
+                <section>
+                    <h2>Figure Zero & FigShare</h2>
+
+                    <img src="http://wholeslide.com/images/fz-overview.jpg" style="height: 300px">
+                    <img src="images/figshare.png" style="height: 300px">
+                        <br>
+
+                    <small>
+                        <a target="new" href="http://wholeslide.com/figurezero/">
+                            Figure Zero
+                        </a> | 
+                        <a target="new" href="http://figshare.com/">
+                            FigShare
+                        </a>
+                    </small>
+                </section>
+
+
+                <section>
+                    <h2>JCB</h2>
+
+                    <img src="images/jcb.png" style="height: 500px">
+                    <br>
+
+                    <small>
+                        <a target="new" href="http://jcb-dataviewer.rupress.org/jcb/browse/2254/3991/">
+                            Posch 2010
+                        </a>
+                    </small>
+                </section>
+
+
+                <section>
+                    <h2>Next Steps...</h2>
+
+                    <ul>
+                        <li>Name ?
+                            <ul class="nobullet">
+                                <li>&#10008; FigureShop</li>
+                                <li>&#10008; FigureO</li>
+                                <li><strong>&#63;</strong> OMERO.figure</li>
+                                <li><strong>&#63;</strong> OMERO.paper</li>
+                                <li><strong>&#63;</strong> OMERO.LightTable</li>
+                            </ul>
+                        </li>
+                        <li>Version number for data model</li>
+                        <li>Install on nightshade
+                            <ul class="nobullet">
+                                <li>- Get feedback, fix bugs etc</li></ul>
+                        </li>
+                        <li>PR for develop</li>
+                        <li>Release for OMERO 5.?</li>
+                    </ul>
+                </section>
+
+            </div>
+
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
