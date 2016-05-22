@@ -98,27 +98,29 @@
         </section>
 
 
-        <section data-background="images/dell-fc630.jpg" data-background-size="878px" data-background-repeat="repeat">
+        <!--section data-background="images/dell-fc630.jpg" data-background-size="878px" data-background-repeat="repeat"-->
+        <section>
           <h2>Dundee: our hardware</h2>
 
-          <img style="height:500px; border-width:5px" src="http://jcb.rupress.org/content/179/2/187/F3.large.jpg"/>
+          <div style="width: 50%; float: right;">
+            <img src="images/dell-fc630.jpg" />
+            <img src="images/dell-md3800i.jpg" />
+            <img src="images/dell-fc630.jpg" />
+            <img src="images/dell-md3800i.jpg" />
+          </div>
 
-          <br>
-          <small><a target="new" href="http://jcb.rupress.org/content/179/2/187">Porter 2007</a></small>
-
-          <ul>
-            <li>Storage: 450+ TB disk array (300+ TB usable)</li>
-            <li>2 FC630 Dell storage servers</li>
-            <li>6 FC630 Dell servers (28 cpu cores, 256 GB memory)</li>
+          <ul style="width:40%;">
+            <li>Dell PowerVault MD3860f storage array + expansion enclosure: 450+ TB (300+ TB usable)</li>
+            <ul><li>2 FC630 Dell storage servers (12 cores, 128 GB RAM)</li></ul>
+            <li>6 FC630 Dell compute servers (28 cores, 256 GB RAM)</li>
           </ul>
         </section>
 
 
         <section>
-          <h2>Dundee: Storage platform</h2>
+          <h2>Dundee storage platform: GPFS</h2>
 
           <ul>
-            <li>GPFS (IBM)</li>
             <li>Used by the School of Life Sciences</li>
             <li>Can be shared amongst multiple servers</li>
             <li>Takes a <emph>lot</emph> of tuning</li>
@@ -127,51 +129,101 @@
 
 
         <section>
-          <h2>Dundee: Servers</h2>
+          <h2>Dundee compute servers</h2>
 
           <ul>
-            <li>One production server</li>
-            <li>One development server</li>
+            <li>One production server (Docker)</li>
+            <li>One development server (Docker)</li>
             <li>Four additional servers</li>
             <li>All running CentOS 7</li>
           </ul>
         </section>
 
-
         <section>
-          <h2>XXX 2015: OMERO on Docker</h2>
+          <h2>Dundee compute servers</h2>
 
-          <pre><code class="bash">
-            yum install docker
-            docker run ... omero-deploy ...
-          </code></pre>
-          <small>Don't use `omero-deploy`, look out for a new production Docker image</small>
+          <div style="display:flex;">
+            <div style="flex:1;" class="box">
+              <img src="images/centos-logo-light-tagline-release7.svg" />
+              <img src="images/large_h-trans.png" />
+              Production
+            </div>
+            <div style="flex:1;" class="box">
+              <img src="images/centos-logo-light-tagline-release7.svg" />
+              <img src="images/large_h-trans.png" style="flex:1;" />
+              Development
+            </div>
+          </div>
+
+          <div style="display:flex;">
+            <div style="flex: 1;" class="box">
+              <img src="images/centos-logo-light-tagline-release7.svg" />
+              Compute server
+            </div>
+            <div style="flex:1;" class="box">
+              <img src="images/centos-logo-light-tagline-release7.svg" />
+              Compute server
+            </div>
+            <div style="flex:1;" class="box">
+              <img src="images/centos-logo-light-tagline-release7.svg" />
+              Compute server
+            </div>
+            <div style="flex:1;" class="box">
+              <img src="images/centos-logo-light-tagline-release7.svg" />
+              Compute server
+            </div>
+          </div>
         </section>
 
 
         <section>
-          <h2>XXX 2015: OMERO on Docker</h2>
+          <h2>September 2015: OMERO on Docker</h2>
 
-          <pre><code class="bash">
-            omero import in-place ...
-          </code></pre>
-          <a href="">Link to Session 2 presentation</a>
+          <pre><code class="bash">yum install docker
+
+docker run -d -v /idr:/idr --name demo openmicroscopy/omero-deploy</code></pre>
+          <p>Don't use `omero-deploy`, look out for a new production Docker image</p>
         </section>
 
 
         <section>
-          <h2>Diagram: System layout (4 docker + nginx front-end)</h2>
+          <h2>September 2015: OMERO on Docker</h2>
+
+          <pre><code class="bash">omero import --
+--checksum-algorithm=File-Size-64 --transfer=ln_s ...</code></pre>
+          <p>See <a href="">Session 2: Extensible Import</a> for details</p>
         </section>
 
 
         <section>
-          <h2>Diagram: System layout (4 docker explored)</h2>
+          <h2>System layout</h2>
+
+          <div class="box">
+            <h3>Docker</h3>
+            <div style="display:flex;">
+              <div style="flex: 1;" class="box">
+                <img src="images/omero-logo-800.png" />
+              </div>
+              <div style="flex:1;" class="box">
+                <img src="images/omero-logo-800.png" />
+              </div>
+              <div style="flex:1;" class="box">
+                <img src="images/omero-logo-800.png" />
+              </div>
+              <div style="flex:1;" class="box">
+                <img src="images/omero-logo-800.png" />
+              </div>
+            </div>
+          </div>
+          <div class="box">
+            <img src="images/nginx_logo.svg" style="height:2em; vertical-align:middle;" />
+            front-end proxy
+          </div>
         </section>
 
 
-        <section>
+        <section data-background="images/idr-demo-1-screenshot.png" data-background-size="1024px" class="fullscreen-image">
           <h2>October 2015: Official launch (EMBL Seeing is Believing)</h2>
-          <h2>idr-demo screenshot</h2>
         </section>
 
 
@@ -187,38 +239,46 @@
 
 
         <section>
-          <h2>OMERO on virtual machines vs OMERO on docker on VMs</h2>
+          <h2>OMERO on Docker on virtual machines?</h2>
 
-          <ul>
-            <li>Docker on VMs</li>
-            <li>+ Easy to deploy OMERO</li>
-            <li>+ East to upgrade</li>
-            <li>- Another layer of infrastructure to manage</li>
+          <ul class="nobullet">
+            <li>&#10004; Easy to deploy OMERO</li>
+            <li>&#10004; Easy to upgrade</li>
+            <li>&#10008; Another layer of infrastructure to debug</li>
           </ul>
+          <p class="fragment">What we'd really like: someone else to manage the infrastructure</p>
         </section>
 
 
         <section>
           <h2>February 2016: OMERO on OpenStack with Ansible</h2>
-          <h3>First production use of Ansible with OMERO</h3>
 
-          <ul>
+          <div style="display:flex;">
+          <ul style="flex:2;">
+            <li>First production use of Ansible with OMERO</li>
             <li>Single-node deployment</li>
-            <li>Uses <a>omego</a>, our OMERO installation and upgrade utility</li>
+            <li>Uses <a href="https://github.com/ome/omego">omego</a>, our OMERO installation and upgrade tool</li>
           </ul>
-          <pre><code class="yaml">
-            omero.yml
-          </code></pre>
+          <div style="flex:3;">
+          <pre class="small"><code class="yaml"># omero.yml
+- hosts: localhost
+  roles:
+  - omero-server
+    postgresql_users_databases:
+    - user: omero
+      password: omero
+      databases: [omero]</code></pre>
 
-          <pre><code class="bash">
-            git clone infrastructure
-            ansible-playbook run ... omero.yml ...
-          </code></pre>
+          <pre class="small"><code class="bash">git clone https://github.com/openmicroscopy/infrastructure
+
+ansible-playbook run omero.yml</code></pre>
+          </div>
+        </div>
         </section>
 
 
         <section>
-          <h2>March 2016: Move 40 TB of data from Dundee to Cambridge (500 miles)</h2>
+          <h2>March 2016: Copy 40 TB of data from Dundee to Cambridge (400 miles)</h2>
 
           <ul>
             <li>Option 1: Aspera (FTP on steroids)</li>
@@ -240,61 +300,149 @@
             </ul>
           </ul>
           <pre><code class="bash">
-            source openstack-credentials.env
-            ansible-playbook run ... os-idr-uod.yml ...
+source openstack-credentials.env
+
+ansible-playbook -i inventory/openstack.py \
+    -e @vars/ome2016-overrides.yml os-idr-uod.yml
           </code></pre>
           Live demo? Terminal always on top, in corner of screen? Transparent background?
+          start 14:03
+
+        </section>
+
+
+        <section data-background="images/openstack-network-1.png" data-background-size="1024px" class="fullscreen-image">
         </section>
 
 
         <section>
-          <h2>May 2016: Redeploy at EBI</h2>
 
-          <pre><code class="bash">
-            os-idr-uod.yml vs os-idr-ebi.yml
-            Highlight changed lines
-          </code></pre>
+          <section>
+            <h2>May 2016: Redeploy at EBI</h2>
+
+            <pre class="tiny"><code class="yaml">- include: os-create.yml
+    vars:
+      omero_vm_extra_groups: "uod-nfs,idr-hosts"
+      os_cloud_provider: uod
+
+  - include: os-volumes.yml
+    vars:
+      os_cloud_provider: uod
+
+  - hosts: database-hosts
+    roles:
+    - role: storage-volume-initialise
+      storage_volume_initialise_device: /dev/vdb
+      storage_volume_initialise_mount: /var/lib/pgsql
+
+  - hosts: omero-hosts
+    roles:
+    - role: storage-volume-initialise
+      storage_volume_initialise_device: /dev/vdb1
+      storage_volume_initialise_mount: /data
+
+  - hosts: proxy-hosts
+    roles:
+    - role: storage-volume-initialise
+      storage_volume_initialise_device: /dev/vdb
+      storage_volume_initialise_mount: /var/cache/nginx
+
+  - include: idr-dundee-nfs.yml
+
+  - include: os-omero.yml
+            </code></pre>
+          </section>
+
+          <section>
+            <h2>May 2016: Redeploy at EBI</h2>
+
+            <pre class="tiny"><code class="yaml">- include: os-create.yml
+    vars:
+      omero_vm_extra_groups: "u⃫o⃫d⃫-⃫n⃫f⃫s⃫ ebi-nfs,idr-hosts"
+      os_cloud_provider: u⃫o⃫d⃫ ebi
+
+  - include: os-volumes.yml
+    vars:
+      os_cloud_provider: u⃫o⃫d⃫ ebi
+
+  - hosts: database-hosts
+    roles:
+    - role: storage-volume-initialise
+      storage_volume_initialise_device: /dev/vdb
+      storage_volume_initialise_mount: /var/lib/pgsql
+
+  - hosts: omero-hosts
+    roles:
+    - role: storage-volume-initialise
+      storage_volume_initialise_device: /dev/vdb1
+      storage_volume_initialise_mount: /data
+
+  - hosts: proxy-hosts
+    roles:
+    - role: storage-volume-initialise
+      storage_volume_initialise_device: /dev/vdb
+      storage_volume_initialise_mount: /var/cache/nginx
+
+  - include: i⃫d⃫r⃫-⃫d⃫u⃫n⃫d⃫e⃫e⃫-⃫n⃫f⃫s⃫.⃫y⃫m⃫l⃫ idr-ebi-nfs.yml
+
+  - include: os-omero.yml
+            </code></pre>
+          </section>
+
         </section>
-
 
         <section>
           <h2>May 2016: Production tuning</h2>
 
           <ul>
-            <li>IDR: A public big-data resource</li>
-            <li>384-well plate involves loading 384 thumbnails</li>
-            <li>One thing in our favour: read-only</li>
+            <li>OMERO.server: Loading screens is slow
+              <ul>
+                <li>Each screen is several GB</li>
+                <li>BioFormats may have to load 1000s of files</li>
+              </ul>
+            </li>
+            <li class="fragment">Browsers: 384-well plate involves loading 384 thumbnails</li>
+            <li class="fragment">But at least it's read-only and web-only (for now)</li>
           </ul>
         </section>
 
 
         <section>
-          <h2>May 2016: Production tuning</h2>
-          <h3>Screenshot, overlay with text</h3>
 
-          <ul>
-            <li>Very aggressive Nginx caching (read-only)</li>
-            <li>Scripts to warm the cache</li>
+          <section>
+            <h2>May 2016: Production tuning</h2>
+            <h3>Screenshot, overlay with text</h3>
+
             <ul>
-              <li>Thumbnails (xxx million)</li>
-              <li>Screen (N), Plate (N), Project (N) and Dataset (N) metadata</li>
+              <li>OMERO.server: Bio-Formats cache</li>
+              <li>Nginx: Very aggressive front-end caching</li>
+              <li>Clients: Optimise HTTP protocol</li>
             </ul>
-          </ul>
-        </section>
+          </section>
 
+          <section>
+            <h2>May 2016: Production tuning</h2>
+            <h3>Screenshot, overlay with text</h3>
+            <h3>Scripts to pre-warm cache</h3>
 
-        <section>
-          <h2>May 2016: Production tuning</h2>
-          <h3>Screenshot, overlay with text</h3>
+            <ul>
+              <li>All filesets in OMERO (NN)</li>
+              <li>All thumbnails (NN million)</li>
+              <li>All metadata for Screens and Plates (NN)</li>
+            </ul>
+          </section>
 
-          <ul>
-            <li>Very aggressive Nginx caching (read-only)</li>
-            <li>Cached on first request</li>
+          <section>
+            <h2>May 2016: Production tuning</h2>
+            <h3>Screenshot, overlay with text</h3>
+            <h3>Cached on first request</h3>
+
             <ul>
               <li>Images</li>
               <li>Image metadata</li>
             </ul>
-          </ul>
+          </section>
+
         </section>
 
 
@@ -302,15 +450,18 @@
           <h2>May 2016: Production tuning</h2>
 
           <ul>
-            <li>Web session management: Redis</li>
-            <li>Client speed-up: HTTP2</li>
+            <li>Web session management: <a href="http://www.openmicroscopy.org/site/support/omero5.2/sysadmins/unix/install-web.html#omero-web-maintenance-unix-linux">Redis</a></li>
+            <li>Client speed-up: <a href="https://en.wikipedia.org/wiki/HTTP/2">HTTP2</a></li>
           </ul>
         </section>
 
 
-        <section>
-          <h2>IDR screenshot + URL</h2>
+        <section data-background="images/openstack-network-2.png" data-background-size="1024px" class="fullscreen-image">
+        </section>
 
+
+        <section data-background="images/idr-demo-1-screenshot.png" data-background-size="1024px" class="fullscreen-image">
+          <h2>May 2016: IDR demo-2</h2>
         </section>
 
 
