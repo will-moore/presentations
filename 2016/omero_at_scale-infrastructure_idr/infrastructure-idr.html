@@ -1,0 +1,350 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>OMERO@scale: IDR Infrastructure</title>
+
+    <meta name="author" content="Simon Li">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="reveal-js/css/reveal.css">
+    <link rel="stylesheet" href="reveal-js/css/theme/white.css" id="theme">
+    <!--link rel="stylesheet" href="reveal-js/css/theme/league.css" id="theme"-->
+
+    <!-- OME presentation overrides of the default theme -->
+    <link rel="stylesheet" href="css/ome-reveal.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal-js/css/print/pdf.css' : 'reveal-js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+      <script src="reveal-js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body class="ome_theme">
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+        <!-- title page -->
+        <section>
+          <h1>How we built the IDR</h1>
+          <h3>(And how you can build it too)</h3>
+          <p>
+            <small>
+              Simon Li
+            </small>
+          </p>
+        </section>
+
+
+        <section>
+          <h2>The Institutional Data Repository</h2>
+
+          <ul>
+            <li>TODO: intro based on yesterday's talk</li>
+          </ul>
+        </section>
+
+
+        <section>
+          <h2>Overview: IDR Development</h2>
+
+          <ol>
+            <li>Get hold of the data</li>
+            <li class="fragment">Buy some disks and servers</li>
+            <li class="fragment">Install OMERO.server (Docker)</li>
+            <li class="fragment">Setup a public OMERO.web</li>
+            <li class="fragment">Import some data</li>
+            <li class="fragment">Import more data</li>
+            <li class="fragment">Discover bugs in OMERO</li>
+            <li class="fragment">Import more data</li>
+            <li class="fragment">Discover bugs in hardware setup</li>
+            <li class="fragment">Import more data</li>
+            <li class="fragment">Discover more bugs</li>
+            <li class="fragment">Import more data</li>
+            <li class="fragment">Discover more bugs</li>
+          </ol>
+        </section>
+
+
+        <section>
+          <h2>Overview: IDR Production</h2>
+
+          <ol>
+            <li>Mirror final deployment environment (OpenStack)</li>
+            <li class="fragment">Write Ansible playbooks</li>
+            <li class="fragment">Move to EBI Embassy</li>
+            <li class="fragment">Performance tuning</li>
+          </ol>
+        </section>
+
+
+        <section data-background="images/dell-fc630.jpg" data-background-size="878px" data-background-repeat="repeat">
+          <h2>Dundee: our hardware</h2>
+
+          <img style="height:500px; border-width:5px" src="http://jcb.rupress.org/content/179/2/187/F3.large.jpg"/>
+
+          <br>
+          <small><a target="new" href="http://jcb.rupress.org/content/179/2/187">Porter 2007</a></small>
+
+          <ul>
+            <li>Storage: 450+ TB disk array (300+ TB usable)</li>
+            <li>2 FC630 Dell storage servers</li>
+            <li>6 FC630 Dell servers (28 cpu cores, 256 GB memory)</li>
+          </ul>
+        </section>
+
+
+        <section>
+          <h2>Dundee: Storage platform</h2>
+
+          <ul>
+            <li>GPFS (IBM)</li>
+            <li>Used by the School of Life Sciences</li>
+            <li>Can be shared amongst multiple servers</li>
+            <li>Takes a <emph>lot</emph> of tuning</li>
+          </ul>
+        </section>
+
+
+        <section>
+          <h2>Dundee: Servers</h2>
+
+          <ul>
+            <li>One production server</li>
+            <li>One development server</li>
+            <li>Four additional servers</li>
+            <li>All running CentOS 7</li>
+          </ul>
+        </section>
+
+
+        <section>
+          <h2>XXX 2015: OMERO on Docker</h2>
+
+          <pre><code class="bash">
+            yum install docker
+            docker run ... omero-deploy ...
+          </code></pre>
+          <small>Don't use `omero-deploy`, look out for a new production Docker image</small>
+        </section>
+
+
+        <section>
+          <h2>XXX 2015: OMERO on Docker</h2>
+
+          <pre><code class="bash">
+            omero import in-place ...
+          </code></pre>
+          <a href="">Link to Session 2 presentation</a>
+        </section>
+
+
+        <section>
+          <h2>Diagram: System layout (4 docker + nginx front-end)</h2>
+        </section>
+
+
+        <section>
+          <h2>Diagram: System layout (4 docker explored)</h2>
+        </section>
+
+
+        <section>
+          <h2>October 2015: Official launch (EMBL Seeing is Believing)</h2>
+          <h2>idr-demo screenshot</h2>
+        </section>
+
+
+        <section>
+          <h2>November 2015: OpenStack at Dundee</h2>
+
+          <ul>
+            <li>Open-source cloud platform used at EMBL-EBI</li>
+            <li>Gives us full admin access to a private cloud</li>
+            <li><emph>Difficult to install</emph></li>
+          </ul>
+        </section>
+
+
+        <section>
+          <h2>OMERO on virtual machines vs OMERO on docker on VMs</h2>
+
+          <ul>
+            <li>Docker on VMs</li>
+            <li>+ Easy to deploy OMERO</li>
+            <li>+ East to upgrade</li>
+            <li>- Another layer of infrastructure to manage</li>
+          </ul>
+        </section>
+
+
+        <section>
+          <h2>February 2016: OMERO on OpenStack with Ansible</h2>
+          <h3>First production use of Ansible with OMERO</h3>
+
+          <ul>
+            <li>Single-node deployment</li>
+            <li>Uses <a>omego</a>, our OMERO installation and upgrade utility</li>
+          </ul>
+          <pre><code class="yaml">
+            omero.yml
+          </code></pre>
+
+          <pre><code class="bash">
+            git clone infrastructure
+            ansible-playbook run ... omero.yml ...
+          </code></pre>
+        </section>
+
+
+        <section>
+          <h2>March 2016: Move 40 TB of data from Dundee to Cambridge (500 miles)</h2>
+
+          <ul>
+            <li>Option 1: Aspera (FTP on steroids)</li>
+            <li>Option 2: Fedex</li>
+          </ul>
+        </section>
+
+
+        <section>
+          <h2>April 2016: Multi-node OMERO OpenStack deployment</h2>
+
+          <ul>
+            <li>Use Ansible for creating VMs</li>
+            <li>Use Ansible for installing and configuring OMERO</li>
+            <ul>
+              <li>PostgreSQL</li>
+              <li>OMERO.server and web</li>
+              <li>Front-end Nginx web-proxy</li>
+            </ul>
+          </ul>
+          <pre><code class="bash">
+            source openstack-credentials.env
+            ansible-playbook run ... os-idr-uod.yml ...
+          </code></pre>
+          Live demo? Terminal always on top, in corner of screen? Transparent background?
+        </section>
+
+
+        <section>
+          <h2>May 2016: Redeploy at EBI</h2>
+
+          <pre><code class="bash">
+            os-idr-uod.yml vs os-idr-ebi.yml
+            Highlight changed lines
+          </code></pre>
+        </section>
+
+
+        <section>
+          <h2>May 2016: Production tuning</h2>
+
+          <ul>
+            <li>IDR: A public big-data resource</li>
+            <li>384-well plate involves loading 384 thumbnails</li>
+            <li>One thing in our favour: read-only</li>
+          </ul>
+        </section>
+
+
+        <section>
+          <h2>May 2016: Production tuning</h2>
+          <h3>Screenshot, overlay with text</h3>
+
+          <ul>
+            <li>Very aggressive Nginx caching (read-only)</li>
+            <li>Scripts to warm the cache</li>
+            <ul>
+              <li>Thumbnails (xxx million)</li>
+              <li>Screen (N), Plate (N), Project (N) and Dataset (N) metadata</li>
+            </ul>
+          </ul>
+        </section>
+
+
+        <section>
+          <h2>May 2016: Production tuning</h2>
+          <h3>Screenshot, overlay with text</h3>
+
+          <ul>
+            <li>Very aggressive Nginx caching (read-only)</li>
+            <li>Cached on first request</li>
+            <ul>
+              <li>Images</li>
+              <li>Image metadata</li>
+            </ul>
+          </ul>
+        </section>
+
+
+        <section>
+          <h2>May 2016: Production tuning</h2>
+
+          <ul>
+            <li>Web session management: Redis</li>
+            <li>Client speed-up: HTTP2</li>
+          </ul>
+        </section>
+
+
+        <section>
+          <h2>IDR screenshot + URL</h2>
+
+        </section>
+
+
+      </div>
+
+    </div>
+
+
+
+    <script src="reveal-js/lib/js/head.min.js"></script>
+    <script src="reveal-js/js/reveal.js"></script>
+
+    <script>
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+    </script>
+
+  </body>
+</html>
