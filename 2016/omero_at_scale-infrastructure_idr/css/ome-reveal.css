@@ -52,6 +52,23 @@
     border-color: white;
 }
 
+.reveal .flexcontainer {
+    display: flex;
+}
+
+.reveal .flex1 {
+    flex: 1;
+}
+.reveal .flex2 {
+    flex: 2;
+}
+.reveal .flex3 {
+    flex: 3;
+}
+.reveal .flex4 {
+    flex: 4;
+}
+
 .img_panel {
     width: 150px;
 }
@@ -81,7 +98,7 @@ table.centre {
 }
 
 div.box {
-    border: 1px solid #2b2b2b;
+    border: 2px solid #2b2b2b;
     margin: 10px;
     padding: 10px;
 }
