@@ -45,14 +45,14 @@
       <div class="slides">
 
         <!-- title page -->
-        <section>
+        <section class="center">
           <h1>How we built the IDR</h1>
           <h3>(And how you can build it too)</h3>
           <h4>Simon Li</h4>
         </section>
 
 
-        <section>
+        <section class="center">
           <h2>The Image Data Repository</h2>
 
           <ul>
@@ -63,7 +63,7 @@
         </section>
 
 
-        <section>
+        <section class="center">
           <h2>Overview Part 1: IDR Development</h2>
 
           <ol>
@@ -85,7 +85,7 @@
         </section>
 
 
-        <section>
+        <section class="center">
           <h2>August 2015: Dundee: our hardware</h2>
 
           <div style="width: 50%; float: right;">
@@ -103,7 +103,7 @@
         </section>
 
 
-        <section>
+        <section class="center">
           <h2>Dundee storage platform: GPFS</h2>
 
           <ul>
@@ -114,7 +114,7 @@
         </section>
 
 
-        <section>
+        <section class="center">
           <h2>Dundee compute servers</h2>
 
           <div style="display:flex;">
@@ -147,7 +147,7 @@
         </section>
 
 
-        <section>
+        <section class="center">
           <h2>September 2015: OMERO on Docker</h2>
 
           <pre><code class="bash">
@@ -159,7 +159,7 @@ docker run -d -v /idr:/idr openmicroscopy/omero-deploy
         </section>
 
 
-        <section>
+        <section class="center">
           <h2>September 2015: Importing data</h2>
 
           <pre><code data-trim class="bash">
@@ -169,7 +169,7 @@ omero import -- --checksum-algorithm=File-Size-64 --transfer=ln_s ...
         </section>
 
 
-        <section>
+        <section class="center">
           <h2>System layout</h2>
 
           <div class="box">
@@ -201,7 +201,7 @@ omero import -- --checksum-algorithm=File-Size-64 --transfer=ln_s ...
         </section>
 
 
-        <section>
+        <section class="center">
           <h2>Overview Part 2: IDR Production</h2>
 
           <ol>
@@ -215,7 +215,7 @@ omero import -- --checksum-algorithm=File-Size-64 --transfer=ln_s ...
 
         <section>
 
-          <section>
+          <section class="center">
             <h2>What is configuration management?</h2>
 
             <div class="flexcontainer">
@@ -242,7 +242,7 @@ omero import -- --checksum-algorithm=File-Size-64 --transfer=ln_s ...
             </div>
           </section>
 
-          <section>
+          <section class="center">
             <h2>"Infrastructure as code"</h2>
 
             <ul>
@@ -252,7 +252,7 @@ omero import -- --checksum-algorithm=File-Size-64 --transfer=ln_s ...
             </ul>
           </section>
 
-          <section>
+          <section class="center">
             <h2>What can it do for OMERO?</h2>
 
             <div class="flexcontainer">
@@ -275,7 +275,7 @@ omero import -- --checksum-algorithm=File-Size-64 --transfer=ln_s ...
         </section>
 
 
-        <section>
+        <section class="center">
           <h2>November 2015: OpenStack at Dundee</h2>
 
           <ul>
@@ -286,7 +286,7 @@ omero import -- --checksum-algorithm=File-Size-64 --transfer=ln_s ...
         </section>
 
 
-        <section>
+        <section class="center">
           <h2>OMERO on Docker on virtual machines?</h2>
 
           <ul class="nobullet">
@@ -298,7 +298,7 @@ omero import -- --checksum-algorithm=File-Size-64 --transfer=ln_s ...
         </section>
 
 
-        <section>
+        <section class="center">
           <h2>February 2016: OMERO on OpenStack with Ansible</h2>
 
           <div style="display:flex;">
@@ -329,7 +329,7 @@ ansible-playbook run omero.yml
         </section>
 
 
-        <section>
+        <section class="center">
           <h2>March 2016: Copy 40 TB of data from Dundee to Cambridge (400 miles)</h2>
 
           <ul>
@@ -339,7 +339,7 @@ ansible-playbook run omero.yml
         </section>
 
 
-        <section>
+        <section class="center">
           <h2>April 2016: Multi-node OMERO OpenStack deployment</h2>
 
           <div class="flexcontainer">
@@ -379,7 +379,7 @@ ansible-playbook -i inventory/openstack.py -e @vars/ome2016-overrides.yml os-idr
         </section>
 
 
-        <section>
+        <section class="center">
           <h2>May 2016: Redeploy at EBI</h2>
 
           <pre class="tiny"><code data-trim data-noescape class="yaml">
@@ -417,7 +417,7 @@ ansible-playbook -i inventory/openstack.py -e @vars/ome2016-overrides.yml os-idr
         </section>
 
 
-        <section>
+        <section class="center">
           <h2>May 2016: Production tuning</h2>
 
           <ul>
@@ -435,7 +435,7 @@ ansible-playbook -i inventory/openstack.py -e @vars/ome2016-overrides.yml os-idr
 
         <section>
 
-          <section>
+          <section class="center">
             <h2>May 2016: Production tuning</h2>
             <!-- TODO: Screenshot, overlay with text? -->
 
@@ -446,7 +446,7 @@ ansible-playbook -i inventory/openstack.py -e @vars/ome2016-overrides.yml os-idr
             </ul>
           </section>
 
-          <section>
+          <section class="center">
             <h2>May 2016: Production tuning</h2>
             <!-- TODO: Screenshot, overlay with text? -->
             <h4>Scripts to pre-warm cache</h4>
@@ -457,7 +457,7 @@ ansible-playbook -i inventory/openstack.py -e @vars/ome2016-overrides.yml os-idr
             </ul>
           </section>
 
-          <section>
+          <section class="center">
             <h2>May 2016: Production tuning</h2>
             <!-- TODO: Screenshot, overlay with text? -->
             <h4>Cached on first request</h4>
@@ -468,7 +468,7 @@ ansible-playbook -i inventory/openstack.py -e @vars/ome2016-overrides.yml os-idr
             </ul>
           </section>
 
-          <section>
+          <section class="center">
             <h2>May 2016: Production tuning</h2>
 
             <ul>
@@ -489,7 +489,7 @@ ansible-playbook -i inventory/openstack.py -e @vars/ome2016-overrides.yml os-idr
           <a href="http://idr-demo.openmicroscopy.org/"><h2>May 2016: IDR demo-2</h2></a>
         </section>
 
-        <section>
+        <section class="center">
           <dl>
             <h2>Resources</h2>
             <dt>OME ansible playbooks (under development)</dt>
@@ -501,7 +501,7 @@ ansible-playbook -i inventory/openstack.py -e @vars/ome2016-overrides.yml os-idr
           </dl>
         </section>
 
-        <section>
+        <section class="center">
           <h2>Thank you</h2>
           <ul>
             <li>Prof. Jason Swedlow</li>
@@ -530,7 +530,7 @@ ansible-playbook -i inventory/openstack.py -e @vars/ome2016-overrides.yml os-idr
         controls: true,
         progress: true,
         history: true,
-        center: true,
+        center: false,
 
         transition: 'default', // default/cube/page/concave/zoom/linear/fade/none
 
