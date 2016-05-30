@@ -23,6 +23,11 @@
     margin-left: auto;
     margin-right: 0px;
     padding: 10pt;
+    transition: all .15s linear;
+}
+
+.fullscreen-image h2:hover, .fullscreen-image h3:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.55);
 }
 
 .reveal pre code {
