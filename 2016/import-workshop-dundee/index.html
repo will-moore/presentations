@@ -482,7 +482,11 @@
           <h4><em>A bit more interesting</em></h4>
           <pre style="font-size:60%">
 
-  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T Dataset:name:Sample01
+  # use the Dataset named 'Sample01' as the target
+  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T Dataset:<strong>name</strong>:Sample01
+
+  # implied use of the name as a target
+  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T Dataset:Sample01
           </pre>
           <p style="font-size:90%; text-align: left;">This will import the image into the Dataset named 'Sample01'.<br/>
           If no Dataset exists with that name a new one will be created.<br/><br/>
@@ -536,6 +540,9 @@
           <pre style="font-size:60%; margin-left: -10%; width:120%">
 
   omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T "regex:name:<strong>^.*images/(?&lt;Container1>.*?)</strong>"
+
+  # use the Dataset named 'dv', the most name is implicit
+  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T "regex:<strong>^.*images/(?&lt;Container1>.*?)</strong>"
           </pre>
           <p style="font-size:90%; margin-left: -10%; width:120%; text-align:left;">
           This will import the image into the Dataset called 'dv', resolved by &lt;Container1>.<br/>
@@ -561,27 +568,6 @@
 
   # create a new Dataset named 'dv' even if one already exists
   omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T "regex:<strong>@name</strong>:^.*images/(?&lt;Container1>.*?)"
-          </pre>
-          <aside class="notes">
-          </aside>
-        </section>
-
-        <section>
-          <h3>Regular expressions</h3>
-          <h4>Implicit parts</h4>
-          <pre style="font-size:60%; margin-left: -10%; width:120%">
-
-  # use the most recent Dataset named 'dv' explicitly
-  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T "regex:<strong>+name</strong>:^.*images/(?&lt;Container1>.*?)"
-
-  # use the Dataset named 'dv', most recent is implicit
-  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T "regex:<strong>name</strong>:^.*images/(?&lt;Container1>.*?)"
-
-  # use the Dataset named 'dv', most recent name is implicit
-  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T "regex:^.*images/(?&lt;Container1>.*?)"
-
-  # use the Dataset named 'dv', use of regex and the most recent name is implicit
-  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T ":^.*images/(?&lt;Container1>.*?)"
           </pre>
           <aside class="notes">
           </aside>
@@ -702,7 +688,7 @@
 
         <section>
           <h2>Discussion</h2>
-          <h3>What more do you need</h3>
+          <h3>Anymore questions</h3>
           <h3>Are there any other useful extension points</h3>
           <h1 style="font-size:500%">?</h1>
           <aside class="notes">
