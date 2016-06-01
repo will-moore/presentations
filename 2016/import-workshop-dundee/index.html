@@ -636,17 +636,46 @@
         </section>
 
         <section>
-          <h3>OMERO.dropbox</h3>
-          DropBox is a file system monitor to find newly uploaded files and run a fully automatic import on those files if possible.
-          <pre style="font-size:60%">
+          <section>
+            <h3>OMERO.dropbox</h3>
+            DropBox is a file system monitor to find newly uploaded files and run a fully automatic import on those files if possible.
+            <pre style="font-size:60%">
   /OMERO/DropBox/amy
                 /emily
                 /edgar
                 /root
                 /petr
                 /zak</pre>
-          <aside class="notes">
-          </aside>
+            <aside class="notes">
+            </aside>
+          </section>
+          <section>
+            <h3>OMERO.dropbox</h3>
+            Example using transfers and targets.
+            <pre style="font-size:55%">
+  &lt;properties id="DropBox">
+    ...
+    &lt;property name="omero.fs.importArgs"
+      value="--transfer=ln_rm
+        --target=&amp;quot;regex:name:^.*DropBox/.*/(?&amp;lt;Container1&amp;gt;.*?)&amp;quot;"/>
+  &lt;/properties></pre>
+            <pre style="font-size:60%">
+  /Users/colin/var/omero/DropBox/user-0/Dataset01
+                                       /Dataset02</pre>
+            <pre style="font-size:60%">
+ cp dv/IAGFP-Noc01_R3D.* ~/var/omero/DropBox/user-0/Dataset01/
+ cp dv/IAGFP-Noc01_R3D.* ~/var/omero/DropBox/user-0/Dataset02/
+ cp dv/CFPNEAT01_R3D.* ~/var/omero/DropBox/user-0/Dataset02/</pre>
+            <aside class="notes">
+            </aside>
+          </section>
+          <section>
+            <h3>OMERO.dropbox</h3>
+            The created target Datasets
+            <img src="diagrams/dropbox.png" width="90%"/>
+            <aside class="notes">
+            </aside>
+          </section>
         </section>
 
         <section>
