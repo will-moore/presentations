@@ -78,8 +78,6 @@
             <li class="fragment">Discover more bugs</li>
             <li class="fragment">Import more data</li>
             <li class="fragment">Discover more bugs</li>
-            <li class="fragment">Import more data</li>
-            <li class="fragment">Discover more bugs</li>
             <li class="fragment">....</li>
           </ol>
         </section>
@@ -165,7 +163,7 @@ docker run -d -v /idr:/idr openmicroscopy/omero-deploy
           <pre><code data-trim class="bash">
 omero import -- --checksum-algorithm=File-Size-64 --transfer=ln_s ...
           </code></pre>
-          <p>See <a href="">Session 2: Extensible Import</a> for details</p>
+          <p>See <a href="../import-workshop-dundee/index.html">Session 2: Extensible Import</a> for details</p>
         </section>
 
 
@@ -448,7 +446,6 @@ ansible-playbook -i inventory/openstack.py -e @vars/ome2016-overrides.yml os-idr
 
           <section class="center">
             <h2>May 2016: Production tuning</h2>
-            <!-- TODO: Screenshot, overlay with text? -->
             <h4>Scripts to pre-warm cache</h4>
 
             <ul>
@@ -459,7 +456,6 @@ ansible-playbook -i inventory/openstack.py -e @vars/ome2016-overrides.yml os-idr
 
           <section class="center">
             <h2>May 2016: Production tuning</h2>
-            <!-- TODO: Screenshot, overlay with text? -->
             <h4>Cached on first request</h4>
 
             <ul>
@@ -499,6 +495,10 @@ ansible-playbook -i inventory/openstack.py -e @vars/ome2016-overrides.yml os-idr
             <dt>Image Data Repository</dt>
             <dd><a href="http://idr-demo.openmicroscopy.org/">http://idr-demo.openmicroscopy.org/</a></dd>
           </dl>
+        </section>
+
+        <section class="center">
+          <h2>What next?</h2>
         </section>
 
         <section class="center">
