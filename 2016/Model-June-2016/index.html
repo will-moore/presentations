@@ -50,80 +50,148 @@
                     <ul>
                         <li>Namespace unification</li>
                         <li>Class hierarchies</li>
-                        <li>Drop ROI Properties</li>
-                        <li>Drop (Poly)Line Markers</li>
+                        <li>ROI Properties</li>
                         <li>Folders</li>
                     </ul>
                 </section>
 
                 <section>
-                    <h2>Namespace unification</h2>
-                    <!-- Roger's work -->
-                    <ul>
-                        <li>No more <span style="font-family: monospace;">Schemas/SA/2015-01</span>,<br/><span style="font-family: monospace;">Schemas/SPW/2015-01</span>, etc.
-                        </li>
-                        <li>For 2016 all now in one OME namespace</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2>Class Hierarchies</h2>
-                    <!-- David's work -->
-                    <ul>
-                        <li>LightSource</br><span style="font-size: smaller;">Arc, Filament, GenericExcitationSource, Laser, LightEmittingDiode</span>
-                        </li>
-                        <li>Shape</br><span style="font-size: smaller;">Ellipse, Label, Line, Mask, Point, Polygon, Polyline, Rectangle</span>
-                        </li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2>Drop ROI Properties</h2>
-                    
-                    <p>Drop from model,</p>
-                    <ul>
-                        <li>ROI.Namespace</li>
-                        <li>Shape.LineCap</li>
-                        <li>Shape.Visible</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2>Drop (Poly)Line Markers</h2>
-                    <ul>
-                        <li>Drop <span style="font-family: monospace;">Circle</span> and <span style="font-family: monospace;">Square</span></li>
-                        <li><span style="font-family: monospace;">Arrow</span> markers remain</li>
-                        <li>Also added to OMERO model</li>
-                    </ul>
-                </section>
-
-                <section>
-                <section>
-                    <h2>Folders</h2>
-                    <ul>
-                        <li>New top-level element</li>
-                        <li>Folders may contain:<br/>Folders, ROIs, Images</li>
-                        <li>Folder hierarchy is a strict tree:<br/>
-                            a Folder may have only one parent</li>
+                    <section>
+                        <h2>Namespace unification</h2>
+                        <!-- Roger's work -->
+                        <ul>
+                            <li>No more <span style="font-family: monospace;">Schemas/SA/2015-01</span>,<br/><span style="font-family: monospace;">Schemas/SPW/2015-01</span>, etc.
+                            </li>
+                            <li>For 2016 all now in one OME namespace</li>
                         </ul>
+                    </section>
+                    <section>
+                        <h2>Namespace unification</h2>
+                        <h2>OME-XML impact</h2>
+                        2015-01 sample
+                        <pre style="width: 100%;">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;OME xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns="http://www.openmicroscopy.org/Schemas/OME/2015-01"
+     xmlns:OME="http://www.openmicroscopy.org/Schemas/OME/2015-01"
+     xmlns:Bin="http://www.openmicroscopy.org/Schemas/BinaryFile/2015-01"
+     xmlns:SPW="http://www.openmicroscopy.org/Schemas/SPW/2015-01"
+     xmlns:SA="http://www.openmicroscopy.org/Schemas/SA/2015-01"
+     xmlns:ROI="http://www.openmicroscopy.org/Schemas/ROI/2015-01"
+     xsi:schemaLocation="http://www.openmicroscopy.org/Schemas/OME/2015-01
+                         http://www.openmicroscopy.org/Schemas/OME/2015-01/ome.xsd"&gt;</pre>
+                        2016-06 sample
+
+                        <pre style="width: 100%;">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;OME xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns="http://www.openmicroscopy.org/Schemas/OME/2016-16"
+     xsi:schemaLocation="http://www.openmicroscopy.org/Schemas/OME/2016-16
+                         http://www.openmicroscopy.org/Schemas/OME/2016-16/ome.xsd"&gt;</pre>
+                    </section>
                 </section>
 
                 <section>
-                    <h3>Folders and Images</h3>
-                    <ul>
-                        <li>Images are associated with Folders,
-                            <ul>
-                                <li>directly via <span style="font-family: monospace;">ImageRef</span> or</li>
-                                <li>indirectly via <span style="font-family: monospace;">ROIRef</span></li>
+                    <section>
+                        <h2>Class Hierarchies</h2>
+                        <!-- David's work -->
+                        <ul>
+                            <li>LightSource</br><span style="font-size: smaller;">Arc, Filament, GenericExcitationSource, Laser, LightEmittingDiode</span>
+                            </li>
+                            <li>Shape</br><span style="font-size: smaller;">Ellipse, Label, Line, Mask, Point, Polygon, Polyline, Rectangle</span>
+                            </li>
+                            <li>Map</br><span style="font-size: smaller;">MapAnnotation, GenericExcitationSource, ImagingEnvironment</span>
+                            </li>
+                            <li>MapPairs dropped</li>                                                  </ul>
+                    </section>
+                    <section>
+                        <h2>Class Hierarchies</h2>
+                        <h2>2015-01 OME-XML sample</h2>
+                        <pre style="width: 120%;">
+  &lt;ROI ID="2"&gt;
+    &lt;Union&gt;
+      &lt;Shape ID="Shape:2" FillColor="1" FillRule="NonZero" FontFamily="sans-serif"
+                 FontSize="1" FontStyle="Bold" LineCap="Butt" StrokeColor="1" StrokeDashArray="1"
+                 StrokeWidth="1" Text="Hello" TheC="2"&gt;
+        &lt;Point X="1" Y="1"/&gt;
+      &lt;/Shape&gt;
+      &lt;Shape ID="Shape:5"&gt;
+        &lt;Line X1="1" Y1="1" X2="2" Y2="2" MarkerStart="Arrow" MarkerEnd="Circle"/&gt;
+      &lt;/Shape&gt;
+    &lt;/Union&gt;
+  &lt;/ROI&gt;
+  &lt;ROI ID="3"&gt;
+    &lt;Union&gt;
+      &lt;Shape ID="Shape:3" FillRule="EvenOdd" Text="Hi There!"&gt;
+        &lt;Rectangle X="1" Y="2" Width="3" Height="4"/&gt;
+      &lt;/Shape&gt;
+      &lt;Shape ID="Shape:4" FillRule="EvenOdd" FontStyle="Normal" FontFamily="serif"&gt;
+        &lt;Label X="1" Y="1"/&gt;
+      &lt;/Shape&gt;
+    &lt;/Union&gt;
+  &lt;/ROI&gt;</pre>
+                    </section>
+                    <section>
+                        <h2>Class Hierarchies</h2>
+                        <h2>2016-06 OME-XML sample</h2>
+
+                        <pre style="width: 120%;">
+  &lt;ROI ID="2"&gt;
+    &lt;Union&gt;
+      &lt;Point ID="Shape:2" FillColor="1" FillRule="NonZero" FontFamily="sans-serif"
+                 FontSize="1" FontStyle="Bold" LineCap="Butt" StrokeColor="1" StrokeDashArray="1"
+                 StrokeWidth="1" Text="Hello" TheC="2" X="1" Y="1"/&gt;
+      &lt;Line ID="Shape:5" X1="1" Y1="1" X2="2" Y2="2" MarkerStart="Arrow" MarkerEnd="Circle"/&gt;
+    &lt;/Union&gt;
+  &lt;/ROI&gt;
+  &lt;ROI ID="3"&gt;
+    &lt;Union&gt;
+      &lt;Rectangle ID="Shape:3" FillRule="EvenOdd" Text="Hi There!" X="1" Y="2" Width="3" Height="4"/&gt;
+      &lt;Label ID="Shape:4" FillRule="EvenOdd" FontStyle="Normal" FontFamily="serif" X="1" Y="1"/&gt;
+    &lt;/Union&gt;
+  &lt;/ROI&gt;</pre>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>ROI Properties</h2>
+                        <!-- Mark's work -->
+                    
+                        <ul>
+                            <li>Dropped properties</br><span style="font-size: smaller;">ROI.Namespace, Shape.LineCap, Shape.Visible</span></li>
+                            <li>Line/Polyline markers<ul>
+                                <li><span style="font-family: monospace;">Circle</span> and <span style="font-family: monospace;">Square</span> dropped</li>
+                                <li><span style="font-family: monospace;">Arrow</span> markers remain</li>
                             </ul>
-                        </li>
-                        <li>OMERO.insight, .web initially support only the latter</li>
-                    </ul>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>ROI Properties: OMERO</h2>
+                        <!-- Mark's work -->
+                    
+                        <ul>
+                            <li>OMERO properties</br><span style="font-size: smaller;">ROI.Namespace, Shape.LineCap, Shape.Visible</span></li>
+                            <li>Line/Polyline markers<ul>
+                                <li><span style="font-family: monospace;">Circle</span> and <span style="font-family: monospace;">Square</span> dropped</li>
+                                <li><span style="font-family: monospace;">Arrow</span> markers remain</li>
+                            </ul>
+                        </ul>
+                    </section>
                 </section>
 
                 <section>
-                    <h3>Folder: OME-XML</h3>
-                    <pre style="width: 60%;">&lt;Folder ID="Folder:1" Name="CMPO"&gt;
+                    <section>
+                        <h2>Folders</h2>
+                        <!-- Mark's work -->
+
+                        <ul>
+                            <li>Top-level element</li>
+                            <li>Folders may contain: Folders, ROIs, Images</li>
+                            <li>Folder hierarchy is a strict tree: a Folder may have only one parent</li>
+                            </ul>
+                    </section>
+                    <section>
+                        <h3>Folder: OME-XML</h3>
+                        <pre style="width: 60%;">&lt;Folder ID="Folder:1" Name="CMPO"&gt;
   &lt;FolderRef ID="Folder:2"/&gt;
   &lt;FolderRef ID="Folder:7"/&gt;
 &lt;/Folder&gt;
@@ -131,7 +199,24 @@
   &lt;FolderRef ID="Folder:8"/&gt;
   &lt;ROIRef ID="Roi:14"/&gt;
 &lt;/Folder&gt;</pre>
-                </section>
+                    </section>
+                    <section>
+                        <h3>Folders and Images</h3>
+                        <ul>
+                            <li>Images are associated with Folders,
+                                <ul>
+                                    <li>directly via <span style="font-family: monospace;">ImageRef</span> or</li>
+                                    <li>indirectly via <span style="font-family: monospace;">ROIRef</span></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Folders and OMERO</h3>
+                        <ul>
+                            <img src="images/ROI-Folder-Insight.png"/>
+                        </ul>
+                    </section>
                 </section>
             </div>
         </div>
