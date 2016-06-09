@@ -149,6 +149,66 @@
     &lt;/Union&gt;
   &lt;/ROI&gt;</pre>
                     </section>
+                    <section>
+                        <h2>Class Hierarchies</h2>
+                        <h4>MapAnnotation</h4>
+
+                        <pre>Bio-Formats 5.1.x<code>m =  new MapAnnotation();
+List< MapPair > p = new ArrayList< MapPair>();
+p.add(new MapPair("a", "1"));
+p.add(new MapPair("b", "1"));
+m.setValue(new MapPairs(p));
+List< MapPair > p2 = m.getValue().getPairs();
+</code></pre>
+
+                        <pre>Bio-Formats 5.2.x<code>m =  new MapAnnotation();
+List< MapPair > p = new ArrayList< MapPair>();
+p.add(new MapPair("a", "1"));
+p.add(new MapPair("b", "1"));
+m.setValue(pairs);
+List< MapPair > p2 = m.getValue();
+</code></pre>
+                    </section>
+                    <section>
+                        <h2>Class Hierarchies</h2>
+                        <h4>ImagingEnvironment</h4>
+
+                        <pre>Bio-Formats 5.1.x<code>i =  new ImagingEnvironment();
+List< MapPair > p = new ArrayList< MapPair>();
+p.add(new MapPair("a", "1"));
+p.add(new MapPair("b", "1"));
+i.setMap(new Map(p));
+List< MapPair > p2 = i.getMap().getPairs();
+</code></pre>
+
+                        <pre>Bio-Formats 5.2.x<code>i =  new ImagingEnvironment();
+List< MapPair > p = new ArrayList< MapPair>();
+p.add(new MapPair("a", "1"));
+p.add(new MapPair("b", "1"));
+i.setMap(pairs);
+List< MapPair > p2 = i.getMap();
+</code></pre>
+                    </section>
+                    <section>
+                        <h2>Class Hierarchies</h2>
+                        <h4>GenericExcitationSource</h4>
+
+                        <pre>Bio-Formats 5.1.x<code>g =  new GenericExcitationSource();
+List< MapPair > p = new ArrayList< MapPair>();
+p.add(new MapPair("a", "1"));
+p.add(new MapPair("b", "1"));
+g.setMap(new Map(p));
+List< MapPair > p2 = g.getMap().getPairs();
+</code></pre>
+
+                        <pre>Bio-Formats 5.2.x<code>i =  new GenericExcitationSource();
+List< MapPair > p = new ArrayList< MapPair>();
+p.add(new MapPair("a", "1"));
+p.add(new MapPair("b", "1"));
+g.setMap(pairs);
+List< MapPair > p2 = g.getMap();
+</code></pre>
+                    </section>
                 </section>
 
                 <section>
