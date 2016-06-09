@@ -1,0 +1,175 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>OME-TIFF overview - Dundee 2016</title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <link rel="stylesheet" href="css/ome-reveal.css">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body class="ome_theme">
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section>
+                    <h1>OME Data Model</h1>
+                    <h4>June 1, 2016</h4>
+                    <h3>Mark Carroll, David Gault, Roger Leigh, Sébastien Besson<br>
+                </section>
+                
+                <section>
+                <section>
+                  <h2>Model Changes</h2>
+		  <h3>Class Hierarchies</h3>
+		  <!-- David's work -->
+                    <ul>
+		      <li>LightSource</br>
+		      <span style="font-size: smaller;">Arc, Filament, GenericExcitationSource, Laser, LightEmittingDiode</span></li>
+		      <li>Shape</br>
+		      <span style="font-size: smaller;">Ellipse, Label, Line, Mask, Point, Polygon, Polyline, Rectangle</span></li>
+                    </ul>
+                </section>
+
+                <section>
+                  <h2>Model Changes</h2>
+		  <h3>Single namespace</h3>
+		  <!-- Roger's work -->
+                    <ul>
+		      <li>No more <span style="font-family: monospace;">Schemas/SA/2015-01</span>,<br/>
+			<span style="font-family: monospace;">Schemas/SPW/2015-01</span>, etc.</li>
+		      <li>For 2016 all now in one OME namespace
+                    </ul>
+                </section>
+
+                <section>
+                  <h2>Model Changes</h2>
+		  <h3>Drop ROI Properties</h3>
+		  <p>Drop from model,</p>
+                  <ul>
+		    <li>ROI.Namespace</li>
+		    <li>Shape.LineCap</li>
+		    <li>Shape.Visible</li>
+                    </ul>
+                </section>
+
+                <section>
+                  <h2>Model Changes</h2>
+		  <h3>Drop (Poly)Line Markers</h3>
+                  <ul>
+		    <li>Drop <span style="font-family: monospace;">Circle</span>
+		      and <span style="font-family: monospace;">Square</span></li>
+		    <li><span style="font-family: monospace;">Arrow</span> markers remain</li>
+                    <li>Also added to OMERO model</li>
+                  </ul>
+                </section>
+                </section>
+
+                <section>
+                <section>
+                  <h2>Model Changes</h2>
+		  <h3>New: Folders</h3>
+                  <ul>
+		    <li>Folders may contain:<br/>
+		      Folders, ROIs, Images</li>
+		    <li>Folder hierarchy is a strict tree:<br/>
+		      a Folder may have only one parent</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h2>Model Changes</h2>
+		  <h3>Folders and Images</h3>
+                  <ul>
+		    <li>Images are associated with Folders,
+		      <ul>
+			<li>directly via <span style="font-family:
+			  monospace;">ImageRef</span> or</li>
+			<li>indirectly via <span style="font-family:
+	                  monospace;">ROIRef</span></li>
+		      </ul>
+		    </li>
+		    <li>OMERO.insight, .web initially support only the
+		    latter</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h2>Model Changes</h2>
+		  <h3>Folder Example</h3>
+		  <pre style="width: 60%;">&lt;Folder ID="Folder:1" Name="CMPO"&gt;
+  &lt;FolderRef ID="Folder:2"/&gt;
+  &lt;FolderRef ID="Folder:7"/&gt;
+&lt;/Folder&gt;
+&lt;Folder ID="Folder:7" Name="Cell Component"&gt;
+  &lt;FolderRef ID="Folder:8"/&gt;
+  &lt;ROIRef ID="Roi:14"/&gt;
+&lt;/Folder&gt;</pre>
+                </section>
+                </section>
+
+
+            </div>
+
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
