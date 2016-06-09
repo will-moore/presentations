@@ -5,7 +5,7 @@
     <head>
         <meta charset="utf-8">
 
-        <title>OME-TIFF overview - Dundee 2016</title>
+        <title>OME Data Model 2016-06</title>
 
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -40,91 +40,90 @@
 
                 <!-- title page -->
                 <section>
-                    <h1>OME Data Model</h1>
-                    <h4>June 1, 2016</h4>
+                    <h1>OME 2016-06 Data Model</h1>
+                    <h4>June 14, 2016</h4>
                     <h3>Mark Carroll, David Gault, Roger Leigh, Sébastien Besson<br>
                 </section>
                 
                 <section>
-                <section>
-                  <h2>Model Changes</h2>
-		  <h3>Class Hierarchies</h3>
-		  <!-- David's work -->
+                    <h2>Model Changes</h2>
                     <ul>
-		      <li>LightSource</br>
-		      <span style="font-size: smaller;">Arc, Filament, GenericExcitationSource, Laser, LightEmittingDiode</span></li>
-		      <li>Shape</br>
-		      <span style="font-size: smaller;">Ellipse, Label, Line, Mask, Point, Polygon, Polyline, Rectangle</span></li>
+                        <li>Namespace unification</li>
+                        <li>Class hierarchies</li>
+                        <li>Drop ROI Properties</li>
+                        <li>Drop (Poly)Line Markers</li>
+                        <li>Folders</li>
                     </ul>
                 </section>
 
                 <section>
-                  <h2>Model Changes</h2>
-		  <h3>Single namespace</h3>
-		  <!-- Roger's work -->
+                    <h2>Namespace unification</h2>
+                    <!-- Roger's work -->
                     <ul>
-		      <li>No more <span style="font-family: monospace;">Schemas/SA/2015-01</span>,<br/>
-			<span style="font-family: monospace;">Schemas/SPW/2015-01</span>, etc.</li>
-		      <li>For 2016 all now in one OME namespace
+                        <li>No more <span style="font-family: monospace;">Schemas/SA/2015-01</span>,<br/><span style="font-family: monospace;">Schemas/SPW/2015-01</span>, etc.
+                        </li>
+                        <li>For 2016 all now in one OME namespace</li>
                     </ul>
                 </section>
 
                 <section>
-                  <h2>Model Changes</h2>
-		  <h3>Drop ROI Properties</h3>
-		  <p>Drop from model,</p>
-                  <ul>
-		    <li>ROI.Namespace</li>
-		    <li>Shape.LineCap</li>
-		    <li>Shape.Visible</li>
+                    <h2>Class Hierarchies</h2>
+                    <!-- David's work -->
+                    <ul>
+                        <li>LightSource</br><span style="font-size: smaller;">Arc, Filament, GenericExcitationSource, Laser, LightEmittingDiode</span>
+                        </li>
+                        <li>Shape</br><span style="font-size: smaller;">Ellipse, Label, Line, Mask, Point, Polygon, Polyline, Rectangle</span>
+                        </li>
                     </ul>
                 </section>
 
                 <section>
-                  <h2>Model Changes</h2>
-		  <h3>Drop (Poly)Line Markers</h3>
-                  <ul>
-		    <li>Drop <span style="font-family: monospace;">Circle</span>
-		      and <span style="font-family: monospace;">Square</span></li>
-		    <li><span style="font-family: monospace;">Arrow</span> markers remain</li>
-                    <li>Also added to OMERO model</li>
-                  </ul>
+                    <h2>Drop ROI Properties</h2>
+                    
+                    <p>Drop from model,</p>
+                    <ul>
+                        <li>ROI.Namespace</li>
+                        <li>Shape.LineCap</li>
+                        <li>Shape.Visible</li>
+                    </ul>
                 </section>
+
+                <section>
+                    <h2>Drop (Poly)Line Markers</h2>
+                    <ul>
+                        <li>Drop <span style="font-family: monospace;">Circle</span> and <span style="font-family: monospace;">Square</span></li>
+                        <li><span style="font-family: monospace;">Arrow</span> markers remain</li>
+                        <li>Also added to OMERO model</li>
+                    </ul>
                 </section>
 
                 <section>
                 <section>
-                  <h2>Model Changes</h2>
-		  <h3>New: Folders</h3>
-                  <ul>
-		    <li>Folders may contain:<br/>
-		      Folders, ROIs, Images</li>
-		    <li>Folder hierarchy is a strict tree:<br/>
-		      a Folder may have only one parent</li>
-                  </ul>
+                    <h2>Folders</h2>
+                    <ul>
+                        <li>New top-level element</li>
+                        <li>Folders may contain:<br/>Folders, ROIs, Images</li>
+                        <li>Folder hierarchy is a strict tree:<br/>
+                            a Folder may have only one parent</li>
+                        </ul>
                 </section>
 
                 <section>
-                  <h2>Model Changes</h2>
-		  <h3>Folders and Images</h3>
-                  <ul>
-		    <li>Images are associated with Folders,
-		      <ul>
-			<li>directly via <span style="font-family:
-			  monospace;">ImageRef</span> or</li>
-			<li>indirectly via <span style="font-family:
-	                  monospace;">ROIRef</span></li>
-		      </ul>
-		    </li>
-		    <li>OMERO.insight, .web initially support only the
-		    latter</li>
-                  </ul>
+                    <h3>Folders and Images</h3>
+                    <ul>
+                        <li>Images are associated with Folders,
+                            <ul>
+                                <li>directly via <span style="font-family: monospace;">ImageRef</span> or</li>
+                                <li>indirectly via <span style="font-family: monospace;">ROIRef</span></li>
+                            </ul>
+                        </li>
+                        <li>OMERO.insight, .web initially support only the latter</li>
+                    </ul>
                 </section>
 
                 <section>
-                  <h2>Model Changes</h2>
-		  <h3>Folder Example</h3>
-		  <pre style="width: 60%;">&lt;Folder ID="Folder:1" Name="CMPO"&gt;
+                    <h3>Folder: OME-XML</h3>
+                    <pre style="width: 60%;">&lt;Folder ID="Folder:1" Name="CMPO"&gt;
   &lt;FolderRef ID="Folder:2"/&gt;
   &lt;FolderRef ID="Folder:7"/&gt;
 &lt;/Folder&gt;
@@ -134,10 +133,7 @@
 &lt;/Folder&gt;</pre>
                 </section>
                 </section>
-
-
             </div>
-
         </div>
 
         <script src="reveal-js/lib/js/head.min.js"></script>
