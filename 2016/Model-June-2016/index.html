@@ -92,15 +92,23 @@
                 <section>
                     <section>
                         <h2>Class Hierarchies</h2>
-                        <!-- David's work -->
+                        <!-- David's and Roger's work -->
+                        <p>Data representation and code generation simplification</p>
                         <ul>
-                            <li>LightSource</br><span style="font-size: smaller;">Arc, Filament, GenericExcitationSource, Laser, LightEmittingDiode</span>
-                            </li>
-                            <li>Shape</br><span style="font-size: smaller;">Ellipse, Label, Line, Mask, Point, Polygon, Polyline, Rectangle</span>
-                            </li>
-                            <li>Map</br><span style="font-size: smaller;">MapAnnotation, GenericExcitationSource, ImagingEnvironment</span>
-                            </li>
-                            <li>MapPairs dropped</li>                                                  </ul>
+                            <li>Elements made complexType<ul>
+                                <li>LightSource</br><span style="font-size: smaller;">Arc, Filament, GenericExcitationSource, Laser, LightEmittingDiode</span>
+                                </li>
+                                <li>Shape</br><span style="font-size: smaller;">Ellipse, Label, Line, Mask, Point, Polygon, Polyline, Rectangle</span>
+                                </li>
+                                <li>Map</br><span style="font-size: smaller;">MapAnnotation, GenericExcitationSource, ImagingEnvironment</span>
+                                </li>
+                            </ul>
+                            <li>Elements dropped<ul>
+                                <li>MapPairs</li>
+                            </ul>
+                            <li>Extended usage of xsd:appinfo for enumerations</li>
+                            </ul>
+                        </ul>
                     </section>
                     <section>
                         <h2>Class Hierarchies</h2>
@@ -220,17 +228,19 @@ List< MapPair > p2 = g.getMap();
                     <section>
                         <h2>ROI Properties</h2>
                         <!-- Mark's work -->
-                    
+                        <p>Simplification of graphical aspects of the data model</p>
                         <ul>
-                            <li>Dropped properties</br><span style="font-size: smaller;">ROI.Namespace, Shape.LineCap, Shape.Visible</span></li>
-                            <li>Line/Polyline markers<ul>
-                                <li><span style="font-family: monospace;">Circle</span> and <span style="font-family: monospace;">Square</span> dropped</li>
-                                <li><span style="font-family: monospace;">Arrow</span> markers remain</li>
+                            <li>Properties dropped<ul>
+                                <li>ROI</br><span style="font-size: smaller;">ROI.Namespace</span></li>
+                                <li>Shape</br><span style="font-size: smaller;">Shape.LineCap, Shape.Visible</span></li>
+                            </ul>
+                            <li>Marker enumerations dropped</br><span style="font-size: smaller;">Circle, Square</span></li>
+                            <li><span style="font-family: monospace;">Arrow</span> markers still available for Line/Polyline</li>
                             </ul>
                         </ul>
                     </section>
                     <section>
-                        <h2>ROI Properties: OMERO</h2>
+                        <h2>Markers and OMERO</h2>
                     
                         <img style="center;width: 60%;" src="images/Arrows-Web.png"/>
                     </section>
@@ -240,10 +250,9 @@ List< MapPair > p2 = g.getMap();
                     <section>
                         <h2>Folders</h2>
                         <!-- Mark's work -->
-
+                        <p>Allow the organization of ROI elements into hierarchical structures</p>
                         <ul>
-                            <li>Top-level element</li>
-                            <li>Folders may contain: Folders, ROIs, Images</li>
+                            <li>Top-level element that may contain: Folders, ROIs, Images</li>
                             <li>Folder hierarchy is a strict tree: a Folder may have only one parent</li>
                             </ul>
                     </section>
@@ -259,6 +268,12 @@ List< MapPair > p2 = g.getMap();
 &lt;/Folder&gt;</pre>
                     </section>
                     <section>
+                        <h3>Folders and OMERO</h3>
+                        <ul>
+                            <img src="images/ROI-Folder-Insight.png"/>
+                        </ul>
+                    </section>
+                    <section>
                         <h3>Folders and Images</h3>
                         <ul>
                             <li>Images are associated with Folders,
@@ -269,12 +284,16 @@ List< MapPair > p2 = g.getMap();
                             </li>
                         </ul>
                     </section>
-                    <section>
-                        <h3>Folders and OMERO</h3>
-                        <ul>
-                            <img src="images/ROI-Folder-Insight.png"/>
-                        </ul>
-                    </section>
+                </section>
+                <section>
+                    <h2>Thank you</h2>
+                    <ul>
+                        <li>OME team</li>
+                    </ul>
+                    <div>
+                        <img src="images/wellcome.png" height="150px">
+                        <img src="images/bbsrc.png" height="150px">
+                    </div>
                 </section>
             </div>
         </div>
