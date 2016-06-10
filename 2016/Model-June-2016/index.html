@@ -104,21 +104,9 @@
                     </section>
                     <section>
                         <h2>Class Hierarchies</h2>
-                        <h2>2015-01 OME-XML sample</h2>
-                        <pre style="width: 120%;">
-  &lt;ROI ID="2"&gt;
-    &lt;Union&gt;
-      &lt;Shape ID="Shape:2" FillColor="1" FillRule="NonZero" FontFamily="sans-serif"
-                 FontSize="1" FontStyle="Bold" LineCap="Butt" StrokeColor="1" StrokeDashArray="1"
-                 StrokeWidth="1" Text="Hello" TheC="2"&gt;
-        &lt;Point X="1" Y="1"/&gt;
-      &lt;/Shape&gt;
-      &lt;Shape ID="Shape:5"&gt;
-        &lt;Line X1="1" Y1="1" X2="2" Y2="2" MarkerStart="Arrow" MarkerEnd="Circle"/&gt;
-      &lt;/Shape&gt;
-    &lt;/Union&gt;
-  &lt;/ROI&gt;
-  &lt;ROI ID="3"&gt;
+                        <h4>Shape</h4>
+                        2015-01
+                        <pre style="width: 120%;">&lt;ROI ID="3"&gt;
     &lt;Union&gt;
       &lt;Shape ID="Shape:3" FillRule="EvenOdd" Text="Hi There!"&gt;
         &lt;Rectangle X="1" Y="2" Width="3" Height="4"/&gt;
@@ -128,26 +116,43 @@
       &lt;/Shape&gt;
     &lt;/Union&gt;
   &lt;/ROI&gt;</pre>
-                    </section>
-                    <section>
-                        <h2>Class Hierarchies</h2>
-                        <h2>2016-06 OME-XML sample</h2>
-
-                        <pre style="width: 120%;">
-  &lt;ROI ID="2"&gt;
-    &lt;Union&gt;
-      &lt;Point ID="Shape:2" FillColor="1" FillRule="NonZero" FontFamily="sans-serif"
-                 FontSize="1" FontStyle="Bold" LineCap="Butt" StrokeColor="1" StrokeDashArray="1"
-                 StrokeWidth="1" Text="Hello" TheC="2" X="1" Y="1"/&gt;
-      &lt;Line ID="Shape:5" X1="1" Y1="1" X2="2" Y2="2" MarkerStart="Arrow" MarkerEnd="Circle"/&gt;
-    &lt;/Union&gt;
-  &lt;/ROI&gt;
+  
+                    2016-06
+                    <pre style="width: 120%;">
   &lt;ROI ID="3"&gt;
     &lt;Union&gt;
       &lt;Rectangle ID="Shape:3" FillRule="EvenOdd" Text="Hi There!" X="1" Y="2" Width="3" Height="4"/&gt;
       &lt;Label ID="Shape:4" FillRule="EvenOdd" FontStyle="Normal" FontFamily="serif" X="1" Y="1"/&gt;
     &lt;/Union&gt;
-  &lt;/ROI&gt;</pre>
+  &lt;/ROI&gt;</code></pre>
+                    </section>
+                    <section>
+                        <h2>Class Hierarchies</h2>
+                        <h4>LightSource</h4>
+                        2015-01
+                        <pre style="width: 120%;">
+  &lt;Instrument ID="Instrument:0"&gt;
+    &lt;LightSource ID="LightSource:0" Power="200" Manufacturer="OME Lights" Model="Ruby60"
+                 SerialNumber="A654321"&gt;
+      &lt;Laser Type="SolidState" LaserMedium="Ruby"&gt;
+        &lt;Pump ID="LightSource:1"/&gt;
+      &lt;/Laser&gt;
+    &lt;/LightSource&gt;
+    &lt;LightSource ID="LightSource:1" Power="300" Manufacturer="OME Lights" Model="Arc60"
+                 SerialNumber="A123456"&gt;
+      &lt;Arc Type="Xe"/&gt;
+    &lt;/LightSource&gt;</pre>
+
+                    2016-06
+                    <pre style="width: 120%;">
+  &lt;Instrument ID="Instrument:0"&gt;
+    &lt;Laser ID="LightSource:0" Power="200" PowerUnit="mW" Manufacturer="OME Lights"
+               Model="Ruby60" SerialNumber="A654321" Type="SolidState" LaserMedium="Ruby" RepetitionRate="1.2"
+               RepetitionRateUnit="MHz" Wavelength="590.5" WavelengthUnit="nm"&gt;
+      &lt;Pump ID="LightSource:1"/&gt;
+    &lt;/Laser&gt;
+    &lt;Arc ID="LightSource:1" Power="300" PowerUnit="mW" Manufacturer="OME Lights"
+               Model="Arc60" SerialNumber="A123456" Type="Xe"/&gt;</pre>
                     </section>
                     <section>
                         <h2>Class Hierarchies</h2>
