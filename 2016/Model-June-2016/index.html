@@ -1,0 +1,341 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>OME Data Model 2016-06</title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <link rel="stylesheet" href="css/ome-reveal.css">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body class="ome_theme">
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section>
+                    <h1>OME 2016-06 Data Model</h1>
+                    <h4>June 14, 2016</h4>
+                    <h3>Mark Carroll, David Gault, Roger Leigh, Sébastien Besson<br>
+                </section>
+                
+                <section>
+                    <h2>Model Changes</h2>
+                    <ul>
+                        <li>Namespace unification</li>
+                        <li>Class hierarchies</li>
+                        <li>ROI Properties</li>
+                        <li>Folders</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Namespace unification</h2>
+                        <!-- Roger's work -->
+                        <ul>
+                            <li>No more <span style="font-family: monospace;">Schemas/SA/2015-01</span>,<br/><span style="font-family: monospace;">Schemas/SPW/2015-01</span>, etc.
+                            </li>
+                            <li>For 2016 all now in one OME namespace</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Namespace unification</h2>
+                        <h2>OME-XML impact</h2>
+                        2015-01 sample
+                        <pre style="width: 100%;">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;OME xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns="http://www.openmicroscopy.org/Schemas/OME/2015-01"
+     xmlns:OME="http://www.openmicroscopy.org/Schemas/OME/2015-01"
+     xmlns:Bin="http://www.openmicroscopy.org/Schemas/BinaryFile/2015-01"
+     xmlns:SPW="http://www.openmicroscopy.org/Schemas/SPW/2015-01"
+     xmlns:SA="http://www.openmicroscopy.org/Schemas/SA/2015-01"
+     xmlns:ROI="http://www.openmicroscopy.org/Schemas/ROI/2015-01"
+     xsi:schemaLocation="http://www.openmicroscopy.org/Schemas/OME/2015-01
+                         http://www.openmicroscopy.org/Schemas/OME/2015-01/ome.xsd"&gt;</pre>
+                        2016-06 sample
+
+                        <pre style="width: 100%;">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;OME xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xmlns="http://www.openmicroscopy.org/Schemas/OME/2016-16"
+     xsi:schemaLocation="http://www.openmicroscopy.org/Schemas/OME/2016-16
+                         http://www.openmicroscopy.org/Schemas/OME/2016-16/ome.xsd"&gt;</pre>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Class Hierarchies</h2>
+                        <!-- David's and Roger's work -->
+                        <p>Data representation and code generation simplification</p>
+                        <ul>
+                            <li>Elements made complexType<ul>
+                                <li>LightSource</br><span style="font-size: smaller;">Arc, Filament, GenericExcitationSource, Laser, LightEmittingDiode</span>
+                                </li>
+                                <li>Shape</br><span style="font-size: smaller;">Ellipse, Label, Line, Mask, Point, Polygon, Polyline, Rectangle</span>
+                                </li>
+                                <li>Map</br><span style="font-size: smaller;">MapAnnotation, GenericExcitationSource, ImagingEnvironment</span>
+                                </li>
+                            </ul>
+                            <li>Elements dropped<ul>
+                                <li>MapPairs</li>
+                            </ul>
+                            <li>Extended usage of xsd:appinfo for enumerations</li>
+                            </ul>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Class Hierarchies</h2>
+                        <h4>Shape</h4>
+                        2015-01
+                        <pre style="width: 120%;">&lt;ROI ID="3"&gt;
+    &lt;Union&gt;
+      &lt;Shape ID="Shape:3" FillRule="EvenOdd" Text="Hi There!"&gt;
+        &lt;Rectangle X="1" Y="2" Width="3" Height="4"/&gt;
+      &lt;/Shape&gt;
+      &lt;Shape ID="Shape:4" FillRule="EvenOdd" FontStyle="Normal" FontFamily="serif"&gt;
+        &lt;Label X="1" Y="1"/&gt;
+      &lt;/Shape&gt;
+    &lt;/Union&gt;
+  &lt;/ROI&gt;</pre>
+  
+                    2016-06
+                    <pre style="width: 120%;">
+  &lt;ROI ID="3"&gt;
+    &lt;Union&gt;
+      &lt;Rectangle ID="Shape:3" FillRule="EvenOdd" Text="Hi There!" X="1" Y="2" Width="3" Height="4"/&gt;
+      &lt;Label ID="Shape:4" FillRule="EvenOdd" FontStyle="Normal" FontFamily="serif" X="1" Y="1"/&gt;
+    &lt;/Union&gt;
+  &lt;/ROI&gt;</code></pre>
+                    </section>
+                    <section>
+                        <h2>Class Hierarchies</h2>
+                        <h4>LightSource</h4>
+                        2015-01
+                        <pre style="width: 120%;">
+  &lt;Instrument ID="Instrument:0"&gt;
+    &lt;LightSource ID="LightSource:0" Power="200" Manufacturer="OME Lights" Model="Ruby60"
+                 SerialNumber="A654321"&gt;
+      &lt;Laser Type="SolidState" LaserMedium="Ruby"&gt;
+        &lt;Pump ID="LightSource:1"/&gt;
+      &lt;/Laser&gt;
+    &lt;/LightSource&gt;
+    &lt;LightSource ID="LightSource:1" Power="300" Manufacturer="OME Lights" Model="Arc60"
+                 SerialNumber="A123456"&gt;
+      &lt;Arc Type="Xe"/&gt;
+    &lt;/LightSource&gt;</pre>
+
+                    2016-06
+                    <pre style="width: 120%;">
+  &lt;Instrument ID="Instrument:0"&gt;
+    &lt;Laser ID="LightSource:0" Power="200" PowerUnit="mW" Manufacturer="OME Lights"
+               Model="Ruby60" SerialNumber="A654321" Type="SolidState" LaserMedium="Ruby" RepetitionRate="1.2"
+               RepetitionRateUnit="MHz" Wavelength="590.5" WavelengthUnit="nm"&gt;
+      &lt;Pump ID="LightSource:1"/&gt;
+    &lt;/Laser&gt;
+    &lt;Arc ID="LightSource:1" Power="300" PowerUnit="mW" Manufacturer="OME Lights"
+               Model="Arc60" SerialNumber="A123456" Type="Xe"/&gt;</pre>
+                    </section>
+                    <section>
+                        <h2>Class Hierarchies</h2>
+                        <h4>MapAnnotation</h4>
+
+                        <pre>Bio-Formats 5.1.x<code>m =  new MapAnnotation();
+List< MapPair > p = new ArrayList< MapPair>();
+p.add(new MapPair("a", "1"));
+p.add(new MapPair("b", "1"));
+m.setValue(new MapPairs(p));
+List< MapPair > p2 = m.getValue().getPairs();
+</code></pre>
+
+                        <pre>Bio-Formats 5.2.x<code>m =  new MapAnnotation();
+List< MapPair > p = new ArrayList< MapPair>();
+p.add(new MapPair("a", "1"));
+p.add(new MapPair("b", "1"));
+m.setValue(pairs);
+List< MapPair > p2 = m.getValue();
+</code></pre>
+                    </section>
+                    <section>
+                        <h2>Class Hierarchies</h2>
+                        <h4>ImagingEnvironment</h4>
+
+                        <pre>Bio-Formats 5.1.x<code>i =  new ImagingEnvironment();
+List< MapPair > p = new ArrayList< MapPair>();
+p.add(new MapPair("a", "1"));
+p.add(new MapPair("b", "1"));
+i.setMap(new Map(p));
+List< MapPair > p2 = i.getMap().getPairs();
+</code></pre>
+
+                        <pre>Bio-Formats 5.2.x<code>i =  new ImagingEnvironment();
+List< MapPair > p = new ArrayList< MapPair>();
+p.add(new MapPair("a", "1"));
+p.add(new MapPair("b", "1"));
+i.setMap(pairs);
+List< MapPair > p2 = i.getMap();
+</code></pre>
+                    </section>
+                    <section>
+                        <h2>Class Hierarchies</h2>
+                        <h4>GenericExcitationSource</h4>
+
+                        <pre>Bio-Formats 5.1.x<code>g =  new GenericExcitationSource();
+List< MapPair > p = new ArrayList< MapPair>();
+p.add(new MapPair("a", "1"));
+p.add(new MapPair("b", "1"));
+g.setMap(new Map(p));
+List< MapPair > p2 = g.getMap().getPairs();
+</code></pre>
+
+                        <pre>Bio-Formats 5.2.x<code>i =  new GenericExcitationSource();
+List< MapPair > p = new ArrayList< MapPair>();
+p.add(new MapPair("a", "1"));
+p.add(new MapPair("b", "1"));
+g.setMap(pairs);
+List< MapPair > p2 = g.getMap();
+</code></pre>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>ROI Properties</h2>
+                        <!-- Mark's work -->
+                        <p>Simplification of graphical aspects of the data model</p>
+                        <ul>
+                            <li>Properties dropped<ul>
+                                <li>ROI</br><span style="font-size: smaller;">ROI.Namespace</span></li>
+                                <li>Shape</br><span style="font-size: smaller;">Shape.LineCap, Shape.Visible</span></li>
+                            </ul>
+                            <li>Marker enumerations dropped</br><span style="font-size: smaller;">Circle, Square</span></li>
+                            <li><span style="font-family: monospace;">Arrow</span> markers still available for Line/Polyline</li>
+                            </ul>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Markers and OMERO</h2>
+                    
+                        <img style="center;width: 60%;" src="images/Arrows-Web.png"/>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Folders</h2>
+                        <!-- Mark's work -->
+                        <p>Allow the organization of ROI elements into hierarchical structures</p>
+                        <ul>
+                            <li>Top-level element that may contain: Folders, ROIs, Images</li>
+                            <li>Folder hierarchy is a strict tree: a Folder may have only one parent</li>
+                            </ul>
+                    </section>
+                    <section>
+                        <h3>Folder: OME-XML</h3>
+                        <pre style="width: 60%;">&lt;Folder ID="Folder:1" Name="CMPO"&gt;
+  &lt;FolderRef ID="Folder:2"/&gt;
+  &lt;FolderRef ID="Folder:7"/&gt;
+&lt;/Folder&gt;
+&lt;Folder ID="Folder:7" Name="Cell Component"&gt;
+  &lt;FolderRef ID="Folder:8"/&gt;
+  &lt;ROIRef ID="Roi:14"/&gt;
+&lt;/Folder&gt;</pre>
+                    </section>
+                    <section>
+                        <h3>Folders and OMERO</h3>
+                        <ul>
+                            <img src="images/ROI-Folder-Insight.png"/>
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Folders and Images</h3>
+                        <ul>
+                            <li>Images are associated with Folders,
+                                <ul>
+                                    <li>directly via <span style="font-family: monospace;">ImageRef</span> or</li>
+                                    <li>indirectly via <span style="font-family: monospace;">ROIRef</span></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+                </section>
+                <section>
+                    <h3>What's next</h3>
+                    <ul>
+                        <li>June: release of 2016-06 schema</li>
+                        <li>July: release of OME Files C++ 0.2.0</li>
+                        <li>August/September: release of Bio-Formats 5.2.0</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Thank you</h2>
+                    <ul>
+                        <li>OME team</li>
+                    </ul>
+                    <div>
+                        <img src="images/wellcome.png" height="150px">
+                        <img src="images/bbsrc.png" height="150px">
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
