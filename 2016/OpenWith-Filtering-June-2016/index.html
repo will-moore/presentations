@@ -135,16 +135,19 @@
 
 
         <section>
-            <h2>Open With: Image Viewer <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4630">#4630</a></h2>
-<pre><code style="width: 900px">
-$ omero config append omero.web.open_with '["My viewer", "url_name"]'
-</code></pre>
-
+            <h2>Open With: Image Viewer</h2>
             <ul>
-                <li>'Open With' only enabled when single image selected.
-                <li>Uses reverse(url_name) to try to generate url.
+                <li>Existing functionality allows to set viewer
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4480">#4480</a>
+                </li>
+                <li>'Open With' allows multiple viewers (and more) 
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4630">#4630</a>
+                    <pre><code style="width: 900px">$ omero config append omero.web.open_with '["My viewer", "url_name"]'</code></pre>
+                <li>By default 'Open with' only enabled when single image selected.
+                <li>Uses <code>reverse(url_name)</code> to try to generate url.
                 <li>Opens selected image in new window with
-                    <br>E.g. <a href="">/webtest/multi_plane_stack/?image=4420</a>
+                    <br>E.g. <a href="">/webtest/multi_plane_stack/?image=4420</a></li>
+            </ul>
         </section>
 
 
@@ -177,6 +180,7 @@ $ omero config append omero.web.open_with '["OMERO.figure", "new_figure",
             </ul>
 
 <pre><code class='javascript' style="width: 900px">
+// openwith.js
 var isEnabled = function(selected) {
     // return boolean - should 'Open With' be enabled
     // with the currently 'selected' objects?
@@ -196,8 +200,8 @@ OME.setOpenWithActionHandler("OMERO.figure", handleAction);
 
 
         <section>
-            <h2>OMERO.figure example</h2>
-<pre><code class='javascript' style="width: 900px">
+            <h2>OMERO.figure script example</h2>
+<pre><code class='javascript' style="width: 900px">// openwith.js
 var isEnabled = function(selected) {
     var allImagesSmall = selected.reduce(function(prev, s){
         // We don't support 'Big' images over 3k x 3k
@@ -229,8 +233,8 @@ OME.setOpenWithActionHandler("OMERO.figure", handleAction);
 
 
         <section>
-            <h2>Genbank example</h2>
-<pre><code class='javascript' style="width: 900px">
+            <h2>Genbank script example</h2>
+<pre><code class='javascript' style="width: 900px">// openwith.js
 var isEnabled = function(selected) {
     // Only enabled for single objects...
     if (selected.length !== 1) return false;
