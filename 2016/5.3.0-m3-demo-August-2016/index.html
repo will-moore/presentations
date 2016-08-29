@@ -57,7 +57,7 @@
                     <h2>5.3.0-m3 Report</h2>
                     <ul>
                         <li>ROI cleanup/fixes following m2 demo</li>
-                        <li>Many Bug fixes (insight, web, cli, test, etc.)</li>
+                        <li>Many Bug fixes/RFE (insight, web, cli, test, etc.)</li>
                         <li>Remove windows support</li>
                         <li>OMERO.web python 2.7 only (more to come in m4)</li>
                         <li>Add most of the DB changes: latest patch is version 10</li>
@@ -111,14 +111,18 @@
                     <h3>Points to discuss</h3>
                     <ul>
                         <li>Representation of LUT in slider (confusing?)</li>
-                        <li>LUT name is saved but what about LUT in different folder</li>
-                        <li>LUT name in URL</li>
+                        <li>LUT name is saved in DB e.g. <code>cool.lut</code> but what about LUT with same name in different folders (include full path?)</li>
+                        <li>LUT name in URL:
+                            <pre>
+                                <code>render_image/9425/14/0/?c=1|103:197$3-3-2_rgb.lut,2|96:124$FF0000&m=c&p=normal&ia=0</code>
+                            </pre>
+                        </li>
                     </ul>
                 </section>
                 <section>
                     <h3>What's next</h3>
                     <ul>
-                        <li>Re-organize luts repository</li>
+                        <li>Re-organize luts directory</li>
                         <li>Generate on the fly the LUT thumbnail (cf. demo)</li>
                         <li>Add support, in RE, for <code>Reverse Intensity</code> i.e. for reverse lut</li>
                         <li>Card: <a href="https://trello.com/c/9iAe3Sg9/95-lut-support">Lut-support</a></li>
