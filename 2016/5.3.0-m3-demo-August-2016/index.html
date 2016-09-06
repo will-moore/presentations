@@ -1,0 +1,176 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>OMERO 5.3.0-m3 demo 2016-08</title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <link rel="stylesheet" href="css/ome-reveal.css">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body class="ome_theme">
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section>
+                    <h1>OMERO 5.3.0-m3</h1>
+                    <h4>August 30, 2016</h4>
+                    <h3>OME team<br>
+                </section>
+                <section>
+                    <h2>Agenda</h2>
+                    <ul>
+                        <li>General 5.3.0-m3 report</li>
+                        <li>LUT Implementation overview</li>
+                        <li>Demo</hli>
+                        <li>Points to discuss</li>
+                        <li>What's next</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>5.3.0-m3 Report</h2>
+                    <ul>
+                        <li>ROI cleanup/fixes following m2 demo</li>
+                        <li>Many Bug fixes/RFE</li>
+                        <li>Remove windows support</li>
+                        <li>OMERO.web python 2.7 only (more to come in m4)</li>
+                        <li>Add most of the DB changes: latest patch is version 10</li>
+                        <li>Bio-Formats version is now 5.2.1</li>
+                        <li>Lut support</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>LUT Implementation overview</h2>
+                </section>
+                <section>
+                    <h3>LUT Management</h3>
+                        <ul>
+                            <li>No db change required for m3</li>
+                            <li>Use <code>ScriptService</code> to manage LUT</li>
+                            <li>file on disk: <code>scripts/luts</code> (possible conflict?)</li>
+                        </li>
+                        </ul>
+                </section>
+                <section>
+                    <h3>Rendering Engine</h3>
+                        <ul>
+                            <li>LUT is applied per channel similar to color</li>
+                            <li>LUT saves as a string: name of the LUT is set (to discuss)</li>
+                            <li>LUT vs Color: if LUT is set, it is the first choice</li>
+                            <li>LUT must be reset to <code>null</code> to apply color</li>
+                            <li>No flag in DB to indicate lut or color e.g. <code>lut_active = true</code> (requirement?)</li>
+                        </li>
+                        </ul>
+                </section>
+                <section>
+                    <h3>Clients</h3>
+                        <ul>
+                            <li>LUT support in insight, web and figure</li>
+                            <li>LUT name in URL: limitation no comma allowed in LUT name
+                                <pre>
+                                    <code>render_image/9425/14/0/?c=1|103:197$3-3-2_rgb.lut,2|96:124$FF0000&m=c&p=normal&ia=0</code>
+                                </pre>
+                            </li>
+                        </ul>
+                </section>
+                <section>
+                    <h3>Demo</h3>
+                        <ul>
+                            <li>How to upload a lut</li>
+                            <li>How to use a lut</li>
+                            <li>Show how a lut is displayed in slider/button</li>
+                        </ul>
+                </section>
+                <section>
+                    <h3>Points to discuss</h3>
+                    <ul>
+                        <li>Representation of LUT in slider (confusing?)</li>
+                        <li>LUT name is saved in DB e.g. <code>cool.lut</code> but what about LUT with same name in different folders (include full path?)</li>
+                        <li>LUT name in URL:
+                            <pre>
+                                <code>render_image/9425/14/0/?c=1|103:197$3-3-2_rgb.lut,2|96:124$FF0000&m=c&p=normal&ia=0</code>
+                            </pre>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>What's next</h3>
+                    <ul>
+                        <li>Re-organize luts directory</li>
+                        <li>Generate on the fly the LUT thumbnail (cf. demo)</li>
+                        <li>Add support, in RE, for <code>Reverse Intensity</code> i.e. for reverse lut</li>
+                        <li>Card: <a href="https://trello.com/c/9iAe3Sg9/95-lut-support">Lut-support</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Thank you</h2>
+                    <ul>
+                        <li>OME team</li>
+                    </ul>
+                    <div>
+                        <img src="images/wellcome.png" height="150px">
+                        <img src="images/bbsrc.png" height="150px">
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
