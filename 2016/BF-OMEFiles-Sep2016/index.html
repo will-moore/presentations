@@ -54,20 +54,23 @@
                 <section>
                     <h2>Limitations</h2>
                     <ul>
-                      <li>Multiple build systems</li>
-                      <li>Multi-module project</li>
-                      <ul>
-                          <li>Build time (compile, tests)</li>
-                          <li>Large source code, GPL compliance</li>
-                          <li>Release of all components even without change</li>
-                      </ul>
-                      <li>OME Files C++/Java out of sync</li>
+                      <li>Dual build system (Maven, Ant), multi-module project</li>
+                      <li>Build time (compile, tests)</li>
+                      <li>Large source code</li>
+                      <li>GPL compliance</li>
+                      <li>Release of all components even with no change</li>
                       <li>OME artifactory requirement</li>
-                      <li>Upcoming integration of new components</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Upcoming integrations</h2>
+                    <ul>
+                      <li>OME Files Java</li>
                       <ul>
-                        <li>OME Files Java</li>
-                        <li>Glencoe Software JXR-lib</li>
-                      </ul>
+                        <li>Experimental API for Java/C++</li>
+                      </ul> 
+                      <li>Glencoe Software JXR-lib</li>
                     </ul>
                 </section>
                 
@@ -85,11 +88,11 @@
                     <h2>Phase 1: JAR dependencies removal</h2>
 
                     <ul>
-                      <li>Preserve Ant build system</li>
+                      <li>Constraint: preserve Ant build system</li>
                       <li>Ant dependency management implementations:
                           <ul>
-                              <li>Ivy (see OMERO)</li>
-                              <li>Maven Ant task</li>
+                              <li>Ivy (cf OMERO)</li>
+                              <li>Maven Ant tasks</li>
                           </ul>                             
                       </li>
                       <li>Non breaking change: Bio-Formats 5.2.3 target</li>
@@ -100,8 +103,8 @@
                 <section>
                     <h2>Phase 2: ome-common-java decoupling</h2>
                     <ul>
-                      <li>Uses Phase 0 to consume JARs in Bio-Formats</li>
-                      <li>Reuse existing filtering scripts from OME Files C++</li>
+                      <li>Reuses Phase 0 to consume JARs in Bio-Formats</li>
+                      <li>Reuses existing filtering scripts from OME Files C++</li>
                       <li>Investigate deployment to Maven Central</li>
                     </ul>
                 </section>
@@ -109,7 +112,9 @@
                 <section>
                     <h2>Phase 3: ome-model</h2>
                     <ul>
-                      <li>Consume ome-model</li>
+                      <li>Reuses Phase 0 to consume JARs in Bio-Formats</li>
+                      <li>Reuses existing filtering scripts from OME Files C++</li>
+                      <li>Investigate migration of the formats documentation</li>
                     </ul>
                 </section>
                 
@@ -117,16 +122,10 @@
                     <h2>Phase 4: other components</h2>
                     <ul>
                       <li>Removal of forks/stubs</li>
+                      <li>Integration of OME Files Java</li>
+                      <li>Integration of jxrlib</li>
                     </ul>
                 </section>
-
-                <section>
-                    <h2>Other components integration</h2>
-                    <ul>
-                      <li>OME Files Java</li>
-                      <li>Glencoe JXR-lib</li>
-                    </ul>
-                </section>                
             </div>
 
         </div>
