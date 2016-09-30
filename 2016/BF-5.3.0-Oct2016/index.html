@@ -44,24 +44,18 @@
                     <h3>Development plan</h2>
                     <h4>Oct 4, 2016</h4>
                 </section>
-                
-                <section>
-                    <h2>Plan</h2>
-                    <ul>
-                        <li>Status</li>
-                        <li>Versioning</li>
-                        <li>Architecture</li>
-                        <li>API</li>
-                        <li>Roadmap</li>
-                    </ul>
-                </section>
 
                 <section>
                     <h2>Bio-Formats 5.2: status</h2>
                     <ul>
                       <li>Aug 2016: 5.2.0 release (2016-06 model)</li>
-                      <li>Sep-Oct 2016: 3 patch releases (bug fixes)</li>
-                      <li>Ongoing IDR backporting</li>
+                      <li>Sep-Oct 2016: 3 patch releases (bug fixes, IDR backporting)</li>
+                      <li>Bio-Formats 5.3.0 proposal</li>
+                      <ul>
+                          <li>Versioning</li>
+                          <li>Architecture</li>
+                          <li>API</li>
+                      </ul>
                     </ul>
                 </section>
 
@@ -90,7 +84,7 @@
                               functionality is introduced to the public
                               API.</li>
                           <li>Bio-Formats 5.3.0: API additions only</li>
-                          <li>OMERO 5.3.0: switch to 5.x seamlessly</li>
+                          <li>OMERO 5.3.0: seamless transition to Bio-Formats 5.x</li>
                         </ul>
                     </section>
                 </section>
@@ -105,16 +99,16 @@
                                 <li>Heterogenous metadata (MULTIMOT, Wellcome)</li>
                                 <li>High-performance format containers</li>
                             </ul>
-                            <li>Limitations: monolithic block</li>
-                            <li>Proposal: components re-architecture</li>
                         </ul>
                     </section>
                     <section>
                         <h2>Integration: limitations</h2>
+                        <p>Monolithic block</p>
                         <img src="images/BF5.2.0.png" width="100%">
                     </section>
                     <section>
                         <h2>Integration: proposal</h2>
+                        <p>Components re-architecture</p>
                         <img src="images/BF5.3.x.png" width="100%">
                     </section>
                 </section>
@@ -122,21 +116,36 @@
 
                 <section>
                     <section>
-                        <h2>API: Tiling</h2>
+                        <h2>Tiling API: status</h2>
                         <ul>
-                            <li>API to improve usability of tiled Java writers (OME-TIFF)</li>
-                             <li>New methods in IFormatWriter to set the tile size</li>
-                             <li>New options to enable/disable tiling by defaut</li>
-                             <li>Expanded test coverage/documentation/samples</li>
-                            
+                            <li>Strong support for reading tiles</li>
+                            <li>Need for greater transparency, documentation and samples in tiled writers</li>
+                            <li>Few writers support complete tiling implementation (incl. TIFF)</li>
                         </ul>
                     </section>
                     <section>
-                        <h2>API: MetadataOptions</h2>
+                        <h2>Tiling API: proposal</h2>
                         <ul>
-                            <li>API to control options using key/value pairs</li>
-                            <li>IDR use case: memoization</li>
-                            <li>Several other use cases: tile vs non-tile writing, controlling reader-level options</li>
+                            <li>API extension to improve usability of tiled
+                                Java writers</li>
+                            <li>New methods in IFormatWriter to set/read the
+                                tile size</li>
+                            <li>New options to enable/disable tiling by
+                                default</li>
+                            <li>Expanded test coverage, documentation and
+                                samples</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Options API: proposal</h2>
+                        <ul>
+                            <li>API to pass options using key/value pairs</li>
+                            <li>Use cases</li>
+                            <ul>
+                                <li>IDR: memoization</li>
+                                <li>Tile vs non-tile writing</li>
+                                <li>Reader-level options</li>
+                            </ul>
                             <li>Flexible, give more user control</li>
                         </ul>
                     </section>
@@ -148,7 +157,7 @@
                         <li>2 months (November 2016)</li>
                         <li>Milestone 1: Architecture/integration</li>
                         <li>Milestone 2: API additions</li>
-                        <li>Maintain 5.2.x line for bug fixes (5.2.4?)</li>
+                        <li>Maintain 5.2.x line for bug fixes?</li>
                     </ul>
                 </section>
             </div>
