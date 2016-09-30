@@ -48,76 +48,109 @@
                 <section>
                     <h2>Plan</h2>
                     <ul>
+                        <li>Status</li>
                         <li>Versioning</li>
-                        <li>Architecture/integration</li>
-                        <li>Tiling API</li>
-                        <li>IDR API</li>
+                        <li>Architecture</li>
+                        <li>API</li>
                         <li>Roadmap</li>
                     </ul>
                 </section>
 
                 <section>
+                    <h2>Bio-Formats 5.2: status</h2>
+                    <ul>
+                      <li>Aug 2016: 5.2.0 release (2016-06 model)</li>
+                      <li>Sep-Oct 2016: 3 patch releases (bug fixes)</li>
+                      <li>Ongoing IDR backporting</li>
+                    </ul>
+                </section>
+
+                <section>
                     <section>
-                        <h2>Versioning: policy</h2>
+                        <h2>Versioning: current status</h2>
                         <ul>
-                          <li>See <a href="http://semver.org">semantic versioning</a></li>
-                          <li>A normal version number MUST take the form
-                              X.Y.Z. X is the major version, Y is the minor
-                              version, and Z is the patch version.</li>
-                          <li>Major version X (X.y.z | X > 0) MUST be
-                              incremented if any backwards incompatible
-                              changes are introduced to the public API.</li>
-                          <li>Minor version Y (x.Y.z | x > 0) MUST be
-                              incremented if new, backwards compatible
-                              functionality is introduced to the public
-                              API.</li>
+                            <li>Model/API breaking changes can be carried out
+                                in minor releases e.g. Bio-Formats 5.2.0</li>
+                            <li>Consumers (e.g. OMERO 5.3.0-m2) need
+                                corresponding breaking changes</li>
+                            <li>Release lifecycles: OMERO/Bio-Formats</li>
+                            </ul>
                         </ul>
                     </section>
                     <section>
-                        <h2>Versioning: application</h2>
-                        <ul>Use case: OMERO</ul>
-                        <ul>Prior</ul>
+                        <h2>Versioning: proposal</h2>
+                        <ul>
+                          <li>Move to <a href="http://semver.org">semantic
+                              versioning</a></li>
+                          <li>Major version X MUST be
+                              incremented if any backwards incompatible
+                              changes are introduced to the public API.</li>
+                          <li>Minor version Y MUST be
+                              incremented if new, backwards compatible
+                              functionality is introduced to the public
+                              API.</li>
+                          <li>Bio-Formats 5.3.0: API additions only</li>
+                          <li>OMERO 5.3.0: switch to 5.x seamlessly</li>
+                        </ul>
                     </section>
                 </section>
                 
                 <section>
                     <section>
-                        <h2>Architecture: 5.2.0 status</h2>
+                        <h2>Integration</h2>
+                        <ul>
+                            <li>Upcoming use cases</li>
+                            <ul>
+                                <li>Glencoe Software: JPEG-XR library</li>
+                                <li>Heterogenous metadata (MULTIMOT, Wellcome)</li>
+                                <li>High-performance format containers</li>
+                            </ul>
+                            <li>Limitations: monolithic block</li>
+                            <li>Proposal: components re-architecture</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Integration: limitations</h2>
                         <img src="images/BF5.2.0.png" width="100%">
                     </section>
                     <section>
-                        <h2>Architecture: 5.2.x</h2>
-                        <img src="images/BF5.2.x.png" width="100%">
-                    </section>
-                    <section>
-                        <h2>Architecture: 5.3.0 integrations</h2>
+                        <h2>Integration: proposal</h2>
                         <img src="images/BF5.3.x.png" width="100%">
                     </section>
                 </section>
                 
 
                 <section>
-                    <h2>Tiling API</h2>
-                </section>
-
-                <section>
-                    <h2>IDR API</h2>
-     
+                    <section>
+                        <h2>API: Tiling</h2>
+                        <ul>
+                            <li>API to improve usability of tiled Java writers (OME-TIFF)</li>
+                             <li>New methods in IFormatWriter to set the tile size</li>
+                             <li>New options to enable/disable tiling by defaut</li>
+                             <li>Expanded test coverage/documentation/samples</li>
+                            
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>API: MetadataOptions</h2>
+                        <ul>
+                            <li>API to control options using key/value pairs</li>
+                            <li>IDR use case: memoization</li>
+                            <li>Several other use cases: tile vs non-tile writing, controlling reader-level options</li>
+                            <li>Flexible, give more user control</li>
+                        </ul>
+                    </section>
                 </section>
 
                 <section>
                     <h2>Roadmap</h2>
                     <ul>
-                        <li>Milestone 1</li>
-                        
-                        <li>Two months</li>
-                    <ul>Public Trello board</ul>
+                        <li>2 months (November 2016)</li>
+                        <li>Milestone 1: Architecture/integration</li>
+                        <li>Milestone 2: API additions</li>
+                        <li>Maintain 5.2.x line for bug fixes (5.2.4?)</li>
+                    </ul>
                 </section>
-                
-                <section>
-                    <h2>Questions?</h2>
-                </section>
-
             </div>
 
         </div>
