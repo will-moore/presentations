@@ -7,9 +7,9 @@ OME.setOpenWithEnabledHandler("GenBank Protein", function(selected) {
     var name = selected[0].name;
     return !isNaN(name);
 });
-OME.setOpenWithActionHandler("GenBank Protein", function(selected, url) {
+OME.setOpenWithUrlProvider("GenBank Protein", function(selected, url) {
     // Url includes selected 'name' which is an Gene ID
     var name = selected[0].name;
     // E.g. open http://www.ncbi.nlm.nih.gov/protein/000397
-    window.open(url + name, 'new');
+    return url + name;
 });
