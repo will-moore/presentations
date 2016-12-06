@@ -1,0 +1,540 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>The Image Data Resource: a platform for publishing, integrating and mining imaging-derived biological data at scale</title>
+
+    <meta name="author" content="Simon Li">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="reveal-js/css/reveal.css">
+    <link rel="stylesheet" href="reveal-js/css/theme/white.css" id="theme">
+    <!--link rel="stylesheet" href="reveal-js/css/theme/league.css" id="theme"-->
+
+    <!-- OME presentation overrides of the default theme -->
+    <link rel="stylesheet" href="css/ome-reveal.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal-js/css/print/pdf.css' : 'reveal-js/css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+      <script src="reveal-js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body class="idr_theme">
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+        <!-- title page -->
+        <section class="center">
+          <h1>The Image Data Resource</h1>
+          <h4>Simon Li</h4>
+          <h4>GRE seminar, 6 December 2016</h4>
+        </section>
+
+
+        <section class="center">
+          <h2>Overview</h2>
+          <ul>
+            <li>Why did we build this?</li>
+            <li>How did we create it?</li>
+            <li>What can you do with it?</li>
+          </ul>
+        </section>
+
+
+        <section class="center">
+          <h2>The Image Data Resource</h2>
+          <div class="flexcontainer">
+              <a href="https://idr-demo.openmicroscopy.org">
+              <img src="images/idr-homepage-about.png" style="width:75%;"/>
+              <p>https://idr-demo.openmicroscopy.org</p></a>
+          </div>
+        </section>
+
+
+        <section class="center">
+          <h2>Why did we build this?</h2>
+        </section>
+
+
+        <section class="center">
+          <h2>Open science: Open access + Open data</h2>
+          <div class="flexcontainer">
+            <div class="flex1">
+              <div>
+                <img src="images/logos/plos.svg" />
+              </div>
+              <div>
+                <img src="images/logos/figshare.png" />
+              </div>
+            </div>
+            <div class="flex1">
+              <div>
+                <img src="images/logos/jcbdata.png" />
+              </div>
+              <div>
+                <img src="images/logos/ncbi.png" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <section class="center">
+          <h2>Open science: Open access + Open data</h2>
+          <ul>
+            <li>Reproducibility</li>
+            <li>Re-use / re-analysis</li>
+            <li>Combine with other data sources</li>
+          </ul>
+        </section>
+
+
+        <section class="center">
+          <h2>Open science: Open access + Open data</h2>
+          <p>Problems with imaging data
+            <ul>
+              <li>Storage and management</li>
+              <li>Discoverability</li>
+            </ul>
+          </p>
+          <p>Contextual metadata is critical</p>
+        </section>
+
+
+        <section class="center">
+          <h2>How did we create it?</h2>
+        </section>
+
+
+        <section class="center">
+          <img src="images/logos/omero-800.png" style="width:100%;" />
+          <div class="reference"><a href="https://idr-demo.openmicroscopy.org/about/deployment.html">https://idr-demo.openmicroscopy.org/about/deployment.html</a></div>
+        </section>
+
+
+        <section class="center">
+          <h2>The Image Data Resource: in numbers</h2>
+          <ul style="width:40%;">
+            <li>25 published studies</li>
+            <li>42 TB data</li>
+            <li>14 million files</li>
+            <li>1 million experiments</li>
+            <li>Computational resources:
+              <ul class="dash">
+                <li>32 CPUs</li>
+                <li>128 GB memory</li>
+              </ul>
+            </li>
+          </ul>
+          <div style="width: 55%; float: right;">
+            <img src="images/dell-poweredge-fx2-fc630.jpg" />
+          </div>
+        </section>
+
+
+        <section class="center">
+          <h2>The Image Data Resource: data management</h2>
+          <ul style="width:40%;">
+            <li>All studies are curated</li>
+            <li>Data is arranged in a common layout</li>
+            <li>Cross referenced with:
+              <ul>
+                <li>External resources</li>
+                <li>Other IDR studies</li>
+              </ul>
+            </li>
+          </ul>
+          <div style="width: 55%; float: right; position: relative;">
+            <a href="https://github.com/IDR/idr-metadata/blob/master/idr0020-barr-chtog/idr0020-study.txt"><img src="images/idr0020-study.png" style="width: 70%;" /></a>
+            <a href="https://github.com/IDR/idr-metadata/blob/master/idr0020-barr-chtog/screenA/idr0020-screenA-annotation.csv"><img src="images/idr0020-annotation.png" style="position: relative; left: 10%; top:-7em; width: 70%;" /></a>
+            <a href="https://github.com/IDR/idr-metadata/blob/master/idr0020-barr-chtog/screenA/idr0020-screenA-library.txt"><img src="images/idr0020-library.png" style="position: relative; left: 20%; top:-14em; width: 70%;" /></a>
+          </div>
+        </section>
+
+
+        <section class="center">
+          <h2>What can you do with it?</h2>
+        </section class="center">
+
+
+        <section>
+
+          <section data-background="images/idr0013-overview-contrast.png" data-background-size="1024px" class="fullscreen-image">
+            <h2>Browse the data</h2>
+            <div class="reference"><a href="https://idr-demo.openmicroscopy.org/webclient/?show=plate-3451">https://idr-demo.openmicroscopy.org/webclient/?show=plate-3451</a></div>
+          </section>
+
+          <section data-background="images/idr0013-overview-contrast.png" data-background-size="1024px" data-state="dim" class="fullscreen-image">
+            <div style="width: 45%; float: left; text-align: left;">
+              <div class="textoverlay">
+                Raw data not previously accessible, for example Mitocheck (published 2010)
+              </div>
+              <a href="http://dx.doi.org/10.1038/nature08869"><img src="images/mitocheck-paper.png" /></a>
+            </div>
+            <div style="width: 45%; float: right;">
+              <img src="images/big_data_harddrives.jpg" />
+            </div>
+          </section>
+
+        </section>
+
+
+        <section>
+
+          <section data-background="images/idr0027-overview-highlight-attributes.png" data-background-size="1024px" class="fullscreen-image">
+            <h2>External links: studies</h2>
+            <div class="reference"><a href="https://idr-demo.openmicroscopy.org/webclient/?show=project-151">https://idr-demo.openmicroscopy.org/webclient/?show=project-151</a></div>
+          </section>
+
+          <section data-background="images/idr0027-overview-highlight-attributes.png" data-background-size="1024px" data-state="dim" class="fullscreen-image">
+            <!--img src="images/idr0027-overview-attributes.png" style="width: 45%; text-align: center;" /-->
+            <div style="width: 60%;">
+              <img src="images/idr0027-paper.png" />
+            </div>
+          </section>
+
+          <section data-background="images/idr0027-example-image-crop.png" data-background-size="1024px" class="fullscreen-image">
+            <div class="reference"><a href="https://idr-demo.openmicroscopy.org/webclient/?show=image-2858264">https://idr-demo.openmicroscopy.org/webclient/?show=image-2858264</a></div>
+          </section>
+
+        </section>
+
+
+        <section>
+
+          <section data-background="images/idr0015-example-highlight-attributes.png" data-background-size="1024px" class="fullscreen-image">
+            <h2>External links: logbooks</h2>
+            <div class="reference"><a href="https://idr-demo.openmicroscopy.org/webclient/?show=plate-4358">https://idr-demo.openmicroscopy.org/webclient/?show=plate-4358</a></div>
+          </section>
+
+          <section data-background="images/idr0015-example-highlight-attributes.png" data-background-size="1024px" data-state="dim" class="fullscreen-image">
+            <div style="width: 60%;">
+              <img src="images/idr0015-example-external1.png" />
+              <img src="images/idr0015-example-external2.png" />
+            </div>
+          </section>
+
+        </section>
+
+
+        <section>
+
+          <section data-background="images/idr0002-example-image-highlight-gene.png" data-background-size="1024px" class="fullscreen-image">
+            <h2>External links: genes</h2>
+            <div class="reference"><a href="https://idr-demo.openmicroscopy.org/webclient/?show=well-67092">https://idr-demo.openmicroscopy.org/webclient/?show=well-67092</a></div>
+          </section>
+
+          <section data-background="images/idr0002-example-image-highlight-gene.png" data-background-size="1024px" data-state="dim" class="fullscreen-image">
+            <div style="width: 70%; float: left;">
+              <img src="images/idr0002-example-image-gene.png" />
+              <img src="images/idr0002-ensemble-ndc80.png" />
+            </div>
+          </section>
+
+          <section data-background="images/idr0002-example-image-highlight-gene.png" data-background-size="1024px"  data-state="dim" class="fullscreen-image">
+            <h2>Internal links: genes</h2>
+          </section>
+
+          <section data-background="images/idr0002-example-image-highlight-gene.png" data-background-size="1024px" data-state="dim" class="fullscreen-image">
+            <div style="width: 70%; float: left;">
+              <img src="images/idr0002-example-image-gene.png" />
+              <img src="images/mapr-ndc80-idr0010.png" />
+            </div>
+          </section>
+
+        </section>
+
+
+        <section class="center">
+          <h2>IDR: A curated collection of diverse cross-referenced studies</h2>
+          <ul>
+            <li>
+              Compare genes and phenotypes across different studies/experiments using <a href="https://github.com/ome/omero-mapr">MAPR</a>, a new OMERO.web application.
+              <div style="width: 30%; float: right;">
+                <img src="images/github-ola.jpg" />
+              </div>
+              <ul>
+                <li>Genes (19,598)</li>
+                <li>Phenotypes (151)</li>
+                <li>siRNAs</li>
+                <li>Compounds</li>
+                <li>Organisms</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+
+        <section>
+
+          <section data-background="images/mapr-aur-highlight-search.png" data-background-size="1024px" class="fullscreen-image">
+            <h2>Genes</h2>
+            <div class="reference"><a href="http://idr-demo.openmicroscopy.org/mapr/gene/?experimenter=-1">http://idr-demo.openmicroscopy.org/mapr/gene/?experimenter=-1</a></div>
+          </section>
+
+          <section class="center" data-background="images/mapr-aur-highlight-search.png" data-background-size="1024px" data-state="dim" class="fullscreen-image">
+            <div style="width: 70%; float: right;">
+              <img src="images/mapr-aur-search.png" />
+            </div>
+          </section>
+
+          <section class="center" data-background="images/mapr-aurkb-example-crop.png" data-background-size="1024px" class="fullscreen-image">
+          </section>
+
+        </section>
+
+
+        <section>
+
+          <section data-background="images/mapr-cmpo0000077-elongatedcell-crop.png" data-background-size="1024px" data-state="dim" class="fullscreen-image">
+            <h2>Phenotypes</h2>
+            <div style="width: 50%;">
+              <a href="http://www.ebi.ac.uk/cmpo/CMPO_0000077"><img src="images/ebi-cmpo-0000077.png" /></a>
+            </div>
+          </section>
+
+          <section data-background="images/mapr-cmpo0000077-elongatedcell-crop.png" data-background-size="1024px" class="fullscreen-image">
+            <div class="reference"><a href="https://idr-demo.openmicroscopy.org/webclient/?show=phenotype-CMPO_00000777">https://idr-demo.openmicroscopy.org/webclient/?show=phenotype-CMPO_0000077</a></div>
+          </section>
+
+          <section data-background="images/cmpo-0000077.png" data-background-size="1024px" class="fullscreen-image">
+            <img src="images/team/eleanor_williams.png" style="width: 100px; float: left;" />
+            <ul class="nobullet textoverlay" style="float: right;">
+              <li>Elongated cell phenotype</li>
+              <li style="color: green;">
+                <a href="https://idr-demo.openmicroscopy.org/webclient/?show=screen-3"><img src="images/logos/idr-bullet.png" style="vertical-align: middle;" /></a>
+                S. pombe (idr-0001 Sysgro)
+              </li>
+              <li style="color: red;">
+                <a href="https://idr-demo.openmicroscopy.org/webclient/?show=screen-154"><img src="images/logos/idr-bullet.png" style="vertical-align: middle;" /></a>
+                HeLa (idr-0008 Actinome)
+              </li>
+              <li style="color: blue;">
+                <a href="https://idr-demo.openmicroscopy.org/webclient/?show=screen-1202"><img src="images/logos/idr-bullet.png" style="vertical-align: middle;" /></a>
+                HeLa (idr-0012 CellMorph)
+              </li>
+            </ul>
+            <div class="reference"><a href="http://dx.doi.org/10.1101/089359">http://dx.doi.org/10.1101/089359</a></div>
+          </section>
+
+          <section data-background="images/cmpo-0000077-zoom.png" data-background-size="1024px" class="fullscreen-image">
+            <ul class="nobullet textoverlay" style="float: right;">
+              <li>Elongated cell phenotype</li>
+              <li style="color: green;">
+                <a href="https://idr-demo.openmicroscopy.org/webclient/?show=screen-3"><img src="images/logos/idr-bullet.png" style="vertical-align: middle;" /></a>
+                S. pombe (idr-0001 Sysgro)
+              </li>
+              <li style="color: red;">
+                <a href="https://idr-demo.openmicroscopy.org/webclient/?show=screen-154"><img src="images/logos/idr-bullet.png" style="vertical-align: middle;" /></a>
+                HeLa (idr-0008 Actinome)
+              </li>
+              <li style="color: blue;">
+                <a href="https://idr-demo.openmicroscopy.org/webclient/?show=screen-1202"><img src="images/logos/idr-bullet.png" style="vertical-align: middle;" /></a>
+                HeLa (idr-0012 CellMorph)
+              </li>
+            </ul>
+          </section>
+
+          <section data-background="images/cmpo-0000077-zoom-highlight.png" data-background-size="1024px" class="fullscreen-image">
+            <div class="textoverlay" style="float: right;">Histone methyltransferase (HMT)</div>
+          </section>
+
+          <section data-background="images/cmpo-0000077-zoom-highlight.png" data-background-size="1024px" class="fullscreen-image">
+            <img src="images/cmpo-0000077-ash2.jpg" style="float: right;" />
+          </section>
+
+        </section>
+
+
+        <section data-background="images/idr-phenotypes-bubble.png" data-background-size="1024px" class="fullscreen-image">
+          <h2>Phenotypes in the IDR</h2>
+          <div class="reference"><a href="http://dx.doi.org/10.1101/089359">http://dx.doi.org/10.1101/089359</a></div>
+        </section>
+
+
+        <section class="center">
+          <h2>The Image Data Resource: in numbers</h2>
+          <ul style="width:40%;">
+            <li>25 published studies</li>
+            <li>42 TB data</li>
+            <li>14 million files</li>
+            <li>1 million experiments</li>
+            <li>19,598 genes</li>
+            <li>151 Phenotypes</li>
+          </ul>
+          <div style="width: 45%; float: right;">
+            <img src="images/big_data_harddrives.jpg" />
+          </div>
+        </section>
+
+
+        <section>
+
+          <section data-background="images/jupyter-overview-scratch-crop.png" data-background-size="1024px" class="fullscreen-image">
+            <h2>Analysis platform</h2>
+            <div class="reference"><a href="https://github.com/IDR/idr-notebooks/">https://github.com/IDR/idr-notebooks/</a></div>
+          </section>
+
+          <section class="center" data-background="images/jupyter-fig1b-plot-crop.png" data-background-size="1024px" class="fullscreen-image">
+          </section>
+
+        </section>
+
+
+        <section class="center">
+          <h2>Next steps</h2>
+          <div class="flexcontainer">
+            <div class="flex1">
+              <a href="http://dx.doi.org/10.1101/089359"><img src="images/biorxiv-idr-preprint.png" class="plain"></a>
+            </div>
+            <ul class="flex1">
+              <li>Open infrastructure: Build your own IDR</li>
+              <li><a href="https://idr-demo.openmicroscopy.org/about/deployment.html">https://idr-demo.openmicroscopy.org/about/deployment.html</a></li>
+            </ul>
+          </div>
+        </section>
+
+
+        <section class="center">
+          <h2>The IDR team</h2>
+          <div>
+            <div class="idrteam">
+              <div>
+                <img src="images/team/jason_swedlow.jpg" />
+                Jason Swedlow
+              </div>
+              <div>
+                <img src="images/team/josh_moore.jpg" />
+                Josh Moore
+              </div>
+              <div>
+                <img src="images/team/simon_li.png" />
+                Simon Li
+              </div>
+              <div>
+                <img src="images/team/eleanor_williams.png" />
+                Eleanor Williams
+              </div>
+              <div>
+                <img src="images/team/gabriella_rustici.png" />
+                Gabriella Rustici
+              </div>
+              <div>
+                <img src="images/team/aleksandra_tarkowska.jpg" />
+                Aleksandra Tarkowska
+              </div>
+              <div>
+                <img src="images/team/richard_ferguson.png" />
+                Richard Ferguson
+              </div>
+              <div>
+                <img src="images/team/simone_leo.jpg" />
+                Simone Leo
+              </div>
+              <div style="width: auto;">
+                <img src="images/team/logo-ome.png" class="plain whitelogo" style="height: 50px;" />
+              </div>
+            </div>
+            <div style="float: right;">
+              <div>
+                <img src="images/logos/bbsrc.png" class="plain whitelogo" style="height: 100px;" />
+              </div>
+              <div>
+                <img src="images/logos/wellcome.png" class="plain whitelogo" style="height: 100px;" />
+              </div>
+            </div>
+            <div class="idrteam">
+              <div>
+                <img src="images/team/alvis_brazma.png" />
+                Alvis Brazma
+              </div>
+              <div>
+                <img src="images/team/ugis_sarkans.png" />
+                Ugis Sarkans
+              </div>
+              <div>
+                <img src="images/team/simon_jupp.png" />
+                Simon Jupp
+              </div>
+              <div>
+                <img src="images/team/tony_burdett.png" />
+                Tony Burdett
+              </div>
+              <div style="width: auto;">
+                <img src="images/team/logo-ebi.png" class="plain whitelogo" style="height: 50px;" />
+              </div>
+            </div>
+            <div class="idrteam">
+              <div>
+                <img src="images/team/rafael_carazosalas.png" />
+                Rafael Carazo-salas
+              </div>
+              <div>
+                <img src="images/team/balint_antal.png" />
+                Bálint Antal
+              </div>
+              <div>
+                <img src="images/team/anatole_chessel.jpg" />
+                Anatole Chessel
+              </div>
+              <div style="width: auto;">
+                <img src="images/team/logo-cambridge.png" class="plain whitelogo" style="height: 50px;" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+      </div>
+    </div>
+
+
+    <script src="reveal-js/lib/js/head.min.js"></script>
+    <script src="reveal-js/js/reveal.js"></script>
+
+    <script>
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: false,
+
+        transition: 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+    </script>
+
+  </body>
+</html>
