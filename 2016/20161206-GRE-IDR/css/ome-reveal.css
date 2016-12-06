@@ -1,0 +1,167 @@
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+  text-transform: none;
+  color: #2b2b2b;
+}
+.reveal h2 {
+    font-size: 55px;
+}
+
+.idr_theme {
+  background-color: #f2f6f9;
+  background:
+    url("../images/ome-icon-opacity.png") right -270px top -270px no-repeat,
+    url("../images/idr-icon-opacity-half.png") left -200px bottom -200px no-repeat;
+}
+
+.fullscreen-image {
+    background-position: left 0px top 0px;
+}
+
+.fullscreen-image h2, .fullscreen-image h3 {
+    background-color: rgba(242,246,249,0.8);
+    text-align: right;
+    width: 50%;
+    margin-left: auto;
+    margin-right: 0px;
+    padding: 10pt;
+    transition: all .15s linear;
+}
+
+.fullscreen-image h2:hover, .fullscreen-image h3:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.55);
+}
+
+html.dim .backgrounds {
+   filter: brightness(0.3);
+}
+
+.reveal pre code {
+    white-space: pre-wrap;
+    font-size: 1.5em;
+    line-height: 1;
+}
+
+.reveal pre.small code {
+    white-space: pre-wrap;
+    font-size: 1.2em;
+    line-height: 1;
+}
+
+.reveal pre.tiny code {
+    white-space: pre-wrap;
+    font-size: 1em;
+    line-height: 1;
+}
+
+.reveal {
+    text-transform: none;   !important
+}
+
+.reveal section img {
+    border-width:0;
+    border-color: white;
+}
+
+.reveal .flexcontainer {
+    display: flex;
+}
+
+.reveal .flex1 {
+    flex: 1;
+}
+.reveal .flex2 {
+    flex: 2;
+}
+.reveal .flex3 {
+    flex: 3;
+}
+.reveal .flex4 {
+    flex: 4;
+}
+
+.img_panel {
+    width: 150px;
+}
+
+.nobullet li {
+    list-style: none;
+}
+
+table.centre {
+    width: 100%;
+}
+
+.reveal .centre td {
+    text-align: center;
+}
+
+.rot90 {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.reveal .title {
+    position:absolute;
+    bottom:100%;
+    margin:5px;
+    color:red;
+}
+
+div.box {
+    border: 2px solid #2b2b2b;
+    margin: 10px;
+    padding: 10px;
+}
+
+.reveal ul {
+    list-style-image: url('../images/logos/idr-bullet.png');
+}
+
+.reveal ul ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 1em;
+}
+
+.reveal ul ul > li:before {
+    display: inline-block;
+    content: "-";
+    width: 1em;
+    margin-left: -1em;
+}
+
+.reference {
+    position: absolute;
+    left: 0px;
+    top: 680px;
+}
+
+.reference a {
+    font-size: 12pt;
+    background-color: rgba(242,246,249,0.8);
+}
+
+div.textoverlay, ul.textoverlay {
+    background-color: rgba(242,246,249,0.8);
+    padding: 10px;
+}
+
+div.idrteam {
+    font-size: 16pt;
+    padding: 10pt;
+}
+
+div.idrteam div {
+    width: 11%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+div.idrteam img {
+    height: 100px;
+    margin: 0;
+}
+
+.reveal img.whitelogo {
+    background-color: white;
+}
