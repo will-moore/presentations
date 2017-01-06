@@ -130,7 +130,7 @@
 
 
         <section>
-            <h2>Current state of OMERO.web API</h2>
+            <h2>Current state of OMERO.web API (early 2016)</h2>
             <ul>
                 <li>webgateway - "imgData", plate, list Projects, Datasets etc.</li>
                 <li>webclient, mixture between html and unstructured json data</li>
@@ -168,15 +168,15 @@
                 </li>
                 <li>Early discussion at Design <a href="https://github.com/openmicroscopy/design/issues/24">Issue #24</a></li>
                 <li>Re-focus on using omero_marshal. Support CRUD for Projects only:
-                    <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4572">#4572</a>
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4708">#4708</a>
                 </li>
                 <li>Move to new /api/ app:
-                    <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4572">#4572</a>
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4920">#4920</a>
                 </li>
                 <li>Add Datasets support (not merged)
                     <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4945">#4945</a>
                 </li>
-                <li>Move more iQuery logic to Blitz Gateway <code>getObjects()</code>
+                <li>Move more iQuery logic to Blitz Gateway <code>buildQuery()</code>
                     <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4950">#4950</a>
                     <ul>
                         <li>Filter Datasets by Project</li>
@@ -410,12 +410,13 @@ originalfile, fileset, annotations</code></pre>
             </ul>
 <pre><code class="python" style="height: 200px">conn.buildQuery("Dataset", opts={'child_count':True, 'project': 401})
 
-"select obj, (select count(id) from DatasetImageLink chl where chl.parent=obj.id)
+# **NB: need to use queryService.projection() instead of findAllByQuery()
+""" select obj, (select count(id) from DatasetImageLink chl where chl.parent=obj.id)
  from Dataset obj
     join fetch obj.details.owner as owner
     join fetch obj.details.creationEvent
     join obj.projectLinks plink
- where plink.parent.id = :pid"</code></pre>
+ where plink.parent.id = :pid"""</code></pre>
         </section>
 
 
@@ -431,17 +432,30 @@ originalfile, fileset, annotations</code></pre>
 
 
         <section>
-            <h2>7) Use of Stateful services?</h2>
+            <h2>7) Pagination, sorting</h2>
             <ul>
-                <li>E.g. webgateway/imgData/id uses RenderingEngine for channel colors</li>
+                <li>Probably should NEVER turn off pagination. <br>
+                E.g. /webclient/api/images/?page=0 lists ALL available images</li>
+                <li>Instead use ?limit=10000 to return a known limit of results</li>
+                <li>Support sorting by named attributes?</li>
             </ul>
         </section>
 
 
         <section>
-            <h2>1) Documentation</h2>
+            <h2>8) Use of Stateful services (for imgData json)?</h2>
             <ul>
-                <li></li>
+                <li>Do we try to support everything that's in the current webgateway/imgData/id json?</li>
+                <li>E.g. use RenderingEngine for channel colors</li>
+                <li>Or maybe /api/channels/?image=:id</li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h2>9) Documentation</h2>
+            <ul>
+                <li>Probably will have to be hand-written</li>
             </ul>
         </section>
 
