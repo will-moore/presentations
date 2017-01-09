@@ -140,7 +140,7 @@
                         <li>Filter by group, owner, pagination etc</li>
                         <li>Supports 'childCount' for display in jsTree</li>
                         <li>Uses 'projection' queries (no omero.model objects)</li>
-                        <li>Losts of tests</li>
+                        <li>Lots of tests</li>
                     </ul>
                 </li>
 
@@ -160,13 +160,38 @@
 
 
         <section>
-            <h2>Work done so far</h2>
+            <h2>Work done so far (Design)</h2>
+            <ul>
+                <li>Cleanup of webclient/api
+                    <a href="https://github.com/openmicroscopy/design/issues/24">Design Issue #24</a>
+                    (March 2016) <br>
+                    <a href="https://gist.github.com/will-moore/2aa7d5eef6481dd3c777">
+                        API draft doc
+                    </a>
+                </li>
+                <li>omero-marshal based api 
+                    <a href="https://github.com/openmicroscopy/design/pull/43">Design PR #43</a>
+                    (June 2016) <br>
+                    <a href="https://github.com/will-moore/design/blob/webgateway_json_api/webgateway_json_api.md">
+                        API draft doc
+                    </a>
+                </li>
+                <li>
+                    <a href="https://docs.google.com/document/d/18ep65grhBURv6CcZLGVmvKQvP3RjfuyIhE288AAuFTM/edit#">
+                        Web meeting notes
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h2>Work done so far (Code)</h2>
             <ul>
                 <li>Initial attempts to port webclint/api to webgateway (not merged)
                     <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4357">#4357</a>
                     <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4572">#4572</a>
                 </li>
-                <li>Early discussion at Design <a href="https://github.com/openmicroscopy/design/issues/24">Issue #24</a></li>
                 <li>Re-focus on using omero_marshal. Support CRUD for Projects only:
                     <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4708">#4708</a>
                 </li>
@@ -437,6 +462,8 @@ originalfile, fileset, annotations</code></pre>
                 <li>Probably should NEVER turn off pagination. <br>
                 E.g. /webclient/api/images/?page=0 lists ALL available images</li>
                 <li>Instead use ?limit=10000 to return a known limit of results</li>
+                <li>Use page=0 as first page instead of page=1</li>
+                <li>Use offset instead of page? (same as ParametersI API)</li>
                 <li>Support sorting by named attributes?</li>
             </ul>
         </section>
