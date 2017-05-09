@@ -1,0 +1,433 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title></title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <style>
+            .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+              text-transform: none;
+            }
+            .reveal h2 {
+                font-size: 60px;
+            }
+            .ome_theme {
+                background-image: url("images/ome-icon-opacity.png");
+                background-color: #f2f6f9;
+                background-repeat: no-repeat;
+                background-position: right -270px top -120px;
+            }
+            .reveal {
+                text-transform: none;   !important
+            }
+
+            .reveal section img {
+                border-width:0;
+                border-color: white;
+            }
+
+            .img_panel {
+                width: 150px;
+            }
+
+            .nobullet li {
+                list-style: none;
+            }
+
+            table.centre {
+                width: 100%;
+            }
+
+            .reveal .centre td {
+                text-align: center;
+            }
+
+            .rot90 {
+                -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+            }
+
+            .reveal .title {
+                position:absolute;
+                bottom:100%;
+                margin:5px;
+                color:red;
+            }
+
+        </style>
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body class="ome_theme">
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section>
+                    <h1>Introduction to Bio-Formats</h1>
+                </section>
+
+                <section>
+                    <h2>What is Bio-Formats?</h2>
+
+                    <ul>
+                      <li>Java library for reading image-based datasets</li>
+                        <ul>
+                          <li>Reads images, but also acquisition metadata</li>
+                        </ul>
+                      <li>One API, many applications</li>
+                      <li>A complete implementation of OME-XML and OME-TIFF</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>A brief historical overview</h2>
+
+                    <ul>
+                      <li>2005 - work began on Java library</li>
+                      <li>2006 March 31 - first official release of Bio-Formats</li>
+                      <li>late 2006 - OMERO begins using Bio-Formats</li>
+                      <li>early 2008 - MATLAB first supported</li>
+                      <li>2008 - major effort standardize metadata handling across all formats</li>
+                      <li>2009 (v4.0.0) - unified version numbers with OMERO</li>
+                      <li>late 2012/early 2013 - work began on C++ library</li>
+                      <li>2014/2015 - major effort to improve performance</li>
+                      <li>2015 - increasing number of contributed code changes</li>
+                      <li>2016 - data model refinements and work on targeted projects (e.g. IDR)</li>
+                    </ul>
+                </section>
+
+                <section>
+                  <h2>The history in numbers</h2>
+
+
+                  <img style="height:600px; border-width:5px" src="./images/usage-history-2016.png"/>
+
+                  <!-- graph of users over time -->
+
+                  <!-- graph of formats over time -->
+                </section>
+
+                <section>
+                  <img width="150" src="./images/sebastienbesson.jpg"/>
+                  <img width="150" src="./images/colinblackburn.png"/>
+                  <img width="150" src="./images/jeanmarie.png"/>
+                  <img width="150" src="./images/MarkCarroll.jpg"/>
+                  <img width="150" src="./images/HelenFlynn.png"/>
+                  <img width="150" src="./images/davidgault.png"/>
+                  <img width="150" src="./images/rogerleigh.jpg"/>
+                  <img width="150" src="./images/SimoneLeo.jpg"/>
+                  <img width="150" src="./images/melissalinkert.png"/>
+                  <img width="150" src="./images/josh.jpg"/>
+                  <img width="150" src="./images/IanMunro.jpg"/>
+                  <img width="150" src="./images/balaji.png"/>
+                  <img width="150" src="./images/PetrWalczysko.png"/>
+                </section>
+
+                <section>
+                  <h2>What can you do now?</h2>
+                </section>
+
+                <section>
+                  <h2>Read images and metadata across many domains...</h2>
+                      <ul>
+                        <li>light microscopy</li>
+                        <li>electron microscopy</li>
+                        <li>medical imaging (CT, PET, ...)</li>
+                        <li>high content screening (HCS)</li>
+                        <li>digital pathology/whole slide imaging (WSI)</li>
+                        <li>FLIM</li>
+                        <li>SPIM</li>
+                      </ul>
+                  </ul>
+                </section>
+
+                <section>
+                  <section>
+                  <h2>...and in many different applications</h2>
+                  </section>
+                  <section>
+
+                  <!-- montage image of same code in ImageJ, MATLAB, Java, Python, ??? -->
+
+                  <pre>Java:<code>
+ImageReader reader = new ImageReader();
+IMetadata omeMetadata = MetadataTools.createOMEXMLMetadata();
+reader.setMetadataStore(omeMetadata);
+reader.setId("/PATH/TO/FILE");
+for (int plane = 0; plane < reader.getImageCount(); plane++) {
+  byte[] image = reader.openBytes(plane);
+  Number timestamp = omeMetadata.getPlaneDeltaT(0, plane).value();
+}
+
+                </code></pre></section>
+                <section>
+                <pre>ImageJ macro:<code>
+run("Bio-Formats Macro Extensions");
+Ext.setId("/PATH/TO/FILE");
+Ext.getImageCount(imageCount);
+timestamps = newArray(imageCount);
+for (plane=0; plane < imageCount; plane++) {
+  Ext.openImage("image #" + plane, plane);
+  Ext.getPlaneTimingDeltaT(timestamps[plane], plane);
+}
+                </code></pre>
+                </section>
+
+                <section>
+                <pre>MATLAB:<code>
+r = bfGetReader("/PATH/TO/FILE");
+imageCount = r.getImageCount();
+omeMetadata = r.getMetadataStore();
+for plane = 1:imageCount
+  image = bfGetPlane(r, plane, varargin{:});
+  timestamp = omeMetadata.getPlaneDeltaT(0, plane - 1).value().doubleValue();
+end
+                </code></pre></section>
+
+                <section>
+                <pre><a href="https://github.com/CellProfiler/python-bioformats">Python:</a><code>
+reader = bioformats.get_image_reader(None, path="/PATH/TO/FILE")
+imageCount = reader.rdr.getImageCount()
+omeMetadata = javabridge.JWrapper(reader.rdr.getMetadataStore())
+for plane in range(0, imageCount):
+    image = reader.read(series=0, index=plane, rescale=False)
+    timestamp = omeMetadata.getPlaneDeltaT(0, plane)
+                </code></pre></section>
+
+
+                <section>
+                <pre><a href="https://github.com/aoles/RBioFormats">R:</a><code>
+reader = .jnew("loci.formats.ImageReader")
+.jcall(reader, , "setId", file)
+omeMetadata = .jcall(reader, "", "getMetadataStore")
+image = .jcall(reader, "[B", "openBytes", 0)
+timestamp = .jcall(omeMetadata, "", "getPlaneDeltaT", 0, 0)
+                </code></pre>
+                </section>
+                </section>
+
+                <section>
+                  <section>
+                  <h2>Extensions to image reading</h2>
+                  <i>("reader wrappers")</i>
+
+                  <ul>
+                    <li>cache reader state (Memoizer)</li>
+                    <li>group independent files into a single dataset (FileStitcher)</li>
+                    <li>return images in a specific layout (ChannelSeparator, ChannelMerger)</li>
+                  </ul>
+                  </section>
+
+                  <section>
+                    <h2>Memoizer</h2>
+                    <pre><code>
+IFormatReader reader = new Memoizer(new ImageReader());
+reader.setId("/PATH/TO/FILE");
+                    </code></pre>
+
+                    <ul>
+                      <li>uses <a href="https://github.com/esotericsoftware/kryo">Kryo</a> to serialize the reader's initialized state to a file</li>
+                      <li>initializing the same data file again uses the serialized state (i.e. faster)</li>
+                    </ul>
+                  </section>
+
+                  <section>
+                    <h2>FileStitcher</h2>
+                    <pre><code>
+IFormatReader reader = new FileStitcher();
+// reads 001.tiff, 002.tiff, ..., 010.tiff together
+reader.setId("0< 01-10>.tiff");
+                    </code></pre>
+
+                    <ul>
+                      <li>groups together files not otherwise detected as part of the same dataset</li>
+                      <li>useful for files with missing or unreadable metadata</li>
+                    </ul>
+                  </section>
+
+                  <section>
+                    <h2>ChannelSeparator/ChannelMerger</h2>
+                    <pre><code>
+IFormatReader grayscaleImageReader = new ChannelSeparator();
+
+IFormatReader rgbImageReader = new ChannelMerger();
+                    </code></pre>
+
+                    <ul>
+                      <li>ChannelSeparator guarantees only grayscale images are returned</li>
+                      <li>ChannelMerger guarantees multi-channel datasets are returned as RGB images</li>
+                    </ul>
+                  </section>
+
+                  <section>
+                  <h2>Putting everything together...</h2>
+                  <pre><code>
+IFormatReader reader = new Memoizer(new FileStitcher(new ChannelSeparator()));
+                  </code></pre>
+
+                  <ul>
+                    <li>any combination of wrappers can be chained together</li>
+                  </ul>
+                  </section>
+                </section>
+
+                <section>
+                  <section>
+                    <h2>What we've done recently</h2>
+
+                    <ul>
+                      <li>maintenance of 5.1.x</li>
+                      <li>5.2.0</li>
+                      <li>performance and metadata updates for IDR</li>
+                    </ul>
+                  </section>
+
+                    <section>
+                        <h2>Bio-Formats 5.1.x series</h2>
+
+                        <p>See the Bio-Formats <a href="https://www.openmicroscopy.org/site/support/bio-formats5.1/about/whats-new.html">version history</a></p>
+
+                        <ul>
+                          <li>Reader bug fixes</li>
+                          <li>Support for native units across readers</li>
+                          <li>OMERO / Bio-Formats decoupling</li>
+                          <li>Documentation improvements</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Bio-Formats 5.1.x series: community</h2>
+
+                        <p>See the Bio-Formats <a href="https://www.openmicroscopy.org/site/support/bio-formats5.1/about/whats-new.html">version history</a></p>
+
+                        <ul>
+                          <li>Readers (Metamorph, Slidebook, Fei, Imspector OBF)</li>
+                          <li>MATLAB toolbox</li>
+                          <li>Octave package</li>
+                          <li>OME-XML validation</li>
+                        </ul>
+                    </section>
+
+                  <section>
+                    <h2>Bio-Formats 5.2.0</h2>
+
+                    <p>Breaking changes</p>
+
+                    <ul>
+                      <li>New OME Data model</li>
+                      <li>Code generation improvements</li>
+                      <li>Drop of support for Java 6</li>
+                      <li>API (logging)</li>
+                    </ul>
+                  </section>
+
+                  <section>
+                    <h2>Bio-Formats IDR</h2>
+                    <ul>
+                      <li>Lots of performance improvements for HCS formats</li>
+                      <li>Improved support for different types of Opera Flex plates</li>
+                      <li>More options for grouping together files without acquisition metadata</li>
+                    </ul>
+                  </section>
+                </section>
+
+                <section>
+                    <h2>What's next?</h2>
+
+                    <ul>
+                      <li>OME data model refinements</li>
+                        <ul>
+                          <li>Making existing features easier to use (e.g. units, MapAnnotation)</li>
+                          <li>Modernizing the data model development process</li>
+                        </ul>
+                      <li>Supporting our own formats</li>
+                        <ul>
+                          <li>Expanding examples and best practices documentation</li>
+                          <li>Working with other projects to support usage of OME-TIFF</li>
+                          <li>OME-HDF?</li>
+                        </ul>
+                    </ul>
+                </section>
+
+                <section>
+                  <h2>What's next...today?</h2>
+
+                  <ul>
+                    <li>Supporting and maintaining OME file formats</li>
+                    <li>Questions?  Concerns?</li>
+                    <li>Breakouts/technical discussion - look for the Bio-Formats sign!</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h2>Questions?</h2>
+                </section>
+
+                <section>
+                  <h2>Contributing to Bio-Formats</h2>
+                </section>
+
+            </div>
+
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
