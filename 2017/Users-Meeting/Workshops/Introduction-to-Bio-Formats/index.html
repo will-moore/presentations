@@ -120,6 +120,7 @@
                       <li>2014/2015 - major effort to improve performance</li>
                       <li>2015 - increasing number of contributed code changes</li>
                       <li>2016 - data model refinements and work on targeted projects (e.g. IDR)</li>
+                      <li>2017 - new API additions (MetadataOptions and Tiling)</li>
                     </ul>
                 </section>
 
@@ -145,7 +146,6 @@
                   <img width="150" src="./images/SimoneLeo.jpg"/>
                   <img width="150" src="./images/melissalinkert.png"/>
                   <img width="150" src="./images/josh.jpg"/>
-                  <img width="150" src="./images/IanMunro.jpg"/>
                   <img width="150" src="./images/balaji.png"/>
                   <img width="150" src="./images/PetrWalczysko.png"/>
                 </section>
@@ -300,61 +300,237 @@ IFormatReader reader = new Memoizer(new FileStitcher(new ChannelSeparator()));
 
                 <section>
                   <section>
-                    <h2>What we've done recently</h2>
+                    <h2>What we've done in the past year</h2>
 
                     <ul>
-                      <li>maintenance of 5.1.x</li>
-                      <li>5.2.0</li>
-                      <li>performance and metadata updates for IDR</li>
+                      <li>released  4 new minor versions from Bio-Formats 5.2 to 5.5</li>
+                      <li>new API additions for tiling</li>
+                      <li>new dynamic metadata options</li>
+                      <li>added support for 5 new file formats</li>
+                      <li>release of a new schema 2016-06</li>
+                      <li>bug fixes and reader improvements</li>
+                      <li>performance and test coverage improvements</li>
+                      <li>re architecture of components</li>
                     </ul>
                   </section>
 
                     <section>
-                        <h2>Bio-Formats 5.1.x series</h2>
+                        <h2>New minor releases</h2>
 
                         <p>See the Bio-Formats <a href="https://www.openmicroscopy.org/site/support/bio-formats5.1/about/whats-new.html">version history</a></p>
 
                         <ul>
-                          <li>Reader bug fixes</li>
-                          <li>Support for native units across readers</li>
-                          <li>OMERO / Bio-Formats decoupling</li>
-                          <li>Documentation improvements</li>
+                          <li>Bio-Formats 5.2 - New schema release, 2 new file formats</li>
+                          <li>Bio-Formats 5.3 - Tiling API additions, dynamic metadata options, JPEG-XR support</li>
+                          <li>Bio-Formats 5.4 - allow writing of companion file with bfconvert, performance improvements</li>
+                          <li>Bio-Formats 5.5 - Support for Olympus OIR and PerkinElmer Columbus</li>
                         </ul>
                     </section>
-
+                    
                     <section>
-                        <h2>Bio-Formats 5.1.x series: community</h2>
+                      <h2>New file formats</h2>
+                      <ul>
+                        <li>Olympus OIR (funded by a partnership between Glencoe Software and OLYMPUS EUROPA SE & Co. KG)</li>
+                        <li>PerkinElmer Columbus</li>
+                        <li>JPEG-XR</li>
+                        <li>Becker & Hickl .spc</li>
+                        <li>Princeton Instruments .spe</li>
+                      </ul>
+                    </section>
+                    
+                    <section>
+                        <h2>New OME schema - 2016-06</h2>
 
-                        <p>See the Bio-Formats <a href="https://www.openmicroscopy.org/site/support/bio-formats5.1/about/whats-new.html">version history</a></p>
+                        <p>See the Bio-Formats <a href="https://www.openmicroscopy.org/site/support/ome-model/schemas/">schema history</a></p>
 
                         <ul>
-                          <li>Readers (Metamorph, Slidebook, Fei, Imspector OBF)</li>
-                          <li>MATLAB toolbox</li>
-                          <li>Octave package</li>
-                          <li>OME-XML validation</li>
+                          <li>Map is now a complexType rather than an element and MapPairs has been dropped</li>
+                          <li>extended enum metadata has been introduced to better support units</li>
+                          <li>Shape and LightSource are now complexTypes rather than elements</li>
+                          <li>BinData has been added to code generation to handle raw binary data</li>
+                        </ul>
+                        <p>Various code generation improvements to:</p>
+                        <ul>
+                          <li>simplify and standardize the generation process</li>
+                          <li>remove a number of hard-coded exceptional cases allowing for easier maintenance and growth</li>
+                          <li>allow for genuine abstract model types and enable C++ model implementation</li>
                         </ul>
                     </section>
 
                   <section>
-                    <h2>Bio-Formats 5.2.0</h2>
-
-                    <p>Breaking changes</p>
-
+                    <h2>Architecture Changes</h2>
                     <ul>
-                      <li>New OME Data model</li>
-                      <li>Code generation improvements</li>
-                      <li>Drop of support for Java 6</li>
-                      <li>API (logging)</li>
+                      <li>removed formats-common component - now decoupled to the new ome/ome-common-java GitHub repository and consumed as ‘org.openmicroscopy:ome-common’ artifact from Maven Central</li>
+                      <li>removed ome-poi component - now decoupled to the new ome/ome-poi GitHub repository and consumed as ‘org.openmicroscopy:ome-poi’ artifact from Maven Central</li>
+                      <li>removed specification, xsd-fu and ome-xml components - now decoupled to the new ome/ome-model GitHub repository and consumed as ‘org.openmicroscopy:{specification,ome-xml}’ artifacts from Maven Central</li>
+                      <li>removed mdbtools component - now decoupled to the new ome/ome-mdbtools GitHub repository and consumed as ‘org.openmicroscopy:ome-mdbtools’ artifact from Maven Central</li>
+                      <li>removed stubs components - now decoupled to the new ome/ome-stubs GitHub repository and consumed as ‘org.openmicroscopy:{lwf-stubs,mipav-stubs}’ artifacts from Maven Central</li>
+                      <li>removed metakit component - now decoupled to the new ome/ome-metakit GitHub repository and consumed as ‘org.openmicroscopy:metakit’ artifacts from Maven Central</li>
                     </ul>
+                  </section>
+                </section>
+                
+                <section>  
+                  <section>
+                    <h2>Tiling</h2>
+                    <ul>
+                      <li>added new methods to the loci.formats.IFormatWriter interface allowing to set and retrieve the tile along the X and Y dimensions</li>
+                      <li>added default implementations to the loci.formats.FormatWriter abstract class defaulting to the entire image width/height</li>
+                      <li>added functionality to loci.formats.TiffWriter adding support for tiled images writing for TIFF and derived formats like OME-TIFF</li>
+                      <li>added developer documentation and samples for tiled reading/writing</li>
+                    </ul>
+                  </section>
+                    
+                  <section>
+                    <h2>Tiling API</h2>
+                    Tiled writing is currently supported for TIFF-based formats. To set up an image writer to use tiling the following 2 API functions are provided:
+                    <code>
+                      public int setTileSizeX(int tileSize) throws FormatException
+                      public int setTileSizeY(int tileSize) throws FormatException
+                    </code>                    
+                    Each function takes in an integer parameter for the desired tile size. As not all tile sizes are supported, the image writer will round the requested value to the nearest supported tile size. 
+                    The return value will contain the actual tiling size which will be used by the writer.
+
+                    To find out the tiling size currently being used at any point there are 2 further API functions to get the current tile size for a writer. 
+                    If tiling is not being used or is not supported then the full image height and width will be returned.
+                    <code>
+                      public int getTileSizeX() throws FormatException
+                      public int getTileSizeY() throws FormatException
+                    </code>                       
+                  </section>
+                    
+                  <section>
+                    <h2>Tiled Writing - Intorduction</h2>
+                    <p>See full example at <a href="https://www.openmicroscopy.org/site/support/bio-formats5.5/_downloads/SimpleTiledWriter.java">SimpleTiledWriter/a></p>       
+                    <pre>Simple Tiled Writer
+                      <code>
+                        // construct the object that stores OME-XML metadata
+                        ServiceFactory factory = new ServiceFactory();
+                        OMEXMLService service = factory.getInstance(OMEXMLService.class);
+                        IMetadata omexml = service.createOMEXMLMetadata();
+
+                        // set up the reader and associate it with the input file
+                        reader = new ImageReader();
+                        reader.setMetadataStore(omexml);
+                        reader.setId(inputFile);
+
+                        // set up the writer and associate it with the output file
+                        writer = new OMETiffWriter();
+                        writer.setMetadataRetrieve(omexml);
+                        writer.setInterleaved(reader.isInterleaved());
+
+                        // set the tile size height and width for writing
+                        this.tileSizeX = writer.setTileSizeX(tileSizeX);
+                        this.tileSizeY = writer.setTileSizeY(tileSizeY);
+
+                        writer.setId(outputFile);
+                        byte[] buf = new byte[FormatTools.getPlaneSize(reader)];
+
+                        for (int series=0; series<reader.getSeriesCount(); series++) {
+                          reader.setSeries(series);
+                          writer.setSeries(series);
+
+                          // convert each image in the current series
+                          for (int image=0; image<reader.getImageCount(); image++) {
+                            // Read tiles from the input file and write them to the output OME-Tiff
+                            // The OME-Tiff Writer will automatically write the images in a tiled format
+                            buf = reader.openBytes(image);
+                            writer.saveBytes(image, buf);
+                          }
+                        }
+                      </code>
+                    </pre>
                   </section>
 
                   <section>
-                    <h2>Bio-Formats IDR</h2>
+                    <h2>Tiled Writing - Reading and Writing</h2>
+                    <p>See full example at <a href="https://www.openmicroscopy.org/site/support/bio-formats5.5/_downloads/TiledReaderWriter.java">SimpleTiledWriter/a></p>       
+                    <pre>Tiled Reader Writer
+                      <code>
+                        int bpp = FormatTools.getBytesPerPixel(reader.getPixelType());
+                        int tilePlaneSize = tileSizeX * tileSizeY * reader.getRGBChannelCount() * bpp;
+                        byte[] buf = new byte[tilePlaneSize];
+
+                        for (int series=0; series<reader.getSeriesCount(); series++) {
+                          reader.setSeries(series);
+                          writer.setSeries(series);
+
+                          // convert each image in the current series
+                          for (int image=0; image<reader.getImageCount(); image++) {
+                            int width = reader.getSizeX();
+                            int height = reader.getSizeY();
+
+                            // Determined the number of tiles to read and write
+                            int nXTiles = width / tileSizeX;
+                            int nYTiles = height / tileSizeY;
+                            if (nXTiles * tileSizeX != width) nXTiles++;
+                            if (nYTiles * tileSizeY != height) nYTiles++;
+        
+                            for (int y=0; y<nYTiles; y++) {
+                              for (int x=0; x<nXTiles; x++) {
+                                // The x and y coordinates for the current tile
+                                int tileX = x * tileSizeX;
+                                int tileY = y * tileSizeY;
+
+                                // Read tiles from the input file and write them to the output OME-Tiff
+                                buf = reader.openBytes(image, tileX, tileY, tileSizeX, tileSizeY);
+                                writer.saveBytes(image, buf, tileX, tileY, tileSizeX, tileSizeY);
+                              }
+                            }
+                          }
+                        }
+                      </code>
+                    </pre>
+                  </section>
+                </section>
+                    
+                <section>  
+                  <section>
+                    <h2>Metadata Options</h2>
                     <ul>
-                      <li>Lots of performance improvements for HCS formats</li>
-                      <li>Improved support for different types of Opera Flex plates</li>
-                      <li>More options for grouping together files without acquisition metadata</li>
+                      <li>new API supporting arbitrary key/value pairs</li>
+                      <li>DynamicMetadataOptions class can be used to set options</li>
+                      <li>options are now also supported in the command line tools</li>
+                      <li>in FIJI options are available via Bio-Formats Plugins Configuration window</li>
                     </ul>
+                    <p>See full list of <a href="http://www.openmicroscopy.org/site/support/bio-formats5.4/formats/options.html">Reader and Writer options/a></p>       
+                  </section>
+                    
+                  <section>
+                    <h2>Metadata Options API Usage</h2>
+                    <pre>Retrieiving Options
+                      <code>
+                        MetadataOptions options = writer.getMetadataOptions();
+                        if (options instanceof DynamicMetadataOptions) {
+                          boolean value = ((DynamicMetadataOptions) options).getBoolean("ometiff.companion"); 
+                        }
+                      </code>
+                    </pre>
+                    <pre>Setting Options
+                      <code>
+                        MetadataOptions options = reader.getMetadataOptions();
+                        if (options instanceof DynamicMetadataOptions) {
+                          ((DynamicMetadataOptions) options).setBoolean("nativend2.chunkmap", true); 
+                          reader.setMetadataOptions(options);
+                        }
+                      </code>
+                    </pre>
+                  </section>
+                    
+                  <section>
+                    <h2>Metadata Options Command Line Usage</h2>
+                    Reader options can be used via the command line with showinf -option
+                    <pre>showinf example
+                      <code>
+                        showinf -option nativend2.chunkmap true inputFile.nd2
+                      </code>
+                    </pre>
+                    Writer options can be used via the command line using bfconvert -option
+                    <pre>bfconvert example
+                      <code>
+                        bfconvert -option ometiff.companionoutputFile.companion.ome inputFile.tiff outputFile.ome.tiff
+                      </code>
+                    </pre>
                   </section>
                 </section>
 
