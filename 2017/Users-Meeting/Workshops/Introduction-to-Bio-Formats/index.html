@@ -303,7 +303,7 @@ IFormatReader reader = new Memoizer(new FileStitcher(new ChannelSeparator()));
                     <h2>What we've done in the past year</h2>
 
                     <ul>
-                      <li>released  4 new minor versions from Bio-Formats 5.2 to 5.5</li>
+                      <li>released  4 new minor versions from 5.2 to 5.5</li>
                       <li>new API additions for tiling</li>
                       <li>new dynamic metadata options</li>
                       <li>added support for 5 new file formats</li>
@@ -322,7 +322,7 @@ IFormatReader reader = new Memoizer(new FileStitcher(new ChannelSeparator()));
                         <ul>
                           <li>Bio-Formats 5.2 - New schema release, 2 new file formats</li>
                           <li>Bio-Formats 5.3 - Tiling API additions, dynamic metadata options, JPEG-XR support</li>
-                          <li>Bio-Formats 5.4 - allow writing of companion file with bfconvert, performance improvements</li>
+                          <li>Bio-Formats 5.4 - command line options, performance improvements</li>
                           <li>Bio-Formats 5.5 - Support for Olympus OIR and PerkinElmer Columbus</li>
                         </ul>
                     </section>
@@ -339,33 +339,37 @@ IFormatReader reader = new Memoizer(new FileStitcher(new ChannelSeparator()));
                     </section>
                     
                     <section>
-                        <h2>New OME schema - 2016-06</h2>
-
-                        <p>See the Bio-Formats <a href="https://www.openmicroscopy.org/site/support/ome-model/schemas/">schema history</a></p>
-
+                      <h2>New OME schema - 2016-06</h2>
+                      <p>See the Bio-Formats <a href="https://www.openmicroscopy.org/site/support/ome-model/schemas/">schema history</a></p>
+                      <ul>
+                        <li>Map is now a complexType</li>
+                        <li>MapPairs has been dropped</li>
+                        <li>extended enum metadata to better support units</li>
+                        <li>Shape and LightSource are now complexTypes</li>
+                        <li>Various code generation improvements:</li>
                         <ul>
-                          <li>Map is now a complexType rather than an element and MapPairs has been dropped</li>
-                          <li>extended enum metadata has been introduced to better support units</li>
-                          <li>Shape and LightSource are now complexTypes rather than elements</li>
-                          <li>BinData has been added to code generation to handle raw binary data</li>
-                        </ul>
-                        <p>Various code generation improvements to:</p>
-                        <ul>
+                          <li>BinData has been added to handle raw binary data</li>
                           <li>simplify and standardize the generation process</li>
-                          <li>remove a number of hard-coded exceptional cases allowing for easier maintenance and growth</li>
-                          <li>allow for genuine abstract model types and enable C++ model implementation</li>
+                          <li>allow for genuine abstract model types</li>
+                          <li>enable C++ model implementation</li>
                         </ul>
+                      </ul>
                     </section>
 
                   <section>
                     <h2>Architecture Changes</h2>
                     <ul>
-                      <li>removed formats-common component - now decoupled to the new ome/ome-common-java GitHub repository and consumed as ‘org.openmicroscopy:ome-common’ artifact from Maven Central</li>
-                      <li>removed ome-poi component - now decoupled to the new ome/ome-poi GitHub repository and consumed as ‘org.openmicroscopy:ome-poi’ artifact from Maven Central</li>
-                      <li>removed specification, xsd-fu and ome-xml components - now decoupled to the new ome/ome-model GitHub repository and consumed as ‘org.openmicroscopy:{specification,ome-xml}’ artifacts from Maven Central</li>
-                      <li>removed mdbtools component - now decoupled to the new ome/ome-mdbtools GitHub repository and consumed as ‘org.openmicroscopy:ome-mdbtools’ artifact from Maven Central</li>
-                      <li>removed stubs components - now decoupled to the new ome/ome-stubs GitHub repository and consumed as ‘org.openmicroscopy:{lwf-stubs,mipav-stubs}’ artifacts from Maven Central</li>
-                      <li>removed metakit component - now decoupled to the new ome/ome-metakit GitHub repository and consumed as ‘org.openmicroscopy:metakit’ artifacts from Maven Central</li>
+                      <li>decoupled components to new GitHub repositories.</li>
+                      <li>consumed as artifacts from Maven Central.</li>
+                      <li>The following componets have been decoupled:</li>
+                      <ul>
+                        <li>formats-common - now ome-common-java</li>
+                        <li>ome-poi</li>
+                        <li>specification, xsd-fu and ome-xml components - now ome-model</li>
+                        <li>mdbtools - now ome-mdbtools</li>
+                        <li>stubs components - now ome-stubs</li>
+                        <li>metakit component - now ome-metakit</li>
+                      </ul>
                     </ul>
                   </section>
                 </section>
@@ -374,163 +378,168 @@ IFormatReader reader = new Memoizer(new FileStitcher(new ChannelSeparator()));
                   <section>
                     <h2>Tiling</h2>
                     <ul>
-                      <li>added new methods to the loci.formats.IFormatWriter interface allowing to set and retrieve the tile along the X and Y dimensions</li>
-                      <li>added default implementations to the loci.formats.FormatWriter abstract class defaulting to the entire image width/height</li>
-                      <li>added functionality to loci.formats.TiffWriter adding support for tiled images writing for TIFF and derived formats like OME-TIFF</li>
-                      <li>added developer documentation and samples for tiled reading/writing</li>
+                      <li>new API to set and retrieve the tile size along X and Y</li>
+                      <li>tiled writing is supported for TIFF-based formats</li>
+                      <li>when set TIFF writers automatically handle tiling</li>
+                      <li>writing tiles using the TIFF IFD is still supported</li>
                     </ul>
                   </section>
                     
                   <section>
                     <h2>Tiling API</h2>
-                    Tiled writing is currently supported for TIFF-based formats. To set up an image writer to use tiling the following 2 API functions are provided:
-                    <code>
-                      public int setTileSizeX(int tileSize) throws FormatException
-                      public int setTileSizeY(int tileSize) throws FormatException
-                    </code>                    
-                    Each function takes in an integer parameter for the desired tile size. As not all tile sizes are supported, the image writer will round the requested value to the nearest supported tile size. 
-                    The return value will contain the actual tiling size which will be used by the writer.
-
-                    To find out the tiling size currently being used at any point there are 2 further API functions to get the current tile size for a writer. 
-                    If tiling is not being used or is not supported then the full image height and width will be returned.
-                    <code>
-                      public int getTileSizeX() throws FormatException
-                      public int getTileSizeY() throws FormatException
-                    </code>                       
+                    <ul>
+                      <li>to set up an image writer to use tiling the following 2 API functions are provided:</li>
+                    </ul>
+                    <pre><code>
+public int setTileSizeX(int tileSize) throws FormatException
+public int setTileSizeY(int tileSize) throws FormatException
+                    </code></pre>
+                  </section>
+                    
+                  <section>
+                    <h2>Tiling API</h2>
+                    <ul>
+                      <li>Each function takes in an integer parameter for the desired tile size.</li>
+                      <li>The image writer will round the requested value to the nearest supported tile size.</li>
+                      <li>The return value will contain the actual tiling size which will be used by the writer.</li>
+                    </ul>
+                  </section>
+                      
+                  <section>
+                    <h2>Tiling API</h2>
+                    <ul>
+                      <li>To find out the tiling size currently being used at any point there are 2 further API functions to get the current tile size for a writer.</li>
+                    </ul>
+                    <pre><code>
+public int getTileSizeX() throws FormatException
+public int getTileSizeY() throws FormatException
+                    </code></pre>
                   </section>
                     
                   <section>
                     <h2>Tiled Writing - Intorduction</h2>
-                    <p>See full example at <a href="https://www.openmicroscopy.org/site/support/bio-formats5.5/_downloads/SimpleTiledWriter.java">SimpleTiledWriter/a></p>       
-                    <pre>Simple Tiled Writer
-                      <code>
-                        // construct the object that stores OME-XML metadata
-                        ServiceFactory factory = new ServiceFactory();
-                        OMEXMLService service = factory.getInstance(OMEXMLService.class);
-                        IMetadata omexml = service.createOMEXMLMetadata();
+                    <p>See full example at <a href="https://www.openmicroscopy.org/site/support/bio-formats5.5/_downloads/SimpleTiledWriter.java">SimpleTiledWriter</a></p>
+                    <pre>Simple Tiled Writer<code>
+// construct the object that stores OME-XML metadata
+ServiceFactory factory = new ServiceFactory();
+OMEXMLService service = factory.getInstance(OMEXMLService.class);
+IMetadata omexml = service.createOMEXMLMetadata();
 
-                        // set up the reader and associate it with the input file
-                        reader = new ImageReader();
-                        reader.setMetadataStore(omexml);
-                        reader.setId(inputFile);
+// set up the reader and associate it with the input file
+reader = new ImageReader();
+reader.setMetadataStore(omexml);
+reader.setId(inputFile);
 
-                        // set up the writer and associate it with the output file
-                        writer = new OMETiffWriter();
-                        writer.setMetadataRetrieve(omexml);
-                        writer.setInterleaved(reader.isInterleaved());
+ // set up the writer and associate it with the output file
+writer = new OMETiffWriter();
+writer.setMetadataRetrieve(omexml);
+writer.setInterleaved(reader.isInterleaved());
 
-                        // set the tile size height and width for writing
-                        this.tileSizeX = writer.setTileSizeX(tileSizeX);
-                        this.tileSizeY = writer.setTileSizeY(tileSizeY);
+// set the tile size height and width for writing
+this.tileSizeX = writer.setTileSizeX(tileSizeX);
+this.tileSizeY = writer.setTileSizeY(tileSizeY);
 
-                        writer.setId(outputFile);
-                        byte[] buf = new byte[FormatTools.getPlaneSize(reader)];
+writer.setId(outputFile);
+byte[] buf = new byte[FormatTools.getPlaneSize(reader)];
 
-                        for (int series=0; series<reader.getSeriesCount(); series++) {
-                          reader.setSeries(series);
-                          writer.setSeries(series);
+for (int series=0; series < reader.getSeriesCount(); series++) {
+  reader.setSeries(series);
+  writer.setSeries(series);
 
-                          // convert each image in the current series
-                          for (int image=0; image<reader.getImageCount(); image++) {
-                            // Read tiles from the input file and write them to the output OME-Tiff
-                            // The OME-Tiff Writer will automatically write the images in a tiled format
-                            buf = reader.openBytes(image);
-                            writer.saveBytes(image, buf);
-                          }
-                        }
-                      </code>
-                    </pre>
+  // convert each image in the current series
+  for (int image=0; image < reader.getImageCount(); image++) {
+    // Read tiles from the input file and write them to the output OME-Tiff
+    // The OME-Tiff Writer will automatically write the images in a tiled format
+    buf = reader.openBytes(image);
+    writer.saveBytes(image, buf);
+  }
+}
+                    </code></pre>
                   </section>
 
                   <section>
                     <h2>Tiled Writing - Reading and Writing</h2>
-                    <p>See full example at <a href="https://www.openmicroscopy.org/site/support/bio-formats5.5/_downloads/TiledReaderWriter.java">SimpleTiledWriter/a></p>       
-                    <pre>Tiled Reader Writer
-                      <code>
-                        int bpp = FormatTools.getBytesPerPixel(reader.getPixelType());
-                        int tilePlaneSize = tileSizeX * tileSizeY * reader.getRGBChannelCount() * bpp;
-                        byte[] buf = new byte[tilePlaneSize];
+                    <p>See full example at <a href="https://www.openmicroscopy.org/site/support/bio-formats5.5/_downloads/TiledReaderWriter.java">TiledReaderWriter</a></p>
+                    <pre>Tiled Reader Writer<code>
+int bpp = FormatTools.getBytesPerPixel(reader.getPixelType());
+int tilePlaneSize = tileSizeX * tileSizeY * reader.getRGBChannelCount() * bpp;
+byte[] buf = new byte[tilePlaneSize];
 
-                        for (int series=0; series<reader.getSeriesCount(); series++) {
-                          reader.setSeries(series);
-                          writer.setSeries(series);
+for (int series=0; series < reader.getSeriesCount(); series++) {
+  reader.setSeries(series);
+  writer.setSeries(series);
 
-                          // convert each image in the current series
-                          for (int image=0; image<reader.getImageCount(); image++) {
-                            int width = reader.getSizeX();
-                            int height = reader.getSizeY();
+  // convert each image in the current series
+  for (int image=0; image < reader.getImageCount(); image++) {
+    int width = reader.getSizeX();
+    int height = reader.getSizeY();
 
-                            // Determined the number of tiles to read and write
-                            int nXTiles = width / tileSizeX;
-                            int nYTiles = height / tileSizeY;
-                            if (nXTiles * tileSizeX != width) nXTiles++;
-                            if (nYTiles * tileSizeY != height) nYTiles++;
+    // Determined the number of tiles to read and write
+    int nXTiles = width / tileSizeX;
+    int nYTiles = height / tileSizeY;
+    if (nXTiles * tileSizeX != width) nXTiles++;
+    if (nYTiles * tileSizeY != height) nYTiles++;
         
-                            for (int y=0; y<nYTiles; y++) {
-                              for (int x=0; x<nXTiles; x++) {
-                                // The x and y coordinates for the current tile
-                                int tileX = x * tileSizeX;
-                                int tileY = y * tileSizeY;
+    for (int y=0; y < nYTiles; y++) {
+      for (int x=0; x < nXTiles; x++) {
+        // The x and y coordinates for the current tile
+        int tileX = x * tileSizeX;
+        int tileY = y * tileSizeY;
 
-                                // Read tiles from the input file and write them to the output OME-Tiff
-                                buf = reader.openBytes(image, tileX, tileY, tileSizeX, tileSizeY);
-                                writer.saveBytes(image, buf, tileX, tileY, tileSizeX, tileSizeY);
-                              }
-                            }
-                          }
-                        }
-                      </code>
-                    </pre>
+        // Read tiles from the input file and write them to the output OME-Tiff
+        buf = reader.openBytes(image, tileX, tileY, tileSizeX, tileSizeY);
+        writer.saveBytes(image, buf, tileX, tileY, tileSizeX, tileSizeY);
+      }
+    }
+  }
+}
+                    </code></pre>
                   </section>
                 </section>
                     
                 <section>  
                   <section>
                     <h2>Metadata Options</h2>
+                    <p>See full list of <a href="http://www.openmicroscopy.org/site/support/bio-formats5.4/formats/options.html">Reader and Writer options</a></p>
                     <ul>
                       <li>new API supporting arbitrary key/value pairs</li>
-                      <li>DynamicMetadataOptions class can be used to set options</li>
-                      <li>options are now also supported in the command line tools</li>
+                      <li>DynamicMetadataOptions class used to set options</li>
+                      <li>options are now supported in the command line tools</li>
                       <li>in FIJI options are available via Bio-Formats Plugins Configuration window</li>
                     </ul>
-                    <p>See full list of <a href="http://www.openmicroscopy.org/site/support/bio-formats5.4/formats/options.html">Reader and Writer options/a></p>       
                   </section>
                     
                   <section>
-                    <h2>Metadata Options API Usage</h2>
-                    <pre>Retrieiving Options
-                      <code>
-                        MetadataOptions options = writer.getMetadataOptions();
-                        if (options instanceof DynamicMetadataOptions) {
-                          boolean value = ((DynamicMetadataOptions) options).getBoolean("ometiff.companion"); 
-                        }
-                      </code>
-                    </pre>
-                    <pre>Setting Options
-                      <code>
-                        MetadataOptions options = reader.getMetadataOptions();
-                        if (options instanceof DynamicMetadataOptions) {
-                          ((DynamicMetadataOptions) options).setBoolean("nativend2.chunkmap", true); 
-                          reader.setMetadataOptions(options);
-                        }
-                      </code>
-                    </pre>
+                    <h2>API Usage</h2>
+                    <pre>Retrieiving Options<code>
+MetadataOptions options = writer.getMetadataOptions();
+if (options instanceof DynamicMetadataOptions) {
+  boolean value = ((DynamicMetadataOptions) options).getBoolean("ometiff.companion");
+}
+                    </code></pre>
+                    <pre>Setting Options<code>
+MetadataOptions options = reader.getMetadataOptions();
+if (options instanceof DynamicMetadataOptions) {
+  ((DynamicMetadataOptions) options).setBoolean("nativend2.chunkmap", true);
+  reader.setMetadataOptions(options);
+}
+                    </code></pre>
                   </section>
                     
                   <section>
-                    <h2>Metadata Options Command Line Usage</h2>
-                    Reader options can be used via the command line with showinf -option
-                    <pre>showinf example
-                      <code>
-                        showinf -option nativend2.chunkmap true inputFile.nd2
-                      </code>
-                    </pre>
-                    Writer options can be used via the command line using bfconvert -option
-                    <pre>bfconvert example
-                      <code>
-                        bfconvert -option ometiff.companionoutputFile.companion.ome inputFile.tiff outputFile.ome.tiff
-                      </code>
-                    </pre>
+                    <h2>Command Line Usage</h2>
+                    <ul>
+                      <li>Reader options can be used with showinf -option</li>
+                    </ul>
+                    <pre>showinf example<code>
+showinf -option nativend2.chunkmap true inputFile.nd2
+                    </code></pre>
+                    <ul>
+                      <li>Writer options can be used with bfconvert -option</li>
+                    </ul>
+                    <pre>bfconvert example<code>
+bfconvert -option ometiff.companionoutputFile.companion.ome inputFile.tiff outputFile.ome.tiff
+                    </code></pre>
                   </section>
                 </section>
 
