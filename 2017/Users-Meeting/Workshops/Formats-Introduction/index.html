@@ -1,0 +1,219 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title></title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="../reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="../reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <style>
+            .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+              text-transform: none;
+            }
+            .reveal h2 {
+                font-size: 60px;
+            }
+            .ome_theme {
+                background-image: url("../images/ome-icon-opacity.png");
+                background-color: #f2f6f9;
+                background-repeat: no-repeat;
+                background-position: right -270px top -120px;
+            }
+            .reveal {
+                text-transform: none;   !important
+            }
+
+            .reveal section img {
+                border-width:0;
+                border-color: white;
+            }
+
+            .img_panel {
+                width: 150px;
+            }
+
+            .nobullet li {
+                list-style: none;
+            }
+
+            table.centre {
+                width: 100%;
+            }
+
+            .reveal .centre td {
+                text-align: center;
+            }
+
+            .rot90 {
+                -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+            }
+
+            .reveal .title {
+                position:absolute;
+                bottom:100%;
+                margin:5px;
+                color:red;
+            }
+
+        </style>
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="../reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="../reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body class="ome_theme">
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section>
+                    <h1>OME Files & Formats</h1>
+                </section>
+
+                <section>
+                    <h2>Historical overview</h2>
+
+                    <ul>
+                      <li>2003 - Work began on OME Data Model</li>
+                      <li>2003 - Work began on Java library</li>
+                      <li>2006 - First official release of Bio-Formats</li>
+                      <li>2006 - OMERO begins using Bio-Formats</li>
+                      <li>2008 - Major integration metadata handling across all formats</li>
+                      <li>2009 - Unified version numbers with OMERO</li>
+                      <li>2013 - Work began on C++ library</li>
+                      <li>2015 - Decoupling of version numbers with OMERO</li>
+                      <li>2016 - First official release of OME Files C++</li>
+                      <li>2016 - Rearchitecture of the Formats components</li>
+                    </ul>
+                </section>
+                
+                <section>
+                  <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/jason/sebastienbesson.jpg"/>
+                  <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/jason/jeanmarie.png"/>
+                  <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/jason/MarkCarroll.jpg"/>
+                  <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/jason/HelenFlynn.png"/>
+                  <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/jason/davidgault.png"/>
+                  <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/jason/rogerleigh.jpg"/>
+                  <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/jason/SimoneLeo.jpg"/>
+                  <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/glencoe-software/melissalinkert.png"/>
+                  <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/jason/josh.jpg"/>
+                  <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/jason/balaji.png"/>
+                  <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/jason/PetrWalczysko.png"/>
+                </section>
+
+                <section>
+                    <h2>Software</h2>
+
+                    <ul>
+                      <li>OME Data Model: Metadata specification</li>
+                      <li>OME File Formats: OME-TIFF</li>
+                      <li>Bio-Formats: Java library for reading imaging data</li>
+                      <li>OME Files C++: C++ reference implementation</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                  <h2>The history in numbers</h2>
+
+
+                  <img style="height:600px; border-width:5px" src="./images/usage-history-2016.png"/>
+
+                  <!-- graph of users over time -->
+
+                  <!-- graph of formats over time -->
+                </section>
+
+                <section>
+                 <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/jason/sebastienbesson.jpg"/>
+                 <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/jason/jeanmarie.png"/>
+                 <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/jason/MarkCarroll.jpg"/>
+                 <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/jason/HelenFlynn.png"/>
+                 <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/jason/davidgault.png"/>
+                 <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/jason/rogerleigh.jpg"/>
+                 <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/jason/SimoneLeo.jpg"/>
+                 <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/glencoe-software/melissalinkert.png"/>
+                 <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/jason/josh.jpg"/>
+                 <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/jason/balaji.png"/>
+                 <img width="150" src="https://www.openmicroscopy.org/site/about/development-teams/jason/PetrWalczysko.png"/>
+                </section>
+
+                <section>
+                  <h2>Contributing to Bio-Formats</h2>
+                </section>
+
+                <section>
+                  <h2>What's next...today?</h2>
+
+                  <ul>
+                    <li>Bio-Formats</li>
+                    <li>OME-Files</li>
+                    <li>Breakouts/technical discussion</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h2>Questions?</h2>
+                </section>
+
+
+            </div>
+
+        </div>
+
+        <script src="../reveal-js/lib/js/head.min.js"></script>
+        <script src="../reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
