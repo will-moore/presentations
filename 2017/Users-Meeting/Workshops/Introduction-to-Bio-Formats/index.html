@@ -285,10 +285,11 @@ IFormatReader reader = new Memoizer(new FileStitcher(new ChannelSeparator()));
                       <h2>New OME schema - 2016-06</h2>
                       <p>See the Bio-Formats <a href="https://www.openmicroscopy.org/site/support/ome-model/schemas/">schema history</a></p>
                       <ul>
-                        <li>Map is now a complexType</li>
-                        <li>MapPairs has been dropped</li>
+                        <li>introduced the concept of Folders</li>
+                        <li>ROI properties have been simplified</li>
                         <li>extended enum metadata to better support units</li>
-                        <li>Shape and LightSource are now complexTypes</li>
+                        <li>Shape, LightSource and Map are now complexTypes</li>
+                        <li>MapPairs has been dropped</li>
                         <li>Various code generation improvements:</li>
                         <ul>
                           <li>BinData has been added to handle raw binary data</li>
@@ -368,12 +369,12 @@ ServiceFactory factory = new ServiceFactory();
 OMEXMLService service = factory.getInstance(OMEXMLService.class);
 IMetadata omexml = service.createOMEXMLMetadata();
 
-// set up the reader and associate it with the input file
+// setup the reader and associate it with the input file
 reader = new ImageReader();
 reader.setMetadataStore(omexml);
 reader.setId(inputFile);
 
- // set up the writer and associate it with the output file
+// setup the writer and associate it with the output file
 writer = new OMETiffWriter();
 writer.setMetadataRetrieve(omexml);
 writer.setInterleaved(reader.isInterleaved());
