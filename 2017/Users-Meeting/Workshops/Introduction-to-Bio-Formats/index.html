@@ -305,7 +305,7 @@ IFormatReader reader = new Memoizer(new FileStitcher(new ChannelSeparator()));
                     <ul>
                       <li>decoupled components to new GitHub repositories.</li>
                       <li>consumed as artifacts from Maven Central.</li>
-                      <li>The following componets have been decoupled:</li>
+                      <li>The following components have been decoupled:</li>
                       <ul>
                         <li>formats-common - now ome-common-java</li>
                         <li>ome-poi</li>
@@ -361,7 +361,7 @@ public int getTileSizeY() throws FormatException
                   </section>
                     
                   <section>
-                    <h2>Tiled Writing - Intorduction</h2>
+                    <h2>Tiled Writing - Introduction</h2>
                     <p>See full example at <a href="https://www.openmicroscopy.org/site/support/bio-formats5.5/_downloads/SimpleTiledWriter.java">SimpleTiledWriter</a></p>
                     <pre>Simple Tiled Writer<code>
 // construct the object that stores OME-XML metadata
@@ -455,7 +455,7 @@ for (int series=0; series < reader.getSeriesCount(); series++) {
                     
                   <section>
                     <h2>API Usage</h2>
-                    <pre>Retrieiving Options<code>
+                    <pre>Retrieving Options<code>
 MetadataOptions options = writer.getMetadataOptions();
 if (options instanceof DynamicMetadataOptions) {
   boolean value = ((DynamicMetadataOptions) options).getBoolean("ometiff.companion");
