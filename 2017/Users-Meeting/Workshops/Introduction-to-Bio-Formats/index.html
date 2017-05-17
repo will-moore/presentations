@@ -1,0 +1,562 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title></title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="../reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="../reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <style>
+            .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+              text-transform: none;
+            }
+            .reveal h2 {
+                font-size: 60px;
+            }
+            .ome_theme {
+                background-image: url("images/ome-icon-opacity.png");
+                background-color: #f2f6f9;
+                background-repeat: no-repeat;
+                background-position: right -270px top -120px;
+            }
+            .reveal {
+                text-transform: none;   !important
+            }
+
+            .reveal section img {
+                border-width:0;
+                border-color: white;
+            }
+
+            .img_panel {
+                width: 150px;
+            }
+
+            .nobullet li {
+                list-style: none;
+            }
+
+            table.centre {
+                width: 100%;
+            }
+
+            .reveal .centre td {
+                text-align: center;
+            }
+
+            .rot90 {
+                -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+            }
+
+            .reveal .title {
+                position:absolute;
+                bottom:100%;
+                margin:5px;
+                color:red;
+            }
+
+        </style>
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="../reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="../reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body class="ome_theme">
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section>
+                    <h1>Bio-Formats</h1>
+                </section>
+
+                <section>
+                  <h2>What can you do now?</h2>
+                </section>
+
+                <section>
+                  <h2>Read images and metadata across many domains...</h2>
+                      <ul>
+                        <li>light microscopy</li>
+                        <li>electron microscopy</li>
+                        <li>medical imaging (CT, PET, ...)</li>
+                        <li>high content screening (HCS)</li>
+                        <li>digital pathology/whole slide imaging (WSI)</li>
+                        <li>FLIM</li>
+                        <li>SPIM</li>
+                      </ul>
+                  </ul>
+                </section>
+
+                <section>
+                  <section>
+                  <h2>...and in many different applications</h2>
+                  </section>
+                  <section>
+
+                  <!-- montage image of same code in ImageJ, MATLAB, Java, Python, ??? -->
+
+                  <pre>Java:<code>
+ImageReader reader = new ImageReader();
+IMetadata omeMetadata = MetadataTools.createOMEXMLMetadata();
+reader.setMetadataStore(omeMetadata);
+reader.setId("/PATH/TO/FILE");
+for (int plane = 0; plane < reader.getImageCount(); plane++) {
+  byte[] image = reader.openBytes(plane);
+  Number timestamp = omeMetadata.getPlaneDeltaT(0, plane).value();
+}
+
+                </code></pre></section>
+                <section>
+                <pre>ImageJ macro:<code>
+run("Bio-Formats Macro Extensions");
+Ext.setId("/PATH/TO/FILE");
+Ext.getImageCount(imageCount);
+timestamps = newArray(imageCount);
+for (plane=0; plane < imageCount; plane++) {
+  Ext.openImage("image #" + plane, plane);
+  Ext.getPlaneTimingDeltaT(timestamps[plane], plane);
+}
+                </code></pre>
+                </section>
+
+                <section>
+                <pre>MATLAB:<code>
+r = bfGetReader("/PATH/TO/FILE");
+imageCount = r.getImageCount();
+omeMetadata = r.getMetadataStore();
+for plane = 1:imageCount
+  image = bfGetPlane(r, plane, varargin{:});
+  timestamp = omeMetadata.getPlaneDeltaT(0, plane - 1).value().doubleValue();
+end
+                </code></pre></section>
+
+                <section>
+                <pre><a href="https://github.com/CellProfiler/python-bioformats">Python:</a><code>
+reader = bioformats.get_image_reader(None, path="/PATH/TO/FILE")
+imageCount = reader.rdr.getImageCount()
+omeMetadata = javabridge.JWrapper(reader.rdr.getMetadataStore())
+for plane in range(0, imageCount):
+    image = reader.read(series=0, index=plane, rescale=False)
+    timestamp = omeMetadata.getPlaneDeltaT(0, plane)
+                </code></pre></section>
+
+
+                <section>
+                <pre><a href="https://github.com/aoles/RBioFormats">R:</a><code>
+reader = .jnew("loci.formats.ImageReader")
+.jcall(reader, , "setId", file)
+omeMetadata = .jcall(reader, "", "getMetadataStore")
+image = .jcall(reader, "[B", "openBytes", 0)
+timestamp = .jcall(omeMetadata, "", "getPlaneDeltaT", 0, 0)
+                </code></pre>
+                </section>
+                </section>
+
+                <section>
+                  <section>
+                  <h2>Extensions to image reading</h2>
+                  <i>("reader wrappers")</i>
+
+                  <ul>
+                    <li>cache reader state (Memoizer)</li>
+                    <li>group independent files into a single dataset (FileStitcher)</li>
+                    <li>return images in a specific layout (ChannelSeparator, ChannelMerger)</li>
+                  </ul>
+                  </section>
+
+                  <section>
+                    <h2>Memoizer</h2>
+                    <pre><code>
+IFormatReader reader = new Memoizer(new ImageReader());
+reader.setId("/PATH/TO/FILE");
+                    </code></pre>
+
+                    <ul>
+                      <li>uses <a href="https://github.com/esotericsoftware/kryo">Kryo</a> to serialize the reader's initialized state to a file</li>
+                      <li>initializing the same data file again uses the serialized state (i.e. faster)</li>
+                    </ul>
+                  </section>
+
+                  <section>
+                    <h2>FileStitcher</h2>
+                    <pre><code>
+IFormatReader reader = new FileStitcher();
+// reads 001.tiff, 002.tiff, ..., 010.tiff together
+reader.setId("0< 01-10>.tiff");
+                    </code></pre>
+
+                    <ul>
+                      <li>groups together files not otherwise detected as part of the same dataset</li>
+                      <li>useful for files with missing or unreadable metadata</li>
+                    </ul>
+                  </section>
+
+                  <section>
+                    <h2>ChannelSeparator/ChannelMerger</h2>
+                    <pre><code>
+IFormatReader grayscaleImageReader = new ChannelSeparator();
+
+IFormatReader rgbImageReader = new ChannelMerger();
+                    </code></pre>
+
+                    <ul>
+                      <li>ChannelSeparator guarantees only grayscale images are returned</li>
+                      <li>ChannelMerger guarantees multi-channel datasets are returned as RGB images</li>
+                    </ul>
+                  </section>
+
+                  <section>
+                  <h2>Putting everything together...</h2>
+                  <pre><code>
+IFormatReader reader = new Memoizer(new FileStitcher(new ChannelSeparator()));
+                  </code></pre>
+
+                  <ul>
+                    <li>any combination of wrappers can be chained together</li>
+                  </ul>
+                  </section>
+                </section>
+
+                <section>
+                  <section>
+                    <h2>What we've done in the past year</h2>
+
+                    <ul>
+                      <li>released  4 new minor versions from 5.2 to 5.5</li>
+                      <li>new API additions for tiling</li>
+                      <li>new dynamic metadata options</li>
+                      <li>added support for 5 new file formats</li>
+                      <li>release of a new schema 2016-06</li>
+                      <li>bug fixes and reader improvements</li>
+                      <li>performance and test coverage improvements</li>
+                      <li>re architecture of components</li>
+                    </ul>
+                  </section>
+
+                    <section>
+                        <h2>New minor releases</h2>
+
+                        <p>See the Bio-Formats <a href="https://www.openmicroscopy.org/site/support/bio-formats5.1/about/whats-new.html">version history</a></p>
+
+                        <ul>
+                          <li>Bio-Formats 5.2 - New schema release, 2 new file formats</li>
+                          <li>Bio-Formats 5.3 - Tiling API additions, dynamic metadata options, JPEG-XR support</li>
+                          <li>Bio-Formats 5.4 - command line options, performance improvements</li>
+                          <li>Bio-Formats 5.5 - Support for Olympus OIR and PerkinElmer Columbus</li>
+                        </ul>
+                    </section>
+                    
+                    <section>
+                      <h2>New file formats</h2>
+                      <ul>
+                        <li>Olympus OIR (funded by a partnership between Glencoe Software and OLYMPUS EUROPA SE & Co. KG)</li>
+                        <li>PerkinElmer Columbus</li>
+                        <li>JPEG-XR</li>
+                        <li>Becker & Hickl .spc</li>
+                        <li>Princeton Instruments .spe</li>
+                      </ul>
+                    </section>
+                    
+                    <section>
+                      <h2>New OME schema - 2016-06</h2>
+                      <p>See the Bio-Formats <a href="https://www.openmicroscopy.org/site/support/ome-model/schemas/">schema history</a></p>
+                      <ul>
+                        <li>introduced the concept of Folders</li>
+                        <li>ROI properties have been simplified</li>
+                        <li>extended enum metadata to better support units</li>
+                        <li>Shape, LightSource and Map are now complexTypes</li>
+                        <li>MapPairs has been dropped</li>
+                        <li>Various code generation improvements:</li>
+                        <ul>
+                          <li>BinData has been added to handle raw binary data</li>
+                          <li>simplify and standardize the generation process</li>
+                          <li>allow for genuine abstract model types</li>
+                          <li>enable C++ model implementation</li>
+                        </ul>
+                      </ul>
+                    </section>
+
+                  <section>
+                    <h2>Architecture Changes</h2>
+                    <ul>
+                      <li>decoupled components to new GitHub repositories.</li>
+                      <li>consumed as artifacts from Maven Central.</li>
+                      <li>The following componets have been decoupled:</li>
+                      <ul>
+                        <li>formats-common - now ome-common-java</li>
+                        <li>ome-poi</li>
+                        <li>specification, xsd-fu and ome-xml components - now ome-model</li>
+                        <li>mdbtools - now ome-mdbtools</li>
+                        <li>stubs components - now ome-stubs</li>
+                        <li>metakit component - now ome-metakit</li>
+                      </ul>
+                    </ul>
+                  </section>
+                </section>
+                
+                <section>  
+                  <section>
+                    <h2>Tiling</h2>
+                    <ul>
+                      <li>new API to set and retrieve the tile size along X and Y</li>
+                      <li>tiled writing is supported for TIFF-based formats</li>
+                      <li>when set TIFF writers automatically handle tiling</li>
+                      <li>writing tiles using the TIFF IFD is still supported</li>
+                    </ul>
+                  </section>
+                    
+                  <section>
+                    <h2>Tiling API</h2>
+                    <ul>
+                      <li>to set up an image writer to use tiling the following 2 API functions are provided:</li>
+                    </ul>
+                    <pre><code>
+public int setTileSizeX(int tileSize) throws FormatException
+public int setTileSizeY(int tileSize) throws FormatException
+                    </code></pre>
+                  </section>
+                    
+                  <section>
+                    <h2>Tiling API</h2>
+                    <ul>
+                      <li>Each function takes in an integer parameter for the desired tile size.</li>
+                      <li>The image writer will round the requested value to the nearest supported tile size.</li>
+                      <li>The return value will contain the actual tiling size which will be used by the writer.</li>
+                    </ul>
+                  </section>
+                      
+                  <section>
+                    <h2>Tiling API</h2>
+                    <ul>
+                      <li>To find out the tiling size currently being used at any point there are 2 further API functions to get the current tile size for a writer.</li>
+                    </ul>
+                    <pre><code>
+public int getTileSizeX() throws FormatException
+public int getTileSizeY() throws FormatException
+                    </code></pre>
+                  </section>
+                    
+                  <section>
+                    <h2>Tiled Writing - Intorduction</h2>
+                    <p>See full example at <a href="https://www.openmicroscopy.org/site/support/bio-formats5.5/_downloads/SimpleTiledWriter.java">SimpleTiledWriter</a></p>
+                    <pre>Simple Tiled Writer<code>
+// construct the object that stores OME-XML metadata
+ServiceFactory factory = new ServiceFactory();
+OMEXMLService service = factory.getInstance(OMEXMLService.class);
+IMetadata omexml = service.createOMEXMLMetadata();
+
+// setup the reader and associate it with the input file
+reader = new ImageReader();
+reader.setMetadataStore(omexml);
+reader.setId(inputFile);
+
+// setup the writer and associate it with the output file
+writer = new OMETiffWriter();
+writer.setMetadataRetrieve(omexml);
+writer.setInterleaved(reader.isInterleaved());
+
+// set the tile size height and width for writing
+this.tileSizeX = writer.setTileSizeX(tileSizeX);
+this.tileSizeY = writer.setTileSizeY(tileSizeY);
+
+writer.setId(outputFile);
+byte[] buf = new byte[FormatTools.getPlaneSize(reader)];
+
+for (int series=0; series < reader.getSeriesCount(); series++) {
+  reader.setSeries(series);
+  writer.setSeries(series);
+
+  // convert each image in the current series
+  for (int image=0; image < reader.getImageCount(); image++) {
+    // Read tiles from the input file and write them to the output OME-Tiff
+    // The OME-Tiff Writer will automatically write the images in a tiled format
+    buf = reader.openBytes(image);
+    writer.saveBytes(image, buf);
+  }
+}
+                    </code></pre>
+                  </section>
+
+                  <section>
+                    <h2>Tiled Writing - Reading and Writing</h2>
+                    <p>See full example at <a href="https://www.openmicroscopy.org/site/support/bio-formats5.5/_downloads/TiledReaderWriter.java">TiledReaderWriter</a></p>
+                    <pre>Tiled Reader Writer<code>
+int bpp = FormatTools.getBytesPerPixel(reader.getPixelType());
+int tilePlaneSize = tileSizeX * tileSizeY * reader.getRGBChannelCount() * bpp;
+byte[] buf = new byte[tilePlaneSize];
+
+for (int series=0; series < reader.getSeriesCount(); series++) {
+  reader.setSeries(series);
+  writer.setSeries(series);
+
+  // convert each image in the current series
+  for (int image=0; image < reader.getImageCount(); image++) {
+    int width = reader.getSizeX();
+    int height = reader.getSizeY();
+
+    // Determined the number of tiles to read and write
+    int nXTiles = width / tileSizeX;
+    int nYTiles = height / tileSizeY;
+    if (nXTiles * tileSizeX != width) nXTiles++;
+    if (nYTiles * tileSizeY != height) nYTiles++;
+        
+    for (int y=0; y < nYTiles; y++) {
+      for (int x=0; x < nXTiles; x++) {
+        // The x and y coordinates for the current tile
+        int tileX = x * tileSizeX;
+        int tileY = y * tileSizeY;
+
+        // Read tiles from the input file and write them to the output OME-Tiff
+        buf = reader.openBytes(image, tileX, tileY, tileSizeX, tileSizeY);
+        writer.saveBytes(image, buf, tileX, tileY, tileSizeX, tileSizeY);
+      }
+    }
+  }
+}
+                    </code></pre>
+                  </section>
+                </section>
+                    
+                <section>  
+                  <section>
+                    <h2>Metadata Options</h2>
+                    <p>See full list of <a href="http://www.openmicroscopy.org/site/support/bio-formats5.4/formats/options.html">Reader and Writer options</a></p>
+                    <ul>
+                      <li>new API supporting arbitrary key/value pairs</li>
+                      <li>DynamicMetadataOptions class used to set options</li>
+                      <li>options are now supported in the command line tools</li>
+                      <li>in FIJI options are available via Bio-Formats Plugins Configuration window</li>
+                    </ul>
+                  </section>
+                    
+                  <section>
+                    <h2>API Usage</h2>
+                    <pre>Retrieiving Options<code>
+MetadataOptions options = writer.getMetadataOptions();
+if (options instanceof DynamicMetadataOptions) {
+  boolean value = ((DynamicMetadataOptions) options).getBoolean("ometiff.companion");
+}
+                    </code></pre>
+                    <pre>Setting Options<code>
+MetadataOptions options = reader.getMetadataOptions();
+if (options instanceof DynamicMetadataOptions) {
+  ((DynamicMetadataOptions) options).setBoolean("nativend2.chunkmap", true);
+  reader.setMetadataOptions(options);
+}
+                    </code></pre>
+                  </section>
+                    
+                  <section>
+                    <h2>Command Line Usage</h2>
+                    <ul>
+                      <li>Reader options can be used with showinf -option</li>
+                    </ul>
+                    <pre>showinf example<code>
+showinf -option nativend2.chunkmap true inputFile.nd2
+                    </code></pre>
+                    <ul>
+                      <li>Writer options can be used with bfconvert -option</li>
+                    </ul>
+                    <pre>bfconvert example<code>
+bfconvert -option ometiff.companionoutputFile.companion.ome inputFile.tiff outputFile.ome.tiff
+                    </code></pre>
+                  </section>
+                </section>
+
+                <section>
+                    <h2>What's next?</h2>
+
+                    <ul>
+                      <li>OME data model refinements</li>
+                        <ul>
+                          <li>Making existing features easier to use (e.g. units, MapAnnotation)</li>
+                          <li>Modernizing the data model development process</li>
+                        </ul>
+                      <li>Supporting our own formats</li>
+                        <ul>
+                          <li>Expanding examples and best practices documentation</li>
+                          <li>Working with other projects to support usage of OME-TIFF</li>
+                          <li>OME-HDF?</li>
+                        </ul>
+                    </ul>
+                </section>
+
+                <section>
+                  <h2>What's next...today?</h2>
+
+                  <ul>
+                    <li>Supporting and maintaining OME file formats</li>
+                    <li>Questions?  Concerns?</li>
+                    <li>Breakouts/technical discussion - look for the Bio-Formats sign!</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h2>Questions?</h2>
+                </section>
+
+                <section>
+                  <h2>Contributing to Bio-Formats</h2>
+                </section>
+
+            </div>
+
+        </div>
+
+        <script src="../reveal-js/lib/js/head.min.js"></script>
+        <script src="../reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
