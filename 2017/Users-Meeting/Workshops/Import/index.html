@@ -104,9 +104,7 @@
             <li>Review of import in OMERO</li>
             <li>Import options</li>
             <li>Transfers</li>
-            <li>Excludes</li>
             <li>Targets</li>
-            <li>The wider import ecosystem</li>
           </ul>
           <aside class="notes">
           </aside>
@@ -144,6 +142,10 @@
           <aside class="notes">
           </aside>
         </section>
+        <section>
+          <h3>IDR and data size</h3>
+          Add slide
+        </section>  
 
         <section>
           <section>
@@ -233,23 +235,7 @@
         </section>
 
         <section>
-          <section>
-            <h3>Transfers: What's available?</h3>
-            <ul>
-              <li>upload &amp; import (the default)</li>
-              <li>upload, import <em>then</em> delete original files</li>
-              <li>copy &amp; import</li>
-              <li>copy, import <em>then</em> delete original files</li>
-              <li>hard link &amp; import</li>
-              <li>hard link, import <em>then</em> delete original files</li>
-              <li>soft link (symlink) &amp; import </li>
-            </ul>
-            <aside class="notes">
-            </aside>
-          </section>
-
-          <section>
-            <h2>Use cases</h2>
+            <h2>Transfers: Use cases</h2>
             <ul>
               <li>Upload</li>
               <ul>
@@ -272,7 +258,22 @@
             <aside class="notes">
             </aside>
           </section>
-
+          
+        <section>
+          <section>
+            <h3>Transfers: What's available?</h3>
+            <ul>
+              <li>upload &amp; import (the default)</li>
+              <li>upload, import <em>then</em> delete original files</li>
+              <li>copy &amp; import</li>
+              <li>copy, import <em>then</em> delete original files</li>
+              <li>hard link &amp; import</li>
+              <li>hard link, import <em>then</em> delete original files</li>
+              <li>soft link (symlink) &amp; import </li>
+            </ul>
+            <aside class="notes">
+            </aside>
+          </section>
           <section>
             <h3>Transfers: CLI summary</h3>
             <pre style="font-size:55%">
@@ -300,7 +301,7 @@
             </aside>
           </section>
         </section>
-
+        <section>
         <section>
           <h3>Extending transfers</h3>
           Create a subclass of <a href="https://github.com/openmicroscopy/openmicroscopy/blob/v5.3.2/components/blitz/src/ome/formats/importer/transfers/AbstractFileTransfer.java">AbstractFileTransfer</a> then
@@ -359,7 +360,7 @@
           <aside class="notes">
           </aside>
         </section>
-
+      </section>
         <!--
           Targets
             legacy targets
@@ -585,16 +586,7 @@
           </aside>
         </section>
 
-        <section>
-          <h3>The import ecosystem</h3>
-          <ul>
-            <li>cron, bash, etc.</li>
-            <li>import for</li>
-          </ul>
-          <aside class="notes">
-          </aside>
-        </section>
-        <section>
+        
           <section>
               <h3>Import for: using the CLI</h3>
               <pre style="font-size:55%">
@@ -608,6 +600,11 @@
             2 files uploaded, 1 fileset created, 1 image imported,
             0 errors in 0:00:21.602
               </pre>
+          </section>
+          <section>
+            <section>
+              <h3>Light Admin</h3>
+              Add slide
           </section>
           <section>
             <h3>OMERO.dropbox</h3>
@@ -657,8 +654,6 @@
         <section>
           <h3>More on Imports</h3>
           <ul>
-            <li>Documentation:</li>
-            <ul>
               <li><a href="http://www.openmicroscopy.org/site/support/omero5.3/sysadmins/fs-upload-configuration.html">Managed repository</a></li>
               <li><a href="https://www.openmicroscopy.org/site/support/omero5.3/developers/ImportFS.html">Import and Filesets</a></li>
               <li><a href="http://www.openmicroscopy.org/site/support/omero5.3/sysadmins/in-place-import.html">In-place import</a></li>
