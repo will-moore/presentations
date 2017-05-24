@@ -259,25 +259,21 @@
             <aside class="notes">
             </aside>
         </section>
-        <section>
-            <section data-transition="none">
-            <h3>Example: hard link &amp; import ...</h3>
-            <code>
+        <section data-transition="none">
+          <h3>Example: hard link &amp; import ...</h3>
+          <code>
                 omero import path/to/image -- --transfer=ln_rm
-            </code>
-            <img src="../images/import_inplace-ln.png" width="90%"/>
-            </section>
+          </code>
+          <img src="../images/import_inplace-ln.png" width="90%"/>
+        </section>
 
-            <section data-transition="none">
-              <h3>Example: ... <em>then</em> delete</h3>
-              <code>
-                  omero import path/to/image -- --transfer=ln_rm
-              </code>
-              <img src="../images/import_inplace-ln_rm.png" width="90%"/>
-              <aside class="notes">
-              </aside>
-            </section>
-          </section>
+        <section data-transition="none">
+          <h3>Example: ... <em>then</em> delete</h3>
+          <code>
+              omero import path/to/image -- --transfer=ln_rm
+          </code>
+          <img src="../images/import_inplace-ln_rm.png" width="90%"/>
+        </section>
 
           <section>
           <section>
@@ -532,7 +528,9 @@
           </aside>
         </section>
         </section>
-                <section>
+        
+        <section>
+        <section>
           <h3>Bulk import: an example</h3>
           <pre style="font-size:60%">
 ---
@@ -550,35 +548,7 @@ columns:
 </pre>
 See <a href="https://github.com/IDR/idr-metadata/">IDR-metadata</a>
         </section>
-        <section>
-            <h3>Import As: using the CLI</h3>
-            <pre style="font-size:55%">
-            bin/omero login -u john --sudo jane
-            Password for jane:
-            Created session f49d2...65250 (john@...). Current group: skyelab
-            bin/omero import ~/Images/dv/IAGFP-Noc01_R3D.dv
-            Using session f49d2...65250 (john@...). Current group: skyelab
-            ...
-            ==> Summary
-            2 files uploaded, 1 fileset created, 1 image imported,
-            0 errors in 0:00:21.602
-              </pre>
-        </section>
-        <section>
-          <section>
-            <h3>Admin with restricted privileges</h3>
-            <table style="width:100%">
-              <tr>
-                <td>
-                  <img src="../images/import_roles_left.png" width="120%"/>
-                </td>
-                <td>
-                  <img src="../images/import_roles_right.png" width="150%"/>
-                </td>
-              </tr>
-            </table>
-          </section>
-        <section>
+       <section>
             <h3>OMERO.dropbox</h3>
             DropBox is a file system monitor to find newly uploaded files and run a fully automatic import on those files if possible.
             <pre style="font-size:60%">
@@ -618,6 +588,36 @@ See <a href="https://github.com/IDR/idr-metadata/">IDR-metadata</a>
           </section>
         </section>
         </section>
+      </section>
+        <section>
+            <h3>Import As: using the CLI</h3>
+            <pre style="font-size:55%">
+            bin/omero login -u john --sudo jane
+            Password for jane:
+            Created session f49d2...65250 (john@...). Current group: skyelab
+            bin/omero import ~/Images/dv/IAGFP-Noc01_R3D.dv
+            Using session f49d2...65250 (john@...). Current group: skyelab
+            ...
+            ==> Summary
+            2 files uploaded, 1 fileset created, 1 image imported,
+            0 errors in 0:00:21.602
+              </pre>
+        </section>
+        <section>
+          <section>
+            <h3>Admin with restricted privileges</h3>
+            <table style="width:100%">
+              <tr>
+                <td>
+                  <img src="../images/import_roles_left.png" width="120%"/>
+                </td>
+                <td>
+                  <img src="../images/import_roles_right.png" width="150%"/>
+                </td>
+              </tr>
+            </table>
+          </section>
+ 
 
         </section>
         <section>
