@@ -90,7 +90,7 @@
 
         <!-- Title and overall introduction -->
         <section>
-          <h2>Import in OMERO</h2>
+          <h2>Evolution of Import in OMERO</h2>
           <h3>Dundee</h3>
           <h3>June 2017</h3>
           <h4>@openmicroscopy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#OME2017</h4>
@@ -104,7 +104,7 @@
             <li>Review of import in OMERO</li>
             <li>Import options</li>
             <li>Transfers</li>
-            <li>Targets</li>
+            <li>Import As</li>
           </ul>
           <aside class="notes">
           </aside>
@@ -184,12 +184,15 @@
           </code>
         </section>
         <section>
-            <h3>Smuggler</h3>
             <img src="../images/import_smuggler.png" width="90%"/>
         </section>
         <section>
             <h3>Next...</h3>
-            Moving towards web "import"
+            <ul>
+              <li>CLI improvements</li>
+              <li>Message Queue</li>
+              <li>Moving towards web "import"</li>
+            </ul>
         </section>
 
         <!--
@@ -204,36 +207,14 @@
         <section>
           <h2>CLI: Transfers</h2>
           <ul>
-            <li>An example</li>
+            <li>Use cases</li>
             <li>What's available?</li>
-            <li>Extension point</li>
+            <li>An example</li>
+            <li>Summary</li>
           </ul>
           <aside class="notes">
           </aside>
         </section>
-
-        <section>
-          <section data-transition="none">
-            <h3>Example: hard link &amp; import ...</h3>
-            <code>
-                omero import path/to/image -- --transfer=ln_rm
-            </code>
-            <img src="../images/import_inplace-ln.png" width="90%"/>
-            <aside class="notes">
-            </aside>
-          </section>
-
-          <section data-transition="none">
-            <h3>Example: ... <em>then</em> delete</h3>
-            <code>
-                omero import path/to/image -- --transfer=ln_rm
-            </code>
-            <img src="../images/import_inplace-ln_rm.png" width="90%"/>
-            <aside class="notes">
-            </aside>
-          </section>
-        </section>
-
         <section>
             <h2>Transfers: Use cases</h2>
             <ul>
@@ -258,13 +239,13 @@
               <ul>
                 <li>IDR</li>
               </ul>
+              <li>Yours?</li>
             </ul>
             <aside class="notes">
             </aside>
           </section>
           
         <section>
-          <section>
             <h3>Transfers: What's available?</h3>
             <ul>
               <li>upload &amp; import (the default)</li>
@@ -277,7 +258,28 @@
             </ul>
             <aside class="notes">
             </aside>
+        </section>
+        <section>
+            <section data-transition="none">
+            <h3>Example: hard link &amp; import ...</h3>
+            <code>
+                omero import path/to/image -- --transfer=ln_rm
+            </code>
+            <img src="../images/import_inplace-ln.png" width="90%"/>
+            </section>
+
+            <section data-transition="none">
+              <h3>Example: ... <em>then</em> delete</h3>
+              <code>
+                  omero import path/to/image -- --transfer=ln_rm
+              </code>
+              <img src="../images/import_inplace-ln_rm.png" width="90%"/>
+              <aside class="notes">
+              </aside>
+            </section>
           </section>
+
+          <section>
           <section>
             <h3>Transfers: CLI summary</h3>
             <pre style="font-size:55%">
@@ -301,28 +303,15 @@
   e.g.   omero import -- --transfer=ln_s foo.tiff
          ./importer-cli --transfer=ln bar.tiff
             </pre>
-            <aside class="notes">
-            </aside>
           </section>
-        </section>
-        <section>
-        <section>
-          <h3>Extending transfers</h3>
-          Create a subclass of <a href="https://github.com/openmicroscopy/openmicroscopy/blob/v5.3.2/components/blitz/src/ome/formats/importer/transfers/AbstractFileTransfer.java">AbstractFileTransfer</a> then
-          <pre style="font-size:60%">
+          <section>
+            <h3>Extending transfers</h3>
+            Create a subclass of <a href="https://github.com/openmicroscopy/openmicroscopy/blob/v5.3.2/components/blitz/src/ome/formats/importer/transfers/AbstractFileTransfer.java">AbstractFileTransfer</a> then
+            <pre style="font-size:60%">
 
-  omero import -- --transfer=my.new.Transfer foo.tiff
-          </pre>
-          <aside class="notes">
-          </aside>
+    omero import -- --transfer=my.new.Transfer foo.tiff
+            </pre>
         </section>
-
-        <!--
-          Excludes
-            what's available
-              cli options
-            extending excludes
-        -->
         <section>
           <h2>Excluding imports</h2>
           <ul>
@@ -332,7 +321,6 @@
           <aside class="notes">
           </aside>
         </section>
-
         <section>
           <h3>Excluding duplicates</h3>
           <pre style="font-size:55%">
@@ -350,8 +338,6 @@
   e.g.   omero import -- --exclude=filename foo.tiff # First-time imports
          omero import -- --exclude=filename foo.tiff # Second-time skips
           </pre>
-          <aside class="notes">
-          </aside>
         </section>
 
         <section>
@@ -361,25 +347,7 @@
 
   omero import -- --exclude=my.new.Exclusion foo.tiff
           </pre>
-          <aside class="notes">
-          </aside>
         </section>
-      </section>
-        <!--
-          Targets
-            legacy targets
-            what's available
-              list of options
-              syntax
-              Dataset/Screen
-                id
-                name
-                multiple targets
-              regex
-                examples
-                implicit
-            extending targets
-        -->
         <section>
           <h2>Import targets</h2>
           <ul>
@@ -389,8 +357,6 @@
           <aside class="notes">
           </aside>
         </section>
-
-        <section>
         <section>
           <h3>Import targets</h3>
           <pre style="font-size:60%">
@@ -401,18 +367,13 @@
     -r SCREEN_ID                   OMERO screen ID to import plate into
     -T TARGET, --target TARGET     OMERO target specification
           </pre>
-          <aside class="notes">
-          </aside>
         </section>
-
         <section>
-          <h3>Format</h3>
-          <pre style="font-size:60%">
+            <h3>Format</h3>
+            <pre style="font-size:60%">
 
-  omero import FILE -T &lt;action or Class>[:&lt;discriminator>]:&lt;pattern>
-          </pre>
-          <aside class="notes">
-          </aside>
+    omero import FILE -T &lt;action or Class>[:&lt;discriminator>]:&lt;pattern>
+            </pre>
         </section>
 
         <section>
@@ -436,8 +397,6 @@
               </ul>
             </li>
           </ul>
-          <aside class="notes">
-          </aside>
         </section>
 
         <section>
@@ -455,8 +414,6 @@
   omero import ~/images/dv/SMN10ul03_R3D_D3D.dv <strong>-d 2</strong>
           </pre>
           <p>The same syntax applies to Screen &amp; id</p>
-          <aside class="notes">
-          </aside>
         </section>
 
         <section>
@@ -473,10 +430,7 @@
           <p style="font-size:90%; text-align: left;">This will import the image into the Dataset named 'Sample01'.<br/>
           If no Dataset exists with that name a new one will be created.<br/><br/>
           The same syntax applies to Screen &amp; name</p>
-          <aside class="notes">
-          </aside>
         </section>
-
         <section>
           <h3>Multiple targets</h3>
           <ul>
@@ -493,7 +447,6 @@
           <aside class="notes">
           </aside>
         </section>
-
         <section>
           <h3>Dataset &amp; name</h3>
           <h4><em>A bit more interesting</em></h4>
@@ -512,10 +465,7 @@
   omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T Dataset:<strong>@name</strong>:Samples
           </pre>
           <p>The same syntax applies to Screen &amp; name</p>
-          <aside class="notes">
-          </aside>
         </section>
-
         <section>
           <h3>Regular expressions</h3>
           <h4><em>A lot more interesting</em></h4>
@@ -533,7 +483,6 @@
           <aside class="notes">
           </aside>
         </section>
-
         <section>
           <h3>Regular expressions</h3>
           <h4><em>A lot more interesting</em></h4>
@@ -551,8 +500,6 @@
   # create a new Dataset named 'dv' even if one already exists
   omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T "regex:<strong>@name</strong>:^.*images/(?&lt;Container1>.*?)"
           </pre>
-          <aside class="notes">
-          </aside>
         </section>
 
         <section>
@@ -573,12 +520,7 @@
           <p style="font-size:90%; margin-left: -10%; width:120%; text-align:left;">
           will resolve to using two Screens 'week-1' and 'week-2' for the import targets.
           </p>
-          <aside class="notes">
-          </aside>
         </section>
-
-        </section>
-
         <section>
           <h3>Extending targets</h3>
           Create a class which implements <a href="https://github.com/openmicroscopy/openmicroscopy/blob/v5.3.2/components/blitz/src/ome/formats/importer/targets/ImportTarget.java">ImportTarget</a> then
@@ -589,11 +531,28 @@
           <aside class="notes">
           </aside>
         </section>
-
-        
-          <section>
-              <h3>Import for: using the CLI</h3>
-              <pre style="font-size:55%">
+        </section>
+                <section>
+          <h3>Bulk import an example</h3>
+          <pre style="font-size:60%">
+---
+continue: "true"
+transfer: "ln_s"
+exclude: "clientpath"
+checksum_algorithm: "File-Size-64"
+logprefix: "logs/"
+output: "yaml"
+# Default columns for the regular screens.
+# This may need to be modified in other bulk files.
+columns:
+    - name
+    - path
+</pre>
+See <a href="https://github.com/IDR/idr-metadata/">IDR-metadata</a>
+        </section>
+        <section>
+            <h3>Import As: using the CLI</h3>
+            <pre style="font-size:55%">
             bin/omero login -u john --sudo jane
             Password for jane:
             Created session f49d2...65250 (john@...). Current group: skyelab
@@ -604,11 +563,11 @@
             2 files uploaded, 1 fileset created, 1 image imported,
             0 errors in 0:00:21.602
               </pre>
-          </section>
+        </section>
+        <section>
           <section>
-            <section>
-              <h3>Admin with restricted privileges</h3>
-              <table style="width:100%">
+            <h3>Admin with restricted privileges</h3>
+            <table style="width:100%">
               <tr>
                 <td>
                   <img src="../images/import_roles_left.png" width="120%"/>
@@ -619,7 +578,7 @@
               </tr>
             </table>
           </section>
-          <section>
+        <section>
             <h3>OMERO.dropbox</h3>
             DropBox is a file system monitor to find newly uploaded files and run a fully automatic import on those files if possible.
             <pre style="font-size:60%">
@@ -649,8 +608,6 @@
  cp dv/IAGFP-Noc01_R3D.* ~/var/omero/DropBox/user-0/Dataset01/
  cp dv/IAGFP-Noc01_R3D.* ~/var/omero/DropBox/user-0/Dataset02/
  cp dv/CFPNEAT01_R3D.* ~/var/omero/DropBox/user-0/Dataset02/</pre>
-            <aside class="notes">
-            </aside>
           </section>
           <section>
             <h3>OMERO.dropbox</h3>
@@ -663,7 +620,6 @@
         </section>
 
         </section>
-
         <section>
           <h3>More on Imports</h3>
           <ul>
