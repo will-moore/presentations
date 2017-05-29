@@ -12,8 +12,8 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        <link rel="stylesheet" href="../reveal-js/css/reveal.min.css">
-        <link rel="stylesheet" href="../reveal-js/css/theme/default.css" id="theme">
+        <link rel="stylesheet" href="../_reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="../_reveal-js/css/theme/default.css" id="theme">
 
         <!-- OME presentation overrides of the default theme -->
         <style>
@@ -24,7 +24,7 @@
                 font-size: 60px;
             }
             .ome_theme {
-                background-image: url("../images/ome-icon-opacity.png");
+                background-image: url("../_images/ome-icon-opacity.png");
                 background-color: #f2f6f9;
                 background-repeat: no-repeat;
                 background-position: right -270px top -120px;
@@ -69,11 +69,11 @@
         </style>
 
         <!-- For syntax highlighting -->
-        <link rel="stylesheet" href="../reveal-js/lib/css/zenburn.css">
+        <link rel="stylesheet" href="../_reveal-js/lib/css/zenburn.css">
 
         <!-- If the query includes 'print-pdf', use the PDF print sheet -->
         <script>
-            document.write( '<link rel="stylesheet" href="../reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+            document.write( '<link rel="stylesheet" href="../_reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
         </script>
 
         <!--[if lt IE 9]>
@@ -131,33 +131,33 @@
 
         <section>
           <h3>ManagedRepository</h3>
-          <img src="../images/import_managedrepo-intro.png" width="100%"/>
+          <img src="../_images/import_managedrepo-intro.png" width="100%"/>
           <aside class="notes">
           </aside>
         </section>
 
         <section>
           <h3>Filesets</h3>
-          <img src="../images/import_filesets.png" width="100%"/>
+          <img src="../_images/import_filesets.png" width="100%"/>
           <aside class="notes">
           </aside>
         </section>
         <section>
           <h3>IDR Examples</h3>
-          <img src="../images/import_idr.png" width="90%"/>
+          <img src="../_images/import_idr.png" width="90%"/>
         </section>  
 
         <section>
           <section>
             <h3>Import</h3>
-            <img src="../images/import_upload.png" width="90%"/>
+            <img src="../_images/import_upload.png" width="90%"/>
             <aside class="notes">
             </aside>
           </section>
 
           <section>
             <h3>Data out</h3>
-            <img src="../images/import_download.png" width="90%"/>
+            <img src="../_images/import_download.png" width="90%"/>
           </section>
         </section>
 
@@ -172,7 +172,7 @@
         </section>
         <section>
             <h3>The good old OMERO.insight...</h3>
-            <img src="../images/import_insight.png" width="90%"/>
+            <img src="../_images/import_insight.png" width="90%"/>
         </section>
         <section data-transition="none">
           <h3>The CLI</h3>
@@ -184,7 +184,7 @@
           </code>
         </section>
         <section>
-            <img src="../images/import_smuggler.png" width="90%"/>
+            <img src="../_images/import_smuggler.png" width="90%"/>
         </section>
         <section>
             <h3>Next...</h3>
@@ -264,7 +264,7 @@
           <code>
                 omero import path/to/image -- --transfer=ln_rm
           </code>
-          <img src="../images/import_inplace-ln.png" width="90%"/>
+          <img src="../_images/import_inplace-ln.png" width="90%"/>
         </section>
 
         <section data-transition="none">
@@ -272,7 +272,7 @@
           <code>
               omero import path/to/image -- --transfer=ln_rm
           </code>
-          <img src="../images/import_inplace-ln_rm.png" width="90%"/>
+          <img src="../_images/import_inplace-ln_rm.png" width="90%"/>
         </section>
 
           <section>
@@ -582,7 +582,7 @@ See <a href="https://github.com/IDR/idr-metadata/">IDR-metadata</a>
           <section>
             <h3>OMERO.dropbox</h3>
             The created target Datasets
-            <img src="../images/import_dropbox.png" width="90%"/>
+            <img src="../_images/import_dropbox.png" width="90%"/>
             <aside class="notes">
             </aside>
           </section>
@@ -609,10 +609,10 @@ See <a href="https://github.com/IDR/idr-metadata/">IDR-metadata</a>
             <table style="width:100%">
               <tr>
                 <td>
-                  <img src="../images/import_roles_left.png" width="120%"/>
+                  <img src="../_images/import_roles_left.png" width="120%"/>
                 </td>
                 <td>
-                  <img src="../images/import_roles_right.png" width="150%"/>
+                  <img src="../_images/import_roles_right.png" width="150%"/>
                 </td>
               </tr>
             </table>
@@ -648,8 +648,8 @@ See <a href="https://github.com/IDR/idr-metadata/">IDR-metadata</a>
 
         </div>
 
-        <script src="../reveal-js/lib/js/head.min.js"></script>
-        <script src="../reveal-js/js/reveal.min.js"></script>
+        <script src="../_reveal-js/lib/js/head.min.js"></script>
+        <script src="../_reveal-js/js/reveal.min.js"></script>
 
         <script>
 
@@ -669,7 +669,7 @@ See <a href="https://github.com/IDR/idr-metadata/">IDR-metadata</a>
                     // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
                     // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
                     // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-                    { src: '../reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: '../_reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
                     // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
                     // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
                     // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
