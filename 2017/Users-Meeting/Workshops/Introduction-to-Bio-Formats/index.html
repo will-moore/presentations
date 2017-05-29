@@ -23,8 +23,12 @@
             .reveal h2 {
                 font-size: 60px;
             }
+            .reveal h4 {
+                float: left;
+                text-indent: 3%;
+            }
             .ome_theme {
-                background-image: url("images/ome-icon-opacity.png");
+                background-image: url("../images/ome-icon-opacity.png");
                 background-color: #f2f6f9;
                 background-repeat: no-repeat;
                 background-position: right -270px top -120px;
@@ -33,9 +37,15 @@
                 text-transform: none;   !important
             }
 
-            .reveal section img {
+            .reveal section img #border {
                 border-width:0;
                 border-color: white;
+            }
+        
+            .reveal section img {
+                background:none;
+                border:none;
+                box-shadow:none;
             }
 
             .img_panel {
@@ -65,7 +75,23 @@
                 margin:5px;
                 color:red;
             }
-
+        
+            .reveal #left_col {
+                float:left;
+                width:65%;
+            }
+            .reveal #right_col {
+                float:right;
+                width:35%;
+            }
+            .reveal #left_col_70 {
+                float:left;
+                width:70%;
+            }
+            .reveal #right_col_30 {
+                float:right;
+                width:30%;
+            }
         </style>
 
         <!-- For syntax highlighting -->
@@ -92,7 +118,24 @@
                 <section>
                     <h1>Bio-Formats</h1>
                 </section>
-
+                
+                <section>
+                    <img width="100%" height="100%" src="../images/bio-formats-logo-800.png"/>
+                    <ul>
+                        <li>Bio-Formats is a standalone Java library</li>
+                        <li>It is a community driven project</li>
+                        <li>Converts proprietary data into an open standard</li>
+                        <li>Provides a standardized Java application interface</li>
+                        <li>Supported in numerous applications</li>
+                        <ul>
+                            <li>Open source analysis programs like ImageJ, CellProfiler</li>
+                            <li>Informatics solutions like OMERO, JCB DataViewer</li>
+                            <li>Commercial programs such as MATLAB</li>
+                        </ul>
+                        <li>Can also be used with Python or non Java applications</li>
+                    </ul>
+                </section>
+                
                 <section>
                   <h2>What can you do now?</h2>
                 </section>
@@ -178,78 +221,13 @@ timestamp = .jcall(omeMetadata, "", "getPlaneDeltaT", 0, 0)
 
                 <section>
                   <section>
-                  <h2>Extensions to image reading</h2>
-                  <i>("reader wrappers")</i>
-
-                  <ul>
-                    <li>cache reader state (Memoizer)</li>
-                    <li>group independent files into a single dataset (FileStitcher)</li>
-                    <li>return images in a specific layout (ChannelSeparator, ChannelMerger)</li>
-                  </ul>
-                  </section>
-
-                  <section>
-                    <h2>Memoizer</h2>
-                    <pre><code>
-IFormatReader reader = new Memoizer(new ImageReader());
-reader.setId("/PATH/TO/FILE");
-                    </code></pre>
-
-                    <ul>
-                      <li>uses <a href="https://github.com/esotericsoftware/kryo">Kryo</a> to serialize the reader's initialized state to a file</li>
-                      <li>initializing the same data file again uses the serialized state (i.e. faster)</li>
-                    </ul>
-                  </section>
-
-                  <section>
-                    <h2>FileStitcher</h2>
-                    <pre><code>
-IFormatReader reader = new FileStitcher();
-// reads 001.tiff, 002.tiff, ..., 010.tiff together
-reader.setId("0< 01-10>.tiff");
-                    </code></pre>
-
-                    <ul>
-                      <li>groups together files not otherwise detected as part of the same dataset</li>
-                      <li>useful for files with missing or unreadable metadata</li>
-                    </ul>
-                  </section>
-
-                  <section>
-                    <h2>ChannelSeparator/ChannelMerger</h2>
-                    <pre><code>
-IFormatReader grayscaleImageReader = new ChannelSeparator();
-
-IFormatReader rgbImageReader = new ChannelMerger();
-                    </code></pre>
-
-                    <ul>
-                      <li>ChannelSeparator guarantees only grayscale images are returned</li>
-                      <li>ChannelMerger guarantees multi-channel datasets are returned as RGB images</li>
-                    </ul>
-                  </section>
-
-                  <section>
-                  <h2>Putting everything together...</h2>
-                  <pre><code>
-IFormatReader reader = new Memoizer(new FileStitcher(new ChannelSeparator()));
-                  </code></pre>
-
-                  <ul>
-                    <li>any combination of wrappers can be chained together</li>
-                  </ul>
-                  </section>
-                </section>
-
-                <section>
-                  <section>
                     <h2>What we've done in the past year</h2>
 
                     <ul>
                       <li>released  4 new minor versions from 5.2 to 5.5</li>
                       <li>new API additions for tiling</li>
                       <li>new dynamic metadata options</li>
-                      <li>added support for 5 new file formats</li>
+                      <li>added support for 4 new file formats</li>
                       <li>release of a new schema 2016-06</li>
                       <li>bug fixes and reader improvements</li>
                       <li>performance and test coverage improvements</li>
@@ -271,13 +249,13 @@ IFormatReader reader = new Memoizer(new FileStitcher(new ChannelSeparator()));
                     </section>
                     
                     <section>
-                      <h2>New file formats</h2>
+                      <h2>New file formats & codecs</h2>
                       <ul>
                         <li>Olympus OIR (funded by a partnership between Glencoe Software and OLYMPUS EUROPA SE & Co. KG)</li>
                         <li>PerkinElmer Columbus</li>
-                        <li>JPEG-XR</li>
                         <li>Becker & Hickl .spc</li>
                         <li>Princeton Instruments .spe</li>
+                        <li>JPEG-XR compressed CZI data (funded by a partnership between Glencoe Software and ZEISS)</li>
                       </ul>
                     </section>
                     
@@ -305,7 +283,7 @@ IFormatReader reader = new Memoizer(new FileStitcher(new ChannelSeparator()));
                     <ul>
                       <li>decoupled components to new GitHub repositories.</li>
                       <li>consumed as artifacts from Maven Central.</li>
-                      <li>The following componets have been decoupled:</li>
+                      <li>The following components have been decoupled:</li>
                       <ul>
                         <li>formats-common - now ome-common-java</li>
                         <li>ome-poi</li>
@@ -321,12 +299,19 @@ IFormatReader reader = new Memoizer(new FileStitcher(new ChannelSeparator()));
                 <section>  
                   <section>
                     <h2>Tiling</h2>
+                    <div id="left_col">
                     <ul>
-                      <li>new API to set and retrieve the tile size along X and Y</li>
-                      <li>tiled writing is supported for TIFF-based formats</li>
-                      <li>when set TIFF writers automatically handle tiling</li>
-                      <li>writing tiles using the TIFF IFD is still supported</li>
+                      <li>New API functions</li>
+                      <li>Set and retrieve tile size along X & Y</li>
+                      <li>Tiled writing for TIFF-based formats</li>
+                      <li>Automatically handles tiled writing</li>
+                      <li>Can still write tiles using TIFF IFD</li>
                     </ul>
+                    </div>
+                    <div id="right_col">
+                    <img src="../images/tilingiViewer.gif"/>
+                    </div>
+                    
                   </section>
                     
                   <section>
@@ -361,7 +346,7 @@ public int getTileSizeY() throws FormatException
                   </section>
                     
                   <section>
-                    <h2>Tiled Writing - Intorduction</h2>
+                    <h2>Tiled Writing - Introduction</h2>
                     <p>See full example at <a href="https://www.openmicroscopy.org/site/support/bio-formats5.5/_downloads/SimpleTiledWriter.java">SimpleTiledWriter</a></p>
                     <pre>Simple Tiled Writer<code>
 // construct the object that stores OME-XML metadata
@@ -452,10 +437,16 @@ for (int series=0; series < reader.getSeriesCount(); series++) {
                       <li>in FIJI options are available via Bio-Formats Plugins Configuration window</li>
                     </ul>
                   </section>
-                    
+                  <section>
+                      <h2>Current Available Options</h2>
+                      <h4>Reader Options</h4>
+                      <img width="100%" height="100%" src="../images/ReaderOptions.png"/>
+                      <h4>Writer Options</h4>
+                      <img width="100%" height="100%" src="../images/WriterOptions.png"/>
+                  </section>
                   <section>
                     <h2>API Usage</h2>
-                    <pre>Retrieiving Options<code>
+                    <pre>Retrieving Options<code>
 MetadataOptions options = writer.getMetadataOptions();
 if (options instanceof DynamicMetadataOptions) {
   boolean value = ((DynamicMetadataOptions) options).getBoolean("ometiff.companion");
@@ -488,41 +479,36 @@ bfconvert -option ometiff.companionoutputFile.companion.ome inputFile.tiff outpu
                 </section>
 
                 <section>
-                    <h2>What's next?</h2>
+                    <section>
+                        <h2>What's next?</h2>
 
-                    <ul>
-                      <li>OME data model refinements</li>
                         <ul>
-                          <li>Making existing features easier to use (e.g. units, MapAnnotation)</li>
-                          <li>Modernizing the data model development process</li>
+                            <li>Tiling performance benchmarks</li>
+                            <li>Evaluating new binary containers</li>
+                            <li>Containing releases of Bio-Formats</li>
+                            <li>More user contributions</li>
+                            <li>What else would you like to see?</li>
                         </ul>
-                      <li>Supporting our own formats</li>
-                        <ul>
-                          <li>Expanding examples and best practices documentation</li>
-                          <li>Working with other projects to support usage of OME-TIFF</li>
-                          <li>OME-HDF?</li>
-                        </ul>
-                    </ul>
+                    </section>
+                    <section>
+                        <h2>How can I get involved?</h2>
+                        <div id="left_col_70">
+                            <ul>
+                                <li>Contribute on GitHub</li>
+                                
+                                <li>Raise <a href="https://github.com/openmicroscopy/bioformats/issues">GitHub Issues</a></li>
+                                <li>Contact us via mailing lists:</li>
+                                <ul>
+                                    <li><a href ="http://lists.openmicroscopy.org.uk/pipermail/ome-devel/">ome-devel mailing list</a></li>
+                                    <li><a href ="http://lists.openmicroscopy.org.uk/pipermail/ome-users/">ome-users mailing list</a></li>
+                                    <li>searchable using google with ‘site:lists.openmicroscopy.org.uk’</li>
+                                </ul>
+                                <li>Contact us via the <a href="https://www.openmicroscopy.org/community">forum</a></li>
+                                <li>Submit <a href="http://qa.openmicroscopy.org.uk/qa/upload/">QA files</a></li>
+                            </ul></div>
+                        <div id="right_col_30"><a href="https://github.com/openmicroscopy/bioformats"><img src="../images/GH-logo.png"/></a></div>
+                    </section>
                 </section>
-
-                <section>
-                  <h2>What's next...today?</h2>
-
-                  <ul>
-                    <li>Supporting and maintaining OME file formats</li>
-                    <li>Questions?  Concerns?</li>
-                    <li>Breakouts/technical discussion - look for the Bio-Formats sign!</li>
-                  </ul>
-                </section>
-
-                <section>
-                  <h2>Questions?</h2>
-                </section>
-
-                <section>
-                  <h2>Contributing to Bio-Formats</h2>
-                </section>
-
             </div>
 
         </div>
