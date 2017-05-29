@@ -1,0 +1,683 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title></title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="../reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="../reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <style>
+            .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+              text-transform: none;
+            }
+            .reveal h2 {
+                font-size: 60px;
+            }
+            .ome_theme {
+                background-image: url("../images/ome-icon-opacity.png");
+                background-color: #f2f6f9;
+                background-repeat: no-repeat;
+                background-position: right -270px top -120px;
+            }
+            .reveal {
+                text-transform: none;   !important
+            }
+
+            .reveal section img {
+                border-width:0;
+                border-color: white;
+            }
+
+            .img_panel {
+                width: 150px;
+            }
+
+            .nobullet li {
+                list-style: none;
+            }
+
+            table.centre {
+                width: 100%;
+            }
+
+            .reveal .centre td {
+                text-align: center;
+            }
+
+            .rot90 {
+                -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+            }
+
+            .reveal .title {
+                position:absolute;
+                bottom:100%;
+                margin:5px;
+                color:red;
+            }
+
+        </style>
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="../reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="../reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body class="ome_theme">
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+        <!-- Title and overall introduction -->
+        <section>
+          <h2>Evolution of Import in OMERO</h2>
+          <h3>Dundee</h3>
+          <h3>June 2017</h3>
+          <h4>@openmicroscopy&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#OME2017</h4>
+          <aside class="notes">
+          </aside>
+        </section>
+
+        <section>
+          <h2>Outline</h2>
+          <ul>
+            <li>Review of import in OMERO</li>
+            <li>Import options</li>
+            <li>Transfers</li>
+            <li>Import As</li>
+          </ul>
+          <aside class="notes">
+          </aside>
+        </section>
+
+        <!--
+          Introduction
+            import review
+              repos
+              filesets
+              data in/out
+        -->
+        <section>
+          <h2>Review of import in OMERO</h2>
+          <h3>A very quick reminder...</h3>
+          <ul>
+            <li>ManagedRepository</li>
+            <li>Filesets</li>
+            <li>Basic Import</li>
+          </ul>
+          <aside class="notes">
+          </aside>
+        </section>
+
+        <section>
+          <h3>ManagedRepository</h3>
+          <img src="../images/import_managedrepo-intro.png" width="100%"/>
+          <aside class="notes">
+          </aside>
+        </section>
+
+        <section>
+          <h3>Filesets</h3>
+          <img src="../images/import_filesets.png" width="100%"/>
+          <aside class="notes">
+          </aside>
+        </section>
+        <section>
+          <h3>IDR Examples</h3>
+          <img src="../images/import_idr.png" width="90%"/>
+        </section>  
+
+        <section>
+          <section>
+            <h3>Import</h3>
+            <img src="../images/import_upload.png" width="90%"/>
+            <aside class="notes">
+            </aside>
+          </section>
+
+          <section>
+            <h3>Data out</h3>
+            <img src="../images/import_download.png" width="90%"/>
+          </section>
+        </section>
+
+        <section>
+          <h3>Import options</h3>
+          <ul>
+            <li>Desktop client</li>
+            <li>The CLI</li>
+            <li>Smuggler</li>
+            <li>Next...</li>
+          </ul>
+        </section>
+        <section>
+            <h3>The good old OMERO.insight...</h3>
+            <img src="../images/import_insight.png" width="90%"/>
+        </section>
+        <section data-transition="none">
+          <h3>The CLI</h3>
+          <p style="text-align:left;">
+          The CLI is an OMERO client driven by the command line. It is a set of Python-based system-administration, deployment and advanced user tools.
+          </p>
+          <code>
+            omero import path/to/image
+          </code>
+        </section>
+        <section>
+            <img src="../images/import_smuggler.png" width="90%"/>
+        </section>
+        <section>
+            <h3>Next...</h3>
+            <ul>
+              <li>CLI improvements</li>
+              <li>Message Queue</li>
+              <li>Moving towards web "import"</li>
+            </ul>
+        </section>
+
+        <!--
+          Transfers
+            diagrammatic example of ln_rm
+            what's available
+              list of modes
+              possible use cases
+              cli options
+            extending transfers
+        -->
+        <section>
+          <h2>CLI: Transfers</h2>
+          <ul>
+            <li>Use cases</li>
+            <li>What's available?</li>
+            <li>An example</li>
+            <li>Summary</li>
+          </ul>
+          <aside class="notes">
+          </aside>
+        </section>
+        <section>
+            <h2>Transfers: Use cases</h2>
+            <ul>
+              <li>Upload</li>
+              <ul>
+                <li>data on separate system</li>
+                <li>remote import</li>
+              </ul>
+              <li>Copy</li>
+              <ul>
+                <li>data on same system, lower network overhead</li>
+              </ul>
+              <li>Hard link</li>
+              <ul>
+                <li>very large data on OMERO server</li>
+              </ul>
+              <li>Soft link</li>
+              <ul>
+                <li>DropBox on OMERO server</li>
+              </ul>
+              <li>Mix of everything</li>
+              <ul>
+                <li>IDR</li>
+              </ul>
+              <li>Yours?</li>
+            </ul>
+            <aside class="notes">
+            </aside>
+          </section>
+          
+        <section>
+            <h3>Transfers: What's available?</h3>
+            <ul>
+              <li>upload &amp; import (the default)</li>
+              <li>upload, import <em>then</em> delete original files</li>
+              <li>copy &amp; import</li>
+              <li>copy, import <em>then</em> delete original files</li>
+              <li>hard link &amp; import</li>
+              <li>hard link, import <em>then</em> delete original files</li>
+              <li>soft link (symlink) &amp; import </li>
+            </ul>
+            <aside class="notes">
+            </aside>
+        </section>
+        <section data-transition="none">
+          <h3>Example: hard link &amp; import ...</h3>
+          <code>
+                omero import path/to/image -- --transfer=ln_rm
+          </code>
+          <img src="../images/import_inplace-ln.png" width="90%"/>
+        </section>
+
+        <section data-transition="none">
+          <h3>Example: ... <em>then</em> delete</h3>
+          <code>
+              omero import path/to/image -- --transfer=ln_rm
+          </code>
+          <img src="../images/import_inplace-ln_rm.png" width="90%"/>
+        </section>
+
+          <section>
+          <section>
+            <h3>Transfers: CLI summary</h3>
+            <pre style="font-size:55%">
+
+  omero import --advanced-help
+
+    --transfer=ARG            File transfer method
+
+        General options:
+          upload            # Default
+          upload_rm         # Caution! Upload followed by source deletion.
+          some.class.Name   # Use a class on the CLASSPATH.
+
+        Server-side options:
+          cp                # Use local copy command.
+          cp_rm             # Caution! Copy followed by source deletion.
+          ln                # Use hard-link.
+          ln_rm             # Caution! Hard-link followed by source deletion.
+          ln_s              # Use soft-link.
+
+  e.g.   omero import -- --transfer=ln_s foo.tiff
+         ./importer-cli --transfer=ln bar.tiff
+            </pre>
+          </section>
+          <section>
+            <h3>Extending transfers</h3>
+            Create a subclass of <a href="https://github.com/openmicroscopy/openmicroscopy/blob/v5.3.2/components/blitz/src/ome/formats/importer/transfers/AbstractFileTransfer.java">AbstractFileTransfer</a> then
+            <pre style="font-size:60%">
+
+    omero import -- --transfer=my.new.Transfer foo.tiff
+            </pre>
+        </section>
+        <section>
+          <h2>Excluding imports</h2>
+          <ul>
+            <li>What's available?</li>
+            <li>Extension points</li>
+          </ul>
+          <aside class="notes">
+          </aside>
+        </section>
+        <section>
+          <h3>Excluding duplicates</h3>
+          <pre style="font-size:55%">
+
+  omero import --advanced-help
+
+  File exclusion:
+  ---------------
+
+    --exclude=filename        Exclude files based on filename.
+
+    --exclude=clientpath      Exclude files based on the original path.
+
+
+  e.g.   omero import -- --exclude=filename foo.tiff # First-time imports
+         omero import -- --exclude=filename foo.tiff # Second-time skips
+          </pre>
+        </section>
+
+        <section>
+          <h3>Extending excludes</h3>
+          Create a subclass of <a href="https://github.com/openmicroscopy/openmicroscopy/blob/v5.3.2/components/blitz/src/ome/formats/importer/exclusions/AbstractFileExclusion.java">AbstractFileExclusion</a> then
+          <pre style="font-size:60%">
+
+  omero import -- --exclude=my.new.Exclusion foo.tiff
+          </pre>
+        </section>
+        <section>
+          <h2>Import targets</h2>
+          <ul>
+            <li>What's available?</li>
+            <li>Extension points</li>
+          </ul>
+          <aside class="notes">
+          </aside>
+        </section>
+        <section>
+          <h3>Import targets</h3>
+          <pre style="font-size:55%">
+
+  omero import --help
+
+    -d DATASET_ID                  OMERO dataset ID to import image into
+    -r SCREEN_ID                   OMERO screen ID to import plate into
+    -T TARGET, --target TARGET     OMERO target specification
+          </pre>
+        </section>
+        <section>
+            <h3>Format</h3>
+            <pre style="font-size:60%">
+
+    omero import FILE -T &lt;action or Class>[:&lt;discriminator>]:&lt;pattern>
+            </pre>
+        </section>
+
+        <section>
+          <h3>What's available</h3>
+          <ul>
+            <li>
+              Classes &amp; actions:
+              <ul>
+                <li>Dataset</li>
+                <li>Screen</li>
+                <li>regex</li>
+                <li>user defined class</li>
+              </ul>
+            </li>
+            <li>
+              Discriminators:
+              <ul>
+                <li>id</li>
+                <li>name</li>
+                <li>can be implicit</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Dataset &amp; id</h3>
+          <h4><em>Not so interesting</em></h4>
+          <pre style="font-size:60%">
+
+  # use the Dataset with id=2
+  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T <strong>Dataset:id:2</strong>
+
+  # use the Dataset with id=2, here the discriminator is implicit
+  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T <strong>Dataset:2</strong>
+
+  # both of these are equivalent to the legacy target '-d'
+  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv <strong>-d 2</strong>
+          </pre>
+          <p>The same syntax applies to Screen &amp; id</p>
+        </section>
+
+        <section>
+          <h3>Dataset &amp; name</h3>
+          <h4><em>A bit more interesting</em></h4>
+          <pre style="font-size:55%">
+
+  # use the Dataset named 'Sample01' as the target
+  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T Dataset:<strong>name</strong>:Sample01
+
+  # implied use of the name as a target
+  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T Dataset:Sample01
+          </pre>
+          <p style="font-size:90%; text-align: left;">This will import the image into the Dataset named 'Sample01'.<br/>
+          If no Dataset exists with that name a new one will be created.<br/><br/>
+          The same syntax applies to Screen &amp; name</p>
+        </section>
+        <section>
+          <h3>Multiple targets</h3>
+          <ul>
+            <li>
+              Qualifying discriminators
+              <ul>
+                <li>+ most recent</li>
+                <li>- oldest</li>
+                <li>% unique</li>
+                <li>@ create new regardless</li>
+              </ul>
+            </li>
+          </ul>
+          <aside class="notes">
+          </aside>
+        </section>
+        <section>
+          <h3>Dataset &amp; name</h3>
+          <h4><em>A bit more interesting</em></h4>
+          <pre style="font-size:55%">
+
+  # use the most recent Dataset named 'Samples'
+  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T Dataset:<strong>+name</strong>:Samples
+
+  # use the oldest Dataset named 'Samples'
+  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T Dataset:<strong>-name</strong>:Samples
+
+  # use the Dataset named 'Samples' only if it is unique
+  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T Dataset:<strong>%name</strong>:Samples
+
+  # create a new Dataset named 'Samples' even if one already exists
+  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T Dataset:<strong>@name</strong>:Samples
+          </pre>
+          <p>The same syntax applies to Screen &amp; name</p>
+        </section>
+        <section>
+          <h3>Regular expressions</h3>
+          <h4><em>A lot more interesting</em></h4>
+          <pre style="font-size:60%; margin-left: -10%; width:120%">
+
+  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T "regex:name:<strong>^.*images/(?&lt;Container1>.*?)</strong>"
+
+  # use the Dataset named 'dv', the most name is implicit
+  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T "regex:<strong>^.*images/(?&lt;Container1>.*?)</strong>"
+          </pre>
+          <p style="font-size:90%; margin-left: -10%; width:120%; text-align:left;">
+          This will import the image into the Dataset called 'dv', resolved by &lt;Container1>.<br/>
+          If no Dataset exists with that name a new one will be created.<br/><br/>
+          The same syntax applies to Screen &amp; name</p>
+          <aside class="notes">
+          </aside>
+        </section>
+        <section>
+          <h3>Regular expressions</h3>
+          <h4><em>A lot more interesting</em></h4>
+          <pre style="font-size:60%; margin-left: -10%; width:120%">
+
+  # use the most recent Dataset named 'dv'
+  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T "regex:<strong>+name</strong>:^.*images/(?&lt;Container1>.*?)"
+
+  # use the oldest Dataset named 'dv'
+  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T "regex:<strong>-name</strong>:^.*images/(?&lt;Container1>.*?)"
+
+  # use the Dataset named 'dv' only if it is unique
+  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T "regex:<strong>%name</strong>:^.*images/(?&lt;Container1>.*?)"
+
+  # create a new Dataset named 'dv' even if one already exists
+  omero import ~/images/dv/SMN10ul03_R3D_D3D.dv -T "regex:<strong>@name</strong>:^.*images/(?&lt;Container1>.*?)"
+          </pre>
+        </section>
+
+        <section>
+          <h3>Regular expressions</h3>
+          <h4>A further example</h4>
+          <p style="font-size:90%; margin-left: -10%; width:120%; text-align:left;">
+          Given a series of plates in the following directories
+          </p>
+          <pre style="font-size:60%; margin-left: -10%; width:120%">
+  ~/images/bd-pathway/week-1/2015-12-01_000/
+  ~/images/bd-pathway/week-2/2015-12-09_000/
+  ~/images/bd-pathway/week-2/2015-12-11_000/</pre>
+          <p style="font-size:90%; margin-left: -10%; width:120%; text-align:left;">
+          then
+          </p>
+          <pre style="font-size:60%; margin-left: -10%; width:120%">
+  omero import ~/images/bd-pathway/ -T "regex:+name:<strong>^.*bd-pathway/(?&lt;Container1>[^/]*)/.*"</strong></pre>
+          <p style="font-size:90%; margin-left: -10%; width:120%; text-align:left;">
+          will resolve to using two Screens 'week-1' and 'week-2' for the import targets.
+          </p>
+        </section>
+        <section>
+          <h3>Extending targets</h3>
+          Create a class which implements <a href="https://github.com/openmicroscopy/openmicroscopy/blob/v5.3.2/components/blitz/src/ome/formats/importer/targets/ImportTarget.java">ImportTarget</a> then
+          <pre style="font-size:60%">
+
+  omero import foo.tiff --target=my.new.Target
+          </pre>
+          <aside class="notes">
+          </aside>
+        </section>
+        </section>
+        
+        <section>
+        <section>
+          <h3>Bulk import: an example</h3>
+          <pre style="font-size:60%">
+---
+continue: "true"
+transfer: "ln_s"
+exclude: "clientpath"
+checksum_algorithm: "File-Size-64"
+logprefix: "logs/"
+output: "yaml"
+# Default columns for the regular screens.
+# This may need to be modified in other bulk files.
+columns:
+    - name
+    - path
+</pre>
+See <a href="https://github.com/IDR/idr-metadata/">IDR-metadata</a>
+        </section>
+       <section>
+            <h3>OMERO.dropbox</h3>
+            DropBox is a file system monitor to find newly uploaded files and run a fully automatic import on those files if possible.
+            <pre style="font-size:60%">
+  /OMERO/DropBox/amy
+                /emily
+                /edgar
+                /root
+                /petr
+                /zak</pre>
+            <aside class="notes">
+            </aside>
+          </section>
+          <section>
+            <h3>OMERO.dropbox</h3>
+            Example using transfers and targets.
+            <pre style="font-size:50%">
+  &lt;properties id="DropBox">
+    ...
+    &lt;property name="omero.fs.importArgs"
+      value="--transfer=ln_rm
+        --target=&amp;quot;regex:name:^.*DropBox/.*/(?&amp;lt;Container1&amp;gt;.*?)&amp;quot;"/>
+  &lt;/properties></pre>
+            <pre style="font-size:60%">
+  /Users/colin/var/omero/DropBox/user-0/Dataset01
+                                       /Dataset02</pre>
+            <pre style="font-size:60%">
+ cp dv/IAGFP-Noc01_R3D.* ~/var/omero/DropBox/user-0/Dataset01/
+ cp dv/IAGFP-Noc01_R3D.* ~/var/omero/DropBox/user-0/Dataset02/
+ cp dv/CFPNEAT01_R3D.* ~/var/omero/DropBox/user-0/Dataset02/</pre>
+          </section>
+          <section>
+            <h3>OMERO.dropbox</h3>
+            The created target Datasets
+            <img src="../images/import_dropbox.png" width="90%"/>
+            <aside class="notes">
+            </aside>
+          </section>
+        </section>
+        </section>
+      </section>
+        <section>
+            <h3>Import As: using the CLI</h3>
+            <pre style="font-size:55%">
+            bin/omero login -u john --sudo jane
+            Password for jane:
+            Created session f49d2...65250 (john@...). Current group: skyelab
+            bin/omero import ~/Images/dv/IAGFP-Noc01_R3D.dv
+            Using session f49d2...65250 (john@...). Current group: skyelab
+            ...
+            ==> Summary
+            2 files uploaded, 1 fileset created, 1 image imported,
+            0 errors in 0:00:21.602
+              </pre>
+        </section>
+        <section>
+          <section>
+            <h3>Admin with restricted privileges</h3>
+            <table style="width:100%">
+              <tr>
+                <td>
+                  <img src="../images/import_roles_left.png" width="120%"/>
+                </td>
+                <td>
+                  <img src="../images/import_roles_right.png" width="150%"/>
+                </td>
+              </tr>
+            </table>
+          </section>
+ 
+
+        </section>
+        <section>
+          <h3>More on Imports</h3>
+          <ul>
+              <li><a href="http://www.openmicroscopy.org/site/support/omero5.3/sysadmins/fs-upload-configuration.html">Managed repository</a></li>
+              <li><a href="https://www.openmicroscopy.org/site/support/omero5.3/developers/ImportFS.html">Import and Filesets</a></li>
+              <li><a href="http://www.openmicroscopy.org/site/support/omero5.3/sysadmins/in-place-import.html">In-place import</a></li>
+              <li><a href="http://www.openmicroscopy.org/site/support/omero5.3/sysadmins/import-scenarios.html">Import scenarios</a></li>
+              <li><a href="http://www.openmicroscopy.org/site/support/omero5.3/users/cli/import-target.html">Import targets</a></li>
+            </ul>
+        </section>
+        <section>
+        <iframe height="640" width="600" src="https://www.youtube.com/embed/oEBo1G_bu-4?controls=0&showinfo=0&autoplay=1" allowfullscreen></iframe>   
+        </section>
+        <section>
+          <h2>Thanks!</h2>
+          <ul>
+            <li>the OME team</li>
+            <li>the user community</li>
+          </ul>
+          <br/><br/>
+          <aside class="notes">
+          </aside>
+        </section>
+
+      </div> <!-- end class="slides" -->
+
+        </div>
+
+        <script src="../reveal-js/lib/js/head.min.js"></script>
+        <script src="../reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
