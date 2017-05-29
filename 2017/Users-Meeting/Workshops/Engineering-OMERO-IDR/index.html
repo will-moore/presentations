@@ -70,7 +70,7 @@
               <ul>
                 <li>42 TB image data</li>
                 <li>2.7 million images</li>
-                <li>41 studies</li>
+                <li>40 Screens/Projects</li>
               </ul>
             </div>
           </section>
@@ -755,83 +755,28 @@ omero_web_config_set:
                 <img src="images/logos/centos-logo-light-tagline-release7.svg" class="plain" style="width: 30%;" />
               </div>
             </div>
-
+            <div class="fragment" style="background-color: black; color: white; margin: 0.1em; padding: 0.1em 1em; font-size: 0.9em; width: 75%;">
+              OMERO has initial multi-server read-only support (thanks to Glencoe Software, Harvard Medical School, OHSU)
+            </div>
+            <aside class="notes" data-markdown>
+What's needed?
+- Software support: OMERO now has initial multi-server read-only support (thanks to Glencoe Software, Harvard Medical School, OHSU)
+- Reproducible deployments: Need to build images
+            </aside>
           </section>
         </section>
 
-        <!-- Building images -->
         <section>
-          <section class="center">
-            <h2>What's needed for horizontal scaling?</h2>
-            <div>
-              Software support:
-            </div>
-            <ul class="nobullet">
-              <li class="fragment"><span style="color:green;">&#10004;</span>Nginx</li>
-              <li class="fragment"><span style="color:green;">&#10004;</span>PostgreSQL</li>
-              <li class="fragment">? OMERO</li>
-              <li class="fragment"><span style="color:green;">&#10004;</span>Jupyterhub</li>
-            </ul>
-          </section>
-
-          <section class="center">
-            <h2>What's needed for horizontal scaling?</h2>
-            <ul class="nobullet">
-              <li class="fragment">? Distributed storage</li>
-            </ul>
-          </section>
-
-          <section class="center">
-            <h2>What's needed for horizontal scaling?</h2>
-            <div>
-              Automated deployments:
-            </div>
-            <ul class="nobullet">
-              <li class="fragment"><span style="color:green;">&#10004;</span>Provision virtual machines</li>
-              <li class="fragment"><span style="color:green;">&#10004;</span>Install IDR applications</li>
-            </ul>
-            <div class="fragment">
-              ....
-            </div>
-            <ul class="nobullet">
-              <li class="fragment"><span style="color:green;">&#10004;</span>Provision virtual machines</li>
-              <li class="fragment"><span style="color:red;">&#10008;</span>Install IDR applications</li>
-            </ul>
-          </section>
-
           <section>
-            <p>
-              Lots of things may lead to inconsistencies between "identical" servers deployed at different times
-            </p>
-            <ul class="nobullet">
-              <li><span style="color:red;">&#10008;</span>External repository inaccessible</li>
-              <li><span style="color:red;">&#10008;</span>Different version of package in repository</li>
-              <li><span style="color:red;">&#10008;</span>Network problems</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2>Solution: Build a single set of images</h2>
-            <a href="https://www.packer.io/">
-              <img src="images/logos/hashicorp-packer.svg" />
-            </a>
-            <ul>
-              <li>Build images using Ansible playbooks</li>
-              <li>Most configuration can be built in to image</li>
-              <li>Remaining configuration at runtime (e.g. address of other servers)</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2>This sounds very similar to...</h2>
-            <img src="images/logos/docker-logo-h-trans.png" class="plain fragment" style="width: 50%;" />
+            <h2>Multiple ways of deploying OMERO</h2>
             <ul class="fragment">
-              <li>Identical to the Docker workflow</li>
-              <li class="fragment">We can build a Docker image using Ansible</li>
+              <li>Physical servers</li>
+              <li>On cloud E.g. OpenStack, AWS, Google Cloud, Azure, VMWare</li>
+              <li>Docker</li>
+              <li>...</li>
             </ul>
-            <h4 class="fragment spaceabove">Use same Ansible roles for physical systems, OpenStack, AWS, Google Cloud, Azure, VMWare, Docker ...</h4>
+            <h4 class="fragment spaceabove">But we can use same Ansible roles all the above</h4>
           </section>
-
         </section>
 
 
@@ -864,14 +809,21 @@ omero_web_config_set:
 
         <section class="center">
           <h2>Thank you</h2>
-          <ul>
-            <li>Prof. Jason Swedlow</li>
-            <li>OME team</li>
-          </ul>
-          <br/><br/>
-          <div style="background-color: #fff;">
-            <img src="images/logos/wellcome.png" height="140px">
-            <img src="images/logos/bbsrc.png" height="140px">
+          <div class="flexcontainer">
+            <ul class="nobullet flex1">
+              <li>Prof. Jason Swedlow</li>
+              <li>OME team</li>
+              <li>IDR team</li>
+            </ul>
+            <div class="flex1">
+              <img src="images/logos/bbsrc.png" height="120px">
+              <img src="images/logos/wellcome.png" height="120px">
+              <img src="images/logos/corbel.png" height="120px">
+              <img src="images/logos/euro_bioimaging.png" height="60px">
+              <img src="images/logos/global_bioimaging.png" height="60px">
+              <img src="images/logos/horizon_2020.png" height="100px">
+              <img src="images/logos/multimot.png" height="100px">
+            </div>
           </div>
         </section>
 
