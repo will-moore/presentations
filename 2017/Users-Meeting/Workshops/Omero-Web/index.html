@@ -1,0 +1,699 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Web workshop - Dundee 2017</title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <style>
+            .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+              text-transform: none;
+            }
+            .ome_theme {
+                background-image: url("images/ome-icon-opacity.png");
+                background-color: #f2f6f9;
+                background-repeat: no-repeat;
+                background-position: right -270px top -120px;
+            }
+            .reveal {
+                text-transform: none;   !important
+            }
+
+            .reveal section img {
+                border-width:0;
+                border-color: white;
+                box-shadow: 0 0 0px rgba(0,0,0,0);
+            }
+
+            .img_panel {
+                width: 150px;
+            }
+
+            .nobullet li {
+                list-style: none;
+            }
+
+            table.centre {
+                width: 100%;
+            }
+
+            .reveal .centre td {
+                text-align: center;
+            }
+
+            .rot90 {
+                -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+            }
+
+            .larger li {
+                font-size: 120%
+                padding: 5px;
+            }
+
+            .no_shadow {
+                box-shadow:0 0 0 #fff !important;
+            }
+
+            .reveal table th, .reveal table td {
+                border-bottom: 1px solid;
+            }
+
+            input {
+                font-size: 100%;
+            }
+
+            .overlap_images {
+                position: relative;
+                width: 700px; height: 400px
+            }
+
+            .overlap_images img {
+                position: absolute;
+                z-index: 0;
+                width: 80%;
+            }
+            .overlap_images img:hover {
+                z-index: 10;
+            }
+
+            .overlap_images img:nth-child(1) {
+                top: 0;
+                left: 0;
+            }
+
+            .overlap_images img:nth-child(2) {
+                bottom: 0;
+                right: 0;
+            }
+
+            .funding_logo_container {
+                width: 800px;
+                height: 500px;
+                position: relative;
+            }
+            .reveal section .funding_logo {
+                left: 400px;
+                top: 100px;
+                width: 250px;
+                position: absolute;
+                -webkit-transition: left 2s ease, top 2s ease;
+                transition: left 2s ease, top 2s ease;
+            }
+            .present .funding_logo:nth-child(1) {top: 0; left: 0;}
+            .present .funding_logo:nth-child(2) {top: 200px; left:0;}
+            .present .funding_logo:nth-child(4) {top: 0; left: 700px;}
+            .present .funding_logo:nth-child(3) {top: 200px; left:700px;}
+            .present .funding_logo:nth-child(5) {top: 0; left: 350px;}
+            .present .funding_logo:nth-child(6) {top: 200px; left:350px;}
+            .present .funding_logo:nth-child(7) {top: 390px; left: 350px;}
+
+        </style>
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <!-- Notes:
+
+        Get webclient up and running
+        With figure, gallery & webtest installed
+        Terminal - get Robot test command ready
+
+        webtest: dataset example - show structure of webtest app
+        OMERO.gallery - Liverpool Centre for Cell Imaging
+    -->
+
+    <body class="ome_theme">
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section>
+                    <h1>OMERO.web for developers</h1>
+                    <h3>OME Meeting, Dundee 2017</h3>
+                    <p>
+                        <small>
+                            Will Moore | Jean-Marie Burel
+                        </small>
+                    </p>
+                </section>
+
+                <!-- talk outline -->
+                <section>
+                    <h2>Outline</h2>
+                    <ul>
+                        <li>The OMERO.web framework</li>
+                        <li>JSON api</li>
+                        <li>Example apps</li>
+                        <li>Extension points: top-links, webclient-plugin, open-with</li>
+                        <li>App installation via PyPI</li>
+                        <li>Decoupling of OMERO.web deployment</li>
+                        <li>Getting Started</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>OMERO.web framework</h2>
+
+                    <img style="height:500px" src="https://www.openmicroscopy.org/site/support/omero5.3/_images/OmeroWeb.png"/>
+                    <br>
+                    <a href="https://www.openmicroscopy.org/site/support/omero5/developers/Web.html">OMERO.web documentation</a>
+                </section>
+
+
+                <section>
+                    <h2>OMERO.web apps</h2>
+
+                    <img src="images/omero.web.apps.png"/>
+                </section>
+
+
+                <section>
+                    <h2>JSON API app</h2>
+                    <ul>
+                        <li>&#10004; Access JSON API from language of choice: Java, Python, JavaScript, Matlab etc</li>
+                        <li>&#10004; Don't need ICE</li>
+                        <li>&#10004; Not tied to specific version of OMERO</li>
+                        <li>&#10004; Installed by individual users (instead of sysadmin)</li>
+                        <li>&#10004; Developers don't need to install OMERO.web</li>
+                        <li>&#10008; Currently limited API coverage</li>
+                        <li>&#10008; May be less performant than ICE for large queries?</li>
+                        <li>&#10008; Stateless only. No stateful services</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>JSON API</h2>
+                    <ul>
+                        <li>OMERO.web app <code>/api/</code></li>
+                        <li>JSON generated by <a href="https://github.com/openmicroscopy/omero-marshal/" target="_blank">omero-marshal</a> from OMERO.model objects</li>
+                        <li>Login via POST to <code>/api/v0/login/</code></li>
+                        <li>5.3.0 supports GET Project, Dataset, Image, Screen, Plate, Well</li>
+                        <li>5.3.2 adds GET ROIs and Shapes</li>
+                        <li>Can Create, Update and Delete Projects, Datasets & Screens only</li>
+                        <li>Doesn't use jsonp (webgateway does). <a target="_blank" href="https://www.openmicroscopy.org/site/support/omero5.3/sysadmins/unix/install-web.html#setting-up-cors">Use CORS instead</a></li>
+                        <li>Urls included in JSON to facilitate exploring in browser</li>
+                        <li>See <a href="https://www.openmicroscopy.org/site/support/omero5.3/developers/json-api.html" target="_blank">JSON API docs</a></li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>JSON API in the browser</h2>
+                    <img src="images/JSON-API.gif"><br>
+                </section>
+
+
+                <section>
+                    <h2>JSON API with Python</h2>
+                    <pre style="width: 1100px; font-size: 24px;"><code class="python">import requests
+session = requests.Session()
+# Set CSRF token
+token = session.get("http://server.org/api/v0/token/").json()['data']
+session.headers.update({'X-CSRFToken': token,
+                        'Referer': "http://server.org/api/v0/token/"})
+# Login
+session.post("http://server.org/api/v0/login/", data={'username': USERNAME,
+                                                      'password': PASSWORD,
+                                                      'server': 1})
+# List Projects
+rsp = session.get("http://server.org/api/v0/m/projects/").json()
+for p in rsp['data']:
+    print p['@id'], p['Name']</code></pre>
+
+                    Full examples in
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/examples/Training/python/Json_Api/Login.py" target="_blank">Python</a>,
+                    <a href="https://github.com/openmicroscopy/ome-documentation/blob/develop/omero/examples/java/JSONClient.java" target="_blank">Java</a> <br>
+                    and <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/examples/Training/javascript/index.html" target="_blank">JavaScript (with CORS)</a>
+                </section>
+
+
+                <section>
+                    <h2>JSON Login via CORS</h2>
+
+                    <label for="api_url">API URL</label>
+                    <input id='api_url' placeholder="http://your-server-name/api/" style="width: 500px;"><br>
+                    <button id="get_csrf_token">Get CSRF Token</button><br>
+                    <small id="csrf_token"></small>
+
+                    <form id='login_form'>
+                        <div style="font-size: 50%">
+                            <label for="server">Server Index</label>
+                            <input id="server" value="1" style="width: 50px"></input>
+                        </div>
+                        <input id="username" type="text" class="form-control" name="username" placeholder="Username"><br>
+                        <input id="password" type="password" class="form-control" name="password" placeholder="Password"><br>
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                    </form>
+                    <small id="event_context"></small>
+
+                    <div id="api_projects"></div>
+                </section>
+
+
+                <section>
+                    <h2>webgateway API</h2>
+                    <ul>
+                        <li>Json data: e.g. Image json
+                            <a href="http://jcb-dataviewer.rupress.org/jcb/imgData/631159/"  target="_blank">
+                                webgateway/imgData/&lt;imageId&gt;/
+                            </a>
+                        </li>
+
+                        <div style="clear:both"></div>
+                        <li>
+                            <a target="new" href="http://jcb-dataviewer.rupress.org/jcb/render_image/631159/6/0/">
+                                <img style="float:right; margin-right:15px" src="http://jcb-dataviewer.rupress.org/jcb/render_image/631159/6/0/" width='120' height='120'/>
+                            </a>
+                            <a target="new" href="http://jcb-dataviewer.rupress.org/jcb/render_image/631159/6/0/?c=1,2">
+                                <img style="float:right; margin-right:15px" src="http://jcb-dataviewer.rupress.org/jcb/render_image/631159/6/0/?c=2" width='120' height='120'/>
+                            </a>
+                            Image rendering:
+                            <a href="http://jcb-dataviewer.rupress.org/jcb/render_image/631159/6/0/"  target="_blank">
+                                webgateway/render_image/&lt;imageId&gt;/&lt;z&gt;/&lt;t&gt;/
+                            </a>
+                        </li>
+                    </ul>
+                    <hr>
+                    <p>See
+                        <a href="http://www.openmicroscopy.org/site/support/omero5/developers/Web/WebGateway.html"  target="_blank">
+                            WebGateway documentation
+                        </a>
+                    </p>
+                </section>
+
+
+                <section>
+                    <h2>App examples</h2>
+                    <ul>
+                        <li>Ship with OMERO.web:
+                            <ul>
+                                <li>
+                                    webgateway | webclient | webadmin | api
+                                </li>
+                            </ul>
+                        </li>
+                        <li>External apps:
+                            <ul>
+                                <li><a href="http://odr.stowers.org/websimr/" target="_blank">
+                                        Stowers ODR</a> |
+                                    <a href="http://jcb-dataviewer.rupress.org/" target="_blank">
+                                        JCB DataViewer</a> |
+                                    <a href="https://www.openmicroscopy.org/site/support/partner/omero.webtagging" target="_blank">
+                                        OMERO.webtagging</a> | <br>
+                                    <a href="https://github.com/sorgerlab/OMERO.forms" target="_blank">
+                                        OMERO.forms</a> |
+                                    <a href="https://github.com/msphan/omero-catmaid/" target="_blank">
+                                        CATMAID</a> |
+                                    <a href="https://github.com/will-moore/omero-fpbioimage" target="_blank">
+                                        FPBioimage</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>OME projects:
+                            <ul>
+                                <li><a href="http://figure.openmicroscopy.org">OMERO.figure</a> |
+                                    <a href="https://github.com/ome/omero-iviewer/">OMERO.iviewer</a> | <br>
+                                    <a href="https://github.com/ome/omero-mapr/">OMERO.mapr</a>
+                                        (used by <a href="http://idr.openmicroscopy.org/">IDR</a>)
+                                </li>
+                            </ul>
+                        </li>
+                        <li>Examples & Prototypes:
+                            <ul>
+                                <li>
+                                    <a href="https://github.com/openmicroscopy/webtest/">webtest</a> |
+                                    <a href="https://github.com/will-moore/gallery/">OMERO.gallery</a> |
+                                    <a href="https://github.com/will-moore/omero-player/">OMERO.player</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Custom Repos</h2>
+
+                    <ul>
+                        <li><a href="http://odr.stowers.org/websimr/" target="_blank">Stowers ODR</a></li>
+                        <li><a href="http://jcb-dataviewer.rupress.org/" target="_blank">JCB DataViewer</a></li>
+                        <li><a href="http://lincs.hms.harvard.edu/db/datasets/20138/results" target="_blank">Harvard Medical School (HMS) LINCS</a></li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>OMERO.gallery</h2>
+                    <ul>
+                        <li>HTML pages generated via Django templates</li>
+                        <li>Suitable for mobile devices</li>
+                        <li>Prototype / example app (not actively developed)</li>
+                    </ul>
+                    <img style="width: 600px" src="https://camo.githubusercontent.com/a5883daafea80e75d98a5b326a3594e9cab6f183/687474703a2f2f6f6d652e6769746875622e696f2f6f6d65726f2d67616c6c6572792f696d616765732f67616c6c6572792e706e67"/>
+                    <br>
+                    Example: <a href="https://cci02.liv.ac.uk/gallery/" target="_blank">Liverpool CCI OMERO Gallery</a>
+                </section>
+
+
+                <section>
+                    <h2>OMERO.figure</h2>
+                    <a href="http://figure.openmicroscopy.org/" target="_blank">
+                        figure.openmicroscopy.org</a>
+                    <img style="width:700px" src="http://downloads.openmicroscopy.org/presentations/2014/Figure-Tues-Team-Meeting/images/demo-screen-shot.png"/>
+                    <br>
+                    <a href="http://figure.openmicroscopy.org/demo/#file/1" target="_blank">Demo</a>
+                </section>
+
+
+                <section>
+                    <h2>OMERO.iviewer</h2>
+                    <ul>
+                        <li>First release 0.1.0 on 25th May 2017</li>
+                        <li>
+                            Uses <a href="http://aurelia.io/" target="_blank">aurelia</a> js framework
+                            with <a href="http://openlayers.org/" target="_blank">Open Layers</a>
+                        </li>
+                        <li>Loads data via /api/ and /webgateway/ urls</li>
+                        <li>Developed by Harald Waxenegger.
+                            See: <a href="https://github.com/ome/omero-iviewer/" target="_blank">
+                            omero-iviewer</a>
+                        </li>
+                    </ul>
+                    <img src="images/iviewer.png">
+                </section>
+
+
+                <section>
+                    <h2>OMERO.mapr (<a href="http://idr.openmicroscopy.org/webclient/" target="_blank">IDR</a>)</h2>
+                    <ul>
+                        <li>Extends webclient Django-based pages</li>
+                        <li>Many custom API queries of map annotations</li>
+                        <li>IDR uses the <a href="https://www.openmicroscopy.org/site/support/omero5.3/sysadmins/public.html" target="_blank">
+                            Public user</a> to allow auto-login via OMERO.web
+                        </li>
+                        <li>See: <a href="https://github.com/ome/omero-mapr/" target="_blank">
+                            omero-mapr</a></li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>OMERO.webtagging</h2>
+                    <ul>
+                        <li>Auto-tag: Add Tags to Images based on file path</li>
+                        <li>Tag-searcher: Filter data by series of Tags</li>
+                        <li>Douglas Russell (Micron, Oxford) See: <a href="https://www.openmicroscopy.org/site/support/partner/omero.webtagging" target="_blank">OMERO.webtagging</a></li>
+                    </ul>
+                    <img style="width: 700px"
+                        src="http://downloads.openmicroscopy.org/presentations/2014/Paris-Workshops/OMERO-Web-Workshop/images/webfigure.png" />
+                </section>
+
+
+                <section>
+                    <h2>OMERO.forms</h2>
+                    <ul>
+                        <li>Create forms to validate metadata input</li>
+                        <li>Douglas Russell (Sorger Lab, HMS).
+                            See: <a href="https://github.com/sorgerlab/OMERO.forms" target="_blank">OMERO.forms</a>
+                        </li>
+                    </ul>
+                    <div style="margin: auto;" class="overlap_images">
+                        <img src="images/omero_forms_designer.png" />
+                        <img src="images/omero_forms_webclient.png" />
+                    </div>
+                </section>
+
+
+                <section>
+                    <h2>3rd party viewers</h2>
+                    <ul>
+                        <li>
+                            <a href="http://catmaid.readthedocs.io/en/stable/" target="_blank">CATMAID</a>
+                            loading image data via
+                            <a href="https://github.com/msphan/omero-catmaid/" target="_blank">OMERO-CATMAID</a>
+                            by <a href="https://portail.polytechnique.edu/lob/en">L'École polytechnique</a><br>
+                            <img src="http://catmaid.readthedocs.io/en/stable/_images/ui-ortho-views.jpg" style="width: 200px" />
+                        </li>
+                        <li>
+                            <a href="http://fpb.ceb.cam.ac.uk/" target="_blank">FPBioimage</a> 3D viewer from
+                            <a href="http://laser.ceb.cam.ac.uk/directory/marcus-fantham">Laser Analytics Group, Cambridge</a>
+                            packaged as <a href="https://github.com/ome/omero-fpbioimage" target="_blank">OMERO-FPBioimage</a> by OME
+                            <img src="http://fpb.ceb.cam.ac.uk/public/fpbScreenshot.png" style="width: 200px" />
+                        </li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Webclient plugins</h2>
+                    <ul>
+                        <li>Links and hooks to access apps from webclient</li>
+                        <li>See
+                            <a href="https://www.openmicroscopy.org/site/support/omero5.3/developers/Web/LinkingFromWebclient.html">Linking from webclient</a> and
+                            <a href="https://www.openmicroscopy.org/site/support/omero5/developers/Web/WebclientPlugin.html">
+                                webclient plugin docs</a>
+                        </li>
+                    </ul>
+
+                    <img src="images/openwith.png" width="900px"/>
+                </section>
+
+
+
+                <section>
+                    <h2>Open With...</h2>
+
+                    <pre><code style="width: 950px">
+$ bin/omero config append omero.web.open_with '["omero_iviewer", "omero_iviewer_index",
+  {"supported_objects":["image"], "script_url": "omero_iviewer/openwith.js"}]'
+                    </code></pre>
+
+
+                    <pre><code style="width: 950px">
+// openwith.js
+OME.setOpenWithUrlProvider("omero_iviewer", function(selected, url) {
+    // Add image Id to url
+    url += selected[0].id + "/";
+
+    // We try to traverse the jstree, to find parent of selected image
+    var inst = $.jstree.reference('#dataTree');
+    var parent = OME.getTreeImageContainerBestGuess(selected[0].id);
+    url += '?' + parent.type + '=' + parent.data.id
+
+    return url;
+});
+                    </code></pre>
+
+* Simplified example. See
+<a href="https://github.com/ome/omero-iviewer/blob/master/src/openwith.js" target="_blank">
+    iviewer openwith.js
+</a> for original.
+
+                </section>
+
+
+                <section data-background-image="images/openwith_viewers.png"
+                         data-background-size="contain">
+                </section>
+
+
+                <section>
+                    <h2>Open with from OMERO.figure</h2>
+                    <img src="images/figure_openwith.png"/>
+                </section>
+
+
+                <section>
+                <h2>App JavaScript frameworks</h2>
+                    <table style="border-spacing: 0; width: 100%; font-size: 80%">
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <a href="https://github.com/will-moore/gallery/">gallery</a>*
+                                </td>
+                                <td>
+                                    <a href="https://github.com/ome/omero-mapr/">mapr</a>
+                                </td>
+                                <td>
+                                    <a href="http://figure.openmicroscopy.org/">figure</a>
+                                </td>
+                                <td>
+                                    <a href="https://github.com/ome/omero-iviewer/">iviewer</a>
+                                </td>
+                                <td>
+                                    <a href="https://github.com/will-moore/omero-player">player</a>*
+                                </td>
+                                <td>
+                                    <a href="https://www.openmicroscopy.org/site/support/partner/omero.webtagging">webtagging</a>
+                                </td>
+                                <td>
+                                    <a href="https://github.com/sorgerlab/OMERO.forms">forms</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>JS</th>
+                                <td>-</td>
+                                <td>jQuery</td>
+                                <td>Backbone</td>
+                                <td>Aurelia</td>
+                                <td>React</td>
+                                <td>React</td>
+                                <td>React</td>
+                            </tr>
+                            <tr>
+                                <th>Build tool</th>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>Grunt</td>
+                                <td>Webpack</td>
+                                <td>Webpack</td>
+                                <td>Webpack</td>
+                                <td>Webpack</td>
+                            </tr>
+                            <tr>
+                                <th>pip install?</th>
+                                <td>&#10004;</td>
+                                <td>&#10004;</td>
+                                <td>&#10004;</td>
+                                <td>&#10004;</td>
+                                <td>&#10004;</td>
+                                <td>&#10004;</td>
+                                <td>&#10004;</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="margin-top: 50px"><small>*prototype app</small></p>
+                </section>
+
+
+                <section>
+                    <h2>App installation via PyPI</h2>
+                    <ul>
+                        <li>Make OMERO.web apps "pip installable"</li>
+                        <li>Easier to deploy in CI environment for testing</li>
+                        <li>Easier for users to install</li>
+                        <pre><code>$ pip install omero-iviewer
+$ bin/omero config append omero.web.apps '"omero_iviewer"'</code></pre>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Decoupling of OMERO.web deployment</h2>
+
+                    <img style="height:300px" src="https://www.openmicroscopy.org/site/support/omero5.3/_images/OmeroWeb.png"/>
+
+                    <ul>
+                        <li>OMERO.web installed on different machine / environment from OMERO.server</li>
+                        <li>Use virtualenv to control Python version & dependencies</li>
+                        <li>Independent deployment & testing</li>
+                        <li>See <a href="https://www.openmicroscopy.org/site/support/omero5.3/sysadmins/unix/install-web/web-deployment.html" target="_blank">OMERO.web deployment</a> docs</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Getting Started</h2>
+                        See <a href="https://www.openmicroscopy.org/site/support/omero5/developers/Web.html">
+                        OMERO.web developer docs</a> | <a href="https://www.openmicroscopy.org/site/support/omero5/developers/Web/CreateApp.html">
+                            Creating an app</a>
+
+                    <iframe style="width:110%; max-width:110%; height:600px; position:relative; left: -5%" src="https://www.openmicroscopy.org/site/support/omero5.3/developers/Web.html"></iframe>
+                </section>
+
+
+                <section>
+                    <h2>Summary</h2>
+                    <ul>
+                        <li>Try installing some apps</li>
+                        <li>Create your own apps and share!</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Thank you</h2>
+                    <div class="funding_logo_container">
+                        <img src="../_images/logos/bbsrc.png" class="funding_logo" />
+                        <img src="../_images/logos/corbel.png" class="funding_logo" />
+                        <img src="../_images/logos/wellcome.png" class="funding_logo" />
+                        <img src="../_images/logos/global_bioimaging.png" class="funding_logo" />
+                        <img src="../_images/logos/horizon_2020.png" class="funding_logo" />
+                        <img src="../_images/logos/multimot.png" class="funding_logo" />
+                        <img src="../_images/logos/euro_bioimaging.png" class="funding_logo" />
+                    </div>
+                </section>
+
+
+
+            </div>
+
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                // parallaxBackgroundImage: "images/ome-icon-opacity-big.png",
+                // parallaxBackgroundSize: "2048px 1073px",
+                // transition: 'linear',
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+                transitionSpeed: 'slow',
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+        <script src="json_api_example.js"></script>
+
+    </body>
+</html>
