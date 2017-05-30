@@ -12,8 +12,8 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        <link rel="stylesheet" href="../_reveal-js/css/reveal.min.css">
-        <link rel="stylesheet" href="../_reveal-js/css/theme/default.css" id="theme">
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
 
         <!-- OME presentation overrides of the default theme -->
         <style>
@@ -28,7 +28,7 @@
                 text-indent: 3%;
             }
             .ome_theme {
-                background-image: url("../_images/ome-icon-opacity.png");
+                background-image: url("images/ome-icon-opacity.png");
                 background-color: #f2f6f9;
                 background-repeat: no-repeat;
                 background-position: right -270px top -120px;
@@ -95,11 +95,11 @@
         </style>
 
         <!-- For syntax highlighting -->
-        <link rel="stylesheet" href="../_reveal-js/lib/css/zenburn.css">
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
 
         <!-- If the query includes 'print-pdf', use the PDF print sheet -->
         <script>
-            document.write( '<link rel="stylesheet" href="../_reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
         </script>
 
         <!--[if lt IE 9]>
@@ -120,7 +120,7 @@
                 </section>
                 
                 <section>
-                    <img width="100%" height="100%" src="../_images/bio-formats-logo-800.png"/>
+                    <img width="100%" height="100%" src="images/logos/bio-formats-logo-800.png"/>
                     <ul>
                         <li>Bio-Formats is a standalone Java library</li>
                         <li>It is a community driven project</li>
@@ -309,7 +309,7 @@ timestamp = .jcall(omeMetadata, "", "getPlaneDeltaT", 0, 0)
                     </ul>
                     </div>
                     <div id="right_col">
-                    <img src="../_images/tilingiViewer.gif"/>
+                    <img src="images/tilingiViewer.gif"/>
                     </div>
                     
                   </section>
@@ -440,9 +440,9 @@ for (int series=0; series < reader.getSeriesCount(); series++) {
                   <section>
                       <h2>Current Available Options</h2>
                       <h4>Reader Options</h4>
-                      <img width="100%" height="100%" src="../_images/ReaderOptions.png"/>
+                      <img width="100%" height="100%" src="images/ReaderOptions.png"/>
                       <h4>Writer Options</h4>
-                      <img width="100%" height="100%" src="../_images/WriterOptions.png"/>
+                      <img width="100%" height="100%" src="images/WriterOptions.png"/>
                   </section>
                   <section>
                     <h2>API Usage</h2>
@@ -506,15 +506,15 @@ bfconvert -option ometiff.companionoutputFile.companion.ome inputFile.tiff outpu
                                 <li>Contact us via the <a href="https://www.openmicroscopy.org/community">forum</a></li>
                                 <li>Submit <a href="http://qa.openmicroscopy.org.uk/qa/upload/">QA files</a></li>
                             </ul></div>
-                        <div id="right_col_30"><a href="https://github.com/openmicroscopy/bioformats"><img src="../_images/GH-logo.png"/></a></div>
+                        <div id="right_col_30"><a href="https://github.com/openmicroscopy/bioformats"><img src="images/logos/GH-logo.png"/></a></div>
                     </section>
                 </section>
             </div>
 
         </div>
 
-        <script src="../_reveal-js/lib/js/head.min.js"></script>
-        <script src="../_reveal-js/js/reveal.min.js"></script>
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
 
         <script>
 
@@ -534,7 +534,7 @@ bfconvert -option ometiff.companionoutputFile.companion.ome inputFile.tiff outpu
                     // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
                     // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
                     // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-                    { src: '../_reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
                     // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
                     // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
                     // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
