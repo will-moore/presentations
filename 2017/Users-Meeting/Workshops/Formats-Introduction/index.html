@@ -12,8 +12,8 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        <link rel="stylesheet" href="../_reveal-js/css/reveal.min.css">
-        <link rel="stylesheet" href="../_reveal-js/css/theme/default.css" id="theme">
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
 
         <!-- OME presentation overrides of the default theme -->
         <style>
@@ -24,7 +24,7 @@
                 font-size: 60px;
             }
             .ome_theme {
-                background-image: url("../_images/ome-icon-opacity.png");
+                background-image: url("images/ome-icon-opacity.png");
                 background-color: #f2f6f9;
                 background-repeat: no-repeat;
                 background-position: right -270px top -120px;
@@ -69,11 +69,11 @@
         </style>
 
         <!-- For syntax highlighting -->
-        <link rel="stylesheet" href="../_reveal-js/lib/css/zenburn.css">
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
 
         <!-- If the query includes 'print-pdf', use the PDF print sheet -->
         <script>
-            document.write( '<link rel="stylesheet" href="../_reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
         </script>
 
         <!--[if lt IE 9]>
@@ -97,20 +97,20 @@
 
                 <section>
                     <h2>What we do</h2>
-                    <img width="120%" src="../_images/formats_1.png"/>
+                    <img width="120%" src="images/formats_1.png"/>
                 </section>
 
                 <section>
                     <h2>What we do</h2>
-                    <img width="120%" src="../_images/formats_2.png"/>
+                    <img width="120%" src="images/formats_2.png"/>
                 </section>
                 <section>
                     <h2>What we do</h2>
-                    <img width="120%" src="../_images/formats_3.png"/>
+                    <img width="120%" src="images/formats_3.png"/>
                 </section>
                 <section>
                     <h2>What we do</h2>
-                    <img width="120%" src="../_images/formats_4.png"/>
+                    <img width="120%" src="images/formats_4.png"/>
                 </section>
 
                 <section>
@@ -147,14 +147,15 @@
 
                 <section>
                   <h2>What's next...today?</h2>
-                  <img width="60%" src="../_images/formats_stack.png"/>
+                  <img width="60%" src="images/formats_stack.png"/>
+                </section>
                 </section>
             </div>
 
         </div>
 
-        <script src="../_reveal-js/lib/js/head.min.js"></script>
-        <script src="../_reveal-js/js/reveal.min.js"></script>
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
 
         <script>
 
@@ -174,7 +175,7 @@
                     // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
                     // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
                     // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-                    { src: '../_reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
                     // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
                     // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
                     // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
