@@ -1,2 +1,9 @@
 .DS_Store
+._.DS_Store
 .*.un~
+*.mp4
+*.mov
+*.ppt
+*.pptx
+*.pdf
+*.tar.*
