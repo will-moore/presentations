@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>SPW Grid Layout</title>
+    
+    <meta name="description" content="OMERO SPW grid layout - Update for Tuesday 14th November team meeting" />
+    <meta name="author" content="Will Moore" />
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+
+    <link href="impress/demo.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+    <style>
+    .largerImg {
+        width: 150%;
+        position: relative;
+        left: -25%;
+    }
+    .step {
+        font-size: 40px;
+    }
+    .step h1{
+        font-size: 60px;
+    }
+    .step li{
+        list-style: inherit;
+        text-align: left;
+    }
+    </style>
+</head>
+
+<body class="impress-not-supported">
+
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+
+<div id="impress">
+
+    <div class="step" data-x="-1600" data-y="0" data-z="-1000" data-rotate-y="25" data-scale="1">
+        <h1>SPW 'Grid View' layout</h1>
+        <p>Tuesday Group Meeting<br>
+        15th November 2016<br>
+        Will, Dominik, Gus</p>
+    </div>
+
+    <div class="step" data-x="-100" data-y="0" data-z="-500" data-rotate-y="5" data-scale="1">
+        <img src="https://cloud.githubusercontent.com/assets/1552703/17856486/adaadf8e-6875-11e6-8a21-ffc865590b5c.png"
+            style="width: 100%" />
+        <a href="https://github.com/openmicroscopy/design/issues/52">Scoping: Design Issues #52</a>
+    </div>
+
+    <div class="step" data-x="950" data-y="0" data-z="500" data-rotate-z="0" data-rotate-y="-20" data-scale="1">
+        <img src="images/insight.png"
+            class="largerImg" />
+    </div>
+
+    <div class="step" data-x="1400" data-y="0" data-z="2500" data-rotate-z="0" data-rotate-y="-30" data-scale="1">
+        <img src="images/spw1.png"
+            class="largerImg" />
+    </div>
+
+    <div class="step" data-x="1400" data-y="0" data-z="4500" data-rotate-z="0" data-rotate-y="-45" data-scale="1">
+        <h1>SPW Phase 1 <a href="https://trello.com/c/LQVOVImR/202-5-3-0-m5">(5.3.0 m5)</a></h1>
+        <ul>
+            <li>PRs <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4863">#4863</a> & 
+                <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4874">#4874</a></li>
+            <li>Right panel: Well <b><i>or</i></b> Image (not both)</li>
+            <li>Tagging of Wells</li>
+        </ul>
+        <img src="images/tags.png" />
+    </div>
+
+    <div class="step" data-x="1400" data-y="900" data-z="4500" data-rotate-z="0" data-rotate-y="-45" data-scale="1">
+        <h1>Known issues / TODOs</h1>
+        <ul>
+            <li>Pagination: handle lots of Wells with many Fields</li>
+            <li>Searching for Wells</li>
+            <li>Usability:<br>
+                - No Preview panel for Wells<br>
+                - No existing annotations
+            </li>
+            <li>Thumbnail caching</li>
+        </ul>
+    </div>
+
+    <div class="step" data-x="1400" data-y="1800" data-z="4500" data-rotate-z="0" data-rotate-y="-45" data-scale="1">
+        <h1>Thumbnail caching</h1>
+        Break cache using version: 'src' ?version=1 => ?version=2
+        <ol>
+            <li>Save settings to all Dataset/Plate</li>
+            <li>Browser 'src' ?version=[random]</li>
+            <li>Loads thumbnail from server</li>
+            <li>New thumbnail version created: 1 => 2</li>
+        </ol>
+        <span style="color: red">BUT</span> this only works if thumbnail is visible (in the DOM)
+    </div>
+
+
+    <div class="step" data-x="-800" data-y="900" data-z="4000" data-rotate-x="10" data-rotate-y="-45" data-scale="1">
+            <img src="https://cloud.githubusercontent.com/assets/900055/20272589/48fcb96a-aa86-11e6-8633-f1db0ae178fe.png"
+        class="largerImg">
+    </div>
+
+
+    <div class="step" data-x="-1000" data-y="900" data-z="3000" data-rotate-x="10" data-rotate-y="-45" data-scale="1">
+        <h1>Spacial "bird's eye" view</h1>
+        <ul>
+            <li>Don't show coordinates</li>
+            <li>Thumbnails not 'actual size'</li>
+            <li>Drag to select multiple images</li>
+        </ul>
+    </div>
+
+
+
+    <div id="overview" class="step" data-x="-1500" data-y="1300" data-z="3000" data-rotate-x="-15" data-rotate-y="-65" data-rotate-z="-20" data-scale="2">
+        The End!<br>
+        More Info on <a href="https://trello.com/c/GxqDnD0P/211-spw-follow-up">Trello Card</a>
+    </div>
+
+    <!--
+        
+        So to summarize of all the possible attributes used to position presentation steps, we have:
+        
+        * `data-x`, `data-y`, `data-z` - they define the position of **the center** of step element on
+            the canvas in pixels; their default value is 0;
+        * `data-rotate-x`, `data-rotate-y`, 'data-rotate-z`, `data-rotate` - they define the rotation of
+            the element around given axis in degrees; their default value is 0; `data-rotate` and `data-rotate-z`
+            are exactly the same;
+        * `data-scale` - defines the scale of step element; default value is 1
+        
+        These values are used by impress.js in CSS transformation functions, so for more information consult
+        CSS transfrom docs: https://developer.mozilla.org/en/CSS/transform
+        
+    -->
+<!--     <div id="overview" class="step" data-x="3000" data-y="1500" data-scale="10">
+    </div> -->
+
+</div>
+
+<script src="impress/impress.js"></script>
+<script>impress().init();</script>
+
+</body>
+</html>
+

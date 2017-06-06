@@ -1,0 +1,526 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Web Api Update: Jan 2017</title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <style>
+            .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+              text-transform: none;
+            }
+            .reveal h1 {
+                font-size: 80px;
+            }
+            .reveal h2 {
+                font-size: 60px;
+            }
+            .reveal h3 {
+                font-size: 40px;
+            }
+            .ome_theme {
+                background-image: url("images/ome-icon-opacity.png");
+                background-color: #f2f6f9;
+                background-repeat: no-repeat;
+                background-position: right -270px top -120px;
+            }
+            .reveal {
+                text-transform: none;
+            }
+
+            .reveal section img {
+                border-width:0;
+                border-color: white;
+            }
+
+            .img_panel {
+                width: 150px;
+            }
+
+            .nobullet li {
+                list-style: none;
+            }
+
+            table.centre {
+                width: 100%;
+            }
+
+            .reveal .centre td {
+                text-align: center;
+            }
+
+            .rot90 {
+                -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+            }
+
+            .reveal .title {
+                position:absolute;
+                bottom:100%;
+                margin:5px;
+                color:red;
+            }
+            .larger {
+                font-size: 80px !important;
+            }
+
+            .no_shadow {
+                box-shadow:0 0 0 #fff !important;
+            }
+
+        </style>
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body class="ome_theme">
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+        <!-- title page -->
+        <section>
+            <h1>OMERO.web API update</h1>
+            <h3>Monday 9th January, 2017</h3>
+            <p>
+                <small>
+                    Will Moore
+                </small>
+            </p>
+        </section>
+
+        <!-- talk outline -->
+        <section>
+            <h2>Talk outline</h2>
+            <ul>
+                <li>Current state of OMERO.web API</li>
+                <li>What do we want for the 'new' API?</li>
+                <li>Work done so far
+                    <ul>
+                        <li>New 'api' app</li>
+                        <li>Updates to Blitz Gateway</li>
+                    </ul>
+                </li>
+                <li>Questions still to answer</li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h2>Current state of OMERO.web API (early 2016)</h2>
+            <ul>
+                <li>webgateway - "imgData", plate, list Projects, Datasets etc.</li>
+                <li>webclient, mixture between html and unstructured json data</li>
+                <li>jsTree 3 (Douglas) added several webclient/api/ urls for json data
+                    <ul>
+                        <li>Used iQuery queries built in webclient/tree.py</li>
+                        <li>Filter by group, owner, pagination etc</li>
+                        <li>Supports 'childCount' for display in jsTree</li>
+                        <li>Uses 'projection' queries (no omero.model objects)</li>
+                        <li>Lots of tests</li>
+                    </ul>
+                </li>
+
+            </ul>
+        </section>
+
+        <section>
+            <h2>What do we want for the 'new' API?</h2>
+            <ul>
+                <li>Current webclient/api/ would satisfy many user needs</li>
+                <li>Also want pixel data to build full client (E.g. ICY)</li>
+                <li>Use omero-marshal</li>
+                <li>Full CRUD functionality</li>
+                <li>Cover more objects - not just P/D/I S/P/W etc</li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h2>Work done so far (Design)</h2>
+            <ul>
+                <li>Cleanup of webclient/api
+                    <a href="https://github.com/openmicroscopy/design/issues/24">Design Issue #24</a>
+                    (March 2016) <br>
+                    <a href="https://gist.github.com/will-moore/2aa7d5eef6481dd3c777">
+                        API draft doc
+                    </a>
+                </li>
+                <li>omero-marshal based api 
+                    <a href="https://github.com/openmicroscopy/design/pull/43">Design PR #43</a>
+                    (June 2016) <br>
+                    <a href="https://github.com/will-moore/design/blob/webgateway_json_api/webgateway_json_api.md">
+                        API draft doc
+                    </a>
+                </li>
+                <li>
+                    <a href="https://docs.google.com/document/d/18ep65grhBURv6CcZLGVmvKQvP3RjfuyIhE288AAuFTM/edit#">
+                        Web meeting notes
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h2>Work done so far (Code)</h2>
+            <ul>
+                <li>Initial attempts to port webclint/api to webgateway (not merged)
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4357">#4357</a>
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4572">#4572</a>
+                </li>
+                <li>Re-focus on using omero_marshal. Support CRUD for Projects only:
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4708">#4708</a>
+                </li>
+                <li>Move to new /api/ app:
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4920">#4920</a>
+                </li>
+                <li>Add Datasets support (not merged)
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4945">#4945</a>
+                </li>
+                <li>Move more iQuery logic to Blitz Gateway <code>buildQuery()</code>
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4950">#4950</a>
+                    <ul>
+                        <li>Filter Datasets by Project</li>
+                        <li>Add childCount (needs to use 'projection' query)</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h1>Questions still to answer...</h1>
+        </section>
+
+
+        <section>
+            <h2>1) Objects to support for 5.3.0... <a href="https://github.com/openmicroscopy/design/issues/65">Design #65</a></h2>
+            <ul>
+                <li>Currently support: <pre><code>Project</code></pre></li>
+                <li>webclient/api supports: <pre><code>Project, Dataset, Image, Screen, Plate</code></pre></li>
+                <li>Blitz Gateway wrappers: (not ROIs, Shapes, Channels etc)
+                <pre><code>project, dataset, image, screen, plate,
+plateacquisition, acquisition, well,
+experimenter, experimentergroup,
+originalfile, fileset, annotations</code></pre>
+                </li>
+                <li>omero_marshal support (not PlateAcquisition, Wells)
+                    <pre><code class="python" style="height: 150px">
+>>> omero_marshal.ENCODERS
+{omero.model.DoubleAnnotationI: <omero_marshal.encode.encoders.double_annotation.DoubleAnnotation201606Encoder at 0x11026f3d0>,
+ omero.model.DetailsI: <omero_marshal.encode.encoders.details.DetailsEncoder at 0x11026f2d0>,
+ omero.model.AcquisitionModeI: <omero_marshal.encode.encoders.acquisitionmode.AcquisitionModeEncoder at 0x11024c610>,
+ omero.model.AffineTransformI: <omero_marshal.encode.encoders.affinetransform.AffineTransform201606Encoder at 0x11024c110>,
+ omero.model.Annotation: <omero_marshal.encode.encoders.annotation.Annotation201606Encoder at 0x11024c590>,
+ omero.model.BooleanAnnotationI: <omero_marshal.encode.encoders.boolean_annotation.BooleanAnnotation201606Encoder at 0x110232250>,
+ omero.model.ChannelI: <omero_marshal.encode.encoders.channel.Channel201606Encoder at 0x110245910>,
+ omero.model.TextAnnotation: <omero_marshal.encode.encoders.text_annotation.TextAnnotation201606Encoder at 0x1102862d0>,
+ omero.model.CommentAnnotationI: <omero_marshal.encode.encoders.comment_annotation.CommentAnnotation201606Encoder at 0x110253e50>,
+ omero.model.ContrastMethodI: <omero_marshal.encode.encoders.contrastmethod.ContrastMethodEncoder at 0x11026f190>,
+ omero.model.DatasetI: <omero_marshal.encode.encoders.dataset.Dataset201606Encoder at 0x11026f210>,
+ omero.model.DimensionOrderI: <omero_marshal.encode.encoders.dimensionorder.DimensionOrderEncoder at 0x11026f390>,
+ omero.model.Shape: <omero_marshal.encode.encoders.shape.Shape201606Encoder at 0x11027af10>,
+ omero.model.EllipseI: <omero_marshal.encode.encoders.ellipse.Ellipse201606Encoder at 0x11026f8d0>,
+ omero.model.ExperimenterI: <omero_marshal.encode.encoders.experimenter.Experimenter201606Encoder at 0x11024cad0>,
+ omero.model.ExperimenterGroupI: <omero_marshal.encode.encoders.experimentergroup.ExperimenterGroup201606Encoder at 0x11026f9d0>,
+ omero.model.ExternalInfoI: <omero_marshal.encode.encoders.externalinfo.ExternalInfoEncoder at 0x11026fbd0>,
+ omero.model.FormatI: <omero_marshal.encode.encoders.format.FormatEncoder at 0x11026fc50>,
+ omero.model.IlluminationI: <omero_marshal.encode.encoders.illumination.IlluminationEncoder at 0x11026fcd0>,
+ omero.model.ImageI: <omero_marshal.encode.encoders.image.Image201606Encoder at 0x11026fd10>,
+ omero.model.LabelI: <omero_marshal.encode.encoders.label.Label201606Encoder at 0x11026fe10>,
+ omero.model.LineI: <omero_marshal.encode.encoders.line.Line201606Encoder at 0x11026fed0>,
+ omero.model.LongAnnotationI: <omero_marshal.encode.encoders.long_annotation.LongAnnotation201606Encoder at 0x11026ff90>,
+ omero.model.MapAnnotationI: <omero_marshal.encode.encoders.map_annotation.MapAnnotation201606Encoder at 0x11027a190>,
+ omero.model.PhotometricInterpretationI: <omero_marshal.encode.encoders.photometricinterpretation.PhotometricInterpretationEncoder at 0x11027a3d0>,
+ omero.model.PixelsI: <omero_marshal.encode.encoders.pixels.Pixels201606Encoder at 0x11027a410>,
+ omero.model.PixelsTypeI: <omero_marshal.encode.encoders.pixelstype.PixelsTypeEncoder at 0x11027a550>,
+ omero.model.PlateI: <omero_marshal.encode.encoders.plate.Plate201606Encoder at 0x11027a590>,
+ omero.model.PointI: <omero_marshal.encode.encoders.point.Point201606Encoder at 0x11027a6d0>,
+ omero.model.PolygonI: <omero_marshal.encode.encoders.polygon.Polygon201606Encoder at 0x11027a790>,
+ omero.model.PolylineI: <omero_marshal.encode.encoders.polyline.Polyline201606Encoder at 0x11027a910>,
+ omero.model.ProjectI: <omero_marshal.encode.encoders.project.Project201606Encoder at 0x11027aa10>,
+ omero.model.RectangleI: <omero_marshal.encode.encoders.rectangle.Rectangle201606Encoder at 0x11027ac90>,
+ omero.model.RoiI: <omero_marshal.encode.encoders.roi.Roi201606Encoder at 0x11027abd0>,
+ omero.model.ScreenI: <omero_marshal.encode.encoders.screen.Screen201606Encoder at 0x11027add0>,
+ omero.model.TagAnnotationI: <omero_marshal.encode.encoders.tag_annotation.TagAnnotation201606Encoder at 0x11027af90>,
+ omero.model.TermAnnotationI: <omero_marshal.encode.encoders.term_annotation.TermAnnotation201606Encoder at 0x110286190>,
+ omero.model.TimestampAnnotationI: <omero_marshal.encode.encoders.timestamp_annotation.TimestampAnnotation201606Encoder at 0x110286450>,
+ omero.model.XmlAnnotationI: <omero_marshal.encode.encoders.xml_annotation.XmlAnnotation201606Encoder at 0x110286490>,
+ omero.model.PermissionsI: <omero_marshal.encode.encoders.permissions.PermissionsEncoder at 0x11027a2d0>}</code></pre>
+                </li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h2>1b) What query params to support for each Object?</h2>
+            <ul>
+                <li>Project supports: owner, group, page, limit, child_count</li>
+                <li>Dataset also filters by: project, orphaned?</li>
+                <li>Annotations to filter by: project etc?
+                <li>Shapes to filter by: roi? image?</li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h2>2) Versioning</h2>
+            <ul>
+                <li>See <a href="https://github.com/openmicroscopy/design/issues/64">Design Issues #64</a></li>
+                <li>How do we support multiple versions at once?</li>
+                <li>Do we distinguish minor from breaking changes? E.g. <code>/v1.0/</code> or <code>/v1/</code></li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h2>3) Graph traversal</h2>
+            <ul>
+                <li>What to load by default?</li>
+                <li>How do users specify what else to load? <br>E.g. <code>api/images/1/?embed=Pixels,omero:format.value</code></li>
+                <li>What do we support?
+                    <ul>
+                        <li>load Datasets AND Images? (probably not)</li>
+                        <li>load Wells AND Images? (probably?)</li>
+                        <li>load Images AND Pixels? (almost certainly)</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h2>4) Marshalling details, etc. <a href="https://github.com/openmicroscopy/omero-marshal/issues/22">Issue #22</a></h2>
+            <ul>
+                <li>Project: 6 lines vv 50 lines with perms:
+<pre><code class="json" style="height: 200px">{
+    "omero:details": {
+        "owner": {
+            "UserName": "will",
+            "FirstName": "Will",
+            "MiddleName": "",
+            "omero:details": {
+                "@type": "TBD#Details",
+                "permissions": {
+                    "canDelete": false,
+                    "perm": "rw----",
+                    "canEdit": false,
+                    "canAnnotate": false,
+                    "canLink": false,
+                    "@type": "TBD#Permissions"
+                }
+            },
+            "Email": "",
+            "LastName": "Moore",
+            "@id": 3,
+            "@type": "http://www.openmicroscopy.org/Schemas/OME/2016-06#Experimenter"
+        },
+        "group": {
+            "omero:details": {
+                "@type": "TBD#Details",
+                "permissions": {
+                    "canDelete": false,
+                    "perm": "rwra--",
+                    "canEdit": false,
+                    "canAnnotate": false,
+                    "canLink": false,
+                    "@type": "TBD#Permissions"
+                }
+            },
+            "@id": 5,
+            "@type": "http://www.openmicroscopy.org/Schemas/OME/2016-06#ExperimenterGroup",
+            "Name": "read-ann"
+        },
+        "@type": "TBD#Details",
+        "permissions": {
+            "canDelete": true,
+            "perm": "rwra--",
+            "canEdit": true,
+            "canAnnotate": true,
+            "canLink": true,
+            "@type": "TBD#Permissions"
+        }
+    },
+    "Description": "",
+    "@id": 13578,
+    "@type": "http://www.openmicroscopy.org/Schemas/OME/2016-06#Project",
+    "Name": "API TEST foo"
+}</code></pre>
+                </li>
+
+                <li>Image (with Pixels, Format) 50 lines vv 130 lines with perms
+<pre><code class="json" style="height: 200px">{
+    "Name": "438_01_R3D_D3D.dv",
+    "omero:details": {},
+    "Pixels": {
+        "SizeT": 99,
+        "Type": {
+            "omero:details": {},
+            "@id": 3,
+            "@type": "TBD#PixelsType",
+            "value": "int16"
+        },
+        "SizeC": 2,
+        "omero:sha1": "a296bee3c52ab4eb960adfb31442261ad683204f",
+        "PhysicalSizeY": {
+            "Symbol": "µm",
+            "Value": 0.13262000679969788,
+            "@type": "TBD#LengthI",
+            "Unit": "MICROMETER"
+        },
+        "omero:details": {},
+        "PhysicalSizeZ": {
+            "Symbol": "µm",
+            "Value": 0.4000000059604645,
+            "@type": "TBD#LengthI",
+            "Unit": "MICROMETER"
+        },
+        "SizeX": 512,
+        "SizeY": 512,
+        "SizeZ": 4,
+        "PhysicalSizeX": {
+            "Symbol": "µm",
+            "Value": 0.13262000679969788,
+            "@type": "TBD#LengthI",
+            "Unit": "MICROMETER"
+        },
+        "@id": 4101,
+        "@type": "http://www.openmicroscopy.org/Schemas/OME/2016-06#Pixels",
+        "SignificantBits": 16
+    },
+    "omero:series": 0,
+    "omero:format": {
+        "omero:details": {},
+        "@id": 19,
+        "@type": "TBD#Format",
+        "value": "Deltavision"
+    },
+    "@id": 4401,
+    "@type": "http://www.openmicroscopy.org/Schemas/OME/2016-06#Image"
+}</code></pre>
+                </li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h2>5) Architecture</h2>
+            <ul>
+                <li>Web api and conn.getObjects() to use conn.buildQuery()?</li>
+                <li>Couples web api and Blitz Gateway
+                <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4950">#4950</a></li>
+            </ul>
+<pre><code class="python" style="height: 200px">conn.buildQuery("Dataset", opts={'child_count':True, 'project': 401})
+
+# **NB: need to use queryService.projection() instead of findAllByQuery()
+""" select obj, (select count(id) from DatasetImageLink chl where chl.parent=obj.id)
+ from Dataset obj
+    join fetch obj.details.owner as owner
+    join fetch obj.details.creationEvent
+    join obj.projectLinks plink
+ where plink.parent.id = :pid"""</code></pre>
+        </section>
+
+
+        <section>
+            <h2>6) Read-Only for 5.3.0?</h2>
+            <ul>
+                <li>Saving Projects will unlink Datasets</li>
+                <li>Temp fix in <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4930">#4930</a></li>
+                <li>Now we can't remove Datasets from a Project via API</li>
+                <li>This will get much more complex with other objects E.g. Images</li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h2>7) Pagination, sorting</h2>
+            <ul>
+                <li>Probably should NEVER turn off pagination. <br>
+                E.g. /webclient/api/images/?page=0 lists ALL available images</li>
+                <li>Instead use ?limit=10000 to return a known limit of results</li>
+                <li>Use page=0 as first page instead of page=1</li>
+                <li>Use offset instead of page? (same as ParametersI API)</li>
+                <li>Support sorting by named attributes?</li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h2>8) Use of Stateful services (for imgData json)?</h2>
+            <ul>
+                <li>Do we try to support everything that's in the current webgateway/imgData/id json?</li>
+                <li>E.g. use RenderingEngine for channel colors</li>
+                <li>Or maybe /api/channels/?image=:id</li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h2>9) Documentation</h2>
+            <ul>
+                <li>Probably will have to be hand-written</li>
+            </ul>
+        </section>
+
+        
+        </div>
+
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>

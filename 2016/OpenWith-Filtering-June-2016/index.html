@@ -1,0 +1,431 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Open With & Filtering in web: June 2016</title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <style>
+            .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+              text-transform: none;
+            }
+            .reveal h1 {
+                font-size: 80px;
+            }
+            .reveal h2 {
+                font-size: 60px;
+            }
+            .reveal h3 {
+                font-size: 40px;
+            }
+            .ome_theme {
+                background-image: url("images/ome-icon-opacity.png");
+                background-color: #f2f6f9;
+                background-repeat: no-repeat;
+                background-position: right -270px top -120px;
+            }
+            .reveal {
+                text-transform: none;
+            }
+
+            .reveal section img {
+                border-width:0;
+                border-color: white;
+            }
+
+            .img_panel {
+                width: 150px;
+            }
+
+            .nobullet li {
+                list-style: none;
+            }
+
+            table.centre {
+                width: 100%;
+            }
+
+            .reveal .centre td {
+                text-align: center;
+            }
+
+            .rot90 {
+                -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+            }
+
+            .reveal .title {
+                position:absolute;
+                bottom:100%;
+                margin:5px;
+                color:red;
+            }
+            .larger {
+                font-size: 80px !important;
+            }
+
+            .no_shadow {
+                box-shadow:0 0 0 #fff !important;
+            }
+
+        </style>
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body class="ome_theme">
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+        <!-- title page -->
+        <section>
+            <h2>OMERO.web 'Open with' & Filtering</h2>
+            <h3>Tuesday Group Meeting<br>
+                28th June, 2016</h3>
+            <p>
+                <small>
+                    Will Moore
+                </small>
+            </p>
+        </section>
+
+        <!-- talk outline -->
+        <section>
+            <h2>Talk outline</h2>
+            <ul>
+                <li>'Open With'
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4630">#4630</a>
+                    <ul>
+                        <li>Simple case (image viewer)</li>
+                        <li>Customisation with JavaScript</li>
+                    </ul>
+                </li>
+                <li>Filering of images (and other objects)?
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4694">#4694</a>
+                </li>
+                <li>What about React.js?
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4413">#4413</a>
+                </li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h2>Open With: Image Viewer</h2>
+            <ul>
+                <li>Existing functionality allows to set viewer
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4480">#4480</a>
+                </li>
+                <li>'Open With' allows multiple viewers (and more) 
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4630">#4630</a>
+                    <pre><code style="width: 900px">$ omero config append omero.web.open_with '["My viewer", "url_name"]'</code></pre>
+                <li>By default 'Open with' only enabled when single image selected.
+                <li>Uses <code>reverse(url_name)</code> to try to generate url.
+                <li>Opens selected image in new window with
+                    <br>E.g. <a href="">/webtest/multi_plane_stack/?image=4420</a></li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h2>More options</h2>
+<pre><code class='ruby' style="width: 900px">
+$ omero config append omero.web.open_with '["OMERO.figure", "new_figure",
+    {"objects": ["images", "dataset"],
+     "target": "tab"
+    }]'
+</code></pre>
+
+            <ul>
+                <li>'Open With' enabled when 1 or more 'images' or 1 'dataset' selected.
+                <li>Opens url in new tab (instead of new window) 
+                    <br>E.g. <a href="">/figure/new/?image=420&image=25&image=123</a>
+        </section>
+
+
+        <section>
+            <h2>Include JavaScript</h2>
+<pre><code class='ruby' style="width: 900px">
+$ omero config append omero.web.open_with '["OMERO.figure", "new_figure",
+    {"script": "figure/openwith.js", "target": "tab"}]'
+</code></pre>
+
+            <ul>
+                <li>Includes /figure/templates/figure/openwith.js
+                <li>Script can add JavaScript handlers to 'Open With'
+            </ul>
+
+<pre><code class='javascript' style="width: 900px">
+// openwith.js
+var isEnabled = function(selected) {
+    // return boolean - should 'Open With' be enabled
+    // with the currently 'selected' objects?
+    return true;
+};
+
+var handleAction = function(selected, url) {
+    // handle selected objects
+};
+
+// helpers for applying handlers to Open With 'OMERO.figure'
+OME.setOpenWithEnabledHandler("OMERO.figure", isEnabled);
+OME.setOpenWithActionHandler("OMERO.figure", handleAction);
+</code></pre>
+        </section>
+
+
+
+        <section>
+            <h2>OMERO.figure script example</h2>
+<pre><code class='javascript' style="width: 900px">// openwith.js
+var isEnabled = function(selected) {
+    var allImagesSmall = selected.reduce(function(prev, s){
+        // We don't support 'Big' images over 3k x 3k
+        var smallImg = (s.type === 'image' && s.sizeX * s.sizeY < 9000000);
+        // We support OMERO.figure files (annotations with correct namespace)
+        var figureFile = (s.type === 'fileannotation' &&
+            s.ns === 'omero.web.figure.json');
+        return prev & (smallImg || figureFile);
+    }, true);
+    return allImagesSmall;
+};
+
+var handleAction = function(selected, url) {
+    // if we have a figure file, handle it
+    if (selected[0].type === "fileannotation") {
+        // url is for figure/new/ but for files we want figure/file/:id
+        window.open(url.replace('new', 'file') + selected[0].id + "/",
+                    '_blank');
+        return false;
+    }
+    // Otherwise, return true and default behaviour will handle it...
+    return true;
+};
+
+OME.setOpenWithEnabledHandler("OMERO.figure", isEnabled);
+OME.setOpenWithActionHandler("OMERO.figure", handleAction);
+</code></pre>
+        </section>
+
+
+        <section>
+            <h2>Genbank script example</h2>
+<pre><code class='javascript' style="width: 900px">// openwith.js
+var isEnabled = function(selected) {
+    // Only enabled for single objects...
+    if (selected.length !== 1) return false;
+    // ... where name is a number (E.g. Gene ID)
+    var name = selected[0].name;
+    return (parseInt(name, 10) == name);
+};
+
+var handleAction = function(selected, url) {
+    // Url includes selected 'name' which is an Gene ID
+    var name = selected[0].name;
+    // E.g. open http://www.ncbi.nlm.nih.gov/protein/000397
+    window.open(url + name, 'new');
+};
+
+OME.setOpenWithEnabledHandler("GenBank Protein", isEnabled);
+OME.setOpenWithActionHandler("GenBank Protein", handleAction);
+</code></pre>
+        </section>
+
+
+        <section>
+            <h2>What else is needed?</h2>
+            <ul>
+                <li>Chris: 'Open with' available from top of right panel</li>
+                <li>Josh: 
+                    <ul>
+                        <li>selection of one or more key-value pairs for execution
+                        <li>auto-discovery of plugins & javascripts (from third parties)
+                        <li>planning for the first breaking change (can we support 2 versions at once?)
+                        <li>scalability: what happens if I want to generate a heatmap from several thousand images (Will this require POST'ing json to the plugins?)</li>
+                    </ul>
+                </li>
+            </ul>
+
+        </section>
+
+
+        <section>
+            <h2>Filtering Images
+                <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4694">#4694</a>
+            </h2>
+            <ul>
+                <li>Initially a "quick fix" to add Rating to current filtering</li>
+                <li>BUT, currently we only filter on a single page (200 images)</li>
+                <li>Filtering would be much more powerful if we filter server-side...</li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h2>Filtering Images (React.js branch)
+                <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4413">#4413</a>
+            </h2>
+            <ul>
+                <li>jsTree applies filter when loading images
+                    E.g. webclient/api/images/?id=10851&page=1&filter=dv</li>
+                <li>Use iQuery to do projection count and load data using 2 queries</li>
+                <li>Returns image data and 'count'</li>
+                    <pre><code class='javascript' style="width: 900px">
+{
+    'images': [
+        {'id': 123, 'name': 'myImage.dv'...}
+    ],
+    'count': 3152
+}
+                    </pre></code>
+            </ul>
+        </section>
+
+
+        <section>
+            <h2>Problems</h2>
+
+            <li>iQuery is getting complex (custom projection AND filtering)</li>
+            <li>Need lots more filters: Rating, Tags, Comments etc.</li>
+            <li>Updating of centre panel is tricky (without React.js)</li>
+        </section>
+
+
+        <section>
+            <h2>Evaluating React.js: Centre Panel</h2>
+
+            <ul>
+                <li>Centre panel populated from jsTree data:
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4242/" >#4242</a>
+                    <ul><li>Uses unscore.js template to create HTML</li></ul>
+                </li>
+                <li>
+                    Bug: right panel scrolls on selection change
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4297" />#4297</a>:
+<pre><code># If it's just a selection change,
+# simply highlight (don't re-render whole panel)
+if (parentId === newParentId
+    && event.type !== "load_node"
+    && event.type !== "delete_node") {
+ 
+    highlightSelectedThumbs(selected);
+    return;
+}</code></pre>
+                </li>
+                <li>
+                    Bug: Also re-render on copy & paste
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4336" />#4336</a>:
+<pre><code> if (parentId === newParentId
++    && event.type !== "copy_node"
++    && event.type !== "create_node"
+     && event.type !== "load_node"
+     && event.type !== "delete_node"
+     && event.type !== "refreshThumb" {</code></pre>
+                </li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h2>Using React.js for centre panel
+                <a href="https://github.com/openmicroscopy/openmicroscopy/pull/4413">#4413</a>
+            </h2>
+
+            <ul>
+                <li>Don't have to worry about what changes are expected from different events</li>
+                <li>Simply declare how jsTree data maps to centre panel HTML
+                    <ul>
+                        <li>E.g. image selected -> class 'ui-selected'</li>
+                        <li>E.g. iconSize -> img width</li>
+                    </ul>
+                </li>
+            </ul>
+<pre><code>&lt ImageIcon &gt
+
+render: function() {
+    var image = this.props.image,
+        cls = [];
+    if (image.selected) {cls.push('ui-selected')};
+    if (image.fsSelected) {cls.push('fs-selected')};
+    return (
+        &lt li className={"row " + cls.join(" ")} &gt
+            &lt img width={this.props.iconSize + "px"}
+        ...
+</code></pre>
+        </section>
+
+
+        <section data-background="images/ReactCentrePanel.png" data-background-transition="slide">
+        </section>
+
+        
+        <section data-background="images/ReactPlate.png" data-background-transition="slide">
+        </section>
+
+
+
+        <section>
+            <h2>Questions?</h2>
+        </section>
+        
+      </div>
+
+    </div>
+
+    <script src="reveal-js/lib/js/head.min.js"></script>
+    <script src="reveal-js/js/reveal.min.js"></script>
+
+    <script>
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+            transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+
+    </body>
+</html>
