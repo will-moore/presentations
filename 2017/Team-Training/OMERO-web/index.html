@@ -1,0 +1,485 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title></title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <link rel="stylesheet" href="css/ome.css">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body class="ome_theme">
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section>
+                    <h1>Getting started with OMERO.web</h1>
+                    <p>Will Moore</p>
+                </section>
+                
+                <section>
+                    <h2>Outline</h2>
+                    <ul>
+                        <li>OMERO.web and it's apps</li>
+                        <li>Relationship between apps</li>
+                        <li>Browser - Server communication</li>
+                        <li>OMERO.web JavaScript (jQuery)
+                          <ul>
+                            <li>Where is the OMERO.web JavaScript code?</li>
+                            <li>jQuery intro and Browser devtools</li>
+                            <li>Selectors</li>
+                            <li>DOM manipulation</li>
+                            <li>AJAX</li>
+                            <li>Other libraries we use</li>
+                            <li>jsTree</li>
+                          </ul>
+                        </li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>OMERO.web framework</h2>
+
+                    <img style="height:500px" src="https://www.openmicroscopy.org/site/support/omero5.3/_images/OmeroWeb.png"/>
+                    <br>
+                    <a href="https://www.openmicroscopy.org/site/support/omero5/developers/Web.html">OMERO.web documentation</a>
+                </section>
+
+
+                <section>
+                    <h2>Relationship between apps</h2>
+
+                    <ul>
+                        <li>webgateway, webclient, webadmin, feedback, api in
+                            <a href="https://github.com/openmicroscopy/openmicroscopy/tree/develop/components/tools/OmeroWeb/omeroweb">components/tools/OmeroWeb/omeroweb</a>.
+                        </li>
+                        <li>
+                            Configured in <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/settings.py">OmeroWeb/omeroweb/settings.py</a>
+                        </li>
+                        <li>OMERO.web core apps never installed independently.</li>
+                        <li>Django apps <i>CAN</i> link to or import from other installed apps</li>
+                        <li>
+                            webgateway provides <a href="http://www.openmicroscopy.org/site/support/omero5/developers/Web/WebGateway.html">core functionality</a>: 
+                            <ul>
+                                <li>Class LoginView extended by webclient & api</li>
+                                <li>html templates extended by webclient</li>
+                                <li>views.full_viewer() imported by webclient</li>
+                                <li>webgateway/imgData/id JSON used by webclient, figure, iviewer</li>
+                                <li>webgateway/render_image/id used by webclient, figure, iviewer</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>OMERO.web for developers</h2>
+
+                    <ul>
+                        <li>clone openmicroscopy/openmicroscopy and build</li>
+                        <li>Run OMERO.web <a href="https://docs.openmicroscopy.org/latest/omero/developers/Web/Deployment.html">as described for developers</a>.
+                        </li>
+                        <li>Use nginx in development? Under discussion: <a href="https://trello.com/c/VdQ4HAl6/65-using-nginx-in-development">See trello card</a>.
+
+                        <li>Remove <code>dist/lib/python/omeroweb</code> and replace with sym-link to
+                            source at <code>components/tools/OmeroWeb/omeroweb</code>
+                        </li>
+
+                        <li>Here's what I do: 
+                            <a href="https://gist.github.com/will-moore/bbcb487b99502e9275c4fc6d80fb3b9c">
+                                gist: omero-build.sh
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Browser - Server communication</h2>
+                    <div>Browser: JavaScript</div>
+                    <img src="http://downloads.openmicroscopy.org/presentations/2017/Users-Meeting/Workshops/Omero-Web/images/omero.web.apps.png"/>
+                    <div>Server: Python client of OMERO</div>
+                </section>
+
+               <!--  <section>
+                    <h2>What's in a Django app?</h2>
+
+                    <p>See the <a href="https://docs.openmicroscopy.org/latest/omero/developers/Web.html#getting-started">OMERO.web simple example</a></p>
+
+                    <ul>
+                        <li>urls.py
+                            <pre><code class="python">url( r'^dataset/(?P&lt;dataset_id&gt;[0-9]+)/$', views.dataset ),</code></pre>
+                        </li>
+                        <li>views.py
+                            <pre><code style="width:800px" class="python">
+@login_required()
+def dataset(request, dataset_id, conn=None, **kwargs):
+    ds = conn.getObject("Dataset", dataset_id)
+    return render(request, 'webtest/dataset.html', {'dataset': ds})
+                            </code></pre>
+                        </li>
+                        <li>template.html
+                            <pre><code style="width:800px">&lt;html&gt;&lt;body&gt;
+&lt;script&gt;alert("Hello World")  // JavaScript goes here&lt;/script&gt;         
+&lt;h1&gt;{{ dataset.getName }}&lt;/h1&gt;
+{% for i in dataset.listChildren %}
+    &lt;img src="{% url 'webgateway.views.render_thumbnail' i.id %}" /&gt;
+    {{ i.getName }}
+{% endfor %}
+&lt;/body&gt;&lt;/html&gt;</code></pre>
+                        </li>
+                    </ul>
+                </section>
+ -->
+
+
+                <section>
+                    <h2>Loading /webclient/ home page</h2>
+                    
+                    <ul>
+                        <li>
+                            <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/urls.py">webclient/urls.py</a>
+                            <pre><code style="width:800px">url(r'^$', views.load_template, {'menu': 'userdata'}, name="webindex"),</code></pre>
+                        </li>
+                        <li>
+                            <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/views.py">webclient/views.py</a>
+                            <pre><code style="width:800px" class="python">@login_required()
+@render_response()
+def load_template(request, menu, conn=None, url=None, **kwargs):
+    ...
+    template = "webclient/data/containers.html"
+    ... </code></pre>
+                        </li>
+                        <li>
+                            <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/containers.html">webclient/templates/webclient/data/containers.html</a>
+<pre><code style="width:900px">{% extends "webclient/base/base_container.html" %}  
+...
+&lt;script src="{% static 'webclient/javascript/ome.tree.js'|add:url_suffix %}"&gt;&lt;/script&gt;
+&lt;script&gt;// More JavaScript... &lt;/script&gt;
+...
+{% block left %}
+&lt;div class="left_panel_content"&gt;
+...
+&lt;div class="dataTree" id="dataTree"&gt;&lt;/div&gt;
+</code></pre>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Sequence of /webclient/ app</h2>
+
+                    <ol>
+                        <li>Load containers.html (includes jQuery and lots of other JavaScript)</li>
+                        <li>jQuery loads other data via AJAX and updates page HTML (DOM):
+                            <ul>
+                                <li>jsTree loads P/D/I S/P as JSON data</li>
+                                <li>jsTree JSON data used to build Dataset thumbnails HTML</li>
+                                <li>Selected items trigger right panel loading HTML</li>
+                                <li>Plates loaded as JSON data</li>
+                                <li>Scripts loaded as JSON data</li>
+                                <li>Groups/Users menu loaded as HTML</li>
+                                <li>etc....</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </section>
+
+
+                <section>
+                    <h2>Browser devtools (Chrome or Firefox)</h2>
+
+                    <ul>
+                        <li>Inspect DOM (right click on Element -> Inspect) <br>
+                            Find elements, IDs, classes etc.
+                            </li>
+                        <li>Edit CSS in the browser</li>
+                        <li>Access JavaScript Console</li>
+                        <li>Inspect Network requests
+                            <ul>
+                                <li>Requested URL and GET/POST</li>
+                                <li>What initialised it?</li>
+                                <li>Data sent and Recieved</li>
+                                <li>Timing</li>
+                                <li>Open GET URLs in new Tab</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>jQuery</h2>
+
+                    <ul>
+                        <li><strong>Very</strong> popular library for DOM manipulation, AJAX etc</li>
+                        <li>We use jQuery 1.11.1, 2014 (current version is 3.2.1)</li>
+                        <li>Loaded in
+                            <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webgateway/templates/webgateway/base/includes/script_src_jquery.html">/webgateway/base/includes/script_src_jquery.html</a>
+                        </li>
+                        <li>Lots of jQuery extensions: jQuery-UI, jsTree etc.</li>
+                        <li>See the <a href="http://api.jquery.com/">docs</a></li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>jQuery: run when ready</h2>
+                    
+                    Need to run jQuery code when page is ready...
+                    <pre><code class="javascript">// $ == jQuery
+$("document").ready(function(){
+    // Do stuff when DOM is complete...
+});
+
+$(function(){
+    // Short-hand to do the same thing...
+});
+</code></pre>
+                    We do this in many different places on the same page. <br>
+                    E.g. <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/containers.html#L493">containers.html</a>,
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/base/includes/script_launch_head.html#L24">script_launch_head.html</a>,
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/static/webclient/javascript/ome.tree.js#L22">webclient/static/webclient/javascript/ome.tree.js</a>
+                </section>
+
+
+                <section>
+                    <h2>jQuery: selectors</h2>
+                    
+                    Uses CSS syntax for selecting "list" of object(s)
+                    <pre><code class="javascript">// Select by ID
+$("#content_details")
+
+// By class name, saving to variable prefixed with $ for jQuery object
+var $menu_links = $(".menu_link")
+
+// By element name
+$("div")
+
+// By attribute
+$("[role='treeitem']")
+
+// combination - spaces separate parent -> child
+$("#dataTree li[role='treeitem'] .jstree-anchor span")
+</code></pre>
+                    <uL>
+                        <li>Need to select ONLY the elements you want, but</li>
+                        <li>Longer selectors are more 'fragile' to change than others.</li>
+                        <li>IDs are best but don't want them on every element.</li>
+                    </uL>
+                </section>
+
+
+                <section>
+                    <h2>jQuery: DOM manipulation</h2>
+                    
+                    <pre><code class="javascript">// Set the innerHTML
+$("#content_details").html("&lt;h1&gt;Hello World&lt;/h1&gt;")
+
+// Load HTML from URL
+$("#content_details").load("/webclient/group_user_content/");
+
+// Move new/existing elements
+var $hello = $("&lt;h1&gt;Hello World&lt;/h1&gt;");
+$("#content_details").append($hello)
+
+// HTML generated via Underscore templates (see link below)
+var html = iconTmpl(json);
+$("#icon_table").html(html);
+</code></pre>
+                    E.g. updating centre panel with data from jsTree.
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/includes/center_plugin.thumbs.js.html">center_plugin.thumbs.js.html</a>
+                </section>
+
+
+
+                <section>
+                    <h2>jQuery: CSS and show/hide</h2>
+                    
+                    <pre><code class="javascript">// Single CSS change
+$("#content_details").css('background', 'red');
+
+// Multiple changes - use JSON
+$("#content_details").css({'background': 'red', 'font-size': '20px'});
+
+// Add/remove Classes can be nicer (from link below)
+$this.addClass('ratingFilter_hidden');
+
+// hide / show
+$("#content_details").hide();
+$("#content_details").show();
+</code></pre>
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/omerowebb/omeroweb/webclient/templates/webclient/data/includes/center_plugin.thumbs.js.html">center_plugin.thumbs.js.html</a>
+                </section>
+
+
+                <section>
+                    <h2>jQuery: chaining</h2>
+                    
+                    functions on jQuery objects usually return <br>
+                    the objects themselves
+                    <pre><code class="javascript">
+// All these methods called on the same &lt;h1&gt; element
+$("&lt;h1&gt;Hello World&lt;/h1&gt;")
+    .appendTo("#content_details")
+    .css('background', 'red')
+    .hide()
+    .fadeIn()
+                    </code></pre>
+                </section>
+
+
+                <section>
+                    <h2>jQuery: iterating</h2>
+                    
+                    Call a function on each element in collection
+                    <pre><code class="javascript">
+// Filter thumbnails by rating:
+$("#dataIcons li.row").each(function() {
+    var $this = $(this),
+        iid = $this.attr("data-id");
+    if (rating === 0 || rdata[iid]) {
+        $this.removeClass('ratingFilter_hidden');
+    } else {
+        $this.addClass('ratingFilter_hidden');
+    }
+});
+                    </code></pre>
+
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/includes/center_plugin.thumbs.js.html#L482">center_plugin.thumbs.js.html</a>
+                </section>
+
+
+                <section>
+                    <h2>jQuery: AJAX</h2>
+                    
+                    GET or POST data to a URL
+                    <pre><code class="javascript">// Get rating annotations for filtering:
+var query = "image=" + iids.join("&image=");
+$.getJSON("{% url 'api_annotations' %}?type=rating&" + query, function(data){
+...
+});
+
+// POST to create new Container
+var ajax_data = {
+    "name" : new_container_name,
+    "folder_type" : cont_type,
+    "description" : new_container_desc,
+}
+$.ajax({
+    url: url,
+    data: ajax_data,
+    dataType: "json",
+    type: "POST",
+    success: function(data){
+        // handle success
+    }
+});
+                    </code></pre>
+
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/includes/center_plugin.thumbs.js.html#L482">
+                        center_plugin.thumbs.js.html
+                    </a>,
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/containers.html#L601">
+                        containers.html
+                    </a>
+                </section>
+
+
+                <section>
+                    <h2>jQuery: Events</h2>
+                    
+                    Listen for and trigger events
+                    <pre><code class="javascript">// double-click handler on image. NB: event bound to parent container
+$("#content_details").on("dblclick", "li.row", function(event) {
+...});
+
+// Listen for custom events. right_plugin.general.js.html
+$("body").on("selection_change.ome", function(event) {
+    // clear contents of right panel, then update
+    $("#metadata_general").empty();
+    update_metadata_general_tab();
+});
+
+// Trigger events. ome.webclient.actions.js
+OME.handle_tree_selection = function(data, event) {
+    ...
+    $("body").trigger("selection_change.ome", data);
+}
+                    </code></pre>
+
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/includes/center_plugin.thumbs.js.html#L89">
+                        center_plugin.thumbs.js.html
+                    </a>,
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/includes/right_plugin.general.js.html#L153">
+                        right_plugin.general.js.html
+                    </a>,
+                    <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/static/webclient/javascript/ome.webclient.actions.js#L75">
+                        ome.webclient.actions.js
+                    </a>
+                </section>
+            </div>
+
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
