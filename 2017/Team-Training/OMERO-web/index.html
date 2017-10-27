@@ -70,24 +70,28 @@
 
                     <img style="height:500px" src="https://www.openmicroscopy.org/site/support/omero5.3/_images/OmeroWeb.png"/>
                     <br>
-                    <a href="https://www.openmicroscopy.org/site/support/omero5/developers/Web.html">OMERO.web documentation</a>
+                    <a target="_blank" href="https://www.openmicroscopy.org/site/support/omero5/developers/Web.html">OMERO.web documentation</a>
                 </section>
 
 
                 <section>
                     <h2>Relationship between apps</h2>
 
-                    <ul>
+                    <img style="height:500px" src="images/OmeroWeb-core-apps.png"/>
+
+                    <br>
+                    <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/">components/tools/OmeroWeb/omeroweb/</a>
+                    <!-- <ul>
                         <li>webgateway, webclient, webadmin, feedback, api in
-                            <a href="https://github.com/openmicroscopy/openmicroscopy/tree/develop/components/tools/OmeroWeb/omeroweb">components/tools/OmeroWeb/omeroweb</a>.
+                            <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/tree/develop/components/tools/OmeroWeb/omeroweb">components/tools/OmeroWeb/omeroweb</a>.
                         </li>
                         <li>
-                            Configured in <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/settings.py">OmeroWeb/omeroweb/settings.py</a>
+                            Configured in <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/settings.py">OmeroWeb/omeroweb/settings.py</a>
                         </li>
                         <li>OMERO.web core apps never installed independently.</li>
                         <li>Django apps <i>CAN</i> link to or import from other installed apps</li>
                         <li>
-                            webgateway provides <a href="http://www.openmicroscopy.org/site/support/omero5/developers/Web/WebGateway.html">core functionality</a>: 
+                            webgateway provides <a target="_blank" href="http://www.openmicroscopy.org/site/support/omero5/developers/Web/WebGateway.html">core functionality</a>: 
                             <ul>
                                 <li>Class LoginView extended by webclient & api</li>
                                 <li>html templates extended by webclient</li>
@@ -96,7 +100,7 @@
                                 <li>webgateway/render_image/id used by webclient, figure, iviewer</li>
                             </ul>
                         </li>
-                    </ul>
+                    </ul> -->
                 </section>
 
 
@@ -105,16 +109,16 @@
 
                     <ul>
                         <li>clone openmicroscopy/openmicroscopy and build</li>
-                        <li>Run OMERO.web <a href="https://docs.openmicroscopy.org/latest/omero/developers/Web/Deployment.html">as described for developers</a>.
+                        <li>Run OMERO.web <a target="_blank" href="https://docs.openmicroscopy.org/latest/omero/developers/Web/Deployment.html">as described for developers</a>.
                         </li>
-                        <li>Use nginx in development? Under discussion: <a href="https://trello.com/c/VdQ4HAl6/65-using-nginx-in-development">See trello card</a>.
+                        <li>Use nginx in development? Under discussion: <a target="_blank" href="https://trello.com/c/VdQ4HAl6/65-using-nginx-in-development">See trello card</a>.
 
                         <li>Remove <code>dist/lib/python/omeroweb</code> and replace with sym-link to
                             source at <code>components/tools/OmeroWeb/omeroweb</code>
                         </li>
 
                         <li>Here's what I do: 
-                            <a href="https://gist.github.com/will-moore/bbcb487b99502e9275c4fc6d80fb3b9c">
+                            <a target="_blank" href="https://gist.github.com/will-moore/bbcb487b99502e9275c4fc6d80fb3b9c">
                                 gist: omero-build.sh
                             </a>
                         </li>
@@ -132,7 +136,7 @@
                <!--  <section>
                     <h2>What's in a Django app?</h2>
 
-                    <p>See the <a href="https://docs.openmicroscopy.org/latest/omero/developers/Web.html#getting-started">OMERO.web simple example</a></p>
+                    <p>See the <a target="_blank" href="https://docs.openmicroscopy.org/latest/omero/developers/Web.html#getting-started">OMERO.web simple example</a></p>
 
                     <ul>
                         <li>urls.py
@@ -166,11 +170,11 @@ def dataset(request, dataset_id, conn=None, **kwargs):
                     
                     <ul>
                         <li>
-                            <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/urls.py">webclient/urls.py</a>
+                            <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/urls.py">webclient/urls.py</a>
                             <pre><code style="width:800px">url(r'^$', views.load_template, {'menu': 'userdata'}, name="webindex"),</code></pre>
                         </li>
                         <li>
-                            <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/views.py">webclient/views.py</a>
+                            <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/views.py">webclient/views.py</a>
                             <pre><code style="width:800px" class="python">@login_required()
 @render_response()
 def load_template(request, menu, conn=None, url=None, **kwargs):
@@ -179,7 +183,7 @@ def load_template(request, menu, conn=None, url=None, **kwargs):
     ... </code></pre>
                         </li>
                         <li>
-                            <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/containers.html">webclient/templates/webclient/data/containers.html</a>
+                            <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/containers.html">webclient/templates/webclient/data/containers.html</a>
 <pre><code style="width:900px">{% extends "webclient/base/base_container.html" %}  
 ...
 &lt;script src="{% static 'webclient/javascript/ome.tree.js'|add:url_suffix %}"&gt;&lt;/script&gt;
@@ -190,6 +194,27 @@ def load_template(request, menu, conn=None, url=None, **kwargs):
 ...
 &lt;div class="dataTree" id="dataTree"&gt;&lt;/div&gt;
 </code></pre>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Django HTML templates</h2>
+
+                    <ul>
+                        <li>Inheritance
+                            <pre><code>{% extends "path/to/template.html" %}</code></pre>
+                        </li>
+                        <li>Composition
+                            <pre><code>{% includes "path/to/template.html" %}</code></pre>
+                        </li>
+                        <li>
+                            OMERO.web: extensive <a target="_blank" href="https://gist.github.com/will-moore/ff3b9d52df40c786701279df4914185c">hierarchy of templates</a>
+                        </li>
+                        <li>
+                            Needs to be simplified (see
+                            <a target="_blank" href="https://trello.com/c/BQyJ0Ay7/47-django-templates-cleanup">Trello card</a>)
+                        </li>
                     </ul>
                 </section>
 
@@ -243,10 +268,10 @@ def load_template(request, menu, conn=None, url=None, **kwargs):
                         <li><strong>Very</strong> popular library for DOM manipulation, AJAX etc</li>
                         <li>We use jQuery 1.11.1, 2014 (current version is 3.2.1)</li>
                         <li>Loaded in
-                            <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webgateway/templates/webgateway/base/includes/script_src_jquery.html">/webgateway/base/includes/script_src_jquery.html</a>
+                            <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webgateway/templates/webgateway/base/includes/script_src_jquery.html">/webgateway/base/includes/script_src_jquery.html</a>
                         </li>
                         <li>Lots of jQuery extensions: jQuery-UI, jsTree etc.</li>
-                        <li>See the <a href="http://api.jquery.com/">docs</a></li>
+                        <li>See the <a target="_blank" href="http://api.jquery.com/">docs</a></li>
                     </ul>
                 </section>
 
@@ -265,9 +290,9 @@ $(function(){
 });
 </code></pre>
                     We do this in many different places on the same page. <br>
-                    E.g. <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/containers.html#L493">containers.html</a>,
-                    <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/base/includes/script_launch_head.html#L24">script_launch_head.html</a>,
-                    <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/static/webclient/javascript/ome.tree.js#L22">webclient/static/webclient/javascript/ome.tree.js</a>
+                    E.g. <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/containers.html#L493">containers.html</a>,
+                    <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/base/includes/script_launch_head.html#L24">script_launch_head.html</a>,
+                    <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/static/webclient/javascript/ome.tree.js#L22">webclient/static/webclient/javascript/ome.tree.js</a>
                 </section>
 
 
@@ -316,7 +341,7 @@ var html = iconTmpl(json);
 $("#icon_table").html(html);
 </code></pre>
                     E.g. updating centre panel with data from jsTree.
-                    <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/includes/center_plugin.thumbs.js.html">center_plugin.thumbs.js.html</a>
+                    <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/includes/center_plugin.thumbs.js.html">center_plugin.thumbs.js.html</a>
                 </section>
 
 
@@ -337,7 +362,7 @@ $this.addClass('ratingFilter_hidden');
 $("#content_details").hide();
 $("#content_details").show();
 </code></pre>
-                    <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/omerowebb/omeroweb/webclient/templates/webclient/data/includes/center_plugin.thumbs.js.html">center_plugin.thumbs.js.html</a>
+                    <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/omerowebb/omeroweb/webclient/templates/webclient/data/includes/center_plugin.thumbs.js.html">center_plugin.thumbs.js.html</a>
                 </section>
 
 
@@ -374,7 +399,7 @@ $("#dataIcons li.row").each(function() {
 });
                     </code></pre>
 
-                    <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/includes/center_plugin.thumbs.js.html#L482">center_plugin.thumbs.js.html</a>
+                    <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/includes/center_plugin.thumbs.js.html#L482">center_plugin.thumbs.js.html</a>
                 </section>
 
 
@@ -405,10 +430,10 @@ $.ajax({
 });
                     </code></pre>
 
-                    <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/includes/center_plugin.thumbs.js.html#L482">
+                    <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/includes/center_plugin.thumbs.js.html#L482">
                         center_plugin.thumbs.js.html
                     </a>,
-                    <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/containers.html#L601">
+                    <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/containers.html#L601">
                         containers.html
                     </a>
                 </section>
@@ -436,15 +461,71 @@ OME.handle_tree_selection = function(data, event) {
 }
                     </code></pre>
 
-                    <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/includes/center_plugin.thumbs.js.html#L89">
+                    <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/includes/center_plugin.thumbs.js.html#L89">
                         center_plugin.thumbs.js.html
                     </a>,
-                    <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/includes/right_plugin.general.js.html#L153">
+                    <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/includes/right_plugin.general.js.html#L153">
                         right_plugin.general.js.html
                     </a>,
-                    <a href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/static/webclient/javascript/ome.webclient.actions.js#L75">
+                    <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/static/webclient/javascript/ome.webclient.actions.js#L75">
                         ome.webclient.actions.js
                     </a>
+                </section>
+
+
+                <section>
+                    <h2>jsTree</h2>
+
+                    Managing hierarchies
+                    <pre><code class="javascript">$("#dataTree")
+    .on('changed.jstree', function (e, data) {
+        OME.tree_selection_changed(data, e);
+    })
+    .on('move_node.jstree', function(e, data) {
+        // update links to server
+    })
+    .jstree({
+        'core': {
+            'data': function(node, callback) {
+                if (node.type === 'project') {
+                    url = WEBCLIENT.URLS.api_datasets;
+                }
+
+                $.ajax({url: url, data: payload,
+                    success: function (data, textStatus, jqXHR) {
+                        callback.call(this, data);
+                    }
+                });
+            }
+        }
+    });
+                    </code></pre>
+                    <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/static/webclient/javascript/ome.tree.js">
+                        /webclient/static/webclient/javascript/ome.tree.js
+                    </a>
+                </section>
+
+
+                <section>
+                    <h2>Underscore templates</h2>
+
+                    Used to generate HTML from 'JSON'
+                    <pre><code class="html">&lt;script id="icon_thumbnails_template" type="text/template"&gt;
+    &lt;h1&gt; &lt;%= title %&gt; &lt;/h1&gt;
+    &lt;% _.each(images, function(img) { %&gt;
+        &lt;li&gt; &lt;%= img.name %&gt; &lt;/li&gt;
+    &lt;% }) %&gt;
+&lt;/script&gt;
+</code></pre>
+<pre><code class="javascript">var t = $("#icon_thumbnails_template").html();
+var compiled = _.template(t);
+var jsonData = {
+    title: "Dataset Name",
+    images: [
+        {name: "image.tiff"}, {name: "test.dv"}
+    ]
+};
+var html = compiled(jsonData);</code></pre>
                 </section>
             </div>
 
