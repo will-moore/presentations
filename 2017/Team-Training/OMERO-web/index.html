@@ -47,7 +47,8 @@
                 <section>
                     <h2>Outline</h2>
                     <ul>
-                        <li>OMERO.web and it's apps</li>
+                        <li>OMERO.web setup for developers</li>
+                        <li>OMERO.web and its apps</li>
                         <li>Relationship between apps</li>
                         <li>Browser - Server communication</li>
                         <li>OMERO.web JavaScript (jQuery)
@@ -66,49 +67,12 @@
 
 
                 <section>
-                    <h2>OMERO.web framework</h2>
-
-                    <img style="height:500px" src="https://www.openmicroscopy.org/site/support/omero5.3/_images/OmeroWeb.png"/>
-                    <br>
-                    <a target="_blank" href="https://www.openmicroscopy.org/site/support/omero5/developers/Web.html">OMERO.web documentation</a>
-                </section>
-
-
-                <section>
-                    <h2>Relationship between apps</h2>
-
-                    <img style="height:500px" src="images/OmeroWeb-core-apps.png"/>
-
-                    <br>
-                    <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/">components/tools/OmeroWeb/omeroweb/</a>
-                    <!-- <ul>
-                        <li>webgateway, webclient, webadmin, feedback, api in
-                            <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/tree/develop/components/tools/OmeroWeb/omeroweb">components/tools/OmeroWeb/omeroweb</a>.
-                        </li>
-                        <li>
-                            Configured in <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/settings.py">OmeroWeb/omeroweb/settings.py</a>
-                        </li>
-                        <li>OMERO.web core apps never installed independently.</li>
-                        <li>Django apps <i>CAN</i> link to or import from other installed apps</li>
-                        <li>
-                            webgateway provides <a target="_blank" href="http://www.openmicroscopy.org/site/support/omero5/developers/Web/WebGateway.html">core functionality</a>: 
-                            <ul>
-                                <li>Class LoginView extended by webclient & api</li>
-                                <li>html templates extended by webclient</li>
-                                <li>views.full_viewer() imported by webclient</li>
-                                <li>webgateway/imgData/id JSON used by webclient, figure, iviewer</li>
-                                <li>webgateway/render_image/id used by webclient, figure, iviewer</li>
-                            </ul>
-                        </li>
-                    </ul> -->
-                </section>
-
-
-                <section>
-                    <h2>OMERO.web for developers</h2>
+                    <h2>OMERO.web setup for developers</h2>
 
                     <ul>
-                        <li>clone openmicroscopy/openmicroscopy and build</li>
+                        <li>clone <a href="https://github.com/openmicroscopy/openmicroscopy/">openmicroscopy/openmicroscopy</a> and build
+                            <pre><code>$ ./build.py clean build</code></pre>
+                        </li>
                         <li>Run OMERO.web <a target="_blank" href="https://docs.openmicroscopy.org/latest/omero/developers/Web/Deployment.html">as described for developers</a>.
                         </li>
                         <li>Use nginx in development? Under discussion: <a target="_blank" href="https://trello.com/c/VdQ4HAl6/65-using-nginx-in-development">See trello card</a>.
@@ -127,13 +91,15 @@
 
 
                 <section>
-                    <h2>Browser - Server communication</h2>
-                    <div>Browser: JavaScript</div>
-                    <img src="http://downloads.openmicroscopy.org/presentations/2017/Users-Meeting/Workshops/Omero-Web/images/omero.web.apps.png"/>
-                    <div>Server: Python client of OMERO</div>
+                    <h2>OMERO.web framework</h2>
+
+                    <img style="height:500px" src="https://www.openmicroscopy.org/site/support/omero5.3/_images/OmeroWeb.png"/>
+                    <br>
+                    <a target="_blank" href="https://www.openmicroscopy.org/site/support/omero5/developers/Web.html">OMERO.web documentation</a>
                 </section>
 
-               <!--  <section>
+
+               <section>
                     <h2>What's in a Django app?</h2>
 
                     <p>See the <a target="_blank" href="https://docs.openmicroscopy.org/latest/omero/developers/Web.html#getting-started">OMERO.web simple example</a></p>
@@ -161,8 +127,77 @@ def dataset(request, dataset_id, conn=None, **kwargs):
 &lt;/body&gt;&lt;/html&gt;</code></pre>
                         </li>
                     </ul>
+                    <br>
+                    See <a href="https://www.djangoproject.com/">Django docs</a>
                 </section>
- -->
+
+
+                <section>
+                    <h2>OMERO.web apps</h2>
+                    <p><a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/">components/tools/OmeroWeb/omeroweb/</a></p>
+                    <ul>
+                        <li>
+                            <b>webgateway</b>
+                            <a href="http://www.openmicroscopy.org/site/support/omero5/developers/Web/WebGateway.html">(public)</a>: render images, image JSON, full viewer
+                        </li>
+                        <li>
+                            <b>feedback</b>: submitting errors or comments
+                        </li>
+                        <li>
+                            <b>webclient</b>: main web client UI
+                        </li>
+                        <li>
+                            <b>webadmin</b>: manager users & groups
+                        </li>
+                        <li>
+                            <b>api</b>
+                            <a href="https://docs.openmicroscopy.org/latest/omero/developers/json-api.html">(public)</a>: JSON api
+                        </li>
+
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Dependencies between apps</h2>
+
+                    <img style="height:500px" src="images/OmeroWeb-core-apps.png"/>
+
+                    <br>
+                    <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/">components/tools/OmeroWeb/omeroweb/</a>
+                    <!-- 
+                    Points to note: In general, webgateway should be the only dependency,
+                    but in practice all the apps are deployed together and all have dependencies on each other.
+                    -->
+                </section>
+
+
+                <section>
+                    <h2>Browser - Server communication</h2>
+                    <div>Browser: JavaScript</div>
+                    <img src="https://downloads.openmicroscopy.org/presentations/2017/Users-Meeting/Workshops/Omero-Web/images/omero.web.apps.png"/>
+                    <div>Server: Python client of OMERO</div>
+                </section>
+
+
+                <section>
+                    <h2>Sequence of /webclient/ app</h2>
+
+                    <ol>
+                        <li>Load containers.html (includes jQuery and lots of other JavaScript)</li>
+                        <li>jQuery loads other data via AJAX and updates page HTML (DOM):
+                            <ul>
+                                <li>jsTree loads Projects, Datasets, Images, Screens & Plates as JSON data</li>
+                                <li>jsTree JSON data used to build Dataset thumbnails HTML</li>
+                                <li>Selected items trigger right panel loading HTML</li>
+                                <li>Plates loaded as JSON data</li>
+                                <li>Scripts loaded as JSON data</li>
+                                <li>Groups/Users menu loaded as HTML</li>
+                                <li>etc.</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </section>
 
 
                 <section>
@@ -220,26 +255,6 @@ def load_template(request, menu, conn=None, url=None, **kwargs):
 
 
                 <section>
-                    <h2>Sequence of /webclient/ app</h2>
-
-                    <ol>
-                        <li>Load containers.html (includes jQuery and lots of other JavaScript)</li>
-                        <li>jQuery loads other data via AJAX and updates page HTML (DOM):
-                            <ul>
-                                <li>jsTree loads P/D/I S/P as JSON data</li>
-                                <li>jsTree JSON data used to build Dataset thumbnails HTML</li>
-                                <li>Selected items trigger right panel loading HTML</li>
-                                <li>Plates loaded as JSON data</li>
-                                <li>Scripts loaded as JSON data</li>
-                                <li>Groups/Users menu loaded as HTML</li>
-                                <li>etc....</li>
-                            </ul>
-                        </li>
-                    </ol>
-                </section>
-
-
-                <section>
                     <h2>Browser devtools (Chrome or Firefox)</h2>
 
                     <ul>
@@ -252,7 +267,7 @@ def load_template(request, menu, conn=None, url=None, **kwargs):
                             <ul>
                                 <li>Requested URL and GET/POST</li>
                                 <li>What initialised it?</li>
-                                <li>Data sent and Recieved</li>
+                                <li>Data sent and received</li>
                                 <li>Timing</li>
                                 <li>Open GET URLs in new Tab</li>
                             </ul>
@@ -262,11 +277,11 @@ def load_template(request, menu, conn=None, url=None, **kwargs):
 
 
                 <section>
-                    <h2>jQuery</h2>
+                    <h2><a href="https://jquery.com">jQuery</a></h2>
 
                     <ul>
-                        <li><strong>Very</strong> popular library for DOM manipulation, AJAX etc</li>
-                        <li>We use jQuery 1.11.1, 2014 (current version is 3.2.1)</li>
+                        <li><strong>Very</strong> popular library for DOM manipulation, AJAX etc.</li>
+                        <li>We use jQuery 1.11.1, (2014). Current version is 3.2.1</li>
                         <li>Loaded in
                             <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webgateway/templates/webgateway/base/includes/script_src_jquery.html">/webgateway/base/includes/script_src_jquery.html</a>
                         </li>
@@ -289,8 +304,8 @@ $(function(){
     // Short-hand to do the same thing...
 });
 </code></pre>
-                    We do this in many different places on the same page. <br>
-                    E.g. <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/containers.html#L493">containers.html</a>,
+                    We do this in many different places on the same page <br>
+                    e.g. <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/containers.html#L493">containers.html</a>,
                     <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/base/includes/script_launch_head.html#L24">script_launch_head.html</a>,
                     <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/static/webclient/javascript/ome.tree.js#L22">webclient/static/webclient/javascript/ome.tree.js</a>
                 </section>
@@ -443,7 +458,7 @@ $.ajax({
                     <h2>jQuery: Events</h2>
                     
                     Listen for and trigger events
-                    <pre><code class="javascript">// double-click handler on image. NB: event bound to parent container
+                    <pre><code class="javascript">// double-click handler on image. N.B. event bound to parent container
 $("#content_details").on("dblclick", "li.row", function(event) {
 ...});
 
@@ -482,14 +497,19 @@ OME.handle_tree_selection = function(data, event) {
         OME.tree_selection_changed(data, e);
     })
     .on('move_node.jstree', function(e, data) {
-        // update links to server
+        // object links saved to server
     })
+    // initialise jstree plugin...
     .jstree({
         'core': {
+            // called when jsTree wants children data for a node
             'data': function(node, callback) {
+                // set url and payload based on node
+                // N.B. very simplified example...
                 if (node.type === 'project') {
                     url = WEBCLIENT.URLS.api_datasets;
                 }
+                var payload = {'id': node.data.obj.id};
 
                 $.ajax({url: url, data: payload,
                     success: function (data, textStatus, jqXHR) {
@@ -498,8 +518,7 @@ OME.handle_tree_selection = function(data, event) {
                 });
             }
         }
-    });
-                    </code></pre>
+    });</code></pre>
                     <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/static/webclient/javascript/ome.tree.js">
                         /webclient/static/webclient/javascript/ome.tree.js
                     </a>
@@ -507,7 +526,7 @@ OME.handle_tree_selection = function(data, event) {
 
 
                 <section>
-                    <h2>Underscore templates</h2>
+                    <h2><a href="http://underscorejs.org/#template">Underscore templates</a></h2>
 
                     Used to generate HTML from 'JSON'
                     <pre><code class="html">&lt;script id="icon_thumbnails_template" type="text/template"&gt;
