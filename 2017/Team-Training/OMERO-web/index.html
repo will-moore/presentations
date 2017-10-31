@@ -48,18 +48,19 @@
                     <h2>Outline</h2>
                     <ul>
                         <li>OMERO.web setup for developers</li>
-                        <li>OMERO.web and its apps</li>
-                        <li>Relationship between apps</li>
+                        <li>OMERO.web and Django</li>
+                        <li>Relationship between OMERO.web apps</li>
                         <li>Browser - Server communication</li>
-                        <li>OMERO.web JavaScript (jQuery)
+                        <li>Where is the OMERO.web JavaScript code?</li>
+                        <li>Browser devtools</li>
+                        <li>jQuery in OMERO.web
                           <ul>
-                            <li>Where is the OMERO.web JavaScript code?</li>
-                            <li>jQuery intro and Browser devtools</li>
+                            <li>jQuery intro 
                             <li>Selectors</li>
                             <li>DOM manipulation</li>
                             <li>AJAX</li>
-                            <li>Other libraries we use</li>
-                            <li>jsTree</li>
+                            <li>Events</li>
+                            <li>jsTree, jQuery-UI</li>
                           </ul>
                         </li>
                     </ul>
@@ -70,7 +71,7 @@
                     <h2>OMERO.web setup for developers</h2>
 
                     <ul>
-                        <li>clone <a href="https://github.com/openmicroscopy/openmicroscopy/">openmicroscopy/openmicroscopy</a> and build
+                        <li>clone <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/">openmicroscopy/openmicroscopy</a> and build
                             <pre><code>$ ./build.py clean build</code></pre>
                         </li>
                         <li>Run OMERO.web <a target="_blank" href="https://docs.openmicroscopy.org/latest/omero/developers/Web/Deployment.html">as described for developers</a>.
@@ -102,11 +103,9 @@
                <section>
                     <h2>What's in a Django app?</h2>
 
-                    <p>See the <a target="_blank" href="https://docs.openmicroscopy.org/latest/omero/developers/Web.html#getting-started">OMERO.web simple example</a></p>
-
                     <ul>
                         <li>urls.py
-                            <pre><code class="python">url( r'^dataset/(?P&lt;dataset_id&gt;[0-9]+)/$', views.dataset ),</code></pre>
+                            <pre><code style="width:850px" class="python">url( r'^dataset/(?P&lt;dataset_id&gt;[0-9]+)/$', views.dataset, name="dataset"),</code></pre>
                         </li>
                         <li>views.py
                             <pre><code style="width:800px" class="python">
@@ -127,8 +126,8 @@ def dataset(request, dataset_id, conn=None, **kwargs):
 &lt;/body&gt;&lt;/html&gt;</code></pre>
                         </li>
                     </ul>
-                    <br>
-                    See <a href="https://www.djangoproject.com/">Django docs</a>
+                    See the <a target="_blank" href="https://docs.openmicroscopy.org/latest/omero/developers/Web.html#getting-started">OMERO.web simple example</a> | 
+                    <a target="_blank" href="https://www.djangoproject.com/">Django docs</a>
                 </section>
 
 
@@ -138,7 +137,7 @@ def dataset(request, dataset_id, conn=None, **kwargs):
                     <ul>
                         <li>
                             <b>webgateway</b>
-                            <a href="http://www.openmicroscopy.org/site/support/omero5/developers/Web/WebGateway.html">(public)</a>: render images, image JSON, full viewer
+                            <a target="_blank" href="http://www.openmicroscopy.org/site/support/omero5/developers/Web/WebGateway.html">(public)</a>: render images, image JSON, full viewer
                         </li>
                         <li>
                             <b>feedback</b>: submitting errors or comments
@@ -151,7 +150,7 @@ def dataset(request, dataset_id, conn=None, **kwargs):
                         </li>
                         <li>
                             <b>api</b>
-                            <a href="https://docs.openmicroscopy.org/latest/omero/developers/json-api.html">(public)</a>: JSON api
+                            <a target="_blank" href="https://docs.openmicroscopy.org/latest/omero/developers/json-api.html">(public)</a>: JSON api
                         </li>
 
                     </ul>
@@ -239,6 +238,9 @@ def load_template(request, menu, conn=None, url=None, **kwargs):
                     <ul>
                         <li>Inheritance
                             <pre><code>{% extends "path/to/template.html" %}</code></pre>
+                            <pre><code class="html">{% block centre_panel %}
+&lt;!-- overwrites parent block --&gt;
+{% endblock %}</code></pre>
                         </li>
                         <li>Composition
                             <pre><code>{% includes "path/to/template.html" %}</code></pre>
@@ -249,6 +251,40 @@ def load_template(request, menu, conn=None, url=None, **kwargs):
                         <li>
                             Needs to be simplified (see
                             <a target="_blank" href="https://trello.com/c/BQyJ0Ay7/47-django-templates-cleanup">Trello card</a>)
+                        </li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Where is the JS code in OMERO.web?</h2>
+
+                    <ul>
+                        <li>
+                            Approx 3k lines of js in static files
+                            <ul>
+                                <li><a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/tree/develop/components/tools/OmeroWeb/omeroweb/webgateway/static/webgateway/js">
+                                    webgateway/static/webgateway/js/</a></li>
+                                <li><a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/tree/develop/components/tools/OmeroWeb/omeroweb/webclient/static/webclient/javascript">
+                                    webclient/static/webclient/javascript/</a></li>
+                            </ul>
+                        </li>
+                        <li>Approx 6k lines embedded in HTML templates e.g.
+                            <ul>
+                                <li>Main webclient page <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/data/containers.html#L493">containers.html</a>
+                                </li>
+                                <li>Parent templates <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/base/base_container.html">base_container.html</a> </li>
+                                <li>Right hand panel <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/annotations/metadata_general.html#L124">
+                                    metadata_general.html
+                                </a></li>
+                                <li>Included templates e.g. <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/base/includes/script_launch_head.html#L24">script_launch_head.html</a>
+                                </li>
+                                <li>/webclient/ page has over 80 <code>&lt;script&gt;</code> tags</li>
+                            </ul>
+                        </li>
+                        <li>
+                            See <a target="_blank" href="http://downloads.openmicroscopy.org/presentations/2016/Web-Planning-Jan-2016/index.html#/3">Current state of OMERO.web</a>
+                            slides (Jan 2016)
                         </li>
                     </ul>
                 </section>
@@ -277,7 +313,7 @@ def load_template(request, menu, conn=None, url=None, **kwargs):
 
 
                 <section>
-                    <h2><a href="https://jquery.com">jQuery</a></h2>
+                    <h2><a target="_blank" href="https://jquery.com">jQuery</a></h2>
 
                     <ul>
                         <li><strong>Very</strong> popular library for DOM manipulation, AJAX etc.</li>
@@ -489,7 +525,7 @@ OME.handle_tree_selection = function(data, event) {
 
 
                 <section>
-                    <h2>jsTree</h2>
+                    <h2><a href="https://www.jstree.com/">jsTree</a></h2>
 
                     Managing hierarchies
                     <pre><code class="javascript">$("#dataTree")
@@ -526,7 +562,29 @@ OME.handle_tree_selection = function(data, event) {
 
 
                 <section>
-                    <h2><a href="http://underscorejs.org/#template">Underscore templates</a></h2>
+                    <h2><a href="https://jqueryui.com/">jQuery-UI</a></h2>
+
+                    UI widgets:
+                    <pre><code class="javascript">
+// tabs
+$("#annotation_tabs").tabs();
+
+// sliders
+$("#thumb_size_slider").slider({
+    max: 200,
+    min: 30,
+    value: iconSize,
+    slide: function(event, ui) {
+        iconSize = ui.value;
+        setIconSize();
+    }
+});
+                    </code></pre>
+                </section>
+
+
+                <section>
+                    <h2><a target="_blank" href="http://underscorejs.org/#template">Underscore templates</a></h2>
 
                     Used to generate HTML from 'JSON'
                     <pre><code class="html">&lt;script id="icon_thumbnails_template" type="text/template"&gt;
@@ -545,6 +603,74 @@ var jsonData = {
     ]
 };
 var html = compiled(jsonData);</code></pre>
+                </section>
+
+
+                <section>
+                    <h2>Full example</h2>
+
+                    Right panel - show file paths for image
+                    <pre><code class="javascript">// when right panel loads...
+$(document).ready(function() {
+
+    var $toolbar_info_panel = $("#toolbar_info_panel"),
+        $panel_title = $("#toolbar_info_panel .panel_title"),
+        $panel_div = $("#toolbar_info_panel .panel_div");
+
+    var original_file_paths_url = "{% url 'original_file_paths' manager.image.id %}";
+
+    $("#show_fs_files_btn").click(function(){
+
+        // If we're already showing Image file info, toggle hide
+        if ($toolbar_info_panel.is(":visible") && 
+                $panel_title.text().split("Image file").length > 1) {
+            $toolbar_info_panel.hide();
+            return;
+        }
+        $("#toolbar_info_panel").show();
+        $panel_title.html("Loading...");
+        $panel_div.empty();
+        if (original_file_paths_url) {
+            $.getJSON(original_file_paths_url,
+                function(data) {
+                    var repo = data.repo,
+                        client = data.client,
+                        html = "";
+                    $panel_title.html(repo.length + " Image file" + (repo.length>1 ? "s:" : ":"));
+
+                    if (importTransfer) {
+                        html += "&lt;p&gt;Imported with &lt;strong&gt;--transfer="+ importTransfer;
+                        html += "&lt;/strong&gt;&lt;/p&gt;&lt;hr/&gt;";
+                    }
+
+                    html += "&lt;p&gt;Imported from:&lt;/p&gt;";
+                    html += "&lt;p class='pathlist'&gt;" + client.slice(0,2).join("&lt;br&gt;") + "&lt;br&gt;";
+                    if (client.length &gt; 2) {
+                        html += "&lt;a class='show_more' href='#'&gt; Show more...&lt;/a&gt;";
+                        html += "&lt;span style='display:none'&gt;" + client.slice(2).join("&lt;br&gt;");
+                        html += "&lt;/span&gt;";
+                    }
+                    html += "&lt;/p&gt;&lt;hr/&gt;";
+
+                    html += "&lt;p&gt;Paths on server:&lt;/p&gt;";
+                    html += "&lt;p class='pathlist'&gt;" + repo.slice(0,2).join("&lt;br&gt;") + "&lt;br&gt;";
+                    if (repo.length &gt; 2) {
+                        html += "&lt;a class='show_more' href='#'&gt; Show more...&lt;/a&gt;";
+                        html += "&lt;span style='display:none'&gt;" + repo.slice(2).join("&lt;br&gt;");
+                        html += "&lt;/span&gt;";
+                    }
+                    html += "&lt;/p&gt;";
+                    $panel_div.append(html);
+                });
+        }
+    });
+
+});
+                    </code></pre>
+
+                    <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroWeb/omeroweb/webclient/templates/webclient/annotations/metadata_general.html#L124">
+                        templates/webclient/annotations/metadata_general.html
+                    </a>
                 </section>
             </div>
 
