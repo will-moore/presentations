@@ -1,0 +1,75 @@
+
+/* CSS used by OME presentations */
+
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+    text-transform: none;
+}
+.reveal h2 {
+    font-size: 60px;
+}
+.reveal h4 {
+    float: left;
+    text-indent: 3%;
+}
+.ome_theme {
+    background-image: url("../images/ome-icon-opacity.png");
+    background-color: #f2f6f9;
+    background-repeat: no-repeat;
+    background-position: right -270px top -120px;
+}
+.reveal {
+    text-transform: none;   !important
+}
+
+.reveal section img #border {
+    border-width:0;
+    border-color: white;
+}
+
+.reveal section img {
+    background:none;
+    border:none;
+    box-shadow:none;
+}
+
+.img_panel {
+    width: 150px;
+}
+
+.nobullet li {
+    list-style: none;
+}
+
+table.centre {
+    width: 100%;
+}
+
+.reveal .centre td {
+    text-align: center;
+}
+
+.rot90 {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.reveal #left_col {
+    float:left;
+    width:65%;
+}
+.reveal #right_col {
+    float:right;
+    width:35%;
+}
+.reveal #left_col_70 {
+    float:left;
+    width:70%;
+}
+.reveal #right_col_30 {
+    float:right;
+    width:30%;
+}
+
+.funding_logo {
+    width:250px;
+}
