@@ -87,6 +87,7 @@ SELECT l.child
 - Fetches model objects, instances of
   [`Image`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-image).
 - Plug in values of parameters.
+  - [Do not](https://xkcd.com/327/) concatenate literal values in query string.
 
 ---
 
@@ -141,9 +142,8 @@ SELECT i.id, i.name
   WHERE d.name = :name
 ```
 
-- Used `name` property in `SELECT`.
-- Used `name` property in `WHERE`.
-- Naming properties includes them in the query.
+- Used `name` property in both `SELECT` and `WHERE`.
+- The server accesses values of those properties.
 - Use [`projection`](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/api/IQuery.html#projection)
   instead of
   [`findAllByQuery`](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/api/IQuery.html#findAllByQuery).
@@ -167,6 +167,7 @@ SELECT l
   [`Image`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-image)
   with ID *only*.
 - From query results cannot access `i.name` in client.
+  - The server had no reason to read that property.
 
 ---
 
@@ -284,7 +285,8 @@ SELECT dil.child
 - Context constrains scope of queries.
 - Special `"omero.group"` dictionary key.
 - Special group ID `"-1"` means "all groups".
-- CLI `hql` plugin `--all` sets group of -1.
+- CLI `hql` plugin `--all` [sets group
+  of -1](https://github.com/openmicroscopy/openmicroscopy/blob/3f119eb7/components/tools/OmeroPy/src/omero/plugins/hql.py#L65).
 
 ---
 
@@ -565,10 +567,7 @@ class: center, middle
 <manyone name="instrument"
         type="ome.model.acquisition.Instrument"/>
 ```
-- Many
-  [`Objective`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-objective)
-  instances can share the same
-  [`Instrument`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-instrument).
+- `manyone`: Many objectives can share the same instrument.
 - The annotations on `getInstrument()` may seem intimidating.
 
 ---
@@ -652,11 +651,13 @@ FOREIGN KEY (instrument) REFERENCES instrument(id)
 
 # Subclass annotations
 
-- `Annotation` has:
+- The generated `Annotation` class uses:
 ```java
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="discriminator",
+        discriminatorType=DiscriminatorType.STRING)
 ```
-- The generated `MapAnnotation` class has:
+- Its `MapAnnotation` subclass has:
 ```java
 @DiscriminatorValue("/map/")
 ```
@@ -715,7 +716,7 @@ FOREIGN KEY (job_id) REFERENCES job(id)
 
 # Seeing Hibernate's SQL
 
-- To see the queries adjust the server's
+- To see the SQL queries adjust the server's
   [`logback.xml`](https://github.com/openmicroscopy/openmicroscopy/blob/3f119eb7/etc/logback.xml#L123)
   to have:
 ```xml
@@ -814,7 +815,8 @@ if (object instanceof HibernateProxy) {
   instance offers useful methods.
   - These allow management of a model object's lifecycle.
 - Hibernate tracks objects that are attached to sessions.
-  - The model objects are wrapped in proxies.
+  - The model objects are wrapped in
+    [proxies](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/proxy/HibernateProxy.html).
   - Changes to such objects are automagically written to the database.
 
 ---
@@ -900,7 +902,7 @@ if (object instanceof HibernateProxy) {
   to retrieve existing objects by ID.
   - Loads a persistent object from the database.
   - Its properties may be fetched transparently as you use them.
-  - Continues to work while the session remains open.
+  - Fetch-by-need works while the session remains open.
 
 ---
 
@@ -992,7 +994,10 @@ class: center, middle
   - [`BasicACLVoter`](https://github.com/openmicroscopy/openmicroscopy/blob/3f119eb7/components/server/src/ome/security/basic/BasicACLVoter.java) is the most complicated of them.
 - `allow*` methods determine how the user's OMERO session may read and write
   model objects.
-  - They check which owner and group, memberships, etc.
+  - Check which owner and group, memberships, etc.
+  - [Basis for](https://github.com/openmicroscopy/openmicroscopy/blob/3f119eb7/components/blitz/src/omero/model/PermissionsI.java#L95)
+    clients' [`can*`](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/model/Permissions.html#canAnnotate)
+    permissions methods.
 
 ---
 
@@ -1000,6 +1005,8 @@ class: center, middle
 
 - We have seen useful object lifecycle methods on Hibernate
   [`Session`](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Session.html).
+  - Cause reads and writes.
+  - Shift object state among: transient, persistent, detached.
 - Hibernate [provides
   hooks](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Interceptor.html)
   that intercept events on persistent objects.
@@ -1021,7 +1028,7 @@ class: center, middle
   [2017-SV5](http://www.openmicroscopy.org/security/advisories/2017-SV5-filename-2/).
   - It also checks for changes in the value of the `repo` property.
 - `postFlush` populates the ` _current_admin_privileges` database table.
-  - At the end of the transaction, database triggers check users'
+  - At the end of a transaction, database triggers may check users'
     attempts to set certain permissions.
 
 ---
@@ -1048,6 +1055,7 @@ class: center, middle
 - For example, normal users may not read the `uuid` from others' OMERO
   [`Session`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#session)
   instances.
+  - Would allow them to join those sessions.
 
 ---
 
@@ -1079,7 +1087,7 @@ SELECT uuid FROM Session WHERE owner.omeName = 'root'
 - Code generation adds Hibernate's `@Filter` annotations to `ome.model.*` Java
   classes.
   - Queries for these classes have their `WHERE` clause modified.
-- Some model objects do not pass their class' `WHERE` clause.
+- Model object instances may fail to match their class' `WHERE` clause.
   - Their data is thus missing from query results.
 - Debug logging from `org.hibernate.SQL` includes these filter clauses.
 
