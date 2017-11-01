@@ -1,0 +1,415 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Devspace: November 2017</title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <link rel="stylesheet" href="css/ome.css">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body class="ome_theme">
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section>
+                    <h1>Devspace needs You!</h1>
+                    <h1>and vice versa</h1>
+                    <p>Jean-Marie Burel</p>
+                </section>
+                
+                <section>
+                    <h2>Outline</h2>
+                    <ul>
+                        <li>What is Devspace?</li>
+                        <li>How to deploy</li>
+                        <li>What is changing</li>
+                        <li>Work in Progress: Reviewer wanted!</li>
+                        <li>Useful tips</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>What is Devspace</h2>
+                    <p>
+                    Collection of Docker containers "put" together to make
+                    a framework, managed by Jenkins CI, that runs jobs
+                    </p>
+                    <ul>
+                        <li><a href="https://docs.docker.com/" target="_blank">Docker engine</a></li>
+                        <li><a href="https://docs.docker.com/compose/" target="_blank">Docker compose</a></li>
+                        <li><a href="https://jenkins.io/" target="_blank">Jenkins</a></li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Repositories</h2>
+                    <p>
+                    Core:
+                    <ul>
+                        <li><a href="https://github.com/openmicroscopy/devspace" target="_blank">Devspace</a></li>
+                        <li><a href="https://https://github.com/ome/omero-install/" target="_blank">OMERO install</a></li>
+                    </ul>
+                </p>
+                </section>
+                <section>
+                    <h2>Devspace:</h2>
+                    <p>
+                    <b>Personal</b> Continuous Integration system with:
+                    </p>
+                    <ul>
+                        <li>OMERO jobs</li>
+                        <li>and Bio-Formats jobs</li>
+                    </ul>
+                </section>
+               <section>
+                    <p>
+                    OMERO jobs:
+                    </p>
+                    <ul>
+                        <li><code>OMERO-push</code>: merge PRs</li>
+                        <li><code>OMERO-build</code>: build artifacts (server, clients)</li>
+                        <li><code>OMERO-server</code>: deploy an OMERO.server</li>
+                        <li><code>OMERO-web</code>: deploy an OMERO.web client</li>
+                        <li><code>OMERO-test-integration</code>: run the integration tests</li>
+                        <li><code>OMERO-docs</code> (recent): build the documentation</li>
+                    </ul>
+                </section>
+                <section>
+                    <p>
+                    Bio-Formats jobs:
+                    </p>
+                    <ul>
+                        <li><code>BIOFORMATS-push</code>: merge PRs</li>
+                        <li><code>BIOFORMATS-ant</code>: build and run unit tests</li>
+                        <li><code>BIOFORMATS-maven</code>: build and run unit tests</li>
+                    </ul>
+                </section>
+                <section>
+                    <p>
+                    <code>Trigger</code> job: Run in a specific order
+                    <ul>
+                        <li>the Bio-Formats jobs</li>
+                        <li>then the OMERO jobs</li>
+                    </ul>
+                    </p>
+                </section>
+                <section>
+                    <p>More jobs can be added! Recently added:
+                    <ul>
+                        <li><a href="https://github.com/openmicroscopy/devspace/pull/72" target="_blank"/>OMERO-docs</a></li>
+                        <li>...</li>
+                    </ul>
+                    </p>
+                </section>
+                <section>
+                    <h2>How to deploy</h2>
+                    <p>Currently two ways to deploy a devspace:</p>
+                    <ul>
+                        <li>Manually in a Docker host</a></li>
+                        <li>On <a href="https://www.openstack.org/" target="_blank">OpenStack</a> using <a href="http://docs.ansible.com/ansible/playbooks.html" target="_blank">Ansible playbooks</a>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Deploy on Openstack</h2>
+                    <p>Two <a href="http://docs.ansible.com/ansible/playbooks.html" target="_blank">Ansible playbooks</a> are used:
+                    <ul>
+                        <li>One to create an instance</a></li>
+                        <li>One to provision</a></li>
+                    </ul>
+                    </p>
+                    <p>
+                    Extra repository to consider:
+                    <ul>
+                        <li><a href="https://github.com/openmicroscopy/ansible-role-devspace" target="_blank">ansible-role-devspace</a></li>
+                    </ul>
+                </p>
+                </section>
+                <section>
+                    <h2>What is changing:</h2>
+                    <ul>
+                        <li>No longer share keys and token</li>
+                        <li>Use <a href="https://github.com/openmicroscopy/devspace" target="_blank">devspace repository </a> for instructions and playbooks</li>
+                        <li>Simplify set up when possible</li>
+                        <li>Port dynamically assigned</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Work in progress: Reviewer wanted!</h2>
+                    Deployment on Openstack is based on
+                    <ul>
+                        <li><a href="https://github.com/openmicroscopy/devspace/pull/81" target="_blank">Devspace PR #81 </a>
+                        </li>
+                        <li><a href="https://github.com/openmicroscopy/ansible-role-devspace/pull/5" target="_blank">ansible-role-devspace PR #5 </a>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Configuration: Openstack</h2>
+                    <ul>
+                        <li>Connect <a href="https://pony.openmicroscopy.org" target="_blank">OME OpenStack</a></li>
+                        <li>Go to <code>Access & Security > Key Pairs</code>, register a key</li> 
+                        <li>Go to <code>Access & Security > API Access</code>, download your configuration</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Configuration: SSH and Git <i>(NEW)</i></h2>
+                    <ul>
+                        <li>Create a new <code>id_gh_rsa</code> SSH key <b>without</b> passphrase
+                            in your <code>.ssh</code> directory
+                            <pre><code style="width:900px">
+ssh-keygen -t rsa -b 4096 -C "your_email_address" -f ~/.ssh/id_gh_rsa -q -P ""
+                            </code></pre>                            
+                        </li>
+                        <li>Upload the public key i.e. <code>id_gh_rsa.pub</code> to your GitHub account</li>
+                        <li>Generate a <a href="https://github.com/settings/tokens" target="_blank">GitHub token</a></li>
+                        <li>Add to it to your <code>.gitconfig</code> file:
+                            <pre><code style="width:900px">
+[github]
+        token = your_token
+                            </code></pre>
+                        </li>
+                    </ul>
+                </section>
+                 <section>
+                    <h2>Set up</h2>
+                    <ul>
+                        <li> Clone the <a href="https://github.com/openmicroscopy/devspace/" target="_blank">devspace</a> Git repository <i>(NEW)</i>
+                        </li>
+                        <li> Create a virtual environment and install the Ansible (2.3) requirements <i>(version bump)</i>
+                            <pre><code>
+$ virtualenv ~/dev
+$ . ~/dev/bin/activate
+(dev) $ pip install -r requirements.txt
+                            </code></pre>
+                        </li>
+                         <li>Source the OpenStack configuration file
+                            <pre><code>
+(dev) $ . omedev-openrc.sh
+Enter your password
+                            </code></pre>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Create devspace</h2>
+                    <ul>
+                        <li>Install the various ansible roles:
+<pre><code style="width:1150px">
+(dev) $ cd ansible
+(dev) $ ansible-galaxy install -r requirements.yml
+</code></pre>
+                        </li>
+                        <li>TMP: Manually replace content under <code>vendor/openmicroscopy.devspace</code> by <a href="https://github.com/openmicroscopy/ansible-role-devspace/pull/5" target="_blank">PR #5</a> until it is merged and role tagged
+                        </li>
+                         <li>Create the devspace
+<pre><code style="width:1150px">
+(dev) $ ansible-playbook create-devspace.yml -e vm_name=your_name-devspace-name -e vm_key_name=your_key
+</code></pre>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Configure playbook <i>(NEW)</i></h2>
+                    Configure the parameters in <code>provision-devspace.yml</code>:
+                    <pre><code style="width:1150px">
+  roles:
+    - role: openmicroscopy.devspace
+      # Path to SSH and Git configuration files
+      configuration_dir_path: "/Users/jmarie"
+      # user account on git. SSH and Git configuration files should match
+      github_user: "jburel"
+      # The name of the git branch all the jobs will be using. The default is develop
+      # devspace_omero_branch: develop
+      # The devspace repository to use. The default is https://github.com/openmicroscopy/devspace.git
+      devspace_git_repo: https://github.com/jburel/devspace.git
+      # The devspace branch to use. The default is the latest released version
+      devspace_git_repo_version: "readme-training"
+      # force a clean
+      devspace_git_update: yes
+      devspace_git_force: yes
+                            </code></pre>
+                </section>
+                <section>
+                    <h2>Provision the devspace <i>(NEW)</i></h2>
+                    <pre><code style="width:950px">
+(dev) $ ansible-playbook -u centos -i devspace_openstack_ip, provision-devspace.yml</code></pre>
+                    where <code>devspace_openstack_ip = Floating IP</code> e.g. <code>10.0.51.143</code>
+                </section>
+                <section>
+                    <h2>Access the devspace</h2>
+                    <pre><code>
+ssh omero@devspace_openstack_ip
+cd devspace
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>Determine dynamic ports <i>(NEW)</i></h2>
+                    <ul>
+                    <li>Access Jenkins UI <a href="">https://devspace_openstack_ip:$PORT</a>
+                        <pre><code>docker-compose port nginxjenkins 443</code></pre>
+                    </li>
+                    <li>Login via OMERO.web <a href="">https://devspace_openstack_ip:$PORT/web</a>
+                        <pre><code>docker-compose port nginx 80</code></pre>
+                    </li>
+                    <li>Login via OMERO.insight/OMERO.cli
+                        <pre><code>docker-compose port omero 4064</code></pre>
+                    </li>
+                    </ul>
+                </section>
+                <section>
+                    <h1>Useful tips</h1>
+                </section>
+                <section>
+                    <h2>OMERO-push failure</h2>
+                    <pre><code style="width:1250px">
+Installing JDK jdk-8u121-oth-JPR
+Downloading JDK from http://download.oracle.com/otn/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-linux-x64.tar.gz
+Oracle now requires Oracle account to download previous versions of JDK. Please specify your Oracle account username/password.
+ERROR: Unable to install JDK unless a valid Oracle account username/password is provided in the system configuration.
+Finished: FAILURE
+                    </code></pre>
+                    <ul>
+                    <li>Click on <code>Manage Jenkins > Global Tool Configuration</code></li>
+                    <li>Go to <code>JDK</code> section and select the latest version</li>
+                    <ul>
+                </section>
+                <section>
+                    <h2>OMERO-push: Configure Merge</h2>
+                    <ul>
+                    <li>Click on <code>OMERO-push > Configure</code></li>
+                    <li>Merge for example only PR with <code>--training</code> in the description:
+                    <pre><code>
+merge develop -Dnone -Itraining --no-ask --reset --update-gitmodules
+                    </code></pre>
+                    </li>
+                    <li>If you do not want to update the submodule, replace <code>--update-gitmodules</code>
+                        by <code>--shallow</code>
+                    </li>
+                    <ul>
+                </section>
+                 <section>
+                    <h2>Access the Docker containers</h2>
+                    <ul>
+                    <li>Log in:<code> ssh omero@devspace_openstack_ip</code></li>
+                    <li>To list the Docker containers, run <code>docker ps</code></li>
+                    </ul>
+<pre><code style="width:1000px">
+CONTAINER ID        IMAGE                                 ... NAMES
+dfb33a9d5de8        devspace_nginx                        ... devspace_nginx_1
+1f15a9e43d4f        devspace_web                          ... devspace_web_1
+e1c08c9ae43b        devspace_testintegration              ... devspace_testintegration_1
+d5faa737a5ce        devspace_omero                        ... devspace_omero_1
+60c351551adc        selenium/node-firefox:3.0.0-dubnium   ... devspace_seleniumfirefox_1
+ff98f484026b        selenium/node-chrome:3.0.0-dubnium    ... devspace_seleniumchrome_1
+63196e8cbf42        nginx:1.10                            ... devspace_nginxjenkins_1
+a568a26fa8f0        devspace_jenkins                      ... devspace_jenkins_1
+96f111f85e5b        postgres                              ... devspace_pg_1
+e292284df351        redis                                 ... devspace_redis_1
+01d82142d674        selenium/hub:3.0.0-dubnium            ... devspace_seleniumhub_1
+</code></pre>
+                </section>
+                <section>
+                    <h2>Access the OMERO.server logs</h2>
+                    <ul>
+                    <li>Access the <code>OMERO-server</code> container
+<pre><code style="width:1000px">
+docker exec -ti devspace_omero_1 bash
+                    </code></pre>
+                    </li>
+                    <li>Access the logs:
+<pre><code style="width:1000px">
+cd /home/omero/workspace/OMERO-server/OMERO.server/
+cd var/log
+                    </code></pre>
+                    </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Access the OMERO-test-integration logs</h2>
+                    <ul>
+                    <li>Access the <code>OMERO-test-integration</code> container
+<pre><code style="width:1000px">
+docker exec -ti devspace_testintegration_1 bash
+                    </code></pre>
+                    </li>
+                    <li>Access the logs:
+<pre><code style="width:1000px">
+cd /home/omero/workspace/OMERO-test-integration/src/dist
+cd var/log
+                    </code></pre>
+                    </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Give Access to others</h2>
+                    <ul>
+                    <li>Log in: <code> ssh omero@devspace_openstack_ip</code></li>
+                    <li>Open <code>.ssh/authorized_keys</code> and add the key(s)</li>
+                    </ul>
+                </section>
+            </div>
+
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
