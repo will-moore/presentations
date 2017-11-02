@@ -382,12 +382,14 @@ psql -h $OMERO_DB_HOST -U $OMERO_DB_USER $OMERO_DB_NAME < OMERO_DIST/sql/psql/OM
 rm -rf $WORKSPACE/*
 </code></pre>    
                 </section>
+
+<section>
                 <section>
                     <h2>Configure OMERO-web</h2>
                     <ul>
                     <li>Click on <code>OMERO-web > Configure</code></li>
                     <li>Go to <code>Execute shell</code> section</li>
-                    <li>In the example below, we set up <a href="http://docs.openmicroscopy.org/latest/omero/sysadmins/unix/install-web.html">CORS</a></li>
+                    <li>In the example below, we set up <a href="http://docs.openmicroscopy.org/latest/omero/sysadmins/unix/install-web.html" target="_blank">CORS</a></li>
                     </ul>
                         <pre><code style="width:1200px">
 OMERO_DIST=$WORKSPACE/OMERO.web
@@ -442,9 +444,18 @@ $OMERO_DIST/bin/omero config set omero.web.application_server.host 0.0.0.0
 BUILD_ID=DONT_KILL_ME $OMERO_DIST/bin/omero web start
 
 deactivate
-</code></pre>    
+</code></pre>     
                 </section>
-                 <section>
+                <section>
+                    <h2>Available by default?</h2>
+                    <ul>
+                    <li>Make similar change to <a href="https://github.com/openmicroscopy/devspace/blob/master/home/jobs/OMERO-web/config.xml" target="_blank">OMERO-web/config.xml</a></li>
+                    <li>Submit a PR</li>
+                    <li>Job Done</li>
+                    </ul>
+                </section>
+</section>
+                <section>
                     <h2>Access the Docker containers</h2>
                     <ul>
                     <li>Log in:<code> ssh omero@devspace_openstack_ip</code></li>
