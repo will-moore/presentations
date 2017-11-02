@@ -312,6 +312,18 @@ cd devspace
                     <h1>Useful tips</h1>
                 </section>
                 <section>
+                    <h2>Failure when provisioning devspace</h2>
+                    <pre><code style="width:1250px">
+...
+host key for 10.0.51.146 has changed and you have requested strict checking.\r\nHost key verification failed.\r\n", "unreachable": true}
+</code></pre>
+                <ul>
+                    <li>Open <code>~/.ssh/known_hosts</code></li>
+                    <li>Remove entry for <code>10.0.51.146</code></li>
+                    <li>Run playbook again</li>
+                </ul>
+                </section>
+                <section>
                     <h2>OMERO-push failure</h2>
                     <pre><code style="width:1250px">
 Installing JDK jdk-8u121-oth-JPR
