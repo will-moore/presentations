@@ -82,6 +82,9 @@
                     </ul>
                 </section>
                 <section>
+                 <img height="500" width="700" src="images/devspace-training-1.png"/>
+                </section>
+                <section>
                     <h2>Devspace repository layout</h2>
                     <ul>
                         <li>Collection of Dockerfiles each in a specific folder e.g. <a href="https://github.com/openmicroscopy/devspace/tree/master/web/Dockerfile" target="_blank">web</a></li>
@@ -342,21 +345,8 @@ host key for 10.0.51.146 has changed and you have requested strict checking.\r\n
                     <li>Run playbook again</li>
                 </ul>
                 </section>
+                
                 <section>
-                    <h2>Trigger: Workaround for Bio-Formats jobs</h2>
-                    <p>The following error is sent without the workaround</p>
-                    <pre><code>
-org.jenkinsci.plugins.scriptsecurity.scripts.UnapprovedUsageException: script not yet approved for use
-    at org.jenkinsci.plugins.scriptsecurity.scripts.ScriptApproval.using(ScriptApproval.java:459)
-    at org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition.create(CpsFlowDefinition.java:109)
- </code></pre>
-                <p align="left">Workaround:</p>
-                <ul>
-                    <li>Click on <code>Trigger > Configure</code></li>
-                    <li>Go to <code>Pipeline</code></li>
-                    <li>Select <code>Use Groovy Sandbox</code></li>
-                <ul>   
-                </section>
                 <section>
                     <h2>Trigger: Edit configuration</h2>
                     <ul>
@@ -376,6 +366,21 @@ build job: 'OMERO-server'
                     </li>
                     <ul>
                 </section>
+                <section>
+                    <h2>Trigger: sandbox yes or no</h2>
+                    <p>The following error is sent if <code>Use Groovy Sandbox</code> is <b>not</b> selected</p>
+                    <pre><code>
+org.jenkinsci.plugins.scriptsecurity.scripts.UnapprovedUsageException: script not yet approved for use
+    at org.jenkinsci.plugins.scriptsecurity.scripts.ScriptApproval.using(ScriptApproval.java:459)
+    at org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition.create(CpsFlowDefinition.java:109)
+ </code></pre>   
+                </section>
+                <ul>
+                    <li><a href="https://github.com/openmicroscopy/devspace/pull/81/commits/35fe12d8d475b1653f38d6dd021d5611c7b39804" target="_blank">configuration</a>
+                    </li>
+                    <li><a href="https://wiki.jenkins.io/display/JENKINS/Script+Security+Plugin" target="_blank">link</a></li>
+                </ul>
+            </section>
                 <section>
                     <h2>OMERO-push failure</h2>
                     <pre><code style="width:1250px">
@@ -578,6 +583,19 @@ cd var/log
                     <li>Log in: <code> ssh omero@devspace_openstack_ip</code></li>
                     <li>Open <code>.ssh/authorized_keys</code> and add the key(s)</li>
                     </ul>
+                </section>
+                <section>
+                    <h1>Advance</h1>
+                </section>
+                <section>
+                    <h2>Example: How to add support for PostgreSQL 10</h2>
+                    <h3 align="left">workflow</h3>
+                    <ul>
+                    <li>First add support of PostgreSQL 10 in <a href="https://github.com/ome/omero-install" target="_blank">omero-install CentOS 7</a></li>
+                    <li>Generate and push an image to <a href="https://hub.docker.com/" target="_blank">Docker hub</a></li>
+                    <li>Modify all <a href="https://github.com/openmicroscopy/devspace" target="_blank">devspace Docker files</a> to use the new image</li>
+                    <li>Create a new devspace</li>
+                    </ul>  
                 </section>
                 <section>
                     <h1>What's next</h1>
