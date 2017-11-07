@@ -41,8 +41,9 @@
                 <!-- title page -->
                 <section>
                     <h1>Devspace needs You!</h1>
-                    <h1>...vice versa?</h1>
+                    <h1>...and vice versa?</h1>
                     <p>Jean-Marie Burel</p>
+                    <small>November 2017</small>
                 </section>
                 
                 <section>
@@ -51,36 +52,40 @@
                         <li>What is Devspace</li>
                         <li>How to deploy</li>
                         <li>What is changing</li>
-                        <li>Work in Progress: Reviewer wanted!</li>
+                        <li>Work in Progress: version 0.6.0</li>
                         <li>Useful tips</li>
+                        <li>What's next</li>
                     </ul>
                 </section>
-
-
                 <section>
-                    <h2>What is Devspace</h2>
+                    <h1>What is Devspace</h1>
+                </section>
+                <section>
                     <p>
-                    Collection of Docker containers "put" together to make
+                    Collection of Docker containers "compose" together to make
                     a framework, managed by Jenkins CI, that runs jobs
                     </p>
+                    <br/>
+                    <p align="left">Useful links:
                     <ul>
                         <li><a href="https://docs.docker.com/" target="_blank">Docker engine</a></li>
                         <li><a href="https://docs.docker.com/compose/" target="_blank">Docker compose</a></li>
                         <li><a href="https://jenkins.io/" target="_blank">Jenkins</a></li>
                     </ul>
+                </p>
                 </section>
                 <section>
                     <h2>Repositories</h2>
                     <ul>
                         <li><a href="https://github.com/openmicroscopy/devspace" target="_blank">Devspace</a></li>
-                        <li><a href="https://https://github.com/ome/omero-install/" target="_blank">OMERO install</a></li>
+                        <li>Uses <a href="https://https://github.com/ome/omero-install/" target="_blank">OMERO install</a></li>
                     </ul>
                 </section>
                 <section>
                     <h2>Devspace repository layout</h2>
                     <ul>
-                        <li>Collection of <a href="https://github.com/openmicroscopy/devspace/tree/master/home/jobs" target="_blank">jobs</a> each with a config file e.g. <a href="https://github.com/openmicroscopy/devspace/tree/master/home/jobs/BIOFORMATS-ant" target="_blank">BIOFORMATS-ant</a></li>
-                        <li>Collection of Dockerfiles each in a specific folder e.g. <a href="https://github.com/openmicroscopy/devspace/tree/master/web" target="_blank">web</a></li>
+                        <li>Collection of Dockerfiles each in a specific folder e.g. <a href="https://github.com/openmicroscopy/devspace/tree/master/web/Dockerfile" target="_blank">web</a></li>
+                        <li>Collection of <a href="https://github.com/openmicroscopy/devspace/tree/master/home/jobs" target="_blank">Jenkins jobs</a> each with a config file e.g. <a href="https://github.com/openmicroscopy/devspace/tree/master/home/jobs/BIOFORMATS-ant" target="_blank">BIOFORMATS-ant</a></li>
                     </ul>
                 </section>
                 <section>
@@ -134,8 +139,10 @@
                     </p>
                 </section>
                 <section>
-                    <h2>How to deploy</h2>
-                    <p>Currently two ways to deploy a devspace:</p>
+                    <h1>How to deploy</h1>
+                </section>
+                <section>
+                    <h2>Two ways to deploy a devspace</h2>
                     <ul>
                         <li>Manually in a Docker host</a></li>
                         <li>On <a href="https://www.openstack.org/" target="_blank">OpenStack</a> using <a href="http://docs.ansible.com/ansible/playbooks.html" target="_blank">Ansible playbooks</a>
@@ -158,16 +165,23 @@
                 </p>
                 </section>
                 <section>
-                    <h2>What is changing:</h2>
+                    <h1>What is changing</h1>
+                </section>
+                <section>
+                    <h2>First round</h2>
                     <ul>
+                        <li>Port dynamically assigned e.g. Jenkins UI no longer available at <a href="">https://devspace_openstack_ip:8443</a> <a href="https://github.com/openmicroscopy/devspace/pull/74" target="_blank"> PR #74 (merged)</a></li>
+                        <li>Jenkins dependencies: upgrade<a href="https://github.com/openmicroscopy/devspace/pull/77" target="_blank">PR #77</a></li>
                         <li>No longer share keys and token</li>
                         <li>Use <a href="https://github.com/openmicroscopy/devspace" target="_blank">devspace repository </a> for instructions and playbooks</li>
                         <li>Simplify set up when possible</li>
-                        <li>Port dynamically assigned e.g. Jenkins UI no longer available at <a href="">https://devspace_openstack_ip:8443</a></li>
                     </ul>
                 </section>
+                 <section>
+                    <h1>Work in progress: version 0.6.0</h1>
+                </section>
                 <section>
-                    <h2>Work in progress: Reviewer wanted!</h2>
+                    <h2>Reviewer wanted!</h2>
                     Deployment on Openstack is based on
                     <ul>
                         <li><a href="https://github.com/openmicroscopy/devspace/pull/81" target="_blank">Devspace PR #81 </a>
@@ -211,7 +225,7 @@ ssh-keygen -t rsa -b 4096 -C "your_email_address" -f ~/.ssh/id_gh_rsa -q -P ""
 $ git clone https://github.com/openmicroscopy/devspace.git
 </code></pre>
                         </li>
-                        <li> Create a virtual environment and install <code>Ansible (2.4)</code><i>(version bump)</i> and <code>shade</code> to access OpenStack via CLI
+                        <li> Create a virtual environment and install <code>Ansible (2.4)</code><i>(version bump)</i> and <code>shade</code> to access OpenStack via the command line
                             <pre><code>
 $ virtualenv ~/dev
 $ . ~/dev/bin/activate
@@ -229,14 +243,19 @@ Enter your password
                 <section>
                     <h2>Install roles</h2>
                     <ul>
-                        <li>Install the various <a href="https://docs.ansible.com/ansible/2.4/playbooks_reuse_roles.html" target="_blank">ansible roles</a> from <a href="https://galaxy.ansible.com/" target="_blank">ansible galaxy</a>:
+                        <li>Install the various <a href="https://docs.ansible.com/ansible/2.4/playbooks_reuse_roles.html" target="_blank">ansible roles</a> from the <a href="https://galaxy.ansible.com/" target="_blank">Galaxy website</a>:
 <pre><code>
 (dev) $ cd ansible
 (dev) $ ansible-galaxy install -r requirements.yml
 </code></pre>
                         </li>
-                        <li>TMP: Manually replace content under <code>vendor/openmicroscopy.devspace</code> by files from <a href="https://github.com/openmicroscopy/ansible-role-devspace/pull/5" target="_blank">PR #5</a> until it is merged and role tagged
-                            and pushed to <a href="https://galaxy.ansible.com/" target="_blank">ansible galaxy</a>
+                        <li>Exception in <a hef="https://github.com/jburel/devspace/blob/readme-training/ansible/requirements.yml" target="_blank">requirements.yml</a>: Work in progress <a href="https://github.com/openmicroscopy/ansible-role-devspace/pull/5" target="_blank">PR #5</a>     <pre><code> 
+- src: git+https://github.com/jburel/ansible-role-devspace.git
+  version: change-key-folder-ansible22
+  name: openmicroscopy.devspace
+</code></pre>
+                        </li>
+                        <li>To "upgrade" roles, you may want to specify <code>--force</code> when installing the roles
                         </li>
                     </ul>
                 </section>
@@ -319,24 +338,24 @@ host key for 10.0.51.146 has changed and you have requested strict checking.\r\n
 </code></pre>
                 <ul>
                     <li>Open <code>~/.ssh/known_hosts</code></li>
-                    <li>Remove entry for <code>10.0.51.146</code></li>
+                    <li>Remove <code>devspace_openstack_ip</code> e.g. <code>10.0.51.146</code></li>
                     <li>Run playbook again</li>
                 </ul>
                 </section>
                 <section>
-                    <h2>OMERO-push failure</h2>
-                    <pre><code style="width:1250px">
-Installing JDK jdk-8u121-oth-JPR
-Downloading JDK from http://download.oracle.com/otn/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-linux-x64.tar.gz
-Oracle now requires Oracle account to download previous versions of JDK. Please specify your Oracle account username/password.
-ERROR: Unable to install JDK unless a valid Oracle account username/password is provided in the system configuration.
-Finished: FAILURE
-                    </code></pre>
-                    <ul>
-                    <li>Click on <code>Manage Jenkins > Global Tool Configuration</code></li>
-                    <li>Click on <code>JDK installations...</code></li>
-                    <li>Select the latest JDK 8 using the selection box</li>
-                    <ul>
+                    <h2>Trigger: Workaround for Bio-Formats jobs</h2>
+                    <p>The following error is sent without the workaround</p>
+                    <pre><code>
+org.jenkinsci.plugins.scriptsecurity.scripts.UnapprovedUsageException: script not yet approved for use
+    at org.jenkinsci.plugins.scriptsecurity.scripts.ScriptApproval.using(ScriptApproval.java:459)
+    at org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition.create(CpsFlowDefinition.java:109)
+ </code></pre>
+                <p align="left">Workaround:</p>
+                <ul>
+                    <li>Click on <code>Trigger > Configure</code></li>
+                    <li>Go to <code>Pipeline</code></li>
+                    <li>Select <code>Use Groovy Sandbox</code></li>
+                <ul>   
                 </section>
                 <section>
                     <h2>Trigger: Remove some jobs</h2>
@@ -355,6 +374,21 @@ build job: 'OMERO-server'
                     </li>
                     <li>The jobs will still show up in the Jenkins UI but <b>won't</b> be run
                     </li>
+                    <ul>
+                </section>
+                <section>
+                    <h2>OMERO-push failure</h2>
+                    <pre><code style="width:1250px">
+Installing JDK jdk-8u121-oth-JPR
+Downloading JDK from http://download.oracle.com/otn/java/jdk/8u121-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-8u121-linux-x64.tar.gz
+Oracle now requires Oracle account to download previous versions of JDK. Please specify your Oracle account username/password.
+ERROR: Unable to install JDK unless a valid Oracle account username/password is provided in the system configuration.
+Finished: FAILURE
+                    </code></pre>
+                    <ul>
+                    <li>Click on <code>Manage Jenkins > Global Tool Configuration</code></li>
+                    <li>Click on <code>JDK installations...</code></li>
+                    <li>Select the latest JDK 8 using the selection box</li>
                     <ul>
                 </section>
                 <section>
@@ -517,7 +551,7 @@ docker exec -ti devspace_testintegration_1 bash
 cd /home/omero/workspace/OMERO-test-integration/src/dist
 cd var/log
                     </code></pre>
-                    </li>
+                    </li>                       
                     </ul>
                 </section>
                 <section>
@@ -527,6 +561,16 @@ cd var/log
                     <li>Open <code>.ssh/authorized_keys</code> and add the key(s)</li>
                     </ul>
                 </section>
+                <section>
+                    <h1>What's next</h1>
+                </section>
+                    <section>
+                    <ul>
+                    <li><a href="https://trello.com/c/3EQjb1Jx/80-bug-devspace-problem-with-data-preservation" target="_blank">Data preservation</a></li>
+                    <li>Devspace <a href="https://github.com/openmicroscopy/devspace/issues" target="_blank">issues</a></li>
+                    </ul>
+                </section>
+                
             </div>
 
         </div>
