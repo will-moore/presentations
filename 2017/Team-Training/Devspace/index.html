@@ -358,7 +358,7 @@ org.jenkinsci.plugins.scriptsecurity.scripts.UnapprovedUsageException: script no
                 <ul>   
                 </section>
                 <section>
-                    <h2>Trigger: Remove some jobs</h2>
+                    <h2>Trigger: Edit configuration</h2>
                     <ul>
                     <li>Click on <code>Trigger > Configure</code></li>
                     <li>Go to <code>Pipeline</code></li>
@@ -539,6 +539,22 @@ cd var/log
                     </ul>
                 </section>
                 <section>
+                    <h2>Transfer the OMERO.server logs</h2>
+                    <p align="left">Transfer the logs to your local machine. Two steps process:</p>
+                    <ul>
+                    <li>Copy the logs from the container
+<pre><code style="width:1000px">
+docker cp devspace_omero_1:/home/omero/workspace/OMERO-server/OMERO.server/var/log .
+                    </code></pre>
+                    </li>
+                    <li>Copy the logs to your machine
+<pre><code style="width:1000px">
+scp -r omero@devspace_openstack_ip:/home/omero/log /local/path/for/log
+                    </code></pre>
+                    </li>
+                    </ul>
+                </section>
+                <section>
                     <h2>Access the OMERO-test-integration logs</h2>
                     <ul>
                     <li>Access the <code>OMERO-test-integration</code> container
@@ -551,7 +567,9 @@ docker exec -ti devspace_testintegration_1 bash
 cd /home/omero/workspace/OMERO-test-integration/src/dist
 cd var/log
                     </code></pre>
-                    </li>                       
+                    </li>
+                    <li>To transfer the logs, follow the instructions on how to transfer the OMERO.server logs
+                    </li>                    
                     </ul>
                 </section>
                 <section>
@@ -567,6 +585,7 @@ cd var/log
                     <section>
                     <ul>
                     <li><a href="https://trello.com/c/3EQjb1Jx/80-bug-devspace-problem-with-data-preservation" target="_blank">Data preservation</a></li>
+                    <li>docker-compose upgrade</a>
                     <li>Devspace <a href="https://github.com/openmicroscopy/devspace/issues" target="_blank">issues</a></li>
                     </ul>
                 </section>
