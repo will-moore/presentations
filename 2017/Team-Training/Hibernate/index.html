@@ -286,7 +286,7 @@ SELECT dil.child
 - Special `"omero.group"` dictionary key.
 - Special group ID `"-1"` means "all groups".
 - CLI `hql` plugin `--all` [sets group
-  of -1](https://github.com/openmicroscopy/openmicroscopy/blob/3f119eb7/components/tools/OmeroPy/src/omero/plugins/hql.py#L65).
+  of -1](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/tools/OmeroPy/src/omero/plugins/hql.py#L65).
 
 ---
 
@@ -510,7 +510,7 @@ class: center, middle
 
 - [`Objective`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-objective)
   is defined in a
-  [mapping file](https://github.com/openmicroscopy/openmicroscopy/blob/3f119eb7/components/model/resources/mappings/acquisition.ome.xml#L352).
+  [mapping file](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/model/resources/mappings/acquisition.ome.xml#L352).
 - To define the property `manufacturer`:
 ```xml
 <optional name="manufacturer" type="string"/>
@@ -626,7 +626,7 @@ FOREIGN KEY (instrument) REFERENCES instrument(id)
   - It uses corresponding `set*()` in loading objects from the database.
 - `@Transient` tells Hibernate *not* to map the annotated property.
 - The [`Permissions.is*()`
-  methods](https://github.com/openmicroscopy/openmicroscopy/blob/3f119eb7/components/model/src/ome/model/internal/Permissions.java#L278)
+  methods](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/model/src/ome/model/internal/Permissions.java#L278)
   use this annotation.
   - This class is *not* defined in an XML mapping file.
 
@@ -635,7 +635,7 @@ FOREIGN KEY (instrument) REFERENCES instrument(id)
 # Subclass discriminators
 
 - See OMERO's
-  [annotations definition](https://github.com/openmicroscopy/openmicroscopy/blob/3f119eb7/components/model/resources/mappings/annotations.ome.xml):
+  [annotations definition](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/model/resources/mappings/annotations.ome.xml):
 ```xml
 <abstract id="ome.model.annotations.Annotation"
         discriminator="/" annotated="true">
@@ -669,7 +669,7 @@ FOREIGN KEY (instrument) REFERENCES instrument(id)
 # Subclasses across tables
 
 - OMERO's
-  [jobs definition](https://github.com/openmicroscopy/openmicroscopy/blob/3f119eb7/components/model/resources/mappings/jobs.ome.xml)
+  [jobs definition](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/model/resources/mappings/jobs.ome.xml)
   has *no* mention of discriminators.
 - The generated `Job` class has:
 ```java
@@ -685,7 +685,7 @@ FOREIGN KEY (instrument) REFERENCES instrument(id)
 ## defined in XML]
 
 - [`ScriptJob`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#scriptjob) is
-  [defined](https://github.com/openmicroscopy/openmicroscopy/blob/3f119eb7/components/model/resources/mappings/jobs.ome.xml#L81) by:
+  [defined](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/model/resources/mappings/jobs.ome.xml#L81) by:
 ```xml
 <type id="ome.model.jobs.ScriptJob"
         superclass="ome.model.jobs.Job">
@@ -717,7 +717,7 @@ FOREIGN KEY (job_id) REFERENCES job(id)
 # Seeing Hibernate's SQL
 
 - To see the SQL queries adjust the server's
-  [`logback.xml`](https://github.com/openmicroscopy/openmicroscopy/blob/3f119eb7/etc/logback.xml#L123)
+  [`logback.xml`](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/etc/logback.xml#L123)
   to have:
 ```xml
 <logger name="org.hibernate.SQL" level="DEBUG"/>
@@ -792,7 +792,7 @@ class: center, middle
 - Hibernate uses Java trickery to wrap `ome.model.*` instances.
 - For subclasses `instanceof` can be deceiving.
 - `GraphTraversal`
-  [works around](https://github.com/openmicroscopy/openmicroscopy/blob/3f119eb7/components/server/src/ome/services/graphs/GraphTraversal.java#L169)
+  [works around](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/server/src/ome/services/graphs/GraphTraversal.java#L169)
   the class confusion:
 ```java
 if (object instanceof HibernateProxy) {
@@ -923,7 +923,7 @@ if (object instanceof HibernateProxy) {
 # Bulk updates in HQL
 ## nulling a property ]
 
-- [`BaseGraphTraversalProcessor`](https://github.com/openmicroscopy/openmicroscopy/blob/3f119eb7/components/blitz/src/omero/cmd/graphs/BaseGraphTraversalProcessor.java#L47)
+- [`BaseGraphTraversalProcessor`](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/blitz/src/omero/cmd/graphs/BaseGraphTraversalProcessor.java#L47)
   does:
 ```java
 final String update =
@@ -941,7 +941,7 @@ session.createQuery(update).setParameterList("ids", ids)
 # Bulk updates in HQL
 ## deleting instances ]
 
-- [`BaseGraphTraversalProcessor`](https://github.com/openmicroscopy/openmicroscopy/blob/3f119eb7/components/blitz/src/omero/cmd/graphs/BaseGraphTraversalProcessor.java#L54)
+- [`BaseGraphTraversalProcessor`](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/blitz/src/omero/cmd/graphs/BaseGraphTraversalProcessor.java#L54)
   does:
 ```java
 final String update =
@@ -991,11 +991,11 @@ class: center, middle
   [`ACLVoter`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/security/ACLVoter.html)
   subclasses listen for events on Hibernate sessions.
   - Choice of subclass depends on the current security context.
-  - [`BasicACLVoter`](https://github.com/openmicroscopy/openmicroscopy/blob/3f119eb7/components/server/src/ome/security/basic/BasicACLVoter.java) is the most complicated of them.
+  - [`BasicACLVoter`](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/server/src/ome/security/basic/BasicACLVoter.java) is the most complicated of them.
 - `allow*` methods determine how the user's OMERO session may read and write
   model objects.
   - Check which owner and group, memberships, etc.
-  - [Basis for](https://github.com/openmicroscopy/openmicroscopy/blob/3f119eb7/components/blitz/src/omero/model/PermissionsI.java#L95)
+  - [Basis for](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/blitz/src/omero/model/PermissionsI.java#L95)
     clients' [`can*`](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/model/Permissions.html#canAnnotate)
     permissions methods.
 
@@ -1010,7 +1010,7 @@ class: center, middle
 - Hibernate [provides
   hooks](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Interceptor.html)
   that intercept events on persistent objects.
-- [`OmeroInterceptor`](https://github.com/openmicroscopy/openmicroscopy/blob/3f119eb7/components/server/src/ome/security/basic/OmeroInterceptor.java)
+- [`OmeroInterceptor`](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/server/src/ome/security/basic/OmeroInterceptor.java)
   intercepts lifecycle operations on model objects.
   - It works in concert with
     [`ACLVoter`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/security/ACLVoter.html) checks.
@@ -1099,7 +1099,7 @@ SELECT uuid FROM Session WHERE owner.omeName = 'root'
   services](https://docs.openmicroscopy.org/latest/omero5.4/developers/Modules/Api.html#services-list)
   often include explicit permissions checks.
   - Many examples can be found in [the
-    implementation](https://github.com/openmicroscopy/openmicroscopy/blob/3f119eb7/components/server/src/ome/logic/AdminImpl.java)
+    implementation](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/server/src/ome/logic/AdminImpl.java)
     of [IAdmin](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/api/IAdmin.html).
 - Some
   [model graph operations](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/cmd/GraphModify2.html)
