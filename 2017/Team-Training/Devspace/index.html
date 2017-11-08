@@ -230,10 +230,11 @@ ssh-keygen -t rsa -b 4096 -C "your_email_address" -f ~/.ssh/id_gh_rsa -q -P ""
 $ git clone https://github.com/openmicroscopy/devspace.git
 </code></pre>
                         </li>
-                        <li> Create a virtual environment and install <code>Ansible (2.4)</code><i>(version bump)</i> and <code>shade</code> to access OpenStack via the command line
+                        <li> Create a virtual environment and go to the <code>devspace</code> directory and install <code>Ansible (2.4)</code><i>(version bump)</i> and <code>shade</code> to access OpenStack via the command line
                             <pre><code>
 $ virtualenv ~/dev
 $ . ~/dev/bin/activate
+$ cd devspace
 (dev) $ pip install -r requirements.txt
                             </code></pre>
                         </li>
