@@ -254,7 +254,12 @@ Enter your password
 (dev) $ ansible-galaxy install -r requirements.yml
 </code></pre>
                         </li>
-                        <li>Exception in <a hef="https://github.com/jburel/devspace/blob/readme-training/ansible/requirements.yml" target="_blank">requirements.yml</a>: Work in progress <a href="https://github.com/openmicroscopy/ansible-role-devspace/pull/5" target="_blank">PR #5</a>     <pre><code> 
+                        <li>Exception in <a hef="https://github.com/jburel/devspace/blob/readme-training/ansible/requirements.yml" target="_blank">requirements.yml</a>: Work in progress <a href="https://github.com/openmicroscopy/ansible-role-devspace/pull/5" target="_blank">PR #5</a>. Replace
+                        <pre><code> 
+- src: openmicroscopy.devspace
+  version: 0.1.1
+</code></pre> with
+                        <pre><code> 
 - src: git+https://github.com/jburel/ansible-role-devspace.git
   version: change-key-folder-ansible22
   name: openmicroscopy.devspace
@@ -267,7 +272,7 @@ Enter your password
                 <section>
                     <h2>Create instance</h2>
                     <ul>
-                         <li>Create an instance on <a href="https://pony.openmicroscopy.org" target="_blank">OpenStack</a> (omedev tenancy)
+                         <li>Create an instance on <a href="https://pony.openmicroscopy.org" target="_blank">OpenStack</a> (omedev tenancy). In <code>ansible</code> directory:
 <pre><code style="width:1150px">
 (dev) $ ansible-playbook create-devspace.yml -e vm_name=your_name-devspace-name -e vm_key_name=your_key
 </code></pre>
@@ -286,7 +291,7 @@ Enter your password
                 </section>
                 <section>
                     <h2>Configure playbook <i>(NEW)</i></h2>
-                    Configure the parameters in <code>provision-devspace.yml</code>:
+                    In <code>ansible</code> directory, configure the parameters in <code>provision-devspace.yml</code>:
                     <pre><code style="width:1150px">
   roles:
     - role: openmicroscopy.devspace
@@ -306,10 +311,11 @@ Enter your password
                             </code></pre>
                 </section>
                 <section>
-                    <h2>Provision the devspace <i>(NEW)</i></h2>
+                    <h2>Provision the devspace <i>(NEW)</i> In <code>ansible</code> directory</h2>
                     <pre><code style="width:950px">
 (dev) $ ansible-playbook -u centos -i devspace_openstack_ip, provision-devspace.yml</code></pre>
                     where <code>devspace_openstack_ip = Floating IP</code> e.g. <code>10.0.51.143</code>
+                    <br/><b>Known issue:</b> the command has to be run twice!
                 </section>
                 <section>
                     <h2>Access the devspace</h2>
