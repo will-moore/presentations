@@ -199,38 +199,42 @@
                     <h2>Configuration: Openstack</h2>
                     <ul>
                         <li>Connect <a href="https://pony.openmicroscopy.org" target="_blank">OME OpenStack</a></li>
-                        <li>Go to <code>Access & Security > Key Pairs</code>, register a key</li> 
+                        <li>Go to <code>Access & Security > Key Pairs</code> and register a key. Click on <code>Import Key Pair</code>. Copy the content of the public key you use to access our resources e.g. <code>id_rsa.pub</code></li> 
                         <li>Go to <code>Access & Security > API Access</code>, download your configuration by clicking on <code>Download OpenStack RC File v2.0</code>. The file will be named by default <code>omedev-openrc.sh</code></li>
                     </ul>
                 </section>
                 <section>
                     <h2>Configuration: SSH and Git <i>(NEW)</i></h2>
                     <ul>
+                        <li>Create a directory <code>devspace_config/.ssh</code> where you wish</li>
                         <li>Create a new <code>id_gh_rsa</code> SSH key <b>without</b> passphrase
-                            in your <code>.ssh</code> directory
+                            in the <code>devspace_config/.ssh</code> directory
                             <pre><code style="width:900px">
-ssh-keygen -t rsa -b 4096 -C "your_email_address" -f ~/.ssh/id_gh_rsa -q -P ""
+ssh-keygen -t rsa -b 4096 -C "your_email_address" -f ~/devspace_config/.ssh/id_gh_rsa -q -P ""
                             </code></pre>                            
                         </li>
                         <li>Upload the public key i.e. <code>id_gh_rsa.pub</code> to your GitHub account</li>
-                        <li>Open  <code>.ssh/config</code> and add the following:
+                        <li>Create a file <code>devspace_config/.ssh/config</code> and add the following:
 <pre><code style="width:900px">
 Host github.com
     User git
     IdentityFile ~/.ssh/id_gh_rsa
 </code></pre>
                         </li>
-                        <li>...</li>
                     </ul>
                 </section>
                 <section>
                     <h2>Configuration: SSH and Git <i>(NEW)</i></h2>
                     <ul>
+                        <li>Create a <code>devspace_config/.gitconfig</code> file</li>
                         <li>Generate a <a href="https://github.com/settings/tokens" target="_blank">GitHub token</a></li>
-                        <li>Add to it to your <code>.gitconfig</code> file:
+                        <li>Add it to your <code>devspace_config/.gitconfig</code> file. Minimally the file should contain:
                             <pre><code style="width:900px">
 [github]
         token = your_token
+[user]
+        email = your_email_address
+        name = your_name
                             </code></pre>
                         </li>
                         <li>The key and the configuration files will be copied to the devspace so that branches can be pushed to your GitHub account by <code>scc</code></li>
