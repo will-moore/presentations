@@ -213,6 +213,19 @@ ssh-keygen -t rsa -b 4096 -C "your_email_address" -f ~/.ssh/id_gh_rsa -q -P ""
                             </code></pre>                            
                         </li>
                         <li>Upload the public key i.e. <code>id_gh_rsa.pub</code> to your GitHub account</li>
+                        <li>Open  <code>.ssh/config</code> and add the following:
+<pre><code style="width:900px">
+Host github.com
+    User git
+    IdentityFile ~/.ssh/id_gh_rsa
+</code></pre>
+                        </li>
+                        <li>...</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Configuration: SSH and Git <i>(NEW)</i></h2>
+                    <ul>
                         <li>Generate a <a href="https://github.com/settings/tokens" target="_blank">GitHub token</a></li>
                         <li>Add to it to your <code>.gitconfig</code> file:
                             <pre><code style="width:900px">
@@ -220,7 +233,7 @@ ssh-keygen -t rsa -b 4096 -C "your_email_address" -f ~/.ssh/id_gh_rsa -q -P ""
         token = your_token
                             </code></pre>
                         </li>
-                        <li>The key and the configuration files will be copied to the devspace so that branches can be pushed to your GitHub account by <code>scc</code>
+                        <li>The key and the configuration files will be copied to the devspace so that branches can be pushed to your GitHub account by <code>scc</code></li>
                     </ul>
                 </section>
                  <section>
