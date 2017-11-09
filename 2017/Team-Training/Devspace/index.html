@@ -220,6 +220,7 @@ ssh-keygen -t rsa -b 4096 -C "your_email_address" -f ~/.ssh/id_gh_rsa -q -P ""
         token = your_token
                             </code></pre>
                         </li>
+                        <li>The key and the configuration files will be copied to the devspace so that branches can be pushed to your GitHub account by <code>scc</code>
                     </ul>
                 </section>
                  <section>
@@ -238,7 +239,7 @@ $ cd devspace
 (dev) $ pip install -r requirements.txt
                             </code></pre>
                         </li>
-                         <li>Source the OpenStack configuration file to set the environment variables
+                         <li>Source the OpenStack configuration file to set the environment variables.
                             <pre><code>
 (dev) $ . omedev-openrc.sh
 Enter your password
@@ -248,14 +249,7 @@ Enter your password
                 </section>
                 <section>
                     <h2>Install roles</h2>
-                    <ul>
-                        <li>Install the various <a href="https://docs.ansible.com/ansible/2.4/playbooks_reuse_roles.html" target="_blank">ansible roles</a> from the <a href="https://galaxy.ansible.com/" target="_blank">Galaxy website</a>:
-<pre><code>
-(dev) $ cd ansible
-(dev) $ ansible-galaxy install -r requirements.yml
-</code></pre>
-                        </li>
-                        <li>Exception in <a hef="https://github.com/jburel/devspace/blob/readme-training/ansible/requirements.yml" target="_blank">requirements.yml</a>: Work in progress <a href="https://github.com/openmicroscopy/ansible-role-devspace/pull/5" target="_blank">PR #5</a>. Replace
+                    <li>In <a hef="https://github.com/jburel/devspace/blob/readme-training/ansible/requirements.yml" target="_blank">ansible/requirements.yml</a>: Work in progress <a href="https://github.com/openmicroscopy/ansible-role-devspace/pull/5" target="_blank">PR #5</a>. Replace
                         <pre><code> 
 - src: openmicroscopy.devspace
   version: 0.1.1
@@ -266,6 +260,14 @@ Enter your password
   name: openmicroscopy.devspace
 </code></pre>
                         </li>
+                    <ul>
+                        <li>Install the various <a href="https://docs.ansible.com/ansible/2.4/playbooks_reuse_roles.html" target="_blank">ansible roles</a> from the <a href="https://galaxy.ansible.com/" target="_blank">Galaxy website</a>:
+<pre><code>
+(dev) $ cd ansible
+(dev) $ ansible-galaxy install -r requirements.yml
+</code></pre>
+                        </li>
+                        
                         <li>To "upgrade" roles, you may want to specify <code>--force</code> when installing the roles
                         </li>
                     </ul>
@@ -273,10 +275,11 @@ Enter your password
                 <section>
                     <h2>Create instance</h2>
                     <ul>
-                         <li>Create an instance on <a href="https://pony.openmicroscopy.org" target="_blank">OpenStack</a> (omedev tenancy). In <code>ansible</code> directory:
+                         <li>Create an instance on <a href="https://pony.openmicroscopy.org" target="_blank">OpenStack</a> (omedev tenancy). In the <code>ansible</code> directory:
 <pre><code style="width:1150px">
 (dev) $ ansible-playbook create-devspace.yml -e vm_name=your_name-devspace-name -e vm_key_name=your_key
 </code></pre>
+(replace <code>your_name-devspace-name</code> and <code>your_key</code>)
                         </li>
                         <li>To configure the size of the volume (default 50GiB), pass for example
 <pre><code style="width:1150px">
@@ -292,7 +295,7 @@ Enter your password
                 </section>
                 <section>
                     <h2>Configure playbook <i>(NEW)</i></h2>
-                    In <code>ansible</code> directory, configure the parameters in <code>provision-devspace.yml</code>:
+                    In the <code>ansible</code> directory, configure the parameters in <code>provision-devspace.yml</code>:
                     <pre><code style="width:1150px">
   roles:
     - role: openmicroscopy.devspace
