@@ -266,17 +266,6 @@ Enter your password
                 </section>
                 <section>
                     <h2>Install roles</h2>
-                    <li>In <a hef="https://github.com/jburel/devspace/blob/readme-training/ansible/requirements.yml" target="_blank">ansible/requirements.yml</a>: Work in progress <a href="https://github.com/openmicroscopy/ansible-role-devspace/pull/5" target="_blank">PR #5</a>. Replace
-                        <pre><code> 
-- src: openmicroscopy.devspace
-  version: 0.1.1
-</code></pre> with
-                        <pre><code> 
-- src: git+https://github.com/jburel/ansible-role-devspace.git
-  version: change-key-folder-ansible22
-  name: openmicroscopy.devspace
-</code></pre>
-                        </li>
                     <ul>
                         <li>Install the various <a href="https://docs.ansible.com/ansible/2.4/playbooks_reuse_roles.html" target="_blank">ansible roles</a> from the <a href="https://galaxy.ansible.com/" target="_blank">Galaxy website</a>:
 <pre><code>
@@ -284,7 +273,8 @@ Enter your password
 (dev) $ ansible-galaxy install -r requirements.yml
 </code></pre>
                         </li>
-                        
+                        <li>Exception: the <code>ansible-role-devspace</code> is work in progress <a href="https://github.com/openmicroscopy/ansible-role-devspace/pull/5" target="_blank">PR #5</a>
+                        </li>
                         <li>To "upgrade" roles, you may want to specify <code>--force</code> when installing the roles
                         </li>
                     </ul>
