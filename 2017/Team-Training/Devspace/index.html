@@ -232,6 +232,7 @@ Host github.com
                             <pre><code style="width:900px">
 [github]
         token = your_token
+        user = your_gh_username
 [user]
         email = your_email_address
         name = your_name
@@ -307,9 +308,7 @@ Enter your password
   roles:
     - role: openmicroscopy.devspace
       # Path to SSH and Git configuration files
-      configuration_dir_path: "/Users/jmarie"
-      # user account on git. SSH and Git configuration files should match
-      github_user: "jburel"
+      configuration_dir_path: "/Users/jmarie/devspace_training"
       # The name of the git branch all the jobs will be using. The default is develop
       # devspace_omero_branch: develop
       # The devspace repository to use. The default is https://github.com/openmicroscopy/devspace.git
