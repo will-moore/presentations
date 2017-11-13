@@ -155,7 +155,7 @@
 &lt;html&gt;
     &lt;head&gt;
       &lt;link rel="stylesheet" type="text/css"
-              href=" {% static 'app_directoryr/css/app.css?version=1.1' %}" /&gt;
+              href=" {% static 'app_directory/css/app.css?version=1.1' %}" /&gt;
 
       &lt;script type="text/javascript"&gt;
               // optionally set parameters for app
@@ -535,13 +535,13 @@ def get_annotations(request, conn=None, **kwargs):
                             <code style="min-height: 600px"
                                   class="javascript">
 // The 'Right Panel' is the floating Info, Preview etc display.
-// It listens to selection changes on the FigureModel and updates it's display
+// It listens to selection changes on the FigureModel and updates its display
 // By creating new Sub-Views
 
 var RightPanelView = Backbone.View.extend({
 
   initialize: function(opts) {
-      // we render on selection Changes in the model
+      // we render on selection changes in the model
       this.listenTo(this.model, 'change:selection', this.render);
 
       // this.render();
@@ -1188,7 +1188,7 @@ goog.require('ol.geom.Polygon');
  * method which, toDate, is only supported by Chrome.
  *
  * That said, there are various methods out there how people accomplish the task
- * of drawing en ellipse on an HTMLCanvas. They range from scaled circles, over
+ * of drawing an ellipse on an HTMLCanvas. They range from scaled circles, over
  * sets of bezier curves to what is, undoubtedly, the most accurate method
  * mathematically, namely to trace the outline for a given step size according to
  * the following formulae for x,y:
