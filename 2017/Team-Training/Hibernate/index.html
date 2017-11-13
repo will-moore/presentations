@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OME Hibernate Training</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+      h1, h2, h3 {
+        font-weight: normal;
+      }
+      .nestled h1 {
+        margin-bottom: 0px;
+      }
+      .nestled h2 {
+         margin-top: 0px;
+         margin-left: 1em;
+         font-style: italic;
+      }
+      .larger {
+        font-size: larger;
+      }
+      .remark-slide-content {
+        background-image: url("../../../template/images/ome-icon-opacity.png");
+        background-color: #f2f6f9;
+        background-repeat: no-repeat;
+        background-position: right -270px top -120px;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+name: title
+class: center, middle
+
+# Hibernate Training
+
+.larger[[Mark T. B. Carroll](mailto:m.t.b.carroll@dundee.ac.uk)]
+
+[Open Microscopy Environment](https://www.openmicroscopy.org/),
+[University of Dundee](https://www.dundee.ac.uk/)
+
+November 2017
+
+---
+
+# Four Sections
+
+1. [Querying OMERO with HQL](#queries)
+1. [Annotating model objects](#annotations)
+1. [Persisted proxy objects](#proxies)
+1. [Enforcing OMERO permissions](#permissions)
+
+---
+
+name: queries
+class: center, middle
+
+# Querying OMERO with HQL
+
+.larger[(section one)]
+
+---
+
+# HQL queries
+
+- HQL naming is case-sensitive.
+- Use the class and property names from the [model object
+  glossary](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html).
+- Try to use it to navigate from
+  [`Dataset`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-dataset)
+  to [`Image`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-image).
+  - Step from class to class via properties.
+
+---
+
+# Images in Dataset
+
+```sql
+SELECT l.child
+  FROM DatasetImageLink l
+  WHERE l.parent.id = :id
+```
+
+- Specify class and property names.
+- Fetches model objects, instances of
+  [`Image`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-image).
+- Plug in values of parameters.
+  - Prefix each parameter name with a colon.
+  - [Do not](https://xkcd.com/327/) concatenate literal values in query string.
+
+---
+
+# Testing from client scripts
+
+```python
+query_svc = conn.getQueryService()
+hql = ("SELECT l.child "
+       "FROM DatasetImageLink l "
+       "WHERE l.parent.id = :id")
+params = omero.sys.ParametersI()
+params.addId(omero.rtypes.rlong(1))
+images = query_svc.findAllByQuery(hql, params)
+for image in images:
+    print(image.name.val)
+```
+
+---
+
+# Collection problem ...
+
+```sql
+SELECT d.imageLinks.child
+  FROM Dataset d
+  WHERE d.id = :id
+```
+
+- Still querying a dataset's images.
+- `imageLinks` is a collection.
+- Cannot select their properties.
+
+---
+
+# ... solve using joins
+
+```sql
+SELECT l.child
+  FROM Dataset d
+  JOIN d.imageLinks l
+  WHERE d.id = :id
+```
+
+---
+
+# Select simple values
+
+```sql
+SELECT i.id, i.name
+  FROM Dataset d
+  JOIN d.imageLinks l
+  JOIN l.child i
+  WHERE d.name = :name
+```
+
+- Used `name` property in both `SELECT` and `WHERE`.
+- The server accesses values of those properties.
+- Use [`projection`](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/api/IQuery.html#projection)
+  instead of
+  [`findAllByQuery`](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/api/IQuery.html#findAllByQuery).
+  - This gives us simple values, not whole model objects.
+- Selecting only certain properties can reduce size of query results.
+
+---
+
+# Fetch *then* inspect ...
+
+```sql
+SELECT l
+  FROM Dataset d
+  JOIN d.imageLinks l
+  JOIN l.child i
+  WHERE d.name = :name
+```
+
+- Fetches model objects, instances of
+  [`DatasetImageLink`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-datasetimagelink).
+- `l.child` has
+  [`Image`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-image)
+  with ID *only*.
+- From query results cannot access `i.name` in client.
+  - The server had no reason to read that property.
+
+---
+
+# ... needs deeper fetching
+
+- For the
+  [`Image`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-image)-valued
+  property do a *fetch* in the join:
+
+```sql
+  JOIN FETCH l.child i
+```
+
+- Fetching an object value hydrates its properties:
+
+```python
+links = query_svc.findAllByQuery(hql, params)
+for link in links:
+    image = link.child
+    print("{}: {}".format(image.id.val, image.name.val))
+```
+
+---
+
+# Fetching `null` values ...
+
+```python
+hql = ("FROM Image i "
+       "JOIN FETCH i.instrument")
+images = query_svc.findAllByQuery(hql, None)
+for image in images:
+    print(image.name.val)
+```
+
+- Fetch images with their instruments hydrated.
+- Image names may include `2chZT.lsm` yet not `ankle.dcm`.
+- `ankle.dcm` has no instrument.
+
+---
+
+# ... *outer* joins include all
+
+```python
+hql = ("FROM Image i "
+       "LEFT OUTER JOIN FETCH i.instrument")
+```
+
+- Fetches both `2chZT.lsm` and `ankle.dcm`.
+- *Left outer* join includes results even when no property value to fetch.
+- Note that omitting `SELECT` fetches the `FROM` object.
+
+---
+
+.nestled[
+# Images in project
+## using join]
+
+```sql
+SELECT i
+  FROM Project p
+  JOIN p.datasetLinks dl
+  JOIN dl.child d
+  JOIN d.imageLinks il
+  JOIN il.child i
+  WHERE p.id = :id
+```
+
+- Uses convenience properties of
+  [`Project`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-project)
+  and
+  [`Dataset`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-dataset).
+- Each also has `annotationLinks`.
+
+---
+
+.nestled[
+# Images in project
+## using object equality]
+
+```sql
+SELECT dil.child
+  FROM ProjectDatasetLink pdl,
+       DatasetImageLink dil
+  WHERE pdl.parent.id = :id
+    AND pdl.child = dil.parent
+```
+
+- One may name multiple classes in the `FROM`.
+- Can tie the related objects together in the `WHERE`.
+- Object equality in `WHERE` can work like `JOIN`.
+
+---
+
+# SQL is more ID-centric
+
+- The view of OMERO from `psql` is very ID-based.
+- OMERO `datasetimagelink` table includes columns:
+```
+ id          | bigint  | not null
+ parent      | bigint  | not null
+ child       | bigint  | not null
+ owner_id    | bigint  | not null
+ group_id    | bigint  | not null
+```
+- All these columns store IDs.
+- Joins are based on IDs explicitly.
+
+---
+
+# Group context
+
+- Server operations occur within a group.
+  - See `callContext` arguments in [`Executor`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/services/util/Executor.html).
+- Blitz API calls become server operations.
+- Context constrains scope of queries.
+- Special `"omero.group"` dictionary key.
+- Special group ID `"-1"` means "all groups".
+- CLI `hql` plugin `--all` [sets group
+  of -1](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/tools/OmeroPy/src/omero/plugins/hql.py#L65).
+
+---
+
+.nestled[
+# Setting group context
+## from Blitz clients]
+
+- Optional context arguments when,
+  - getting service from factory
+  - calling service method
+  - includes `client.getImplicitContext()`.
+- `setSecurityContext` on service factory
+  - applies server-side to session.
+
+---
+
+# Pagination ...
+
+- Sometimes required for scalability.
+- Select a limited slice from a large results set.
+- We already used a `Parameters` object to specify an object ID:
+```python
+params = omero.sys.ParametersI()
+params.addId(omero.rtypes.rlong(1))
+```
+- Clients can use,
+  - [`ParametersI.page(int offset,
+  int limit)`](https://downloads.openmicroscopy.org/latest/omero5.4/api/omero/sys/ParametersI.html#page-int-int-).
+- Server-side code can similarly use,
+  - [`Parameters.page(Integer offset,
+  Integer limit)`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/parameters/Parameters.html#page-java.lang.Integer-java.lang.Integer-).
+
+---
+
+.nestled[
+# ... without query service
+## (server-side)]
+
+- [`Executor`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/services/util/Executor.html) via
+  [`doWork`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/services/util/Executor.Work.html#doWork-org.hibernate.Session-ome.system.ServiceFactory-)
+  provides a Hibernate
+  [`Session`](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Session.html) instance.
+- Pass HQL query to
+  [`Session.createQuery(String)`](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Session.html#createQuery(java.lang.String%29).
+- Server-side pagination can then be done on query,
+  - [`Query.setFirstResult(int)`](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Query.html#setFirstResult(int%29) for offset
+  - [`Query.setMaxResults(int)`](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Query.html#setMaxResults(int%29) for limit.
+- Query service also often available to server code.
+  - A service factory is provided to
+    [`doWork`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/services/util/Executor.Work.html#doWork-org.hibernate.Session-ome.system.ServiceFactory-).
+
+---
+
+# Using the server's `doWork`
+
+- [`doWork`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/services/util/Executor.Work.html#doWork-org.hibernate.Session-ome.system.ServiceFactory-)
+  implementation method may be preceded with annotation:
+```java
+@Transactional(readOnly = true)
+public Object doWork(Session session, ServiceFactory sf) {
+        // ... query code using session or sf ...
+}
+```
+- Safest to set a read-only transaction unless writes are required.
+
+---
+
+# HQL is *not* PostgreSQL
+
+Examples of workarounds include,
+- Case-insensitive string matching:
+  - PostgreSQL offers `ILIKE`.
+  - In HQL use `LIKE` with `LOWER(...)`.
+- Mathematical operators:
+  - PostgreSQL offers `@` for absolute value.
+  - In HQL use `ABS(...`) instead.
+
+---
+
+.nestled[
+# Querying permissions
+## for [`Image`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-image), take one]
+
+```python
+hql = ("SELECT NEW Map(i AS i_details_permissions) "
+       "FROM Image i")
+rows = query_svc.projection(hql, None)
+for row in rows:
+    perms = row[0].val['i_details_permissions'].val
+    print("{} {}".format(perms['perm'].val,
+                         perms['canAnnotate'].val))
+```
+- Selecting `i.details.permissions` gives *wrong* results from client.
+- OMERO.web has examples of `*_details_permissions`.
+
+---
+
+.nestled[
+# Querying permissions
+## for [`Image`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-image), take two]
+
+```python
+hql = "FROM Image"
+images = query_svc.findAllByQuery(hql, None)
+for image in images:
+    perms = image.details.permissions
+    print("{} {}".format(perms, perms.canAnnotate()))
+```
+- Checking model objects' permissions works fine.
+- Outputs the same as previous script.
+
+---
+
+.nestled[
+# Querying map annotations
+## [`MapAnnotation`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-mapannotation), take one]
+
+```python
+hql = ("SELECT ma.id, nv.name, nv.value "
+       "FROM MapAnnotation ma "
+       "JOIN ma.mapValue nv")
+rows = query_svc.projection(hql, None)
+for row in rows:
+    print("ID {} has, {}: {}".format(
+        row[0].val, row[1].val, row[2].val))
+```
+- Join list of named values as `mapValue` property.
+- Prints contents of every map annotation.
+
+---
+
+.nestled[
+# Querying map annotations
+## [`MapAnnotation`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-mapannotation), take two]
+
+```python
+hql = "FROM MapAnnotation"
+map_anns = query_svc.findAllByQuery(hql, None)
+for map_ann in map_anns:
+    for nv in map_ann.mapValue:
+        print("ID {} has, {}: {}".format(
+            map_ann.id.val, nv.name, nv.value))
+```
+- Outputs the same as previous script.
+
+---
+
+# A more unusual query ...
+
+- Which image formats have reported that the objective lens is designed to be
+  immersed in oil?
+
+```sql
+SELECT DISTINCT i.format.value
+  FROM Objective o, Image i
+  WHERE o.immersion.value = 'Oil'
+    AND o.instrument = i.instrument
+```
+
+- `2chZT.lsm` shows that `ZeissLSM` is one such format.
+
+---
+
+# ... query explained
+
+```sql
+SELECT DISTINCT i.format.value
+  FROM Objective o, Image i
+  WHERE o.immersion.value = 'Oil'
+    AND o.instrument = i.instrument
+```
+
+- `DISTINCT` removes duplicates.
+- Enumerations like
+  [`Format`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-format) and
+  [`Immersion`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-immersion)
+  have a `value` property.
+  - They also have an ID.
+- [`Instrument`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-instrument)
+  links [`Image`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-image) to
+  [`Objective`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-objective).
+- Try writing this query using `JOIN`.
+
+---
+
+class: center, middle
+
+.larger[Any comments or questions?]
+
+---
+
+name: annotations
+class: center, middle
+
+# Annotating model objects
+
+.larger[(section two)]
+
+---
+
+# The OMERO object model
+
+[XML mapping files](https://github.com/openmicroscopy/openmicroscopy/tree/3f119eb7/components/model/resources/mappings)
+  define what becomes the [model object
+  glossary](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html).
+
+1. Code generation translates the mapping files to the `ome.model.*` Java
+   classes used in the server.
+1. Hibernate uses Java reflection to understand those Java classes as
+   defining model objects that can be persisted in the database.
+1. Code generation translates those classes to Slice definitions in
+   `components/blitz/generated/omero/model/*.ice`.
+1. ZeroC's Ice developer tools translate the Slice definitions to the
+   `omero.model.*` classes used in clients.
+
+---
+
+.nestled[
+# Kinds of object property
+## simple value]
+
+- [`Objective`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-objective)
+  is defined in a
+  [mapping file](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/model/resources/mappings/acquisition.ome.xml#L352).
+- To define the property `manufacturer`:
+```xml
+<optional name="manufacturer" type="string"/>
+```
+- In the generated Java class the `getManufacturer()` method has:
+```java
+@Column(columnDefinition="", name="manufacturer",
+        nullable=true, unique=false, updatable=true)
+```
+
+---
+
+.nestled[
+# Kinds of object property
+## dimensioned value definition]
+
+- [`Objective`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-objective)
+  has a dimensioned property:
+```xml
+<optional name="workingDistance"
+        type="ome.model.units.Length"/>
+```
+- The generated `ome.model.acquisition.Objective` method
+  `getWorkingDistance()` has an `@Embedded` annotation.
+  - Such values can occupy multiple columns in the database table.
+
+---
+
+.nestled[
+# Kinds of object property
+## dimensioned value attributes]
+
+```java
+@AttributeOverride(name="value",
+        column = @Column(name="workingDistance")),
+@AttributeOverride(name="unit",
+        column = @Column(name="workingDistanceUnit"))
+```
+- The `objective` database table has columns named
+  `workingDistance` and `workingDistanceUnit`.
+- For HQL these annotations define `workingDistance.unit` and
+  `workingDistance.value` properties of
+  [`Objective`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-objective).
+
+---
+
+.nestled[
+# Kinds of object property
+## mapped object value (to)]
+
+- [`Objective`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-objective)
+  links to another model object:
+```xml
+<manyone name="instrument"
+        type="ome.model.acquisition.Instrument"/>
+```
+- `manyone`: Many objectives can share the same instrument.
+- The annotations on `getInstrument()` may seem intimidating.
+
+---
+
+.nestled[
+# Kinds of object property
+## mapped object value (from)]
+
+- [`Instrument`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#omero-model-class-instrument)
+  has a corresponding property,
+```xml
+<zeromany name="objective"
+        type="ome.model.acquisition.Objective"
+        inverse="instrument"/>
+```
+- `zeromany`: An instrument has zero or more objectives.
+
+---
+
+.nestled[
+# Mapped object properties
+## joining]
+
+Annotations define how `Objective.instrument` acts in joins:
+- `@ManyToOne` reflects the `manyone` XML element.
+- `targetEntity` and `@JoinColumn` further define the join.
+- `@ForeignKey` becomes the `objective` table's:
+```sql
+FOREIGN KEY (instrument) REFERENCES instrument(id)
+```
+- The values of the `objective` table's `instrument` column are drawn from
+  those of the `instrument` table's `id` column in the database.
+
+---
+
+.nestled[
+# Mapped object properties
+## cascading and fetching]
+
+- `Objective.getInstrument()` has a `@Cascade` annotation and references to
+  `CascadeType`.
+  - When something is done to an objective, cascading defines what happens to
+    related objects.
+- The `FetchType.LAZY` means that the instrument's properties are
+  fetched only by need.
+  - Clients may thus require `JOIN FETCH o.instrument` or similar.
+
+---
+
+.nestled[
+# Mapped object properties
+## exceptions to mapping]
+
+- Hibernate expects to map Java object properties, as from `get*()` or `is*()`
+  methods, to database columns.
+  - It uses corresponding `set*()` in loading objects from the database.
+- `@Transient` tells Hibernate *not* to map the annotated property.
+- The [`Permissions.is*()`
+  methods](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/model/src/ome/model/internal/Permissions.java#L278)
+  use this annotation.
+  - This class is *not* defined in an XML mapping file.
+
+---
+
+# Subclass discriminators
+
+- See OMERO's
+  [annotations definition](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/model/resources/mappings/annotations.ome.xml):
+```xml
+<abstract id="ome.model.annotations.Annotation"
+        discriminator="/" annotated="true">
+...
+<type id="ome.model.annotations.MapAnnotation"
+        discriminator="/map/"
+        superclass="ome.model.annotations.Annotation">
+```
+- The database's `annotation` table has a `discriminator` column.
+- Its value is how Hibernate knows each annotation's subclass.
+
+---
+
+# Subclass annotations
+
+- The generated `Annotation` class uses:
+```java
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="discriminator",
+        discriminatorType=DiscriminatorType.STRING)
+```
+- Its `MapAnnotation` subclass has:
+```java
+@DiscriminatorValue("/map/")
+```
+- Annotations are all in the `annotation` table where map annotations have a
+  `/map/` discriminator.
+
+---
+
+# Subclasses across tables
+
+- OMERO's
+  [jobs definition](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/model/resources/mappings/jobs.ome.xml)
+  has *no* mention of discriminators.
+- The generated `Job` class has:
+```java
+@Inheritance(strategy=InheritanceType.JOINED)
+```
+- Without a discriminator column other database tables are used to track jobs'
+  subclasses.
+
+---
+
+.nestled[
+# Script jobs as a subclass
+## defined in XML]
+
+- [`ScriptJob`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#scriptjob) is
+  [defined](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/model/resources/mappings/jobs.ome.xml#L81) by:
+```xml
+<type id="ome.model.jobs.ScriptJob"
+        superclass="ome.model.jobs.Job">
+        <properties>
+            <optional name="description" type="string"/>
+        </properties>
+</type>
+```
+
+---
+
+.nestled[
+# Script jobs as a subclass
+## in the database]
+
+- The `scriptjob` table in the database has columns:
+```
+ description | character varying(255) |
+ job_id      | bigint                 | not null
+```
+- The `job_id` column links to the `job` table:
+```sql
+FOREIGN KEY (job_id) REFERENCES job(id)
+```
+- Rows in such tables are how Hibernate knows each job's subclass.
+
+---
+
+# Seeing Hibernate's SQL
+
+- To see the SQL queries adjust the server's
+  [`logback.xml`](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/etc/logback.xml#L123)
+  to have:
+```xml
+<logger name="org.hibernate.SQL" level="DEBUG"/>
+```
+- A running server may take a minute to notice the change.
+- Your `Blitz-0.log` may grow rapidly.
+- With newer Hibernate, query parameter values would be shown by:
+```xml
+<logger name="org.hibernate.type" level="TRACE"/>
+```
+
+---
+
+class: center, middle
+
+.larger[Any comments or questions?]
+
+---
+
+name: proxies
+class: center, middle
+
+# Persisted proxy objects
+
+.larger[(section three)]
+
+---
+
+# Object-relational mapping
+
+- Hibernate maps object instances to table rows in a relational database.
+- Software developers work with objects in a familiar way without SQL.
+- Object property values can be fetched by need.
+- Updates to objects are propagated back to the database.
+- Changes to the underlying database schema may be transparent to application
+  developers.
+
+---
+
+# Hibernate challenges
+
+- Ambitious usage of Hibernate tends to reveal problems.
+  - Docs often seem ambiguous or wrong, where they exist at all.
+  - Longstanding bugs lie unaddressed.
+  - We use Hibernate partly by stumbling upon workarounds to disappointing
+    behaviors.
+- Under the hood there hides complexity. The courageous may,
+  - review Java annotations for linking instruments to objectives
+  - try looking at SQL logged by `org.hibernate.SQL`.
+
+---
+
+# Online documentation
+
+- OMERO 5.4 uses Hibernate **3**.5.6.
+- October 2017's Hibernate release is **5**.2.12.
+- Be correspondingly careful in searching online for help.
+- Much of what you read does not yet apply to OMERO.
+
+---
+
+# Hibernate proxy objects
+
+- Hibernate uses Java trickery to wrap `ome.model.*` instances.
+- For subclasses `instanceof` can be deceiving.
+- `GraphTraversal`
+  [works around](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/server/src/ome/services/graphs/GraphTraversal.java#L169)
+  the class confusion:
+```java
+if (object instanceof HibernateProxy) {
+        this.className = Hibernate.getClass(object).getName();
+} else {
+        this.className = object.getClass().getName();
+}
+```
+
+---
+
+# Persistent instances
+
+- The server code that works with model object instances
+  typically,
+  - has an open Hibernate session to use
+  - works within a PostgreSQL database transaction.
+- A Hibernate
+  [`Session`](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Session.html)
+  instance offers useful methods.
+  - These allow management of a model object's lifecycle.
+- Hibernate tracks objects that are attached to sessions.
+  - The model objects are wrapped in
+    [proxies](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/proxy/HibernateProxy.html).
+  - Changes to such objects are automagically written to the database.
+
+---
+
+# Hibernate for Requests
+
+- [`IRequest`](https://downloads.openmicroscopy.org/latest/omero5.4/api/omero/cmd/IRequest.html)
+  defines the lifecycle for
+  [`Request`](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/cmd/Request.html)
+  implementations.
+- Its `init`, `step`, `finish` methods are called with the same Hibernate
+  session open.
+- These are the same requests that you
+  [submit](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/cmd/Session.html#submit)
+  to an OMERO.blitz service factory.
+- Each request implementation has access to the
+  [`Session`](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Session.html)
+  instance via
+  [`init`](https://downloads.openmicroscopy.org/latest/omero5.4/api/omero/cmd/IRequest.html#init-omero.cmd.Helper-)'s
+  `helper` argument.
+  - This is why model graph operations can provide
+    [`GraphTraversal`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/services/graphs/GraphTraversal.html#GraphTraversal-org.hibernate.Session-ome.system.EventContext-ome.security.ACLVoter-ome.services.graphs.GraphPathBean-com.google.common.collect.SetMultimap-ome.services.graphs.GraphPolicy-ome.services.graphs.GraphTraversal.Processor-)
+    with a Hibernate
+    [`Session`](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Session.html).
+
+---
+
+.nestled[
+# Model object states
+## new instances]
+
+- Java's `new` keyword can create a *transient* model object:
+  - with no ID
+  - not tracked by Hibernate
+  - not attached to a session.
+- Use [`persist`](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Session.html#persist(java.lang.Object%29)
+  to have Hibernate track it.
+- By the end of the session Hibernate will,
+  - assign an ID to the new object
+  - write it to the database.
+
+---
+
+.nestled[
+# Model object states
+## old instances]
+
+- Model objects can be loaded from a Hibernate
+  [`Session`](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Session.html).
+  - These instances are *persistent*.
+  - Hibernate will track your changes to them.
+  - Changes are flushed during or at the end of the transaction.
+- After the session is closed then the objects become *detached*.
+  - They are no longer tracked by Hibernate.
+- Use
+  [`merge`](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Session.html#persist(java.lang.Object%29)
+  to write a detached object to the database and get a persistent version of
+  it back from the new session.
+
+---
+
+.nestled[
+# Model object states
+## other session methods]
+
+- A Hibernate
+  [`Session`](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Session.html)
+  instance offers many other methods.
+- Our server code uses `save`, `update`, `refresh` and more.
+- `persist` and `merge` should get you far.
+  - They are specified by the Java Persistence API thus generalize beyond
+    Hibernate.
+
+---
+
+# Lazy loading
+
+- We have already mentioned
+  [`Session.createQuery(String)`](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Session.html#createQuery(java.lang.String%29)
+  for querying model objects.
+- We also saw mention of `FetchType.LAZY` on an object property.
+- Use [`load`](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Session.html#load(java.lang.Class,%20java.io.Serializable%29)
+  to retrieve existing objects by ID.
+  - Loads a persistent object from the database.
+  - Its properties may be fetched transparently as you use them.
+  - Fetch-by-need works while the session remains open.
+
+---
+
+# Writing data using HQL
+
+- HQL can be used for more than reading data.
+- [`Session.createQuery(String)`](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Session.html#createQuery(java.lang.String%29)
+  returns a
+  [`Query`](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Query.html) instance.
+- Queries offer an
+  [`executeUpdate()`](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Query.html#executeUpdate(%29) method.
+- [`GraphTraversal.Processor`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/services/graphs/GraphTraversal.Processor.html)
+  implementations often use HQL for bulk updates.
+
+---
+
+.nestled[
+# Bulk updates in HQL
+## nulling a property ]
+
+- [`BaseGraphTraversalProcessor`](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/blitz/src/omero/cmd/graphs/BaseGraphTraversalProcessor.java#L47)
+  does:
+```java
+final String update =
+        "UPDATE " + className +
+        " SET " + propertyName + " = NULL WHERE id IN (:ids)";
+session.createQuery(update).setParameterList("ids", ids)
+        .executeUpdate();
+```
+- Updates many model objects without doing `set*(null)` on each.
+  - Provides better performance at scale.
+
+---
+
+.nestled[
+# Bulk updates in HQL
+## deleting instances ]
+
+- [`BaseGraphTraversalProcessor`](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/blitz/src/omero/cmd/graphs/BaseGraphTraversalProcessor.java#L54)
+  does:
+```java
+final String update =
+        "DELETE FROM " + className +
+        " WHERE id IN (:ids)";
+final int count =
+        session.createQuery(update).setParameterList("ids", ids)
+        .executeUpdate();
+```
+- Deletes many model objects' rows from the database.
+
+---
+
+class: center, middle
+
+.larger[Any comments or questions?]
+
+---
+
+name: permissions
+class: center, middle
+
+# Enforcing OMERO permissions
+
+.larger[(section four)]
+
+---
+
+# Event context
+
+- Actions requested by clients are executed by a server thread operating
+  within the context of the client's OMERO session.
+- Server threads each have
+  [`CurrentDetails`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/security/basic/CurrentDetails.html)
+  tracking their
+  [`EventContext`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/system/EventContext.html) instances.
+- An event context notes the group memberships and other permissions
+  associated with an OMERO session.
+- Much of OMERO's permissions code is based on checking the details of the
+  currently applicable event context.
+
+---
+
+# The ACL Voter
+
+- OMERO's
+  [`ACLVoter`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/security/ACLVoter.html)
+  subclasses listen for events on Hibernate sessions.
+  - Choice of subclass depends on the current security context.
+  - [`BasicACLVoter`](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/server/src/ome/security/basic/BasicACLVoter.java) is the most complicated of them.
+- `allow*` methods determine how the user's OMERO session may read and write
+  model objects.
+  - Check which owner and group, memberships, etc.
+  - [Basis for](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/blitz/src/omero/model/PermissionsI.java#L95)
+    clients' [`can*`](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/model/Permissions.html#canAnnotate)
+    permissions methods.
+
+---
+
+# Hibernate interceptors
+
+- We have seen useful object lifecycle methods on Hibernate
+  [`Session`](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Session.html).
+  - Cause reads and writes.
+  - Shift object state among: transient, persistent, detached.
+- Hibernate [provides
+  hooks](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Interceptor.html)
+  that intercept events on persistent objects.
+- [`OmeroInterceptor`](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/server/src/ome/security/basic/OmeroInterceptor.java)
+  intercepts lifecycle operations on model objects.
+  - It works in concert with
+    [`ACLVoter`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/security/ACLVoter.html) checks.
+
+---
+
+# The OMERO interceptor
+
+- Checks attempts to set and change model object permissions.
+  - Detects security violations and cross-group links.
+- `onFlushDirty` checks
+  [`OriginalFile`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#originalfile)
+  filepaths for violations of
+  [2017-SV1](http://www.openmicroscopy.org/security/advisories/2017-SV1-filename/) and
+  [2017-SV5](http://www.openmicroscopy.org/security/advisories/2017-SV5-filename-2/).
+  - It also checks for changes in the value of the `repo` property.
+- `postFlush` populates the ` _current_admin_privileges` database table.
+  - At the end of a transaction, database triggers may check users'
+    attempts to set certain permissions.
+
+---
+
+# Database triggers
+
+- OMERO interceptor does *not* intercept all data changes.
+  - HQL bulk updates appear to bypass the interceptor.
+  - Transaction hooks seem to be ineffective, perhaps due to Spring
+    integration.
+- Some Hibernate-initiated SQL `INSERT`, `UPDATE` and `DELETE` statements
+  trigger checks by procedural functions executed by PostgreSQL.
+
+---
+
+# Censoring model objects
+
+- You may have noticed
+  [`BasicACLVoter.postProcess`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/security/basic/BasicACLVoter.html#postProcess-ome.model.IObject-).
+- This is called by
+  [`ProxyCleanupFilter`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/tools/hibernate/ProxyCleanupFilter.html)
+  which removes sensitive information from objects before providing them to
+  clients.
+- For example, normal users may not read the `uuid` from others' OMERO
+  [`Session`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#session)
+  instances.
+  - Would allow them to join those sessions.
+
+---
+
+# Reading property values
+
+- OMERO's PostgreSQL triggers do not block read operations.
+- [`OmeroInterceptor`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/security/basic/OmeroInterceptor.html) 
+  and [`BasicACLVoter`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/security/basic/BasicACLVoter.html)
+  work with model object instances only.
+- [`IQuery.projection`](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/api/IQuery.html#projection)
+  reads model object property values *without* loading the object instances
+  themselves.
+- Must somehow prevent
+  [2016-SV2](http://www.openmicroscopy.org/security/advisories/2016-SV2-share/) and:
+```sql
+SELECT uuid FROM Session WHERE owner.omeName = 'root'
+```
+
+---
+
+# Security filters
+
+- OMERO's
+  [`SecurityFilter`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/security/SecurityFilter.html)
+  provides conditions for the `WHERE` clause of the **S**QL for Hibernate's
+  queries.
+  - The conditions include parameters set from the current OMERO session's
+    event context.
+- Code generation adds Hibernate's `@Filter` annotations to `ome.model.*` Java
+  classes.
+  - Queries for these classes have their `WHERE` clause modified.
+- Model object instances may fail to match their class' `WHERE` clause.
+  - Their data is thus missing from query results.
+- Debug logging from `org.hibernate.SQL` includes these filter clauses.
+
+---
+
+# Other security checks
+
+- [OMERO's
+  services](https://docs.openmicroscopy.org/latest/omero5.4/developers/Modules/Api.html#services-list)
+  often include explicit permissions checks.
+  - Many examples can be found in [the
+    implementation](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/server/src/ome/logic/AdminImpl.java)
+    of [IAdmin](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/api/IAdmin.html).
+- Some
+  [model graph operations](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/cmd/GraphModify2.html)
+  include permissions checks in their
+  [`IRequest.init`](https://downloads.openmicroscopy.org/latest/omero5.4/api/omero/cmd/IRequest.html#init-omero.cmd.Helper-)
+  method.
+- [`GraphTraversal.Processor`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/services/graphs/GraphTraversal.Processor.html)
+  offers `getRequiredPermissions` and `assertMayProcess` for
+  [`GraphTraversal`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/services/graphs/GraphTraversal.html)
+  to use in checking permissions.
+  - Required permissions are represented by
+    [`GraphPolicy.Ability`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/services/graphs/GraphPolicy.Ability.html).
+
+---
+
+class: center, middle
+
+.nestled[
+# Hibernate Training
+## ... all done!]
+
+.larger[Any comments or questions?]
+
+    </textarea>
+    <script src="../../../template/remark/remark-0.14.0.min.js"
+            type="text/javascript">
+    </script>
+    <script type="text/javascript">
+      var slideshow = remark.create({
+          ratio: '3:2'
+      });
+    </script>
+  </body>
+</html>
