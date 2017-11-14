@@ -1,0 +1,1603 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title></title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <style>
+            .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+              text-transform: none;
+            }
+            .reveal h2 {
+                font-size: 60px;
+            }
+            .ome_theme {
+                background-image: url("images/ome-icon-opacity.png");
+                background-color: #f2f6f9;
+                background-repeat: no-repeat;
+                background-position: right -270px top -120px;
+            }
+            .reveal {
+                text-transform: none;   !important
+            }
+            .reveal section img {
+                border-width:0;
+                border-color: white;
+            }
+            .img_panel {
+                width: 150px;
+            }
+            .nobullet li {
+                list-style: none;
+            }
+            .smaller li {
+                font-size: 80%;
+            }
+            .reveal table {
+                width: 100%;
+            }
+            .reveal .roll:hover {
+                font-size: 90%;
+            }
+            .reveal .roll {
+                font-size: 100%;
+            }
+            .reveal table tbody td {
+                font-size: 80%;
+            }
+            .reveal table tbody tr td:first-child {
+                font-size: 100%;
+                border-right: 1px solid black;
+            }
+            .reveal table tbody tr td {
+                border-bottom: 1px dashed gray;
+            }
+            .reveal table thead tr th:first-child {
+                border-right: 1px solid black;
+            }
+            .reveal table thead tr th {
+                border-bottom: 1px solid black;
+            }
+            .reveal table th, .reveal table td  {
+                text-align: center;
+            }
+            .rot90 {
+                -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+            }
+        </style>
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+    </head>
+
+    <body class="ome_theme">
+        <div class="reveal">
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- talk outline -->
+                <section>
+                    <h2>Web Apps Review</h2>
+                    <br/>
+                    <ul>
+                        <li>Environment/Setup</li>
+                        <li>'Best Practices/Design'</li>
+                        <li>Open With</li>
+                        <li>Figure vs. IViewer</li>
+                        <li>Example Figure</li>
+                        <li>Example IViewer</li>
+                        <li>IViewer Details</li>
+                        <li>Q & A</li>
+                    </ul>
+                </section>
+
+                <!-- app environment -->
+                <section>
+                    <h3>Environment</h3>
+                    <img src="images/app_environment.png"/>
+                </section>
+
+                <!-- app setup - dirs -->
+                <section>
+                    <h3>'Minimal' Setup – directories</h3>
+                    <br/>
+                    <ul>
+                        <li>app/static/app/app.js</li>
+                        <li>app/templates/app/index.html</li>
+                    </ul>
+                    <br/></br/>
+                    <img style="width: 500px" src="images/figure_dirs.png"/>
+                </section>
+
+                <!-- app setup - static/app -->
+                <section>
+                    <h3><i>static/app</i> – contents?</h3>
+                    <br/>
+                    <div style="float: left;">
+                        <br/>
+                        <ul>
+                            <li>JS</li>
+                            <li>CSS</li>
+                            <li>Images</li>
+                            <li>Fonts</li>
+                            <li>Third Party Resources</li>
+                        </ul>
+                    </div>
+                    <div style="float: right;">
+                        <img style="width: 500px" src="images/iviewer_dirs.png"/>
+                    </div>
+                </section>
+
+                <!-- app setup - static/templates/index.html -->
+                <section>
+                    <h2><i>app/templates/app/index.html</i></h2>
+                    <br/>
+                    <pre style="box-shadow: none;">
+                        <code style="max-height: 450px" class="xml">
+&lt;html&gt;
+    &lt;head&gt;
+      &lt;link rel="stylesheet" type="text/css"
+              href=" {% static 'app_directory/css/app.css?version=1.1' %}" /&gt;
+
+      &lt;script type="text/javascript"&gt;
+              // optionally set parameters for app
+              window.SOME_APP_PARAM = …;
+      &lt;/script&gt;
+
+      &lt;script type="text/javascript"
+              src="{% static 'app_directory/app.js?version=1.1' %}"&gt;
+      &lt;/script&gt;
+  &lt;/head&gt;
+   …
+&lt;/html&gt;
+                        </code>
+                    </pre>
+                </section>
+
+                <!-- app setup - static/templates/index.html iviewer-->
+                <section>
+                    <h3><i>static/templates/index.html</i> – iviewer</h3>
+                    <br/>
+                    <img src="images/iviewer_index.png"/>
+                </section>
+
+                <!-- best practices -->
+                <section>
+                    <h3>"Best Practices"</h3>
+                    <ul class="smaller">
+                        <li>Check in files unaffected by build in their
+                            respective target directories, e.g. index.html</li>
+                        <br/>
+                        <li>Build the rest and deploy into target dirs</li>
+                        <br/>
+                        <li>Optimize for both development and production</li>
+                        <ul>
+                            <li>Add suffix to resources to indicate version and avoid caching</li>
+                            <li>debugging/quicker builds for dev version</li>
+                            <li>leaner prod version</li>
+                            <ul>
+                                <li>fewer requests for immediately needed resources</li>
+                                <li>hosted libraries, e.g. jquery or bootstrap?</li>
+                                <li>glyphicons vs. images?</li>
+                                <li>splitting up of code if framework,
+                                    loader and setup allows for dynamic
+                                    (down)loading and execution
+                                </li>
+                            </ul>
+                        </ul>
+                    </ul>
+                </section>
+
+                <!-- considerations -->
+                <section>
+                    <h3>Considerations</h3>
+                    <br/>
+                        Omero Web resources (Api, Gateway) vs.
+                    <br/>
+                        Plugin resources (views.py) vs.
+                    <br/>
+                        Server-side extentions (Blitz Gateway)
+                    <br/><br/>
+
+                    <ul class="smaller">
+                        <li>Code Reuse</li>
+                        <li>Stability/Breaking Potential across Versions</li>
+                        <li>Missing Functionality</li>
+                        <li>Release/Bugfix Cycles</li>
+                        <li>Cross origin implications (jsonp and cors)</li>
+                    </ul>
+                </section>
+
+                <!-- openwith.js -->
+                <section style="width: 1000px;">
+                    <h2>Open With</h2>
+                    <ul style="width: 800px;">
+                        <li>script file (openwith.js)</li>
+                        <li>adding omero config entry</li>
+                    </ul>
+                    <pre style="box-shadow: none;margin-top: 5px;margin-bottom:5px">
+                        <code style="max-height: 250px" class="javascript">
+OME.setOpenWithUrlProvider("omero_iviewer", function(selected, url) {
+    selected_count = selected.length;
+    initial_id = selected[0].id;
+    initial_type = selected[0].type;
+
+    // we short-circuit for anything that is not an image
+    if (initial_type !== 'image') {
+        return url + "?" + initial_type + "=" + initial_id;
+    }
+
+    // add image(s)
+    url += "?images=";
+    for (var i=0;i&lt;selected_count;i++) {
+        if (i !== 0) url += ',';
+        url += selected[i].id;
+    }
+    // add parent for single image
+    if (selected_count === 1 && $ && $.jstree) {
+        try {
+            var inst = $.jstree.reference('#dataTree');
+            var parent = OME.getTreeImageContainerBestGuess(initial_id);
+            if (parent && parent.data) {
+                if (parent.type === 'dataset')
+                    url += '&amp;' + parent.type + '=' + parent.data.id;
+            }
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
+    return url;
+});
+                        </code>
+                    </pre>
+                    <pre style="box-shadow: none;margin-top: 5px;margin-bottom:5px">
+                        <code class="bash">
+$ bin/omero config append omero.web.open_with '["omero_iviewer", "omero_iviewer_index",
+  {"supported_objects":["images", "dataset", "well"],
+   "script_url": "omero_iviewer/openwith.js", "label": "OMERO.iviewer"}]'
+                        </code>
+                    </pre>
+                </section>
+
+                <!-- figure vs. iviewer -->
+                <section>
+                    <h3>Apps: Figure, IViewer</h3>
+                    <br/><br/>
+                    <table class="center table-with-border">
+                        <thead><th>&nbsp;</th><th>figure</th><th>iviewer</th></thead>
+                        <tbody>
+                            <tr>
+                                <td>build</td>
+                                <td>grunt</td>
+                                <td>webpack (also loader)</td>
+                            </tr>
+                            <tr>
+                                <td>js</td>
+                                <td>jquery, backbone, underscore, rafael</td>
+                                <td>jquery, aurelia, openlayers</td>
+                            </tr>
+                            <tr>
+                                <td>css</td>
+                                <td>bootstrap</td>
+                                <td>bootstrap</td>
+                            </tr>
+                            <tr>
+                                <td>git</td>
+                                <td>
+                                    <a href="https://github.com/ome/omero-figure">
+                                    https://github.com/ome/omero-figure</a>
+                                </td>
+                                <td>
+                                    <a href="https://github.com/ome/omero-iviewer">
+                                    https://github.com/ome/omero-iviewer</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- both examples -->
+                <section>
+                    <h2>Figure & IViewer Examples - Pre-requisites</h2>
+                    <ul>
+                        <li>Setup Omero Server & Web</li>
+                        <li>Check out respective Project from git</li>
+                        <li>add plugins (opt: deps) to PYTHONPATH</li>
+                        <li>install js requirements (see READMEs): npm/node.js</li>
+                        <li>run build/deploy</li>
+                    </ul>
+                    <br/><br/>
+                    e.g. <i>.bashrc (simple export would suffice)</i>
+                    <pre style="box-shadow: none;">
+                        <code class="bash">
+TO_BE_ADDED_TO_PYTHONPATH=("/opt/workspace/omero-marshal" "/opt/workspace/omero-iviewer/plugin" "/opt/workspace/omero-figure")
+for p in ${TO_BE_ADDED_TO_PYTHONPATH[@]}
+do
+  COUNT=`echo $PYTHONPATH | grep $p | wc -c`
+  if [ $COUNT -eq 0 ]; then
+    export PYTHONPATH=$PYTHONPATH:$p
+  fi
+done
+                        </code>
+                    </pre>
+                </section>
+
+                <!-- excursion build tools -->
+                <section>
+                    <h2>Excursion - build tools & dependencies</h2>
+                    <ul style="width: 600px;" class="smaller">
+                        <li>define deps: <i>package.json</i></li>
+                        <li>install deps: <i>npm install</i></li>
+                        <li><a href="https://gruntjs.com/">grunt</a></li>
+                        <li><a href="https://webpack.js.org/">webpack</a></li>
+                    </ul>
+                    <pre style="box-shadow: none;">
+                        <code class="json">
+{
+  "version": "0.0.0",
+  "description": "OMERO.iviewer",
+  "scripts": {
+    "dev": "./ol3_viewer_prepare.sh DEV && ant prepare-css && webpack-dev-server --config webpack.dev.config.js --hot --inline --progress --devtool eval",
+    "debug": "./ol3_viewer_prepare.sh DEV && ./prepare_build.sh DEV && webpack --config webpack.prod.config.js --progress --devtool source-map && ./deploy_build.sh",
+    "prod": "./ol3_viewer_prepare.sh && ./prepare_build.sh && webpack -p --config webpack.prod.config.js --progress && ./deploy_build.sh",
+    "docs": "./generate_docs.sh"
+  },
+  "dependencies": {
+    "aurelia-bootstrapper": "2.1.1",
+    "aurelia-event-aggregator": "1.0.0",
+    "aurelia-fetch-client": "1.1.2",
+    "aurelia-framework": "1.1.4",
+    "aurelia-history-browser": "1.0.0",
+    "aurelia-loader-webpack": "2.1.0",
+    "aurelia-logging-console": "1.0.0",
+    "aurelia-pal-browser": "1.2.1",
+    "aurelia-polyfills": "1.2.2",
+    "aurelia-router": "1.3.0",
+    "aurelia-templating": "1.4.2",
+    "aurelia-templating-binding": "1.3.0",
+    "aurelia-templating-resources": "1.4.0",
+    "aurelia-templating-router": "1.1.0",
+    "bluebird": "3.5.0",
+    "bootstrap": "3.3.7",
+    "jquery": "2.2.4",
+    "jquery-ui" : "1.12.1",
+    "spectrum-colorpicker" : "1.8.0",
+    "d3" : "4.2.7",
+    "file-saver" : "1.3.3",
+    "text-encoding" : "0.6.4"
+  },
+  "devDependencies": {
+    "aurelia-tools": "1.0.0",
+    "aurelia-webpack-plugin": "2.0.0-rc.2",
+    "babel-core": "6.26.0",
+    "babel-eslint": "7.2.3",
+    "babel-loader": "7.1.2",
+    "babel-plugin-transform-decorators-legacy": "1.3.4",
+    "babel-plugin-transform-class-properties": "6.24.1",
+    "babel-preset-env": "1.6.0",
+    "css-loader": "0.28.4",
+    "eslint": "2.2.0",
+    "expose-loader": "0.7.3",
+    "file-loader": "0.11.2",
+    "html-loader": "0.4.5",
+    "style-loader": "0.18.2",
+    "url-loader": "0.5.9",
+    "webpack": "3.6.0",
+    "webpack-dev-server": "2.8.0",
+    "html-webpack-plugin": "2.29.0"
+  }
+}
+                        </code>
+                    </pre>
+                </section>
+
+                <!-- figure example -->
+                <section style="width: 1200px">
+                    <h2>Figure Example - adding tab</h2>
+                    <br/>
+                    <div style="float: left;width: 500px">
+                        <img src="images/figure-annotations-tab.png"/>
+                    </div>
+                    <div style="float: left;width: 700px" class="smaller">
+                        <br/><br/>
+                        <ul>
+                            <li>
+                                <a href="https://github.com/ome/omero-figure/pull/250">
+                                    https://github.com/ome/omero-figure/pull/250
+                                </a>
+                            </li>
+                            <li>Model Code</li>
+                            <li>View Code</li>
+                            <li>Template Code</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- figure - project setup -->
+                <section>
+                    <h3>Figure Setup</h3>
+                    <img style="height: 600px" src="images/figure_dir_setup.png"/>
+                </section>
+
+                <!-- figure example - plugin -->
+                <section style="width:1100px;">
+                    <h3>Plugin - urls.py, views.py</h3>
+                    <div style="float: left;margin-top: 150px;width:200px">
+                        <img src="images/figure_plugin_changes.png"/>
+                    </div>
+                    <div style="float: left;width: 800px;">
+                        <pre style="box-shadow: none;height: 200px">
+                            <code style="max-height: 150px" class="python">
+urlpatterns = patterns(
+
+    'django.views.generic.simple',
+            ...
+    url(r'^get_annotations/?$', views.get_annotations,
+        name='figure_get_annotations'))
+                            </code>
+                        </pre>
+                        <pre style="box-shadow: none;">
+                            <code style="max-height: 350px" class="python">
+@login_required()
+def get_annotations(request, conn=None, **kwargs):
+    # get mandatory param image id
+    image_id = request.GET.get("image", None)
+    if image_id is None:
+        return JsonResponse(
+            {"error": "The image id is a mandatory parameter"})
+
+    # retrieve image object
+    img = conn.getObject("Image", image_id, opts=conn.SERVICE_OPTS)
+    if img is None:
+        return JsonResponse({"error": "Image not Found"}, status=404)
+
+    # iterate over annotations and marshal them
+    annotations = []
+    for ann in img.listAnnotations():
+        enc = omero_marshal.get_encoder(ann.OMERO_TYPE)
+        if enc is None:
+            enc = omero_marshal.get_encoder(omero.model.Annotation)
+        ann = enc.encode(ann)
+        if ann is not None:
+            annotations.append(ann)
+
+    return JsonResponse({"annotations": annotations})
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+
+                <!-- figure example - model-->
+                <section style="width: 1200px">
+                    <h3>Model - annotations_model.js</h3>
+                    <div style="float: left;margin-top: 150px;width:250px">
+                        <img src="images/figure_model_changes.png"/>
+                    </div>
+                    <div style="float: left;width: 800px">
+                        <pre style="box-shadow: none;margin: 5px;">
+                            <code style="min-height: 600px"
+                                  class="javascript">
+  var AnnotationsModel = Backbone.Model.extend({
+      parse: function(annotation) {
+          var type = annotation['@type'];
+          annotation.type = type.substring(type.lastIndexOf('#')+1);
+          return annotation;
+      }
+  });
+
+  var AnnotationsList = Backbone.Collection.extend({
+      model: AnnotationsModel,
+
+      parse: function (response) {
+          if (typeof response === 'object' && response !== null &&
+              Array.isArray(response.annotations)) {
+                  for (var a in response.annotations) {
+                      this.push(
+                          new AnnotationsModel(
+                              response.annotations[a], {parse: true}));
+                  }
+          }
+
+          return this.models;
+      }
+  });
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+
+                <!-- figure example - view-->
+                <section style="width: 1200px">
+                    <h3>View - right_panel_view.js</h3>
+                    <div style="float: left;margin-top: 150px;width:250px">
+                        <img src="images/figure_view_changes.png"/>
+                    </div>
+                    <div style="float: left;width: 800px">
+                        <pre style="box-shadow: none;margin: 5px;">
+                            <code style="min-height: 600px"
+                                  class="javascript">
+// The 'Right Panel' is the floating Info, Preview etc display.
+// It listens to selection changes on the FigureModel and updates its display
+// By creating new Sub-Views
+
+var RightPanelView = Backbone.View.extend({
+
+  initialize: function(opts) {
+      // we render on selection changes in the model
+      this.listenTo(this.model, 'change:selection', this.render);
+
+      // this.render();
+      new LabelsPanelView({model: this.model});
+      new SliderButtonsView({model: this.model});
+      new RoisFormView({model: this.model});
+      new AnnotationsView({model: this.model});
+  },
+    ...
+// AnnotationsView
+var AnnotationsView = Backbone.View.extend({
+    model: FigureModel,
+    cache: {},
+
+    el: $("#annotationsTab"),
+
+    template: JST["src/templates/annotations_template.html"],
+
+    initialize: function(opt) {
+        this.render = _.debounce(this.render);
+        this.models = opt.models;
+        this.listenTo(this.model, 'change:selection', this.render);
+        this.render();
+    },
+
+    render: function() {
+        var selected = this.model.getSelected();
+        var message = null;
+        var ann = new AnnotationsList();
+        if (selected && selected.length > 0) {
+            if (selected.length === 1) {
+                var imgId = selected.at(0).get('imageId');
+                if (this.cache[imgId] instanceof AnnotationsList)
+                    ann = this.cache[imgId];
+                else {
+                    ann.fetch({
+                        url: BASE_WEBFIGURE_URL +
+                                'get_annotations/?image=' + imgId,
+                        success: function(data) {
+                            this.cache[imgId] = data;
+                            this.renderTemplate(null, this.cache[imgId]);
+                        }.bind(this),
+                        error: function(err) {
+                            this.renderTemplate(
+                                "Error requesting annotations", ann);
+                        }.bind(this)
+                    });
+                    return;
+                }
+            } else message = "We don't do multi selection";
+        } else message = "No Image Selected";
+        this.renderTemplate(message, ann);
+        return this;
+    },
+
+    renderTemplate: function(message, annotations) {
+        if (typeof message !== 'string') message = null;
+        var html = this.template({
+            "message": message,
+            "annotations": annotations
+        });
+        this.$el.html(html);
+    }
+});
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+
+                <!-- figure example - template-->
+                <section style="width: 1200px">
+                    <h3>Templates - index.html, annotations_template.html</h3>
+                    <div style="float: left;margin-top: 50px;width:300px">
+                        <img src="images/figure_template_changes.png"/>
+                    </div>
+                    <div style="float: left;width: 800px">
+                        <pre style="box-shadow: none;margin: 5px;">
+                            <code style="max-height: 250px"
+                                  class="xml">
+<!-- Hacked Bootstrap's modal dialog to be non-modal -->
+&lt;div class="modal-dialog non-modal-dialog draggable-dialog"&gt;
+  &lt;div class="modal-content"&gt;
+
+      &lt;ul class="nav nav-tabs" id="previewInfoTabs"&gt;
+          &lt;li&gt;&lt;a href="#infoTab"&gt;Info&lt;/a&gt;&lt;/li&gt;
+          &lt;li class="active"&gt;&lt;a href="#previewTab"&gt;Preview&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href="#labelsTab"&gt;Labels&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href="#annotationsTab"&gt;Annotations&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+
+      &lt;div class="tab-content"&gt;
+          &lt;div class="tab-pane" id="infoTab"&gt;&lt;/div&gt;
+          ...
+&lt;div class="tab-pane" id="annotationsTab"&gt;&lt;/div&gt;
+                              </code>
+                          </pre>
+                          <pre style="box-shadow: none;margin: 5px;">
+                              <code style="max-height: 250px"
+                                    class="xml">
+&lt;div&gt;
+    &lt;% if (message !== null) { %&gt;
+        &lt;div class="center"&gt;&lt;%= message %&gt;&lt;/div&gt;
+    &lt;% } else if (annotations.length === 0) { %&gt;
+        &lt;div class="center">No Annotations Found&lt;/div&gt;
+    &lt;% } else { %&gt;
+        &lt;ul&gt;
+    &lt;%          annotations.forEach(function(a) { %&gt;
+                    &lt;%= a.get('type') %&gt;
+                    &lt;ul&gt;
+                        &lt;% if (a.get('Value')) { %&gt;
+                            &lt;li&gt;Value: &lt;%= a.get('Value') %&gt;&lt;/li&gt;
+                        &lt;% } %&gt;
+                        &lt;% if (a.get('Description')) { %&gt;
+                            &lt;li&gt;Desc: &lt;%= a.get('Description') %&gt;&lt;/li&gt;
+                        &lt;% } %&gt;
+                        &lt;% if (a.get('Namespace')) { %&gt;
+                            &lt;li>NS: &lt;%= a.get('Namespace') %&gt;&lt;/li&gt;
+                        &lt;% } %&gt;
+                    &lt;/ul&gt;
+    &lt;%         }) %&gt;
+        &lt;/ul&gt;
+    &lt;% } %&gt;
+&lt;/div&gt;
+                                </code>
+                            </pre>
+                      </div>
+                  </section>
+
+                  <!-- figure example - build-->
+                  <section>
+                      <h3>Build & Debugging</h3>
+                          <a style="font-size: 80%"
+                          href="https://github.com/ome/omero-figure/blob/master/README.rst">
+                          https://github.com/ome/omero-figure/blob/master/README.rst</a>
+                          <pre style="box-shadow: none;margin-top: 0px;margin-bottom:0px;">
+                              <code style="max-height: 200px;"
+                                    class="bash">
+[harald@harald omero-figure]$ npm install
+    ...
+[harald@harald omero-figure]$ grunt concat
+Running "concat:js" (concat) task
+File omero_figure/static/figure/figure.js created.
+
+Done, without errors.
+[harald@harald omero-figure]$ grunt jst
+Running "jst:compile" (jst) task
+File omero_figure/static/figure/templates.js created.
+
+Done, without errors.
+[harald@harald omero-figure]$ grunt watch
+Running "watch" task
+                                  </code>
+                          </pre>
+                          <img src="images/figure_debug.png"/>
+                    </section>
+
+                <!-- iviewer example -->
+                <section style="width: 1200px">
+                    <h2>IViewer Example - adding tab</h2>
+                    <br/>
+                    <div style="float: left;width: 500px">
+                        <img src="images/iviewer-annotations-tab.png"/>
+                    </div>
+                    <div style="float: left;width: 700px" class="smaller">
+                        <br/><br/>
+                        <ul>
+                            <li>
+                                <a href="https://github.com/ome/omero-iviewer/pull/131">
+                                    https://github.com/ome/omero-iviewer/pull/131
+                                </a>
+                            </li>
+                            <li>plugin code (optional)</li>
+                            <li>data object (optional)</li>
+                            <li>template and view logic</li>
+                            <li>css tweaking</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- iviewer - project setup -->
+                <section>
+                    <h3>IViewer Setup</h3>
+                    <img src="images/iviewer_dir_setup.png"/>
+                </section>
+
+                <!-- iviewer example - plugin -->
+                <section style="width:1100px;">
+                    <h3>Plugin - urls.py, views.py</h3>
+                    <div style="float: left;margin-top: 150px;width:200px">
+                        <img src="images/iviewer_plugin_changes.png"/>
+                    </div>
+                    <div style="float: left;width: 800px;">
+                        <pre style="box-shadow: none;height: 200px">
+                            <code style="max-height: 150px" class="python">
+urlpatterns = patterns(
+    'django.views.generic.simple',
+            ...
+    url(r'^get_annotations/?$', views.get_annotations,
+        name='omero_iviewer_get_annotations'))
+                            </code>
+                        </pre>
+                        <pre style="box-shadow: none;">
+                            <code style="max-height: 350px" class="python">
+@login_required()
+def get_annotations(request, conn=None, **kwargs):
+    # get mandatory param image id
+    image_id = request.GET.get("image", None)
+    if image_id is None:
+        return JsonResponse(
+            {"error": "The image id is a mandatory parameter"})
+
+    # retrieve image object
+    img = conn.getObject("Image", image_id, opts=conn.SERVICE_OPTS)
+    if img is None:
+        return JsonResponse({"error": "Image not Found"}, status=404)
+
+    # iterate over annotations and marshal them
+    annotations = []
+    for ann in img.listAnnotations():
+        enc = omero_marshal.get_encoder(ann.OMERO_TYPE)
+        if enc is None:
+            enc = omero_marshal.get_encoder(omero.model.Annotation)
+        ann = enc.encode(ann)
+        if ann is not None:
+            annotations.append(ann)
+
+    return JsonResponse({"annotations": annotations})
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+
+                <!-- iviewer example - model-->
+                <section style="width: 1200px">
+                    <h3>Model - image_annotations.js</h3>
+                    <div style="float: left;margin-top: 150px;width:250px">
+                        <img src="images/iviewer_model_changes.png"/>
+                    </div>
+                    <div style="float: left;width: 800px">
+                        <pre style="box-shadow: none;margin: 5px;">
+                            <code style="min-height: 600px"
+                                  class="javascript">
+import {noView} from 'aurelia-framework';
+import Misc from '../utils/misc';
+import {IVIEWER, TABS} from '../utils/constants';
+
+/**
+* Contains the annotations linked to an image
+*/
+@noView
+export default class ImageAnnotations {
+  /**
+   * the app context
+   * @memberof ImageAnnotations
+   * @type {Context}
+   */
+  context = null;
+
+  /**
+   * the image id
+   * @memberof ImageAnnotations
+   * @type {number}
+   */
+  image_id = null;
+
+  /**
+   * a flag that signals whether we have successfully
+   * executed the annotations request
+   * @memberof ImageAnnotations
+   * @type {boolean}
+   */
+  ready = false;
+
+  /**
+   * the image id
+   * @memberof ImageAnnotations
+   * @type {number}
+   */
+  annotations = [];
+
+  /**
+   * @constructor
+   * @param {Context} context the application context
+   * @param {number} image_id the image id to be queried
+   */
+  constructor(context, image_id) {
+      this.context = context;
+      this.image_id = image_id;
+
+      if (this.context.selected_tab === TABS.ANNOTATIONS)
+          this.requestData(true);
+  }
+
+  /**
+   * Requests the annotations for the image
+   * @param {boolean} force if true we force a request even though we have
+   *                        done so before
+   * @memberof ImageAnnotations
+   */
+  requestData(force = false) {
+      if (this.ready && !force) return;
+      this.annotations.splice(0, this.annotations.length);
+      $.ajax({
+          url :
+              this.context.server + this.context.getPrefixedURI(IVIEWER) +
+              "/get_annotations/?image=" + this.image_id,
+          success : (response) =&gt; {
+              if (typeof response === 'object' &&
+                  Misc.isArray(response.annotations)) {
+                      // extract type without schema prefix
+                      for (let a in response.annotations) {
+                          let ann = response.annotations[a];
+                          let type = ann['@type'];
+                          ann['type'] = type.substring(type.lastIndexOf("#")+1);
+                          delete ann['@type'];
+                          this.annotations.push(ann);
+                      }
+                  }
+              this.ready = true;
+          },
+          error : (error) =&gt; {
+              this.ready = true;
+              console.error(error);
+          }
+      });
+  }
+}
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+
+                <!-- iviewer example - view-->
+                <section style="width: 1200px">
+                    <h3>View - annotations.js</h3>
+                    <div style="float: left;margin-top: 150px;width:250px">
+                        <img src="images/iviewer_annotations_changes.png"/>
+                    </div>
+                    <div style="float: left;width: 800px">
+                        <pre style="box-shadow: none;margin: 5px;">
+                            <code style="min-height: 600px"
+                                  class="javascript">
+import Context from '../app/context';
+import {inject, customElement, bindable, BindingEngine} from 'aurelia-framework';
+
+@customElement('annotations')
+@inject(Context, BindingEngine)
+export class Annotations {
+  /**
+   * a reference to the image annotations  (bound in template)
+   * @memberof Annotations
+   * @type {ImageAnnotations}
+   */
+  @bindable image_annotations = null;
+
+  /**
+   * listens to image annotations changes
+   * @memberof Annotations
+   * @type {Object}
+   */
+  image_annotations_changes = null;
+
+  /**
+   * @constructor
+   * @param {Context} context the application context (injected)
+   * @param {BindingEngine} bindingEngine the BindingEngine (injected)
+   */
+  constructor(context, bindingEngine) {
+      this.context = context;
+      this.bindingEngine = bindingEngine;
+  }
+
+  /**
+   * Overridden aurelia lifecycle method:
+   * called whenever the view is bound within aurelia
+   * in other words an 'init' hook that happens before 'attached'
+   *
+   * @memberof Annotations
+   */
+  bind() {
+      if (this.image_annotations === null) return;
+
+      // listen for image annotation changes
+      this.image_annotations_changes =
+          this.bindingEngine.collectionObserver(
+              this.image_annotations.annotations).subscribe(
+                  (newValue, oldValue) =&gt; {
+          // show how observer works by listening to annotations changes
+          console.info(newValue);
+      });
+  }
+
+  /**
+   * Overridden aurelia lifecycle method:
+   * called whenever the view is unbound within aurelia
+   * in other words a 'destruction' hook that happens after 'detached'
+   *
+   * @memberof Annotations
+   */
+  unbind() {
+      // get rid of observers
+      if (this.image_annotations_changes) {
+          this.image_annotations_changes.dispose();
+      }
+  }
+}
+                            </code>
+                        </pre>
+                    </div>
+                </section>
+
+                <!-- iviewer example - template-->
+                <section style="width: 1200px">
+                    <h3>Templates - annotations.html, right-hand-panel.html</h3>
+                    <div style="float: left;margin-top: 150px;width:300px">
+                        <img src="images/iviewer_annotations_changes.png"/>
+                    </div>
+                    <div style="float: left;width: 800px">
+                        <pre style="box-shadow: none;margin: 5px">
+                            <code style="max-height: 250px"
+                                  class="xml">
+&lt;template&gt;
+  &lt;ul show.bind="image_annotations.ready"&gt;
+      &lt;li repeat.for="ann of image_annotations.annotations"&gt;
+          ${ann.type}
+          &lt;ul&gt;
+              &lt;li if.bind="ann.Value"&gt;Value: ${ann.Value}&lt;/li&gt;
+              &lt;li if.bind="ann.Description"&gt;Desc: ${ann.Description}&lt;/li&gt;
+              &lt;li if.bind="ann.Namespace"&gt;NS: ${ann.Namespace}&lt;/li&gt;
+          &lt;ul&gt;
+      &lt;/li&gt;
+  &lt;/ul&gt;
+
+  &lt;div class="disabled-color loading-text"
+       show.bind="!image_annotations.ready"&gt;
+      Loading Annotations ...
+   &lt;/div&gt;
+&lt;/template&gt;
+                              </code>
+                          </pre>
+                          <pre style="box-shadow: none;margin: 5px;">
+                              <code style="max-height: 250px"
+                                    class="xml">
+&lt;template&gt;
+    &lt;require from="../settings/settings"&gt;&lt;/require&gt;
+    &lt;require from="../regions/regions"&gt;&lt;/require&gt;
+    &lt;require from="../info/info"&gt;&lt;/require&gt;
+    &lt;require from="../annotations/annotations"&gt;&lt;/require&gt;
+
+    ...
+
+    &lt;div class="tab-content regions-tabs"
+         show.bind="image_config && image_config.image_info &&
+                    !image_config.image_info.error"&gt;
+        &lt;div id="${TABS.INFO}" role="tabpanel"
+             class="tab-pane ${context.selected_tab === TABS.INFO ? 'active' : ''}"&gt;
+            &lt;info image_info.bind="image_config.image_info"&gt;&lt;/info&gt;
+        &lt;/div&gt;
+        &lt;div id="${TABS.SETTINGS}" role="tabpanel"
+             class="tab-pane ${context.selected_tab === TABS.SETTINGS ? 'active' : ''}"&gt;
+            &lt;settings image_config.bind="image_config"&gt;&lt;/settings&gt;
+        &lt;/div&gt;
+        &lt;div id="${TABS.ROIS}" role="tabpanel"
+             class="tab-pane ${context.selected_tab === TABS.ROIS ? 'active' : ''}"&gt;
+            &lt;regions regions_info.bind="image_config.regions_info"&gt;&lt;/regions&gt;
+        &lt;/div&gt;
+        &lt;div id="${TABS.ANNOTATIONS}" role="tabpanel"
+             class="tab-pane ${context.selected_tab === TABS.ANNOTATIONS ? 'active' : ''}"&gt;
+            &lt;annotations
+                image_annotations.bind="image_config.image_annotations"&gt;
+            &lt;/annotations&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+                                </code>
+                            </pre>
+                      </div>
+                  </section>
+
+                  <!-- iviewer example - css-->
+                  <section style="width:1200px">
+                      <h3>app.css</h3>
+                      <div style="float: left;width:250px">
+                          <img src="images/iviewer_css_changes.png"/>
+                      </div>
+                      <div style="float: left;width: 800px">
+                          <pre style="box-shadow: none;margin: 5px;">
+                              <code style="max-height: 250px"
+                                    class="css">
+        ...
+#panel-tabs li a {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+        ...
+annotations ul {
+    padding-left: 10px;
+    list-style-type: none;
+}
+                                </code>
+                            </pre>
+                    </div>
+                </section>
+
+                <!-- iviewer example - build-->
+                <section>
+                    <h3>Building</h3>
+                    <a style="font-size: 80%"
+                    href="https://github.com/ome/omero-iviewer/blob/master/README.rst">
+                    https://github.com/ome/omero-iviewer/blob/master/README.rst</a>
+                    <ul>
+                        <li>debug - npm run debug</li>
+                        <li>prod&nbsp;&nbsp;&nbsp; - npm run prod</li>
+                    </ul>
+                    <pre style="box-shadow: none;margin-top: 0px;margin-bottom:0px;">
+                        <code style="width: 900px;"
+                              class="bash">
+[harald@harald omero-iviewer]$ npm run debug
+
+&gt; @0.0.0 debug /opt/workspace/omero-iviewer
+&gt; ./ol3_viewer_prepare.sh DEV && ./prepare_build.sh DEV && webpack --config webpack.prod.config.js --progress --devtool source-map && ./deploy_build.sh
+
+omitting ol3-viewer build
+Preparing build. You are going to need npm at a minimum
+Fetching dependencies needed for build...
+npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@^1.0.0 (node_modules/chokidar/node_modules/fsevents):
+npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@1.1.2: wanted {"os":"darwin","arch":"any"} (current: {"os":"linux","arch":"x64"})
+npm WARN @0.0.0 No repository field.
+npm WARN @0.0.0 No license field.
+Erasing build/deploy directories...
+Recreating build/deploy directories...
+Buildfile: /opt/workspace/omero-iviewer/build.xml
+
+clean-css-dir:
+  [mkdir] Created dir: /opt/workspace/omero-iviewer/build/css
+
+copy-images:
+   [copy] Copying 26 files to /opt/workspace/omero-iviewer/build/css/images
+
+prepare-css-debug:
+   [echo] Combine css...
+
+BUILD SUCCESSFUL
+Total time: 1 second
+Hash: a559a0efee63d796b1e2
+Version: webpack 3.6.0
+Time: 56964ms
+                                    Asset     Size  Chunks                    Chunk Names
+                                  main.js  2.29 MB       0  [emitted]  [big]  main
+             css/images/collapse-left.png  1.04 kB          [emitted]
+css/fonts/glyphicons-halflings-regular.woff  23.4 kB          [emitted]
+   css/images/ui-icons_777777_256x240.png  3.76 kB          [emitted]
+   css/images/ui-icons_555555_256x240.png  3.76 kB          [emitted]
+   css/images/ui-icons_ffffff_256x240.png  3.76 kB          [emitted]
+            css/images/collapse-right.png  1.03 kB          [emitted]
+                                  deps.js  1.09 MB       1  [emitted]  [big]  deps
+                                  init.js  5.81 kB       2  [emitted]         manifest
+                              main.js.map   3.4 MB       0  [emitted]         main
+                              deps.js.map  1.21 MB       1  [emitted]         deps
+                              init.js.map  5.89 kB       2  [emitted]         manifest
+ [1] ./src/utils/misc.js 14.6 kB {0} [built]
+ [2] ./src/utils/constants.js 5.48 kB {0} [built]
+ [4] ./src/app/context.js 26.9 kB {0} [built]
+ [5] ./src/events/events.js 5.45 kB {0} [built]
+[11] ./src/utils/ui.js 15.5 kB {0} [built]
+[13] (webpack)/buildin/global.js 509 bytes {0} [built]
+[44] multi aurelia-polyfills aurelia-loader-webpack ./src/main 52 bytes {0} [built]
+[app/index] ./src/app/index.js 3.32 kB {0} [built]
+[app/index.html] ./src/app/index.html 3.46 kB {0} [built]
+[48] (webpack)/buildin/harmony-module.js 596 bytes {0} [built]
+[49] ./src/main.js 2.17 kB {0} [built]
+[55] ./src/model/image_config.js 4.83 kB {0} [built]
+[62] (webpack)/buildin/amd-define.js 88 bytes {1} [built]
+[63] (webpack)/buildin/amd-options.js 82 bytes {1} [built]
+[95] multi d3 file-saver text-encoding 52 bytes {1} [built]
+  + 135 hidden modules
+Deploying built resources to plugin directory...
+                            </code>
+                    </pre>
+                  </section>
+
+                  <!-- iviewer building gotchas-->
+                  <section>
+                      <h3>Building - Gotchas</h3>
+                      <br/><br/>
+                      <ul>
+                          <li>Debug Target builds Openlayers Viewer only if not built before</li>
+                          <br/>
+                          <li>If you like to rebuild the ol viewer in 'debug', run: <i>ant</i></li>
+                          <br/>
+                          <li>Dependencies have changed. Run: rm -rf <i>node_modules</i></li>
+                      </ul>
+                  </section>
+
+                  <!-- iviewer gotchas-->
+                  <section>
+                      <h3>Coding - Gotchas</h3>
+                      <br/><br/>
+                      <ul class="">
+                          <li>Beware async nature: data readiness in view (null/type checks)</li>
+                          <li>Beware lifecycle nature: bind, unbind, attached, detached</li>
+                          <li>Use destruction methods: unbind/detached (observer disposal, jquery widget destroy)</li>
+                          <li>Favor plain html and binding over library widgets and updating (if possible)</li>
+                      </ul>
+                  </section>
+
+                  <!-- ol3 within iviewer-->
+                  <section>
+                      <h3>Openlayers Viewer within IViewer</h3>
+                      <img style="width: 500px" src="images/ol3viewer_parts.png"></img>
+                      <ul style="width: 700px;">
+                          <li>Image Requesting & Rendering</li>
+                          <li>Image Interaction (Zoom, Pan, Rotate)</li>
+                          <li>Controls - Zoom, Birdseye, Scalebar, ...</li>
+                          <li>Regions Of Interest</li>
+                      </ul>
+                  </section>
+
+                  <!-- ol3 functionlity-->
+                  <section style="width: 1200px">
+                      <h3>Openlayers - Extending Functionality</h3>
+                      <div style="float: left;margin-top: 50px;width:300px">
+                          <img src="images/ol3_dirs.png"/>
+                      </div>
+                      <div style="float: left;width: 800px">
+                          Ol3 uses:
+                          <a href="https://developers.google.com/closure/">
+                              Google Closure Tools
+                          </a>
+                          <pre style="box-shadow: none;margin: 5px;">
+                              <code style="max-height: 500px"
+                                    class="javascript">
+goog.provide('ome.ol3.geom.Ellipse');
+
+goog.require('ol.geom.Polygon');
+
+/**
+ * @classdesc
+ * Ellipse is an extension of the built-in ol.geom.Polygon that will allow
+ * you to create ellipses within the open layers framework.
+ *
+ * At present the approach taken is aiming at best integration into openlayers
+ * as well as cross browser support. For HTMLCanvas there is a drawEllipse
+ * method which, toDate, is only supported by Chrome.
+ *
+ * That said, there are various methods out there how people accomplish the task
+ * of drawing an ellipse on an HTMLCanvas. They range from scaled circles, over
+ * sets of bezier curves to what is, undoubtedly, the most accurate method
+ * mathematically, namely to trace the outline for a given step size according to
+ * the following formulae for x,y:
+ * &lt;pre&gt;x = a * cos(theta)&lt;/pre&gt; and
+ * &lt;pre&gt;y = b * sin(theta)&lt;/pre&gt;
+ * see: {@link https://en.wikipedia.org/wiki/Ellipse}
+ *
+ * The latter technique is used here since it's accurate enough and produces
+ * a polygon of connected points which openlayers likes.
+ *
+ *
+ * @constructor
+ * @extends {ol.geom.Polygon}
+ *
+ * @param {number} cx the center x coordinate of the ellipse
+ * @param {number} cy the center y coordinate of the ellipse
+ * @param {number} rx the radius x distance of the ellipse
+ * @param {number} ry the radius y distance of the ellipse
+ * @param {Object=} transform an AffineTransform object according to omero marshal
+ */
+ome.ol3.geom.Ellipse = function(cx, cy, rx, ry, transform) {
+    // preliminary checks: are all mandatory paramters numeric
+    if (typeof cx !== 'number' || typeof cy !== 'number' ||
+            typeof rx !== 'number' || typeof ry !== 'number')
+        console.error("at least one ellipse param is not numeric!");
+
+    /**
+     * center x coordinate
+     * @type {number}
+     * @private
+     */
+    this.cx_ = cx;
+
+    /**
+     * center y coordinate
+     * @type {number}
+     * @private
+     */
+    this.cy_ = cy;
+
+    /**
+     * radius x distance
+     * @type {number}
+     * @private
+     */
+    this.rx_ = rx;
+
+    /**
+     * radius y distance
+     * @type {number}
+     * @private
+     */
+    this.ry_ = ry;
+
+    /**
+     * the transformation matrix of length 6
+     * @type {Array.&lt;number&gt;|null}
+     * @private
+     */
+    this.transform_ =
+        ome.ol3.utils.Transform.convertAffineTransformIntoMatrix(transform);
+
+    /**
+     * the step size for plotting
+     * @type {number}
+     * @private
+     */
+    this.step_ = 0.1;
+
+    // call super and hand in our coordinate array
+    goog.base(this, [this.getPolygonCoords()]);
+}
+goog.inherits(ome.ol3.geom.Ellipse, ol.geom.Polygon);
+
+/**
+ * Traces out the ellipse and returns the coords
+ * @return {Array.&lt;number&gt;} the coordinate array for the outline
+ */
+ome.ol3.geom.Ellipse.prototype.getPolygonCoords = function() {
+    // trace ellipse now and store coordinates
+    var coords = [];
+    for (var i = 0 * Math.PI, ii=2*Math.PI; i &lt; ii; i += this.step_) {
+        var x = this.cx_ + this.rx_ * Math.cos(i);
+        var y = this.cy_ + this.ry_ * Math.sin(i);
+        coords.push(
+            ome.ol3.utils.Transform.applyTransform(this.transform_, [x, y]));
+    }
+    if (coords.length &gt; 0) coords.push(coords[0]); // close polygon
+
+    return coords;
+}
+
+/**
+ * Gets the transformation associated with the ellipse
+ * @return {Object|null} the AffineTransform object (omero marshal) or null
+ */
+ome.ol3.geom.Ellipse.prototype.getTransform = function() {
+    return ome.ol3.utils.Transform.convertMatrixToAffineTransform(
+        this.transform_);
+}
+
+/**
+ * Gets the center of the ellipse in array form [cx,cy]
+ * @return {Array.&lt;number&gt;} the center of the ellipse as an array
+ */
+ome.ol3.geom.Ellipse.prototype.getCenter = function() {
+    return [this.cx_,this.cy_] ;
+}
+
+/**
+ * Sets the center of the ellipse using a coordinate array [cx, cy]
+ *
+ * @param {Array.&lt;number&gt;} value the center of the ellipse as an array
+ */
+ome.ol3.geom.Ellipse.prototype.setCenter = function(value) {
+    if (!ome.ol3.utils.Misc.isArray(value) ||
+        typeof value[0] !== 'number' || typeof value[1] !== 'number')
+            console.error(
+                "the center needs to be given as a numeric array [cx,cy]");
+    this.cx_ = value[0];
+    this.cy_ = value[1];
+}
+
+/**
+ * Gets the radius (distance x, distance y) of the ellipse in array form [rx,ry]
+ * @return {Array.&lt;number&gt;} the radius of the ellipse as an array
+ */
+ome.ol3.geom.Ellipse.prototype.getRadius = function() {
+    return [this.rx_, this.ry_];
+}
+
+/**
+ * Sets the radius (distance x, distance y) of the ellipse in array form [rx,ry]
+ *
+ * @param {Array.&lt;number&gt;} value the radius of the ellipse as an array
+ */
+ome.ol3.geom.Ellipse.prototype.setRadius = function(value) {
+    if (!ome.ol3.utils.Misc.isArray(value) ||
+        typeof value[0] !== 'number' || typeof value[1] !== 'number')
+            console.error("the radius needs to be given as a numeric array [cx,cy]");
+    this.rx_ = value[0];
+    this.ry_ = value[1];
+}
+
+/**
+ * First translate then store the newly translated coords
+ *
+ * @private
+ */
+ome.ol3.geom.Ellipse.prototype.translate = function(deltaX, deltaY) {
+    // delegate
+    if (this.transform_) {
+            this.transform_[4] += deltaX;
+            this.transform_[5] -= deltaY;
+            this.setCoordinates([this.getPolygonCoords()]);
+    } else {
+        ol.geom.SimpleGeometry.prototype.translate.call(this, deltaX, deltaY);
+        this.setCenter([this.cx_ + deltaX, this.cy_ + deltaY]);
+    }
+};
+
+/**
+ * First scale then store the newly scaled coords
+ *
+ * @private
+ */
+ome.ol3.geom.Ellipse.prototype.scale = function(factor) {
+    // delegate
+    if (this.transform_) {
+        this.transform_[0] *= factor;
+        this.transform_[1] *= factor;
+        this.transform_[2] *= factor;
+        this.transform_[3] *= factor;
+        this.setCoordinates([this.getPolygonCoords()]);
+    } else {
+        ol.geom.SimpleGeometry.prototype.scale.call(this, factor);
+        var radius = this.getRadius();
+        this.setRadius([radius[0] * factor, radius[1] * factor])
+    }
+};
+
+/**
+ * Make a complete copy of the geometry.
+ * @return {ome.ol3.geom.Ellipse} Clone.
+ */
+ome.ol3.geom.Ellipse.prototype.clone = function() {
+    return new ome.ol3.geom.Ellipse(
+        this.cx_, this.cy_, this.rx_, this.ry_, this.getTransform());
+};
+                                </code>
+                            </pre>
+                        <div/>
+                  </section>
+
+                  <!-- debugging ol3 viewer -->
+                  <section style="width: 1200px">
+                      <h3>Debugging ol3 viewer</h3>
+                      <br/>
+                      <img style="float:left;width: 550px;"src="images/ol3_debug.png"/>
+                      <ul class="smaller" style="margin-top: 50px;">
+                          <li>only debug: <i>ant build-debug plugin</i></li>
+                          <li>debug/prod: <i>ant build-plugin</i></li>
+                          <li>browse to: <i>http://localhost/ol3-viewer/1</i></li>
+                          <li>open browser's dev tools (F12)</li>
+                          <li>use <i>viewer</i> instance (see screen)</li>
+                      </ul>
+                  </section>
+
+                  <!-- ol3 viewer rules-->
+                  <section>
+                      <h3>Rules</h3>
+                      <br/>
+                      <ul class="smaller">
+                          <li>Functions have to be exported to be accessible once compiled</li>
+                      </ul>
+                      <pre style="box-shadow: none;margin: 5px;">
+                          <code style="max-height: 200px"
+                                class="javascript">
+                                ...
+goog.exportProperty(
+    ome.ol3.Viewer.prototype,
+    'doVeryUsefulAnimation',
+    ome.ol3.Viewer.prototype.doVeryUsefulAnimation);
+                            </code>
+                        </pre>
+
+                      <ul class="smaller">
+                          <li>Use deep copies for parameters/data when calling from iviewer</li>
+                          <li>Only Exception: eventbus</li>
+                      </ul>
+                      <pre style="box-shadow: none;margin: 5px;">
+                          <code style="max-height: 200px"
+                                class="javascript">
+                                ...
+this.viewer.someExposedFunction(Object.assign({}, someDataObject));
+                            </code>
+                        </pre>
+                  </section>
+
+                  <!-- ol3 viewer - how to use in iviewer-->
+                  <section>
+                      <h3>How to use the ol3 viewer in IViewer?</h3>
+                      <br/>
+                      <div>src/viewers/ol3-viewer.js</div>
+                      <pre style="box-shadow: none;margin: 10px;">
+                          <code style="max-height: 450px"
+                                class="javascript">
+import {ol3} from '../../libs/ol3-viewer.js';
+                                ...
+/**
+ * Instantiates a new ol3 viewer once image data is ready
+ *
+ * @memberof Ol3Viewer
+ */
+initViewer() {
+    // tweak initParams for ol3viewer to reflect iviewer app name
+    let ol3initParams = Object.assign({}, this.context.initParams);
+    ol3initParams[PLUGIN_PREFIX] = this.context.getPrefixedURI(IVIEWER);
+
+    // create viewer instance
+    this.viewer =
+        new ol3.Viewer(
+            this.image_config.image_info.image_id, {
+                 eventbus : this.context.eventbus,
+                 server : this.context.server,
+                 data: this.image_config.image_info.tmp_data,
+                 initParams :  ol3initParams,
+                 container: this.container
+             });
+    delete this.image_config.image_info.tmp_data;
+
+    // only the first request should be affected
+    this.context.resetInitParams();
+    // use existing interpolation setting
+    this.viewer.enableSmoothing(this.context.interpolate);
+    this.resizeViewer({window_resize: true, delay: 100});
+    this.viewer.doVeryUsefulAnimation(1000)
+}
+                            </code>
+                        </pre>
+                  </section>
+
+                  <!-- development workflow-->
+                  <section>
+                      <h3>Development Workflow</h3>
+                      <br/>
+                      <ul class="smaller">
+                          <li>local development, deployment and testing</li>
+                          <li>Opening PR against project</li>
+                          <li>CI merge (periodic/on-demand runs):<br/>
+                              <a href="https://ci.openmicroscopy.org/view/Web/job/iviewer-merge/">
+                              https://ci.openmicroscopy.org/view/Web/job/iviewer-merge</a>
+                              <a href="https://ci.openmicroscopy.org/view/Web/job/FIGURE-merge/">
+                              https://ci.openmicroscopy.org/view/Web/job/FIGURE-merge/</a>
+                          </li>
+                          <li>CI web dev merge deploy (periodic/on-demand runs):<br/>
+                              <a href="https://ci.openmicroscopy.org/view/Web/job/WEB-DEV-merge-deploy/">
+                              https://ci.openmicroscopy.org/view/Web/job/WEB-DEV-merge-deploy/
+                              </a>
+                          </li>
+                          <li>if above steps finish successfully changes can be seen/tested:
+                              <a href="http://web-dev-merge.openmicroscopy.org/">
+                              http://web-dev-merge.openmicroscopy.org/</a>
+                          </li>
+                      </ul>
+                  </section>
+
+                  <!--  ci configuration changes -->
+                  <section>
+                      <h3>CI Configuration Changes</h3>
+                      <br/>
+                      <ul class="smaller">
+                          <li>ask Jean-Marie who gave me these instructions ;-)</li>
+                          <li>
+                             <a href="https://github.com/openmicroscopy/management_tools">
+                             https://github.com/openmicroscopy/management_tools</a>
+                          </li>
+                          <li>make changes to respective sections:<br/>
+                              ci/config/WEB-DEV-merge-deploy/webapps.omero<br/>
+                              ci/config/WEB-DEV-latest-deploy/webapps.omero
+                          </li>
+                          <li>
+                              Open PR -&gt; once PR is merged -&gt; run ...
+                          </li>
+                          <li>
+                              <a href="https://ci.openmicroscopy.org/view/Mgmt/job/MANAGEMENT_TOOLS-latest-deploy/">
+                                  https://ci.openmicroscopy.org/view/Mgmt/job/MANAGEMENT_TOOLS-latest-deploy/
+                              </a>
+                          </li>
+                      </ul>
+                  </section>
+
+                  <!--  pypi deployment -->
+                  <section>
+                      <h3>PyPi Download/Deployment</h3>
+                      <br/><br/>
+                      <ul>
+                          <li>
+                              Releases: <a href="https://pypi.python.org/pypi">https://pypi.python.org/pypi</a>
+                          </li>
+                          <li>Follow Guide:
+                              <a href="https://github.com/openmicroscopy/ome-documentation/blob/develop/omero/developers/Web/CreateApp.rst#make-your-app-installable-from-pypi">
+                                  Make your App installable
+                              </a>
+                          </li>
+                          <li>
+                              <a href="https://github.com/ome/omero-iviewer/blob/master/plugin/setup.py">
+                                  setup.py <i>(iviewer)</i>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="https://github.com/ome/omero-iviewer/blob/master/plugin/setup.cfg">
+                                  setup.cfg <i>(iviewer)</i>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="https://github.com/ome/omero-iviewer/blob/master/plugin/MANIFEST.in">
+                                  MANIFEST.in <i>(iviewer)</i>
+                              </a>
+                          </li>
+                      </ul>
+                  </section>
+
+                  <!--  useful links -->
+                  <section>
+                      <h3>Links</h3>
+                      <ul>
+                          <li>
+                              <a href="https://openlayers.org/en/latest/examples/">Openlayers</a>
+                          </li>
+                          <li><a href="https://gruntjs.com/">Grunt</a></li>
+                          <li><a href="https://webpack.js.org/">Webpack</a></li>
+                          <li><a href="http://aurelia.io/">Aurelia</a></li>
+                          <li><a href="https://babeljs.io/">Babel (ES2015)</a></li>
+                          <li><a href="http://backbonejs.org/">Backbone.js</a></li>
+                          <li><a href="http://underscorejs.org/">Underscore.js</a></li>
+                          <li><a href="https://nodejs.org/en/">Node.js</a></li>
+                          <li><a href="http://getbootstrap.com/">Bootstrsp</a></li>
+                      </ul>
+                  </section>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+        </script>
+
+    </body>
+</html>
