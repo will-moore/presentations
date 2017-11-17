@@ -103,6 +103,15 @@
                         <li>and Bio-Formats jobs</li>
                     </ul>
                 </section>
+                <section>
+                    <h2>Forked Repositories</h2>
+                    <p align="left">By default, you will need to fork the following repositories</p>
+                    <ul>
+                        <li><a href="https://github.com/openmicroscopy/openmicroscopy" target="_blank">openmicroscopy</a></li>
+                        <li><a href="https://github.com/openmicroscopy/ome-documentation" target="_blank">ome-documentation</a></li>
+                        <li><a href="https://github.com/openmicroscopy/bioformats" target="_blank">bioformats</a></li>
+                    </ul>    
+                </section>
                <section>
                     <p>
                     OMERO jobs:
@@ -199,7 +208,7 @@
                     <h2>Configuration: Openstack</h2>
                     <ul>
                         <li>Connect <a href="https://pony.openmicroscopy.org" target="_blank">OME OpenStack</a></li>
-                        <li>Go to <code>Access & Security > Key Pairs</code> and register a key. Click on <code>Import Key Pair</code>. Copy the content of the public key you use to access our resources e.g. <code>id_rsa.pub</code></li> 
+                        <li>Go to <code>Access & Security > Key Pairs</code>. Click on <code>Import Key Pair</code>. Copy the content of the public key you use to access our resources e.g. <code>id_rsa.pub</code></li> 
                         <li>Go to <code>Access & Security > API Access</code>, download your configuration by clicking on <code>Download OpenStack RC File v2.0</code>. The file will be named by default <code>omedev-openrc.sh</code></li>
                     </ul>
                 </section>
@@ -210,7 +219,7 @@
                         <li>Create a new <code>id_gh_rsa</code> SSH key <b>without</b> passphrase
                             in the <code>devspace_config/.ssh</code> directory
                             <pre><code style="width:900px">
-ssh-keygen -t rsa -b 4096 -C "your_email_address" -f ~/devspace_config/.ssh/id_gh_rsa -q -P ""
+ssh-keygen -t rsa -b 4096 -C "your_email_address" -f path/to/devspace_config/.ssh/id_gh_rsa -q -P ""
                             </code></pre>                            
                         </li>
                         <li>Upload the public key i.e. <code>id_gh_rsa.pub</code> to your GitHub account</li>
@@ -343,7 +352,7 @@ cd devspace
                     <li>Login via OMERO.web <a href="">http://devspace_openstack_ip:$PORT/web</a>
                         <pre><code>docker-compose port nginx 80</code></pre>
                     </li>
-                    <li>Login via OMERO.insight/OMERO.cli
+                    <li>Login via OMERO.insight/OMERO.cli. You must the secure connection for OMERO.insight
                         <pre><code>docker-compose port omero 4064</code></pre>
                     </li>
                     </ul>
@@ -421,11 +430,12 @@ Finished: FAILURE
                     <li>Go to <code>MERGE_COMMAND</code></li>
                     <li>Merge, for example, only PRs from <a href="https://github.com/openmicroscopy/openmicroscopy" target="_blank">openmicroscopy</a> with <code>--training</code> in the description e.g. <a href="https://github.com/openmicroscopy/openmicroscopy/pull/5548" target="_blank">PR #5548</a>:
                     <pre><code>
-merge develop -Dnone -Itraining --no-ask --reset --update-gitmodules
+merge develop -Dnone -Itraining --no-ask --reset --shallow
                     </code></pre>
                     </li>
-                    <li>If you do not want to update the submodule, replace <code>--update-gitmodules</code>
-                        by <code>--shallow</code>
+                    <li>If you want to update the scripts, replace <code>--shallow</code>
+                        by <code>--update-gitmodules</code>. You <b>must</b> have forked
+                        <a href="https://github.com/ome/scripts" target="_blank">ome/scripts</a>
                     </li>
                     <ul>
                 </section>
