@@ -1,0 +1,197 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title></title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <link rel="stylesheet" href="css/ome.css">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+    </head>
+
+    <body class="ome_theme">
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section>
+                    <h1>OMERO workshop</h1>
+                    <p>
+                        Scottish Microscopy Group <br>
+                        Symposium, 22nd Nov 2017 <br>
+                        Will Moore
+                    </p>
+                </section>
+                
+                <section>
+                    <h2>Outline</h2>
+                    <ul>
+                        <li>Intro: OME</li>
+                        <li>What is OMERO?</li>
+                        <li>Workshop: Using OMERO</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>A typical microscopy workflow</h2>
+
+                    <img src="https://downloads.openmicroscopy.org/presentations/2014/Technique-Tapas-OMERO-Figure/images/typical-workflow.png">
+                </section>
+
+                
+                <section>
+                    <h2>OME: Interoperability</h2>
+
+                    <img src="https://downloads.openmicroscopy.org/presentations/2014/Technique-Tapas-OMERO-Figure/images/ome-informatics.png">
+                </section>
+
+
+                <section>
+                    <h2>OME: What We Do</h2>
+
+                    <img src="images/ome-what-we-do.png">
+                </section>
+
+
+                <section>
+                    <h2>OMERO is a server with clients</h2>
+
+                    <img src="https://downloads.openmicroscopy.org/presentations/2014/technique_tapas_nov_5/images/omero-platform-simple.png">
+                </section>
+
+
+                <!-- Series of Insight screenshots -->
+                <section data-background="https://downloads.openmicroscopy.org/presentations/2014/Technique-Tapas-OMERO-Figure/images/insightBg.png">
+                </section>
+
+                <section data-background="https://downloads.openmicroscopy.org/presentations/2014/Technique-Tapas-OMERO-Figure/images/insightBg.png">
+                        <img src="https://downloads.openmicroscopy.org/presentations/2014/Technique-Tapas-OMERO-Figure/images/insightImport.png"/>
+                </section>
+
+                <section data-background="https://downloads.openmicroscopy.org/presentations/2014/Technique-Tapas-OMERO-Figure/images/insightBg.png">
+                </section>
+
+
+                <section data-background="https://downloads.openmicroscopy.org/presentations/2014/Technique-Tapas-OMERO-Figure/images/webclient3.png">
+                </section>
+
+
+                <section>
+                    <h2>Other OMERO clients</h2>
+                    <ul>
+                        <li>OMERO.iviewer</li>
+                        <li><a target="_blank" href="http://figure.openmicroscopy.org/">OMERO.figure</a></li>
+                        <li>ImageJ <a target="_blank" href="http://help.openmicroscopy.org/imagej.html">http://help.openmicroscopy.org/imagej.html</a></li>
+                        <br>
+                        <li>CATMAID <a target="_blank" href="https://github.com/msphan/omero-catmaid/">github.com/msphan/omero-catmaid/</a></li>
+                        <li>Cell Profiler <a target="_blank" href="https://github.com/CellProfiler/CellProfiler/wiki/OMERO:-Accessing-images-from-CellProfiler">OMERO: Accessing images</a></li>
+                        <li>Orbit <a target="_blank" href="https://www.orbit.bio/omero-connection/">www.orbit.bio/omero-connection/</a></li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>OMERO from your own code</h2>
+                    <ul>
+                        <li>Java</li>
+                        <li>Python</li>
+                        <li>Matlab</li>
+                        <li>C++</li>
+                        <li>JavaScript</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Demo</h2>
+                    <h3><a target="_blank" href="https://demo.openmicroscopy.org">demo.openmicroscopy.org</a></h3>
+                    <h3><code>Username: demo</code></h3>
+                    <h3><code contenteditable="true">Password: </code></h3>
+                </section>
+
+
+                <section>
+                    <h3><a target="_blank" href="https://idr.openmicroscopy.org/">idr.openmicroscopy.org</a></h3>
+                    <iframe style="width:900px; height:600px" src="https://idr.openmicroscopy.org/about/"></iframe>
+                </section>
+
+
+                <section>
+                    <h2>Thank you</h2>
+                    <div class="funding_logo_container">
+                        <img src="https://downloads.openmicroscopy.org/presentations/2017/Users-Meeting/Workshops/_images/logos/bbsrc.png" class="funding_logo" />
+                        <img src="https://downloads.openmicroscopy.org/presentations/2017/Users-Meeting/Workshops/_images/logos/corbel.png" class="funding_logo" />
+                        <img src="https://downloads.openmicroscopy.org/presentations/2017/Users-Meeting/Workshops/_images/logos/wellcome.png" class="funding_logo" />
+                        <img src="https://downloads.openmicroscopy.org/presentations/2017/Users-Meeting/Workshops/_images/logos/global_bioimaging.png" class="funding_logo" />
+                        <img src="https://downloads.openmicroscopy.org/presentations/2017/Users-Meeting/Workshops/_images/logos/horizon_2020.png" class="funding_logo" />
+                        <img src="https://downloads.openmicroscopy.org/presentations/2017/Users-Meeting/Workshops/_images/logos/multimot.png" class="funding_logo" />
+                        <img src="https://downloads.openmicroscopy.org/presentations/2017/Users-Meeting/Workshops/_images/logos/euro_bioimaging.png" class="funding_logo" />
+                    </div>
+                </section>
+
+
+                <section>
+                    <h3><a target="_blank" href="https://www.openmicroscopy.org/">openmicroscopy.org</a></h3>
+                    <h3>Google: '<code>OMERO Demo</code>'<br>
+                    to sign-up for demo account</h3>
+                </section>
+            </div>
+
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
