@@ -1,0 +1,222 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title></title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <link rel="stylesheet" href="css/ome.css">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+    </head>
+
+    <body class="ome_theme">
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section>
+                    <h1>Image Processing with OMERO</h1>
+                    <p>
+                        Cambridge <br>
+                        8th December, 2007 <br>
+                        Will Moore, Balaji Ramalingam, Petr Walczysko
+                    </p>
+                </section>
+                
+                <section>
+                    <h2>Outline of the Day</h2>
+                    <ul>
+                        <li>What is OMERO?</li>
+                        <li>OMERO model</li>
+                        <li>OMERO API
+                            <ul>
+                                <li>Python</li>
+                                <li>Java</li>
+                                <li>Matlab</li>
+                                <li>JSON / JavaScript</li>
+                            </ul>
+                        </li>
+                        <ul>Jupyter Notebooks</ul>
+                        <ul>ImageJ</ul>
+                        <ul>CellProfiler</ul>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>OMERO is a server with clients</h2>
+
+                    <img src="https://downloads.openmicroscopy.org/presentations/2014/technique_tapas_nov_5/images/omero-platform-simple.png">
+                </section>
+
+
+                <section>
+                    <h2>OMERO API</h2>
+                    <img src="images/OmeroApi.png">
+                    <a href="http://docs.openmicroscopy.org/latest/omero/developers/index.html">
+                        Developer Documentation
+                    </a>
+                </section>
+
+
+                <section data-background="https://downloads.openmicroscopy.org/presentations/2014/Technique-Tapas-OMERO-Figure/images/webclient3.png">
+                </section>
+
+
+                <section>
+                    <h2>OMERO model objects</h2>
+                    <img src="images/developer-model-pdi.png">
+                    <br>
+                    See <a href="http://docs.openmicroscopy.org/omero/5.4.0/developers/Model/EveryObject.html">
+                        All Objects
+                    </a>
+                </section>
+
+
+                <section>
+                    <h2>Connecting to OMERO: Python</h2>
+                    <ul>
+                        <li>Download
+                            <a href="https://downloads.openmicroscopy.org/latest/omero5/py.zip">
+                                OMERO.py libs
+                            </a>, add to PYTHONPATH
+                        </li>
+                        <li>
+                            <code class="python">$ pip install zeroc-ice</code>
+                        </li>
+                    </ul>
+                    <pre><code class="python">import omero
+
+client = omero.client("localhost")
+# login to create a session (Service Factory)
+session = client.createSession("username", "password")
+# get a Stateless Service
+queryService = session.getQueryService()
+# get a local omero.model.DatasetI
+dataset = queryService.get("Dataset", 1)
+print dataset               # see what's loaded
+print dataset.name.val      # rtypes same as getName().getValue()
+print dataset.copyImageLinks()      # omero.UnloadedEntityException!
+
+client.closeSession()           # Free server resourses
+</code></pre>
+                </section>
+
+
+                <section>
+                    <h2>Connecting to OMERO: Java</h2>
+                    <ul>
+                        <li>Download
+                            <a href="https://downloads.openmicroscopy.org/latest/omero/artifacts">
+                                OMERO.java libs
+                            </a>, add to Java classpath
+                        </li>
+                        <li>Or use Maven project: see our <a href="https://docs.openmicroscopy.org/latest/omero/developers/Java.html">
+                                Java
+                            </a> docs page.
+                        </li>
+                    </ul>
+                    <pre><code class="java">import omero.api.IQueryPrx;
+import omero.api.ServiceFactoryPrx;
+import omero.model.Dataset;
+
+omero.client client = new omero.client("localhost");
+// create Service Factory
+ServiceFactoryPrx session = client.createSession("username", "password");
+// get a Stateless Service
+IQueryPrx queryService = session.getQueryService();
+// get a local omero.model.DatasetI
+Dataset dataset = (Dataset) queryService.get("Dataset", 1);
+System.err.println(dataset.getId().getValue());
+System.err.println(dataset.getName().getValue());
+// omero.UnloadedEntityException!
+System.err.println(dataset.copyImageLinks());
+
+client.closeSession();
+</code></pre>
+                </section>
+
+
+                <section>
+                    <h2>OMERO client libraries</h2>
+                    <img src="images/omero-client-libs.png">
+                    <br>
+                    See Docs:
+                    <a href="https://docs.openmicroscopy.org/latest/omero/developers/Python.html">
+                        Python
+                    </a> |
+                    <a href="https://docs.openmicroscopy.org/latest/omero/developers/Java.html">
+                        Java
+                    </a> |
+                    <a href="https://docs.openmicroscopy.org/latest/omero/developers/Matlab.html">
+                        Matlab
+                    </a>
+                </section>
+
+
+
+                <section>
+                    <h2>Server-side vv client-side analysis</h2>
+                    <img src="images/omero-extension-points.png">
+                </section>
+
+
+            </div>
+
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
