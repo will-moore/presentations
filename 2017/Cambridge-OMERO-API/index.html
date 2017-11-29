@@ -72,15 +72,6 @@
                 </section>
 
 
-                <section>
-                    <h2>OMERO API</h2>
-                    <img src="images/OmeroApi.png">
-                    <a href="http://docs.openmicroscopy.org/latest/omero/developers/index.html">
-                        Developer Documentation
-                    </a>
-                </section>
-
-
                 <section data-background="https://downloads.openmicroscopy.org/presentations/2014/Technique-Tapas-OMERO-Figure/images/webclient3.png">
                 </section>
 
@@ -95,8 +86,18 @@
                 </section>
 
 
+
                 <section>
-                    <h2>Connecting to OMERO: Python</h2>
+                    <h2>Remote Objects & Proxy Services</h2>
+                    <img src="images/omero-proxy-objects.png"><br>
+                    <a href="http://docs.openmicroscopy.org/latest/omero/developers/index.html">
+                        Developer Documentation
+                    </a>
+                </section>
+
+
+                <section>
+                    <h2>Connecting to OMERO: Python setup</h2>
                     <ul>
                         <li>Download
                             <a href="https://downloads.openmicroscopy.org/latest/omero5/py.zip">
@@ -104,9 +105,14 @@
                             </a>, add to PYTHONPATH
                         </li>
                         <li>
-                            <code class="python">$ pip install zeroc-ice</code>
+                            <code class="python">$ pip install zeroc-ice&gt;3.5,&lt;3.7</code>
                         </li>
                     </ul>
+                </section>
+
+
+                <section>
+                    <h2>Connecting to OMERO: Python code</h2>
                     <pre><code class="python">import omero
 
 client = omero.client("localhost")
@@ -126,7 +132,7 @@ client.closeSession()           # Free server resourses
 
 
                 <section>
-                    <h2>Connecting to OMERO: Java</h2>
+                    <h2>Connecting to OMERO: Java Setup</h2>
                     <ul>
                         <li>Download
                             <a href="https://downloads.openmicroscopy.org/latest/omero/artifacts">
@@ -138,6 +144,12 @@ client.closeSession()           # Free server resourses
                             </a> docs page.
                         </li>
                     </ul>
+
+                </section>
+
+
+                <section>
+                    <h2>Connecting to OMERO: Java Code</h2>
                     <pre><code class="java">import omero.api.IQueryPrx;
 import omero.api.ServiceFactoryPrx;
 import omero.model.Dataset;
