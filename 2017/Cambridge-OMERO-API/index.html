@@ -47,21 +47,22 @@
                 
                 <section>
                     <h2>Outline of the Day</h2>
-                    <ul>
-                        <li>What is OMERO?</li>
-                        <li>OMERO model</li>
-                        <li>OMERO API
+                    <ol>
+                        <li>Presentation
                             <ul>
-                                <li>Python</li>
-                                <li>Java</li>
-                                <li>Matlab</li>
-                                <li>JSON / JavaScript</li>
+                                <li>What is OMERO?</li>
+                                <li>OMERO model</li>
+                                <li>OMERO API
                             </ul>
                         </li>
-                        <ul>Jupyter Notebooks</ul>
-                        <ul>ImageJ</ul>
-                        <ul>CellProfiler</ul>
-                    </ul>
+                        <li>ImageJ/Fiji as an OMERO client</li>
+                        <li>OMERO.scripts with SciPy
+                            <ul><li>OMERO.figure scripting with JSON</li></ul>
+                        </li>
+                        <li>Jupyter Notebooks
+                            <ul><li>Python/CellProfiler | R</li></ul>
+                        </li>
+                    </ol>
                 </section>
 
 
@@ -184,13 +185,16 @@ client.closeSession();
                     </a> |
                     <a href="https://docs.openmicroscopy.org/latest/omero/developers/Matlab.html">
                         Matlab
+                    </a> |
+                    <a href="https://docs.openmicroscopy.org/latest/omero/developers/json-api.html">
+                        JSON
                     </a>
                 </section>
 
 
 
                 <section>
-                    <h2>Server-side vv client-side analysis</h2>
+                    <h2>Server-side vs client-side analysis</h2>
                     <img src="images/omero-extension-points.png">
                 </section>
 
@@ -199,15 +203,16 @@ client.closeSession();
                     <h2>Today</h2>
 
                     <ul>
+                        <li>Introduction to OMERO.web client</li>
                         <li>Client-side: ImageJ/Fiji
                             <ul>
-                                <li>Manual analysis</li>
-                                <li>Python-scripted batch analysis</li>
+                                <li>Manual processing</li>
+                                <li>Python-scripted batch processing</li>
                             </ul>
                         </li>
-                        <li>Server-side: OMERO.script (Python)
+                        <li>
+                            Server-side: OMERO.script (Python)
                             <ul>
-                                <li>ImageJ/Fiji via Command-line</li>
                                 <li>SciPy Gaussian Filter</li>
                                 <li>Creating OMERO.figure file</li>
                             </ul>
@@ -215,6 +220,7 @@ client.closeSession();
                         <li>
                             Jupyter Notebook
                             <ul>
+                                <li>OMERO Python Hello World</li>
                                 <li>CellProfiler</li>
                                 <li>R</li>
                             </ul>
