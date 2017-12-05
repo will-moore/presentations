@@ -226,6 +226,11 @@ for image in dataset.listChildren():
 import omero.log.SimpleLogger;
 import omero.gateway.Gateway;
 import omero.gateway.model.ExperimenterData;
+import omero.gateway.facility.BrowseFacility;
+import omero.gateway.model.ImageData;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Arrays;
 
 LoginCredentials cred = new LoginCredentials("username", "password", "localhost", 4064);
 Gateway gateway = new Gateway(new SimpleLogger());
