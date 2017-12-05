@@ -44,25 +44,36 @@
                         Will Moore, Balaji Ramalingam, Petr Walczysko
                     </p>
                 </section>
-                
+
+
                 <section>
                     <h2>Outline of the Day</h2>
-                    <ol>
-                        <li>Presentation
+
+                    <ul>
+                        <li>Presentation: OMERO, model & API</li>
+                        <li>Intro to OMERO.web client</li>
+                        <li>Client-side: ImageJ/Fiji
                             <ul>
-                                <li>What is OMERO?</li>
-                                <li>OMERO model</li>
-                                <li>OMERO API
+                                <li style="border-bottom:solid black 1px">Manual processing</li>
+                                <li>Python-scripted batch processing</li>
                             </ul>
                         </li>
-                        <li>ImageJ/Fiji as an OMERO client</li>
-                        <li>OMERO.scripts with SciPy
-                            <ul><li>OMERO.figure scripting with JSON</li></ul>
+                        <li>
+                            Server-side: OMERO.script (Python)
+                            <ul>
+                                <li style="border-bottom:solid black 1px">SciPy Gaussian Filter</li>
+                            </ul>
                         </li>
-                        <li>Jupyter Notebooks
-                            <ul><li>Python | CellProfiler | R</li></ul>
+                        <li>Scripting OMERO.figure (JavaScript)</li>
+                        <li>
+                            Jupyter Notebook
+                            <ul>
+                                <li style="border-bottom:solid black 1px">OMERO Python Hello World</li>
+                                <li>CellProfiler</li>
+                                <li>R</li>
+                            </ul>
                         </li>
-                    </ol>
+                    </ul>
                 </section>
 
 
@@ -102,10 +113,11 @@
                     <ul>
                         <li>Download
                             <a href="https://downloads.openmicroscopy.org/latest/omero5/py.zip">
-                                Python binding for ZeroC Ice
+                                OMERO.py libs
                             </a>, add to PYTHONPATH
                         </li>
                         <li>
+                            Install Python binding for ZeroC Ice <br>
                             <code class="python">$ pip install zeroc-ice&gt;3.5,&lt;3.7</code>
                         </li>
                     </ul>
