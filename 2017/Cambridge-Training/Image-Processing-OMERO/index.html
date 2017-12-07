@@ -126,9 +126,9 @@
 
                 <section>
                     <h2>Connecting to OMERO: Python code</h2>
-                    <pre><code class="python">import omero
+                    <pre><code contenteditable="true" class="python">import omero
 
-client = omero.client("localhost")
+client = omero.client("omeroserver.org")
 # login to create a session (Service Factory)
 session = client.createSession("username", "password")
 # get a Stateless Service
@@ -158,11 +158,11 @@ client.closeSession()           # Free server resourses
 
                 <section>
                     <h2>Connecting to OMERO: Java Code</h2>
-                    <pre><code class="java">import omero.api.IQueryPrx;
+                    <pre><code contenteditable="true" class="java">import omero.api.IQueryPrx;
 import omero.api.ServiceFactoryPrx;
 import omero.model.Dataset;
 
-omero.client client = new omero.client("localhost");
+omero.client client = new omero.client("omeroserver.org");
 // create Service Factory
 ServiceFactoryPrx session = client.createSession("username", "password");
 // get a Stateless Service
@@ -201,9 +201,9 @@ client.closeSession();
 
                 <section>
                     <h2>Connecting to OMERO: Python BlitzGateway</h2>
-                    <pre><code class="python">from omero.gateway import BlitzGateway
+                    <pre><code contenteditable="true" class="python">from omero.gateway import BlitzGateway
 # Connect to OMERO
-conn = BlitzGateway("username", "password", host="localhost")
+conn = BlitzGateway("username", "password", host="omeroserver.org")
 conn.connect()
 
 # Load a Dataset
@@ -217,12 +217,14 @@ for image in dataset.listChildren():
     print image             # ImageWrapper id=152
     print image.getPrimaryPixels().getPlane(0, 0, 0)   # numpy 2D array
 </code></pre>
+                    <br>
+                    <a target="_blank" href="https://github.com/openmicroscopy/openmicroscopy/blob/develop/components/tools/OmeroPy/src/omero/gateway/__init__.py">BlitzGateway source code</a>
                 </section>
 
 
                 <section>
                     <h2>Connecting to OMERO: Java Gateway</h2>
-                    <pre><code class="java">import omero.gateway.LoginCredentials;
+                    <pre><code contenteditable="true" class="java">import omero.gateway.LoginCredentials;
 import omero.log.SimpleLogger;
 import omero.gateway.Gateway;
 import omero.gateway.model.ExperimenterData;
@@ -232,7 +234,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Arrays;
 
-LoginCredentials cred = new LoginCredentials("username", "password", "localhost", 4064);
+LoginCredentials cred = new LoginCredentials("username", "password", "omeroserver.org", 4064);
 Gateway gateway = new Gateway(new SimpleLogger());
 ExperimenterData user = gateway.connect(cred);
 
@@ -246,6 +248,7 @@ while (j.hasNext()) {
     System.err.println("image:" + image.getId() + " " + image.getName());
 }
 </code></pre>
+                    <a target="_blank" href="https://downloads.openmicroscopy.org/latest/omero/api/omero/gateway/package-tree.html">Java Gateway API</a>
                 </section>
 
 
