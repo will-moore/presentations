@@ -48,17 +48,18 @@
                 <section>
                     <h2>Outline</h2>
                     <ul>
-                    	<li>The journey</li>
-                    	<li>What's not covered</li>
+                    	<li>The Data journey</li>
+                    	<li>Data/Metadata from IDR</li>
+                    	<li>Import options: Demo...</li>
                     </ul>
                 </section>
 
                 <section>
-                    <h2>The journey...</h2>
+                    <h2>The Data journey...</h2>
                     <ul>
                         <li>Import Data</li>
                         <li>Raw Data Analysis</li>
-                        <li>Handle Data</li>
+                        <li>Handle Metadata</li>
                     </ul>
                 </section>
                 <section>
@@ -68,20 +69,34 @@
                 </section>
 
                 <section>
-                    <h2>Download the data from IDR</h2>
-                    <p>
+                    <h2>Download data from IDR</h2>
+                        The <a href="https://hub.docker.com/r/imagedata/download"> Docker image</a> uses <a href="https://asperasoft.com/"><b>Aspera</b></a> to acquire data:
                         <ul>
-                            <li>
+                        	<li>
                             <code class="python">docker run --rm -v /tmp:/data imagedata/download idr0021 . /data/</code>
                             </li>
                         </ul>
-                    </p>
                 </section>
                 <section>
-                    <h2>What's not covered</h2>
+                    <h2>Import data</h2>
+                    <p>Bulk import: see Demo...<p>
+                </section>
+                <section>
+                    <h2>Extract metadata from IDR</h2>
+                        
+                        <ul>
+                            <li>Retrieve all Map Annotations linked to idr0021 using <a href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/idr_get_map_annotations.py">idr_get_map_annotations.py</a>
+                            </li>
+                        </ul>
+                </section>
+                <section>
+                    <h2>Import Options: Demo...</h2>
                     <ul>
-                        <li>Permissions</li>
-                        <li>Publishing workflow</li>
+                        <li>Desktop Client</li>
+                        <li>In-place Import CLI</li>
+                        <li>Bulk Import CLI (idr0021)</li>
+                        <li>Metadata Import CLI (idr0021)</li>
+                        <li>Render data using CLI</li>
                     </ul>
                 </section>
             </div>
