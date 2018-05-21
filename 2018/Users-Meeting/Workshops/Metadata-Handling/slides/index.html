@@ -53,6 +53,7 @@
                         <li>OMERO.mapr: querying data by Map Annotations</li>
                         <li>OMERO.parade: filtering data by metadata</li>
                         <li>OMERO.figure: use metadata to create figures</li>
+                        <li>Demo</li>
                     </ul>
                 </section>
 
@@ -116,6 +117,19 @@
                         </li>
                         <li>Config specifies which Annotation Namespaces and Keys are supported</li>
                     </ul>
+                    <pre style="width: 950px"><code>$ bin/omero config append omero.web.mapr.config '{"menu": "gene", "config": {
+    "default": ["Gene Symbol"],
+    "all": ["Gene Symbol", "Gene Identifier"],
+    "ns": ["openmicroscopy.org/mapr/gene"],
+    "label": "Gene"}}'
+
+# Namespace for User-added Map Annotations. "all" is empty for ANY key
+$ bin/omero config append omero.web.mapr.config '{"menu": "keyvalue", "config": {
+    "default": ["Any Value"],
+    "all": [],
+    "ns": ["openmicroscopy.org/omero/client/mapAnnotation"],
+    "label": "KeyValue"}}'</code></pre>
+
                 </section>
 
 
@@ -133,6 +147,17 @@
                             </ul>
                         </li>
                     </ul>
+
+                    <pre style="width: 900px"><code>$ pip install -U omero-parade
+
+# Add parade custom app to your installed web apps:
+$ bin/omero config append omero.web.apps '"omero_parade"'
+
+# Display parade in the centre of the webclient:
+$ bin/omero config append omero.web.ui.center_plugins \
+    '["Parade", "omero_parade/init.js.html", "omero_parade"]'</code></pre>
+
+                    <small><a target="_blank" href="https://pypi.org/project/omero-parade/">OMERO.parade</a></small>
                 </section>
 
 
@@ -149,7 +174,7 @@
                                 <li>Tags</li>
                             </ul>
                         </li>
-                        <li>ROIs</li>
+                        <li>ROIs - Polygons and Polylines supported in 4.0.0 (May 2018)</li>
                     </ul>
                 </section>
 
