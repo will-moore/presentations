@@ -37,7 +37,7 @@
 
                 <!-- title page -->
                 <section>
-                    <h1>The metadata journey</h1>
+                    <h1>The journey of Data</h1>
                     <p>
                         OME Users meeting<br>
                         31th May 2018<br>
@@ -53,23 +53,49 @@
                     	<li>Import options: Demo...</li>
                     </ul>
                 </section>
-
                 <section>
-                    <h2>The Data journey...</h2>
-                    <ul>
+                    <h2>Data workshops</h2>
+                    <ol>
                         <li>Import Data</li>
                         <li>Raw Data Analysis</li>
                         <li>Handle Metadata</li>
-                    </ul>
+                    </ol>
                 </section>
                 <section>
-                    <h2>Follow the journey of idr0021</h2>
+                    <h2>Import Reminder...</h2>
+                    <img src="images/upload.png" width="100%"/>
+                </section>
+                <section>
+                    <h2>ManagedRepository</h2>
+                    <img src="images/managedrepo-intro.png" width="90%"/>
+                    <aside class="notes">
+                    <ul>
+                        <li>server stores and reads original data</li>
+                        <li>OMERO acts as repository of original data</li>
+                        <li>without Pixels files, less data duplication</li>
+                        <li>original data visible in server filesystem</li>
+                    <ul>
+                        <li>where filesets live</li>
+                        <li>each Fileset in its own subdirectory</li>
+                    </ul>
+                    </aside>
+                </section>
+                <section>
+                    <h2>Today's focus: Data associated to</h2>
+                    <h3>Subdiffraction imaging of centrosomes reveals higher-order organizational
+                        features of pericentriolar material
+                    </h3>
+                    <p>Steffen Lawo, Monica Hasegan, Gagan D. Gupta & Laurence Pelletier</p>
+                    <p><a target="_blank" href="https://www.nature.com/articles/ncb2591">
+                        Nature Cell Biology volume 14, pages 1148–1158 (2012)</a></p>
+                </section>    
+                <section>
+                    <h2>Code name: idr0021</h2>
                     <iframe style="width: 1000px; max-width: 1000px; height: 600px; max-height: 600px"
                         src="http://idr.openmicroscopy.org/"></iframe>
                 </section>
-
                 <section>
-                    <h2>Download data from IDR</h2>
+                    <h2>Preparation: Download from IDR</h2>
                         The <a href="https://hub.docker.com/r/imagedata/download"> Docker image</a> uses <a href="https://asperasoft.com/"><b>Aspera</b></a> to acquire data:
                         <ul>
                         	<li>
@@ -78,25 +104,49 @@
                         </ul>
                 </section>
                 <section>
-                    <h2>Import data</h2>
-                    <p>Bulk import: see Demo...<p>
-                </section>
-                <section>
-                    <h2>Extract metadata from IDR</h2>
-                        
+                    <h2>Preparation: Extract metadata from IDR</h2>
                         <ul>
                             <li>Retrieve all Map Annotations linked to idr0021 using <a href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/idr_get_map_annotations.py">idr_get_map_annotations.py</a>
                             </li>
                         </ul>
                 </section>
                 <section>
-                    <h2>Import Options: Demo...</h2>
+                    <h2>Import Context for Demo...</h2>
                     <ul>
+                        <li>Import Data as a Facility Manager i.e. an OMERO user with some
+                            <a href="https://docs.openmicroscopy.org/latest/omero/sysadmins/restricted-admins.html">admin privileges</a></li>
+                        <li>who has <b>Write</b> access to the <a href="https://docs.openmicroscopy.org/latest/omero/developers/Server/FS.html">ManagedRepository</a></li>
+
+                    </ul>
+                </section>
+                <section>
+                    <h2>Import scenarii covered during Demo...</h2>
+                    <ol>
                         <li>Desktop Client</li>
                         <li>In-place Import CLI</li>
-                        <li>Bulk Import CLI (idr0021)</li>
-                        <li>Metadata Import CLI (idr0021)</li>
+                        <li>Bulk Import CLI</li>
+                    </ol>
+                </section>
+                <section>
+                    <h2>In-place import: symlink</h2>
+                    <code>
+                        $ bin/omero import path/to/image --transfer=ln_s
+                    </code>
+                    <img src="images/inplace-ln_s.png" width="90%"/>
+                </section>
+                <section>
+                    <h2>Bulk Import CLI</h2>
+                    <ul>
+                        <li>Combine several import options: in-place, import as, etc.</li>
+                        <li>Large amount of data imported using one import command</li>
+                        <li>Reproducible import</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Post Import Data Manipulation: Demo...</h2>
+                    <ul>
                         <li>Render data using CLI</li>
+                        <li>Metadata Import CLI</li>
                     </ul>
                 </section>
             </div>
