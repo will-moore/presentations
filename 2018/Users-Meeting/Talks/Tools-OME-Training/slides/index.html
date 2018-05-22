@@ -1,0 +1,190 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Tools for OME Training and Outreach</title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <link rel="stylesheet" href="css/ome.css">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+    </head>
+
+    <body class="ome_theme">
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section>
+                    <h1>Tools for OME Training and Outreach</h1>
+                    <p>
+                        OME Users meeting<br>
+                        30th May 2018<br>
+                        Jean-Marie Burel
+                    </p>
+                </section>
+                
+                <section>
+                    <h2>Outline</h2>
+                    <ul>
+                        <li>Growing ecosystem</li>
+                        <li>Aims</li>
+                        <li>Materials</li>
+                        <li>Advantages of decoupled clients</li>
+                        <li>Testing of decoupled clients</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Growing ecosystem</h2>
+                </section>
+
+                <section>
+                    <h2>Aims</h2>
+                    <ul>
+                        <li>Provide reusable training materials</li>
+                        <li>Provide resources for setting up training sessions</li>
+                        <li>Have resources under Version Control</li>
+                        <li>Have resources publicly available</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Materials</h2>
+                    <ul>
+                        <li>Based on <b>“workflows”</b>
+                            <ul>
+                                <li>Link components of the OME ecosystem</li>
+                                <li>Closer to “real” users day-to-day tasks</li>
+                            </ul>
+                        </li>
+                        <li>Available for different audiences
+                            <ul>
+                                <li>Biologists</li>
+                                <li>Facility managers</li>
+                                <li>Image Analysts</li>
+                                <li>...</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Resources</h2>
+                    <ul>
+                        <li>All materials must be <b>publicly</b> available</li>
+                        <li>Dedicated servers:
+                            <ul>
+                                <li>OMERO: <a href="http://outreach.openmicroscopy.org/">http://outreach.openmicroscopy.org/</a></li>
+                                <li>IDR: <a href="https://idr.openmicroscopy.org/">https://idr.openmicroscopy.org/</a></li>
+                                <li>Analysis: <a href="https://idr-analysis.openmicroscopy.org/">https://idr-analysis.openmicroscopy.org/</a></li>
+                            </ul>
+                        </li>
+                        <li>Portable server</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Resources</h2>
+                    <ul>
+                        <li>Data: 
+                            <ul>
+                                <li><a href="https://downloads.openmicroscopy.org/images/">https://downloads.openmicroscopy.org/images/</a></li>
+                            </ul>
+                        </li>
+                        <li>Presentations/Print out:
+                            <ul>
+                                <li><a href="https://downloads.openmicroscopy.org/presentations">https://downloads.openmicroscopy.org/presentations</a></li>
+                                <li><a href="https://github.com/ome/presentations">https://github.com/ome/presentations</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <h2>New repositories: ome/training-*</h2>
+                    <ul>
+                        <li>Overarching repository: <a href="https://github.com/ome/training-repos">ome/training-repos</a></li>
+                            <ul>
+                            	<li><a href="https://github.com/openmicroscopy/prod-playbooks">Ansible playbook</a> to deploy a training server</li>
+                            	<li>Training server <a href="https://github.com/ome/training-scripts/tree/master/maintenance">maintenance/data preparation</a></li>
+                                <li>Training <a href="https://github.com/ome/training-scripts/tree/master/scripts">scripts</a></li>
+                                <li>Data and presentations used for a given session</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Resources: notebooks</h2>
+                    <ul>
+                        <li>Dedicated computational environment</a></li>
+                            <ul>
+                                <li>We use <a href="https://github.com/jupyterlab/jupyterlab">Jupyerlab</a></li>
+                                <li>Deployment available on GitHub</li>
+                            </ul>
+                        </li>
+                        <li>Sets of notebooks</a></li>
+                            <ul>
+                                <li>For OMERO <a href="https://github.com/ome/training-notebooks">training</a></li>
+                                <li>For IDR <a href="https://github.com/IDR/idr-notebooks">training</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h1>Thank you</h1>
+                </section>
+            </div>
+
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+        </script>
+
+    </body>
+</html>
