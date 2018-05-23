@@ -62,26 +62,13 @@
                     </ol>
                 </section>
                 <section>
-                    <h2>Import Reminder...</h2>
-                    <img src="images/upload.png" width="100%"/>
+                    <h2>Materials available at</h2>
+                    <p>
+                     <a href="https://downloads.openmicroscopy.org/presentations/2018/Users-Meeting/Workshops/">https://downloads.openmicroscopy.org/presentations/2018/Users-Meeting/Workshops/Metadata-*</a>
+                    </p>
                 </section>
                 <section>
-                    <h2>ManagedRepository</h2>
-                    <img src="images/managedrepo-intro.png" width="90%"/>
-                    <aside class="notes">
-                    <ul>
-                        <li>server stores and reads original data</li>
-                        <li>OMERO acts as repository of original data</li>
-                        <li>without Pixels files, less data duplication</li>
-                        <li>original data visible in server filesystem</li>
-                    <ul>
-                        <li>where filesets live</li>
-                        <li>each Fileset in its own subdirectory</li>
-                    </ul>
-                    </aside>
-                </section>
-                <section>
-                    <h2>Today's focus: Data associated to</h2>
+                    <h2>Today's focus: Data from paper</h2>
                     <h3>Subdiffraction imaging of centrosomes reveals higher-order organizational
                         features of pericentriolar material
                     </h3>
@@ -104,28 +91,40 @@
                         </ul>
                 </section>
                 <section>
-                    <h2>Preparation: Extract metadata from IDR</h2>
-                        <ul>
-                            <li>Retrieve all Map Annotations linked to idr0021 using <a href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/idr_get_map_annotations.py">idr_get_map_annotations.py</a>
-                            </li>
-                        </ul>
-                </section>
-                <section>
-                    <h2>Import Context for Demo...</h2>
-                    <ul>
-                        <li>Import Data as a Facility Manager i.e. an OMERO user with some
-                            <a href="https://docs.openmicroscopy.org/latest/omero/sysadmins/restricted-admins.html">admin privileges</a></li>
-                        <li>who has <b>Write</b> access to the <a href="https://docs.openmicroscopy.org/latest/omero/developers/Server/FS.html">ManagedRepository</a></li>
-
-                    </ul>
-                </section>
-                <section>
                     <h2>Import scenarii covered during Demo...</h2>
                     <ol>
                         <li>Desktop Client</li>
                         <li>In-place Import CLI</li>
                         <li>Bulk Import CLI</li>
                     </ol>
+                </section>
+                <section>
+                    <h2>Import Reminder...</h2>
+                    <img src="images/upload.png" width="100%"/>
+                </section>
+                <section>
+                    <h2>ManagedRepository</h2>
+                    <img src="images/managedrepo-intro.png" width="90%"/>
+                    <aside class="notes">
+                    <ul>
+                        <li>server stores and reads original data</li>
+                        <li>OMERO acts as repository of original data</li>
+                        <li>without Pixels files, less data duplication</li>
+                        <li>original data visible in server filesystem</li>
+                    <ul>
+                        <li>where filesets live</li>
+                        <li>each Fileset in its own subdirectory</li>
+                    </ul>
+                    </aside>
+                </section>
+                <section>
+                    <h2>For Demo, user importing is...</h2>
+                    <ul>
+                        <li>A Facility Manager: <i>importer1</i> i.e. an OMERO user with some restricted
+                            <a href="https://docs.openmicroscopy.org/latest/omero/sysadmins/restricted-admins.html">admin privileges</a></li>
+                        <li>who has <b>Write</b> access to the <a href="https://docs.openmicroscopy.org/latest/omero/developers/Server/FS.html">ManagedRepository</a></li>
+
+                    </ul>
                 </section>
                 <section>
                     <h2>In-place import: symlink</h2>
@@ -136,17 +135,38 @@
                 </section>
                 <section>
                     <h2>Bulk Import CLI</h2>
+                    Two files are required to describe an import
                     <ul>
-                        <li>Combine several import options: in-place, import as, etc.</li>
-                        <li>Large amount of data imported using one import command</li>
-                        <li>Reproducible import</li>
+                        <li>How to import: <b>bulk.yml</b></li>
                     </ul>
+<pre style="font-size:55%"><code>
+continue: "true"
+transfer: "ln_s"
+checksum_algorithm: "File-Size-64"
+logprefix: "logs/"
+output: "yaml"
+path: "idr0021.tsv"
+columns:
+    - target
+    - path
+</code></pre>
+                        <ul>
+                            <li>What to import: <b>idr0021.tsv</b></li>
+                        </ul>
+<pre style="font-size:40%; overflow: scroll"><code>
+Dataset:name:CDK5RAP2-C /OMERO/in-place-import/idr0021-lawo-pericentriolarmaterial/Raw-files/CDK5RAP2-C/Centrin_PCNT_Cep215_20110506/Centrin_PCNT_Cep215_20110506_Fri-1545_0_SIR_PRJ.dv
+Dataset:name:CDK5RAP2-C /OMERO/in-place-import/idr0021-lawo-pericentriolarmaterial/Raw-files/CDK5RAP2-C/Centrin_PCNT_Cep215_20110506/Centrin_PCNT_Cep215_20110506_Fri-1559_0_SIR_PRJ.dv
+...
+</code></pre>      
                 </section>
                 <section>
                     <h2>Post Import Data Manipulation: Demo...</h2>
                     <ul>
                         <li>Render data using CLI</li>
-                        <li>Metadata Import CLI</li>
+                        <pre style="font-size:40%; overflow: scroll"><code>
+Add render.yml sample
+...
+                        </code></pre>
                     </ul>
                 </section>
             </div>
