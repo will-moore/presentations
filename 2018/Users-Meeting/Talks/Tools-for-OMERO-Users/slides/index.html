@@ -170,7 +170,21 @@
                         </li>
                         <li>Docker-composed OMERO server for testing</li>
                         <li>Testing scripts run by Travis CI on every GitHub PR</li>
+                        <li>For example: OMERO.figure
+                            <a target="_blank" href="https://github.com/ome/omero-figure/blob/master/.travis.yml">
+                                .travis.yml
+                            </a>
+                        </li>
                     </ul>
+                    <pre><code>services:
+  - docker
+
+before_install:
+  - git clone git://github.com/openmicroscopy/omero-test-infra .omero
+
+script:
+  - .omero/docker app
+</code></pre>
                 </section>
 
 
