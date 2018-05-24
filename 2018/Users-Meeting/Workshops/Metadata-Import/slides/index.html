@@ -83,7 +83,7 @@
                 </section>
                 <section>
                     <h2>Preparation: Download from IDR</h2>
-                        The <a href="https://hub.docker.com/r/imagedata/download"> Docker image</a> uses <a href="https://asperasoft.com/"><b>Aspera</b></a> to acquire data:
+                        <a href="https://hub.docker.com/r/imagedata/download"> Docker image</a> using <a href="https://asperasoft.com/"><b>Aspera</b></a> to acquire data (size 300 MB):
                         <ul>
                         	<li>
                             <code class="python">docker run --rm -v /tmp:/data imagedata/download idr0021 . /data/</code>
@@ -94,8 +94,12 @@
                     <h2>Import scenarii covered during Demo...</h2>
                     <ol>
                         <li>Desktop Client</li>
-                        <li>In-place Import CLI</li>
-                        <li>Bulk Import CLI</li>
+                        <li>CLI:
+                            <ul>
+                                <li>In-place Import</li>
+                                <li>Bulk Import</li>
+                            </ul>
+                        </li>
                     </ol>
                 </section>
                 <section>
@@ -162,10 +166,23 @@ Dataset:name:CDK5RAP2-C /OMERO/in-place-import/idr0021-lawo-pericentriolarmateri
                 <section>
                     <h2>Post Import Data Manipulation: Demo...</h2>
                     <ul>
-                        <li>Render data using CLI</li>
+                        <li>CLI: Render data using <i>.yml</i> files describing the settings to apply.</li>
                         <pre style="font-size:40%; overflow: scroll"><code>
-Add render.yml sample
-...
+# Specification of rendering settings
+
+channels:
+  1:
+    # red
+    color: "FF0000"
+    label: "CEP192-M"
+    min: 30
+    max: 255
+  2:
+    # blue
+    color: "0000FF"
+    label: "CENT2"
+    min: 45
+    max: 5000
                         </code></pre>
                     </ul>
                 </section>
