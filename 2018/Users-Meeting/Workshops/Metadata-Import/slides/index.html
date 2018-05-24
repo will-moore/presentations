@@ -69,9 +69,9 @@
                 </section>
                 <section>
                     <h2>Today's focus: Data from paper</h2>
-                    <h3>Subdiffraction imaging of centrosomes reveals higher-order organizational
+                    <i>Subdiffraction imaging of centrosomes reveals higher-order organizational
                         features of pericentriolar material
-                    </h3>
+                    </i>
                     <p>Steffen Lawo, Monica Hasegan, Gagan D. Gupta & Laurence Pelletier</p>
                     <p><a target="_blank" href="https://www.nature.com/articles/ncb2591">
                         Nature Cell Biology volume 14, pages 1148–1158 (2012)</a></p>
@@ -165,8 +165,17 @@ Dataset:name:CDK5RAP2-C /OMERO/in-place-import/idr0021-lawo-pericentriolarmateri
                 </section>
                 <section>
                     <h2>Post Import Data Manipulation: Demo...</h2>
+                    <ul><li>CLI: Render data
                     <ul>
-                        <li>CLI: Render data using <i>.yml</i> files describing the settings to apply.</li>
+                        <li>What to render: <i>renderingMapping.tsv</li>
+                        <pre style="font-size:40%; overflow: scroll"><code>
+CDK5RAP2-C_     renderingdef.yml
+CENT2_  renderingdef2.yml
+CEP120/20111106_        renderingdef.yml
+CEP120/20111209_        renderingdef2.yml
+...
+                        </code></pre>
+                        <li>How to render: <i>renderingdef.yml</li> & <i>renderingdef2.yml</li>
                         <pre style="font-size:40%; overflow: scroll"><code>
 # Specification of rendering settings
 
@@ -185,6 +194,8 @@ channels:
     max: 5000
                         </code></pre>
                     </ul>
+                </li>
+            </ul>
                 </section>
             </div>
 
