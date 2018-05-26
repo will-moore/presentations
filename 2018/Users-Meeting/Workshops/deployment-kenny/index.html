@@ -35,16 +35,14 @@
             <!-- Any section element inside of this container is displayed as a slide -->
             <div class="slides">
 
+
                 <!-- title page -->
-                <section>
-                    <h1>Deployment workshop - Part 1</h1>
-                    <p>
-                        OME Annual Users Meeting<br>
-                        Dundee, 31st May 2018 <br>
-                        Kenneth Gillen
-                    </p>
+                <section data-background="http://users.openmicroscopy.org.uk/~spli/ome2018-system-monitoring-images/everything-is-fine.jpg">
                 </section>
-                
+
+                <section data-background="images/c6n00-servers.jpg">
+                </section>
+
                 <section>
                     <h2>Outline</h2>
                     <ul>
@@ -54,21 +52,27 @@
                     </ul>
                 </section>
 
-                <section data-background="https://photos.app.goo.gl/aToQ5swfIE09ggKH2">
-                </section>
-
-                <section data-background="http://users.openmicroscopy.org.uk/~spli/ome2018-system-monitoring-images/everything-is-fine.jpg">
-                </section>
-
                 <section data-background="http://users.openmicroscopy.org.uk/~spli/ome2018-system-monitoring-images/everything-is-fine.jpg">
                 </section>
 
                 <section>
-                    <h2>A basic system</h2>
+                    <h2>Only got an OMERO server?</h2>
 
-                    <img src="https://downloads.openmicroscopy.org/presentations/2014/Technique-Tapas-OMERO-Figure/images/typical-workflow.png">
+                    <img src="images/parse-logs-email.png">
                 </section>
 
+<section>
+	<pre><code data-trim data-noescape>
+#!/bin/sh
+cat /opt/omero/server/OMERO.server/var/log/Blitz-0.log \
+| grep "$(date +%Y-%m-%d)" \
+| grep ERROR  \
+| grep -Ev 'memo|Unknown\ target|Forced to reload' \
+| cut -d ")" -f 2- | cut -d "@" -f1 \
+| sort | uniq -c | sort -rn \
+| mail -s 'OMERO server daily ERROR roundup' your-admin@your-institution.tld
+	</code></pre>
+</section>
                 
                 <section>
                     <h2>Check_MK - overview</h2>
@@ -91,11 +95,9 @@
                 </section>
 
 
-
                 <section>
                     <h2>Demo</h2>
                     <h3><a target="_blank" href="https://outreach.openmicroscopy.org">outreach.openmicroscopy.org</a></h3>
-                    <iframe style="width:900px; height:600px" src="https://outreach.openmicroscopy.org/"></iframe>
                 </section>
 
 
