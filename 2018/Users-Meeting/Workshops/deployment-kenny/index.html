@@ -39,8 +39,7 @@
                 <!-- title page -->
                 <section data-background="http://users.openmicroscopy.org.uk/~spli/ome2018-system-monitoring-images/everything-is-fine.jpg">
                 </section>
-
-                <section data-background="images/c6n00-servers.jpg">
+                <section data-background="images/sa-tech.png">
                 </section>
 
                 <section>
@@ -56,23 +55,29 @@
                 </section>
 
                 <section>
-                    <h2>Only got an OMERO server?</h2>
-
                     <img src="images/parse-logs-email.png">
+                    <p><a href="http://localhost">🜽  shell scripts (gitlab incubator)</a></p>
                 </section>
 
-<section>
-	<pre><code data-trim data-noescape>
-#!/bin/sh
-cat /opt/omero/server/OMERO.server/var/log/Blitz-0.log \
-| grep "$(date +%Y-%m-%d)" \
-| grep ERROR  \
-| grep -Ev 'memo|Unknown\ target|Forced to reload' \
-| cut -d ")" -f 2- | cut -d "@" -f1 \
-| sort | uniq -c | sort -rn \
-| mail -s 'OMERO server daily ERROR roundup' your-admin@your-institution.tld
-	</code></pre>
-</section>
+                <section>
+	            <pre><code data-trim data-noescape>
+bash-4.2$ omero group add --type read-only public-data
+Using session 302f74f9-dd22-41f3-8d53-e0eaa9287a35 (root@localhost:4064). 
+Idle timeout: 10 min. Current group: system
+Added group public-data (id=53) with permissions rwr---
+	           </code></pre>
+               </section>
+                
+                <section>
+                    <img src="images/terminal-group-list-user-list.png" >
+                    <p><a href="http://localhost">🜽 public user docs</a></p>
+                </section>
+       
+                <!-- omero sessions who  -->
+                <section>
+                    <img src="images/terminal-group-list-user-list.png" >
+                    <p><a href="http://localhost">🜽 public user docs</a></p>
+                </section>
                 
                 <section>
                     <h2>Check_MK - overview</h2>
@@ -82,7 +87,6 @@ cat /opt/omero/server/OMERO.server/var/log/Blitz-0.log \
                 
                 <section>
                     <h2>Check_MK - overview</h2>
-
                     <a href="https://gist.github.com/kennethgillen/bbaeb236d7945344407d6bb3bde56bc9"></a>
                 </section>
 
