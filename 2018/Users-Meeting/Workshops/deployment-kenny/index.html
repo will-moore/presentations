@@ -76,7 +76,7 @@
                     <div><a href="http://cacti.net/">Cacti</a></div>
                     <div><a href="http://www.capasystems.com/">Capasystems</a></div>
                     <div><a href="http://www.ca.com/">CA Technologies</a></div>
-                    <div><a href="https://mathias-kettner.com/check_mk.html">Check MK</a></div>
+                    <div><a href="https://mathias-kettner.com/check_mk.html">Check_MK</a></div>
                     <div><a href="http://www.cisco.com/c/en/us/solutions/cloud/cloud-consumption-service.html">Cisco Cloud Consumption Service</a></div>
                     <div><a href="https://collectd.org">Collectd</a></div>
                     <div><a href="http://www.coscale.com/">Coscale</a></div>
@@ -191,28 +191,16 @@
                 </section>
 
                 <section>
-                    <h2>Outline</h2>
-                    <ul>
-                        <li>Basic System</li>
-                        <li>Check_MK</li>
-                        <li>Prometheus -> Handover?</li>
-                    </ul>
-                </section>
-
-                <section>
                     <img src="images/parse-logs-email.png">
                     <p><a href="http://localhost">🜽  shell scripts (gitlab incubator)</a></p>
                 </section>
 
+                <!-- watch for sessions / restart -->
                 <section>
-	            <pre><code data-trim data-noescape>
-bash-4.2$ omero group add --type read-only public-data
-Using session 302f74f9-dd22-41f3-8d53-e0eaa9287a35 (root@localhost:4064). 
-Idle timeout: 10 min. Current group: system
-Added group public-data (id=53) with permissions rwr---
-	           </code></pre>
-               </section>
-                
+                    <img src="images/terminal-sessions-who-for-restart.png" >
+                    <p><a href="">🜽  shell scripts (gitlab incubator)</a></p>
+                </section>
+
                 <section>
                     <img src="images/terminal-group-list-user-list.png" >
                     <p><a href="http://localhost">🜽 public user docs</a></p>
@@ -220,29 +208,27 @@ Added group public-data (id=53) with permissions rwr---
        
                 <!-- omero sessions who  -->
                 <section>
-                    <img src="images/terminal-group-list-user-list.png" >
-                    <p><a href="http://localhost">🜽 public user docs</a></p>
+                    <img src="images/terminal-sessions-who.png" >
+                    <p><a href="https://docs.openmicroscopy.org/latest/omero/users/cli/sessions.html">🜽 OMERO cli docs</a></p>
                 </section>
+
+                <!-- full screen cmk -->
+                <section data-background="images/cmk_full_screen.png" data-background-size="contain">
+                </section>
+
+                <!-- full screen cmk -->
+                <section data-background="images/cmk_full_screen.png" data-background-size="contain">
+                    <img src="images/cmk-slack-notify.png"/>
+                </section>
+
                 
                 <section>
-                    <h2>Check_MK - overview</h2>
-
-                    <img src="https://downloads.openmicroscopy.org/presentations/2014/Technique-Tapas-OMERO-Figure/images/ome-informatics.png">
+                    <h2>Check_MK - ns-web-pub, 2018</h2>
+                    <img src="images/ns-web-pub_lsof_grep.png" width="50%" height="50%" style="padding:0px;margin:0px">
+                    <img src="images/ns-web-pub_lsof_FIFO.png" width="50%" height="50%" style="padding:0px;margin:0px">
+                    <img src="images/ns-web-pub_threads_gunicorn.png" width="50%" height="50%" style="padding:0px;margin:0px">
+                    <a style="display:block" href="https://github.com/openmicroscopy/openmicroscopy/pull/5699">Fix: openmicroscopy/pull/5699</a>
                 </section>
-                
-                <section>
-                    <h2>Check_MK - overview</h2>
-                    <a href="https://gist.github.com/kennethgillen/bbaeb236d7945344407d6bb3bde56bc9"></a>
-                </section>
-
-
-                <section>
-                    <h2>Some text</h2>
-                    <ul>
-                        <li><a target="_blank" href="">Link</a></li>
-                    </ul>
-                </section>
-
 
                 <section data-background="images/operations-team-crop.jpg" data-background-position="right" data-background-size="contain">
                   <div style="width:50%;">
@@ -279,30 +265,6 @@ Added group public-data (id=53) with permissions rwr---
                 </section>
 
 
-                <section>
-                    <h3><a target="_blank" href="https://idr.openmicroscopy.org/">idr.openmicroscopy.org</a></h3>
-                    <iframe style="width:900px; height:600px" src="https://idr.openmicroscopy.org/about/"></iframe>
-                </section>
-
-
-                <section>
-                    <h2>Thank you</h2>
-                    <div class="funding_logo_container">
-                        <img src="https://downloads.openmicroscopy.org/presentations/2017/Users-Meeting/Workshops/_images/logos/bbsrc.png" class="funding_logo" />
-                        <img src="https://downloads.openmicroscopy.org/presentations/2017/Users-Meeting/Workshops/_images/logos/corbel.png" class="funding_logo" />
-                        <img src="https://downloads.openmicroscopy.org/presentations/2017/Users-Meeting/Workshops/_images/logos/wellcome.png" class="funding_logo" />
-                        <img src="https://downloads.openmicroscopy.org/presentations/2017/Users-Meeting/Workshops/_images/logos/global_bioimaging.png" class="funding_logo" />
-                        <img src="https://downloads.openmicroscopy.org/presentations/2017/Users-Meeting/Workshops/_images/logos/horizon_2020.png" class="funding_logo" />
-                        <img src="https://downloads.openmicroscopy.org/presentations/2017/Users-Meeting/Workshops/_images/logos/multimot.png" class="funding_logo" />
-                        <img src="https://downloads.openmicroscopy.org/presentations/2017/Users-Meeting/Workshops/_images/logos/euro_bioimaging.png" class="funding_logo" />
-                    </div>
-                </section>
-
-                <section>
-                    <h3><a target="_blank" href="https://www.openmicroscopy.org/">openmicroscopy.org</a></h3>
-                    <h3>Google: '<code>OMERO Demo</code>'<br>
-                    to sign-up for demo account</h3>
-                </section>
             </div>
 
         </div>
