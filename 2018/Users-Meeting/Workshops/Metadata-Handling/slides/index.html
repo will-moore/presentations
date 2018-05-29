@@ -1,0 +1,216 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>OME Metadata Workshops</title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <link rel="stylesheet" href="css/ome.css">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+    </head>
+
+    <body class="ome_theme">
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <section>
+                    <h1>Metadata Handling</h1>
+                    <p>
+                        OME Users meeting<br>
+                        31th May 2018<br>
+                        Will Moore | Petr Walczysko | Jean-Marie Burel
+                    </p>
+                </section>
+
+
+                <section>
+                    <h2>Outline</h2>
+                    <ul>
+                        <li>OMERO metadata: Annotations and OMERO.tables</li>
+                        <li>Map Annotations vs OMERO.tables</li>
+                        <li>OMERO.mapr: querying data by Map Annotations</li>
+                        <li>OMERO.parade: filtering data by metadata</li>
+                        <li>OMERO.figure: use metadata to create figures</li>
+                    </ul>
+                </section>
+
+
+
+                <section>
+                    <h2>Metadata in OMERO</h2>
+
+                    <ul>
+                        <li>Image acquisition metadata</li>
+                        <li>Various Annotations
+                            <ul>
+                                <li>Tag
+                                <li>Comment
+                                <li>Long (rating)</li>
+                                <li>File</li>
+                                <li>Map</li>
+                            </ul>
+                        </li>
+                        <li>OMERO.table (HDF table)</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Map Annotation</h2>
+
+                    <ul>
+                        <li>List of Key: Value in each Annotation</li>
+                        <li>Shown in right panel of clients</li>
+                        <li>Can be edited in right panel if namespace
+                            <code>omero.constants.metadata.NSCLIENTMAPANNOTATION</code></li>
+                        <li>Suitable for unstructured / sparse data</li>
+                        <li>Each Annotation linked to 1 Image</li>
+                        <li>Can be queried with the QueryService</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>OMERO.tables</h2>
+
+                    <ul>
+                        <li>HDF table saved as File in OMERO</li>
+                        <li>Typically 1 row per Image / Well</li>
+                        <li>Designed to "Write once, read often"</li>
+                        <li>Table linked to parent Screen/Plate/Project as File Annotation</li>
+                        <li>Can't be queried with the QueryService</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2><a target="_blank" href="https://github.com/ome/omero-mapr">OMERO.mapr</a> for IDR</h2>
+
+                    <ul>
+                        <li>OMERO.web app to query Images/Wells via Map Annotations</li>
+                        <li>
+                            E.g. "Give me all Screens that contain Images with Key <code>Gene Symbol</code>
+                            and Value <code>CDC6</code>"
+                        </li>
+                        <li>Config specifies which Annotation Namespaces and Keys are supported</li>
+                    </ul>
+                    <pre style="width: 950px"><code># Example from IDR. Search for Genes.
+$ bin/omero config append omero.web.mapr.config '{"menu": "gene", "config": {
+    "default": ["Gene Symbol"],
+    "all": ["Gene Symbol", "Gene Identifier"],
+    "ns": ["openmicroscopy.org/mapr/gene"],
+    "label": "Gene"}}'
+
+# Namespace for User-added Map Annotations. "all" is empty for ANY key
+$ bin/omero config append omero.web.mapr.config '{"menu": "keyvalue", "config": {
+    "default": ["Any Value"],
+    "all": [],
+    "ns": ["openmicroscopy.org/omero/client/mapAnnotation"],
+    "label": "KeyValue"}}'</code></pre>
+
+                </section>
+
+
+                <section>
+                    <h2><a target="_blank" href="https://pypi.org/project/omero-parade/">
+                        OMERO.parade
+                    </a></h2>
+
+                    <ul>
+                        <li>OMERO.web app to filter Images and Wells by their metadata</li>
+                        <li>By default, supports ROI counts, Rating, Tags, Map Annotations, Table Data</li>
+                        <li>Can be extended to use <i>any</i> metadata from OMERO</li>
+                        <li>Demo: OMERO.parade 0.1.0</li>
+                    </ul>
+
+                    <pre style="width: 900px"><code>$ pip install -U omero-parade
+
+# Add parade custom app to your installed web apps:
+$ bin/omero config append omero.web.apps '"omero_parade"'
+
+# Display parade in the centre of the webclient:
+$ bin/omero config append omero.web.ui.center_plugins \
+    '["Parade", "omero_parade/init.js.html", "omero_parade"]'</code></pre>
+
+                </section>
+
+
+                <section>
+                    <h2>
+                        <a target="_blank" href="http://www.openmicroscopy.org/omero/figure/">
+                        OMERO.figure</a> usage of Metadata
+                    </h2>
+
+                    <ul>
+                        <li>Scalebars from pixel sizes</li>
+                        <li>Labels from:
+                            <ul>
+                                <li>Timestamps</li>
+                                <li>Channel names</li>
+                                <li>Dataset name</li>
+                                <li>Tags</li>
+                            </ul>
+                        </li>
+                        <li>ROIs - Polygons and Polylines supported in 4.0.0 (May 2018)</li>
+                    </ul>
+                </section>
+
+            </div>
+
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>

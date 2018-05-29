@@ -1,0 +1,312 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Tools for OMERO Users</title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <link rel="stylesheet" href="css/ome.css">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+    </head>
+
+    <body class="ome_theme">
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section>
+                    <h1>Tools for <br>OMERO Users</h1>
+                    <p>
+                        OME Users meeting<br>
+                        30th May 2018<br>
+                        Will Moore
+                    </p>
+                </section>
+                
+                <section>
+                    <h2>Outline</h2>
+                    <p>"Tools": OMERO web apps and CLI clients</p>
+                    <ul>
+                        <li>New app features and new apps over the last year</li>
+                        <li>Advantages of decoupled clients</li>
+                        <li>Testing of decoupled clients</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2><a target="_blank" href="https://www.openmicroscopy.org/omero/figure/">
+                        OMERO.figure
+                    </a></h2>
+
+                    <p>New features in the last year:</p>
+                    <ul>
+                        <li>Crop page to panels</li>
+                        <li>Labels from tags</li>
+                        <li>Add Polygons and Polylines from OMERO</li>
+                        <li>Big (tiled) Image support</li>
+                        <li>Last release: OMERO.figure 4.0.0, May 22nd</li>
+                    </ul>
+                    <img style="width:600px" src="http://downloads.openmicroscopy.org/presentations/2014/Figure-Tues-Team-Meeting/images/demo-screen-shot.png"/>
+                </section>
+
+
+                <section>
+                    <h2><a target="_blank" href="https://www.openmicroscopy.org/omero/iviewer/">
+                        OMERO.iviewer
+                    </a></h2>
+
+                    <p>New features in the last year:</p>
+                    <ul>
+                        <li>Performance improvements</li>
+                        <li>UI improvements</li>
+                        <li>Export ROI pixel intensity to CSV</li>
+                        <li>Multiple viewers</li>
+                        <li>Last release: OMERO.iviewer 0.5.0, May 22nd</li>
+                    </ul>
+                    <img style="width:800px" src="images/iviewer_viewers.png">
+                </section>
+
+
+                <section>
+                    <h2><a target="_blank" href="https://github.com/ome/omero-fpbioimage">
+                        OMERO.FPBioImage
+                    </a></h2>
+                    <p>3D viewer based on <a target="_blank" href="http://fpb.ceb.cam.ac.uk/">FPBioImage</a></p>
+                    <ul>
+                        <li>August 3rd: OMERO.FPBioImage 0.2.0
+                            <ul><li>First public release</li></ul>
+                        </li>
+                    </ul>
+                    <img style="width:600px" src="images/FPBioImage.png"/>
+                </section>
+
+
+                <section>
+                    <h2><a target="_blank" href="https://github.com/ome/omero-mapr">
+                        OMERO.mapr
+                    </a></h2>
+
+                    <p>Tool for querying data by Map Annotations</p>
+                    <ul>
+                        <li>New feature in last year: Testing infrastructure</li>
+                        <li>Last release: OMERO.mapr 0.2.3, May 2nd</li>
+                    </ul>
+                    <img src="images/mapr-gene.png"/>
+                </section>
+
+
+                <section>
+                    <h2><a target="_blank" href="https://github.com/ome/omero-cli-render">
+                        OMERO.cli-render
+                    </a></h2>
+                    <p>OMERO.cli plugin for bulk saving of rendering settings.</p>
+
+                    <ul>
+                        <li>Last release: cli-render 0.3.0, May 8th</li>
+                    </ul>
+
+                    <pre><code>$ bin/omero render set Dataset:1 settings.yml</code></pre>
+    
+                    <pre><code># settings.yml
+    channels:
+      1:
+        color: "FF0000"
+        label: "Red"
+        min: 1
+        max: 255
+        active: True
+      2:
+        color: "00FF00"</code></pre>
+
+                </section>
+
+
+                <section>
+                    <h2>
+                        Introducing <a target="_blank" href="https://pypi.org/project/omero-parade/">
+                        OMERO.parade
+                    </a></h2>
+                    <p>Tool for filtering Images and Wells in webclient<br>
+                        using any metadata</p>
+                    <ul>
+                        <li>Prototype presented to OME team: Feb 2018</li>
+                        <li>Improved by Glencoe software</li>
+                        <li>0.1.0 Released: May 22nd, 2018</li>
+                    </ul>
+                    <img style="width: 600px" src="images/Parade_plate.png" />
+                </section>
+
+
+                <section>
+                    <h2>Other apps, not in active development</h2>
+
+                    <ul>
+                        <li><a target="_blank" href="https://github.com/ome/omero-gallery">
+                                OMERO.gallery
+                            </a>:
+                            Browse Project, Dataset Image in mobile-friendly web pages
+                        </li>
+                        <li><a target="_blank" href="https://gitlab.com/openmicroscopy/incubator/omero-player">
+                                OMERO.player
+                            </a>:
+                            Web viewer that caches all planes for fast playing through Z/T
+                        </li>
+                    </ul>
+                </section>
+
+                
+                <section>
+                    <h2>Advantages of decoupled clients <br>
+                        For Developers:
+                    </h2>
+
+                    <ul>
+                        <li>Prototypes can be developed independently, without breaking anything</li>
+                        <li>More flexible release cycles</li>
+                        <li>App release takes OME team ~1 hour (~1 Day for OMERO)</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Advantages of decoupled clients <br>
+                        For Sysadmins:
+                    </h2>
+
+                    <ul>
+                        <li>Simpler for Users to upgrade: no server downtime</li>
+                        <li>Easy to install. ALL apps are:<pre><code>$ pip install...</code></pre></li>
+                        <li>Only install the apps you want</li>
+                        <li>Can install new Apps with an older OMERO.server</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Advantages for Users</h2>
+                    <p>Integration of apps into webclient</p>
+                    <img src="https://downloads.openmicroscopy.org/presentations/2017/Users-Meeting/Workshops/Omero-Web/images/openwith.png" width="900px"/>
+                    <small>See
+                            <a href="https://www.openmicroscopy.org/site/support/omero5.3/developers/Web/LinkingFromWebclient.html">Linking from webclient</a> and
+                            <a href="https://www.openmicroscopy.org/site/support/omero5/developers/Web/WebclientPlugin.html">
+                                webclient plugin docs</a>
+                    </small>
+                </section>
+
+
+                <section data-background-image="images/openwith_viewers.png"
+                         data-background-size="contain">
+                </section>
+
+
+                <section>
+                    <h2>Disadvantages of decoupled clients</h2>
+
+                    <ul>
+                        <li>Discoverability</li>
+                        <li>More steps to install "everything"</li>
+                        <li>Solutions:
+                            <ul>
+                                <li>Improve visibility on website and docs</li>
+                                <li>TODO: Build an app store?!</li>
+                            </ul>
+                        </li>
+                        <li>"Decoupled" can mean "less well integrated"</li>
+                        <li>For Devs: More repos and testing infrastructure to maintain</li>
+                        <li>Solutions: Ansible, Jenkins, Docker etc.</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Testing of decoupled clients</h2>
+
+                    <ul>
+                        <li>
+                            Use <a target="_blank" href="https://github.com/openmicroscopy/omero-test-infra">
+                                omero-test-infra
+                            </a>
+                        </li>
+                        <li>Docker-composed OMERO server for testing</li>
+                        <li>Testing scripts run by Travis CI on every GitHub PR</li>
+                        <li>For example: OMERO.figure
+                            <a target="_blank" href="https://github.com/ome/omero-figure/blob/master/.travis.yml">
+                                .travis.yml
+                            </a>
+                        </li>
+                    </ul>
+                    <pre><code>services:
+  - docker
+
+before_install:
+  - git clone git://github.com/openmicroscopy/omero-test-infra .omero
+
+script:
+  - .omero/docker app
+</code></pre>
+                </section>
+
+
+                <section>
+                    <h1>Thank you</h1>
+                </section>
+            </div>
+
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
