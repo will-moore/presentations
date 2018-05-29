@@ -1,0 +1,359 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title></title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <style>
+            .reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+              text-transform: none;
+            }
+            .reveal h2 {
+                font-size: 60px;
+            }
+            .reveal h4 {
+                float: left;
+                text-indent: 3%;
+            }
+            .ome_theme {
+                background-image: url("images/ome-icon-opacity.png");
+                background-color: #f2f6f9;
+                background-repeat: no-repeat;
+                background-position: right -270px top -120px;
+            }
+            .reveal {
+                text-transform: none;   !important
+            }
+
+            .reveal section img #border {
+                border-width:0;
+                border-color: white;
+            }
+        
+            .reveal section img {
+                background:none;
+                border:none;
+                box-shadow:none;
+            }
+
+            .img_panel {
+                width: 150px;
+            }
+
+            .nobullet li {
+                list-style: none;
+            }
+
+            table.centre {
+                width: 100%;
+            }
+
+            .reveal .centre td {
+                text-align: center;
+            }
+
+            .rot90 {
+                -webkit-transform: rotate(90deg);
+                transform: rotate(90deg);
+            }
+
+            .reveal .title {
+                position:absolute;
+                bottom:100%;
+                margin:5px;
+                color:red;
+            }
+        
+            .reveal #left_col {
+                float:left;
+                width:65%;
+            }
+            .reveal #right_col {
+                float:right;
+                width:35%;
+            }
+            .reveal #left_col_70 {
+                float:left;
+                width:70%;
+            }
+            .reveal #right_col_30 {
+                float:right;
+                width:30%;
+            }
+        .reveal #left_col_30 {
+            float:left;
+            width:30%;
+        }
+        .reveal #middle_col_30 {
+     
+            width:30%;
+        }
+
+            .funding_logo {
+                width:250px;
+            }
+        </style>
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body class="ome_theme">
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section>
+                    <h1>Binary-Vessels</h1>
+                </section>
+                
+                <section>
+                    <h2>What type of data?</h2>
+                    <ul>
+                        <li>New light sheet microscopy techniques</li>
+                        <li>Large volumetric datasets (terabyte-sized)</li>
+                        <li>Increased numbers of dimensions and scale</li>
+                        <li>Multi view datasets</li>
+                        <li>Performance limitations with TIFF based formats</li>
+                        <li>Need for fast random data access across dimensions</li>
+                        <li>New formats developed by the community</li>
+                        <li>Images stored as chunked multidimensional arrays</li>
+                    </ul>
+                    <img width="70%" height="30%" src="images/3dvolumemultiresclear.png"/>
+                </section>
+                
+                <section>
+                    <img width="100%" height="100%" src="images/logos/bio-formats-logo-800.png"/>
+                    <h1>Current Scenario?</h1>
+
+                </section>
+                
+                <section>
+                    <h2>OME-TIFF</h2>
+                    <ul>
+                        <li>A number of existing formats such as Imaris and CellH5</li>
+                        <li>These are often HDF5 based</li>
+                        <li>Images are converted to OME-TIFF format</li>
+                        <li>Not as performant as desired when scale increases</li>
+                    </ul>
+                    <img width="100%" height="100%" src="images/multiview-clean.png"/>
+                </section>
+
+                <section>
+                  <h2>OME-Model</h2>
+                  <div id="left_col_70">
+                      <ul>
+                          <li>Metadata stored in 5D plane-based model</li>
+                          <li>A new image and a new Pixels element for each image volume</li>
+                          <li>Additional metadata stored as Annotations</li>
+                      </ul>
+                  </div>
+                  <div id="right_col_30">
+                      <img width="100%" height="100%" src="images/currentModel.png"/>
+                  </div>
+                </section>
+                
+                <section>
+                    <h2>Bio-Formats API</h2>
+                    <ul>
+                        <li>Original API allowed for reading and writing of planes</li>
+                    </ul>
+                    <img width="100%" height="100%" src="images/apiplane.png"/>
+                    <ul>
+                        <li>Last year we had API additions to support tiling</li>
+                    </ul>
+                    <img width="100%" height="100%" src="images/apitiled.png"/>
+                </section>
+
+                <section>
+                    <h2>What is the solution?</h2>
+                    <ul>
+                        <li>New binary container format to sit alongside OME-TIFF</li>
+                        <li>New OME model which supports nD chunk-based data</li>
+                        <li>Full backwards compatibility</li>
+                        <li>New API for reading and writing of chunked data</li>
+                        <li>A way to represent multiple volumes as a single image</li>
+                        <li>The ability to read and write multi dimensional images</li>
+                        <li>Flexibility to add user defined dimensions and attributes</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>What have we done so far?</h2>
+                    <ul>
+                        <li>Engaged with the community</li>
+                        <li>In progress scoping of new OME model</li>
+                        <li>Prototyping of new model</li>
+                        <li>Developing new readers for existing formats</li>
+                        <li>BDV Reader - <a href="https://github.com/openmicroscopy/bioformats/pull/3151">https://github.com/openmicroscopy/bioformats/pull/3151</a></li>
+                        <li>KLB Reader - <a href="https://github.com/openmicroscopy/bioformats/pull/3150">https://github.com/openmicroscopy/bioformats/pull/3150</a></li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <h1>Model Scoping</h1>
+                </section>
+                
+                <section>
+                    <h2>Existing OME model</h2>
+                    <ul>
+                        <li>Consists of a single Pixels element for every Image</li>
+                    </ul>
+                    <img width="100%" height="100%" src="images/modeloverview.png"/>
+                </section>
+                
+                <section>
+                    <h2>Existing Pixels element</h2>
+                    <div id="left_col_70">
+                        <ul>
+                            <li>5 dimensions - X, Y, Z, T and C</li>
+                            <li>Multiple Channel elements per Pixels </li>
+                            <li>TiffData stores IFD</li>
+                            <li>Pixels element for each image volume</li>
+                        </ul>
+                    </div>
+                    <div id="right_col_30">
+                        <img width="100%" height="100%" src="images/pixels.png"/>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2>Proposed OME model</h2>
+                    <ul>
+                        <li>Experimental - still in early scoping phases</li>
+                        <li>Conversion of the existing 5D plane-based model to an nD chunk-based model</li>
+                        <li>The ability and flexibility to add user defined dimensions and attributes</li>
+                        
+                    </ul>
+                    <img width="100%" height="100%" src="images/newmodel.png"/>
+                </section>
+                
+                <section>
+                    <h2>Example OME-XML</h2>
+                    <img width="100%" height="100%" src="images/xmlsample.png"/>
+                </section>
+                
+                <section>
+                    <h1>New Formats</h1>
+                </section>
+                
+                <section>
+                    <h2>Big Data Viewer (BDV)</h2>
+                    <ul>
+                        <li>The BigDataViewer from MPI Dresden</li>
+                        <li>A re-slicing browser in Fiji's SPIMage processing pipeline</li>
+                        <li>Also has a custom data format based on XML and HDF5</li>
+                        <li>Images are tiled multi-resolution pyramids</li>
+                        <li>Each channel or angle or combination of both is a setup</li>
+                        <li>Each combination of setup and timepoint as a view.</li>
+                        <li>Each view has one corresponding image volume.</li>
+                        <li><a href="https://imagej.net/BigDataViewer">https://imagej.net/BigDataViewer</a></li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <h2>Keller Lab Block file type (KLB)</h2>
+                    <ul>
+                        <li>The Keller Lab Block file type developed at the Keller Lab (Janelia Research Campus) </li>
+                        <li>JPEG2000-like lossless compression levels</li>
+                        <li>Combined with the block flexibility offered by HDF5</li>
+                        <li>Image partitioned into blocks</li>
+                        <li>Blocks are compressed using Bzip2</li>
+                        <li><a href="https://bitbucket.org/fernandoamat/keller-lab-block-filetype/overview">https://bitbucket.org/fernandoamat/keller-lab-block-filetype/overview</a></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Demo</h2>
+                </section>
+                
+                <section>
+                    <h2>Our plans for the future</h2>
+                    <ul>
+                        <li>Integrate the new formats into the existing OME-Model</li>
+                        <li>Continue scoping new OME container</li>
+                        <li>Prototyping and testing new iterations of the data model</li>
+                        <li>New API additions to support extended dimensions</li>
+                        <li>Design new API additions for chunk based access</li>
+                        <li>Develop new container format</li>
+                        <li>Implement reader and writer for new OME format</li>
+                    </ul>
+                </section>
+                
+                <section>
+                    <h2>Feedback</h2>
+                </section>
+
+                <section>
+                  <h2>Thank you</h2>
+                  <div>
+                    <img src="images/logos/bbsrc.png" class="funding_logo"/>
+                    <img src="images/logos/corbel.png" class="funding_logo"/>
+                    <img src="images/logos/wellcome.png" class="funding_logo"/>
+                    <img src="images/logos/global_bioimaging.png" class="funding_logo"/>
+                    <img src="images/logos/horizon_2020.png" class="funding_logo"/>
+                    <img src="images/logos/multimot.png" class="funding_logo"/>
+                    <img src="images/logos/euro_bioimaging.png" class="funding_logo"/>
+                  </div>
+                </section>
+            </div>
+
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
