@@ -211,24 +211,48 @@
                     <img src="images/terminal-group-list-user-list.png" >
                     <p><a href="http://localhost">🜽 public user docs</a></p>
                 </section>
+                
+                <!-- OMERO.web UI full screen slide -->
+
+                <!-- OMERO.web UI with cmk overlaid slide -->
        
+                <section style="width:90vw;left:-45vw;">
+                <h3>Example http endpoints for OMERO.web</h3>
+                <pre><code style="width:90vw;left:-45vw">
+  2 HTTP webgateway/img_detail
+  3   https://pub-omero.openmicroscopy.org/webgateway/img_detail/1/
+  4
+  5 HTTP webgateway/render_image
+  6   https://pub-omero.openmicroscopy.org/webgateway/render_image/1/47/0/?c=1|21:1952$0000FF,2|32:1831$00FF00,3|90:4302$FF0000&m=c&p=normal&ia=0&q=0.9
+  7
+  8 HTTP webgateway/render_image_region
+  9   https://pub-omero.openmicroscopy.org/webgateway/render_image_region/2/0/0/?tile=2,3,1,45,15
+ 10
+ 11 HTTP webgateway/render_thumbnail
+ 12   https://pub-omero.openmicroscopy.org/webgateway/render_thumbnail/2/
+                </code></pre>
+                </section>
 
                 <!-- full screen cmk: all hosts  -->
-                <section data-background="images/cmk-all-hosts.png" data-background-size="contain">
+                <section  data-background="images/cmk-all-hosts.png" data-background-size="contain">
+                    <h2 style="margin-left:40vh;background:white; padding:0; width:11em">All the hosts we care about...</h2>
+<p style="height:60vh"></p>
                 </section>
 
                 <!-- background of cmk -->
                 <section data-background="images/cmk_full_screen.png" data-background-size="contain">
+                    <h2 style="margin-left:0vh;background:white; padding:0; width:16em">Issuess across entire estate, at a glance.</h2>
+<p style="height:40vh"></p>
                 </section>
 
                 <!-- background of cmk -->
-                <section data-background="images/cmk_full_screen.png" data-background-size="contain">
-                    <img src="images/cmk-dumpall-alert-email.png"/>
+                <section  style="width:80vw;left:-45vw;" data-background="images/cmk_full_screen.png" data-background-size="contain">
+                    <img width="75%" height="75%" src="images/cmk-dumpall-alert-email.png"/>
                 </section>
 
                 <!-- background of cmk -->
-                <section data-background="images/cmk_full_screen.png" data-background-size="contain">
-                    <img src="images/cmk-slack-notify.png"/>
+                <section  style="width:80vw;left:-45vw; "data-background="images/cmk_full_screen.png" data-background-size="contain">
+                    <img width="75%" height="75%" src="images/cmk-slack-notify.png"/>
                 </section>
 
                 <section>
@@ -236,8 +260,14 @@
                     <p><a href="">🜽  shell scripts (gitlab incubator)</a></p>
                 </section>
                 
+                 <!-- Unintented benefit Bugs found with monitoring -->
                 <section>
-                    <h2>Check_MK - ns-web-pub, 2018</h2>
+                    <h3>Check_MK CPU iViewer performance, 2018</h3>
+                    <a style="display:block" href="https://github.com/openmicroscopy/openmicroscopy/pull/5699">Fix: openmicroscopy/pull/5699</a>
+                </section>
+
+                <section style="width:88vw;left:-45vw;">
+                    <h3>Check_MK - ns-web-pub, 2018</h3>
                     <img src="images/ns-web-pub_lsof_grep.png" width="50%" height="50%" style="padding:0px;margin:0px">
                     <img src="images/ns-web-pub_lsof_FIFO.png" width="50%" height="50%" style="padding:0px;margin:0px">
                     <img src="images/ns-web-pub_threads_gunicorn.png" width="50%" height="50%" style="padding:0px;margin:0px">
