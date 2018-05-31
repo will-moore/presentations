@@ -42,6 +42,10 @@
                   <p>OME Users meeting 2018</p>
                 </section>
 
+
+
+        
+
                 <section>
                     <h2>What, Why, How?</h2>
                     <ul>
@@ -190,16 +194,57 @@
                 <section data-background="images/sa-tech.png">
                 </section>
 
+                <!-- toc page -->
+                <section>
+                  <h3>What we'll look at:</h3>
+                  <p>Logfiles</p>
+                  <p>BASH & Cron</p>
+                  <!-- need to explain a bit more context -->
+                  <p>bin/omero sessions</p>
+                  <p>Check_MK</p>
+                  <p>Monitoring OMERO.web - Public User</p>
+                </section>
+
+
+                <!--  pre sort, pre uniq - screenshot -->
+
+                <section style="width:90vw;left:-45vw;">
+                    <h3>OMERO log files</h3>
+                    <img src="images/terminal-log-locations.png">
+                    <p><a href="https://docs.openmicroscopy.org/latest/omero/developers/logging.html">docs.openmicroscopy.org/latest/omero/developers/logging.html</a></p>
+                </section>
+                <section style="width:90vw;left:-45vw;">
+                    <h3>Counts give a rough idea</h3>
+                    <img src="images/terminal-log-grep.png">
+                    <p><a href="https://explainshell.com/explain?cmd=grep+-oE+%22ERROR%7CWARN%22+*log*+%7C+sort+%7C+uniq+-c">https://explainshell.com/explain?cmd=(^)</a></p>
+                    </section>
+
+                <!--  parsing logs -->
+                <section style="width:90vw;left:-45vw;">
+                    <h3>Cut and Sort can extract context</h3>
+                    <img src="images/terminal-log-grep-cut-sort.png">
+                    <p><a href="https://explainshell.com/explain?cmd=grep+ERROR+Blitz-0.log.2+%7C+cut+-d+%22%29%22+-f+2-+%7C+cut+-d+%22%40%22+-f1++%7C+sort+%7C+uniq+-c+%7C+sort+-rn">https://explainshell.com/explain?cmd=(^)</p>
+                    </section>
+
+                 <!--  cut and sort -->
+                <section style="width:90vw;left:-45vw;">
+                    <h3>grep "today", send an email</h3>
+                    <img src="images/parse-logs-email.png">
+                    <p><a href="https://gitlab.com/openmicroscopy/incubator/monitoring-scripts/blob/master/parse-log-email.sh">https://gitlab.com/openmicroscopy/incubator/..</a></p>
+                    </section>
+
+                <!-- master.err -->
                 <section style="width:90vw;left:-45vw;">
                     <h3>With just grep and cron, you can still monitor.</h3>
                     <img src="images/parse-logs-email.png">
                     <p><a href="http://localhost">🜽  shell scripts (gitlab incubator)</a></p>
                 </section>
+
                <!-- omero sessions who  -->
-                <section style="width:90vw;left:-45vw;">
+                <section style="width:95vw;left:-47vw;">
                     <h3>Who's logged in? sessions who will tell you</h3>
-                    <img src="images/terminal-sessions-who.png" >
-                    <p><a href="https://docs.openmicroscopy.org/latest/omero/users/cli/sessions.html">🜽 OMERO cli docs</a></p>
+                    <img width="110%" src="images/terminal-sessions-who.png" >
+                    <p><a href="https://docs.openmicroscopy.org/latest/omero/users/cli/sessions.html">docs.openmicroscopy.org/latest/omero/users/cli/sessions.html</a></p>
                 </section>
 
                 <!-- watch for sessions / restart -->
@@ -209,7 +254,11 @@
                     <p><a href="">🜽  shell scripts (gitlab incubator)</a></p>
                 </section>
 
-                <section><h3>bin/omero admin restart</h3></section>
+                <!-- check_mk - logo, when, why etc - context.-->
+                <section><h3>Check_MK - monitoring all the time</h3></section>
+
+                <!-- move to continuous monitoring -->
+                <section><h3>Check_MK - monitoring all the time</h3></section>
 
                           <!-- full screen cmk: all hosts  -->
                 <section  data-background="images/cmk-all-hosts.png" data-background-size="contain">
@@ -236,7 +285,12 @@
                 <!-- background of cmk -->
                 <section  style="width:80vw;left:-45vw; "data-background="images/cmk_full_screen.png" data-background-size="contain">
                     <img width="75%" height="75%" src="images/cmk-slack-notify.png"/>
+
+                <!-- TODO link to slack plugin-->
                 </section>
+
+                <!-- TODO how do you know OMERO is working public OMERO.web - add to TOC/ section-->
+
       <section style="width:90vw;left:-45vw;">
                     <h3>Public user with sample data enables monitoring of Web</h3>
                     <img src="images/terminal-group-list-user-list.png" >
@@ -246,6 +300,7 @@
        
                 <section style="width:90vw;left:-45vw;">
                 <h3>Example http endpoints for OMERO.web</h3>
+                <h3>TODO show the jpgs </h3>
                 <pre><code style="width:90vw;left:-45vw">
   2 HTTP webgateway/img_detail
   3   https://pub-omero.openmicroscopy.org/webgateway/img_detail/1/
@@ -266,16 +321,21 @@
                 <!-- OMERO.web UI with cmk overlaid slide -->
 <section style="width:98vw;left:-49vw;">
                     <h3>Monitor all public OMERO.web endpoints</h3>
+                    <!-- see Riad's workshop next.. -->
                     <img src="images/cmk-cropped_most-webgateway.png" width="100%" height="100%" style="padding:0px;margin:0px">
                     <a style="display:block" href="https://github.com/openmicroscopy/openmicroscopy/pull/5699">Fix: openmicroscopy/pull/5699</a>
                 </section>
 
                 <!-- OMERO.web UI with cmk overlaid slide -->
+
 <section style="width:88vw;left:-45vw;">
                     <h3>.. and any other production web resources</h3>
                     <img src="images/cmk-cropped_prod-web-endtpoints.png" width="100%" height="100%" style="padding:0px;margin:0px">
                     <a style="display:block" href="https://github.com/openmicroscopy/openmicroscopy/pull/5699">Fix: openmicroscopy/pull/5699</a>
                 </section>
+
+                <!-- talking about microservice deployment-->
+                <!-- more screenshots? -->
 
                 <section>
                     <p>Local Checks - monitor output of any script</p>
@@ -304,6 +364,13 @@
                     <img src="images/ns-web-pub_lsof_FIFO.png" width="50%" height="50%" style="padding:0px;margin:0px">
                     <img src="images/ns-web-pub_threads_gunicorn.png" width="50%" height="50%" style="padding:0px;margin:0px">
                     <a style="display:block" href="https://github.com/openmicroscopy/openmicroscopy/pull/5699">Fix: openmicroscopy/pull/5699</a>
+                </section>
+
+                 <!-- Mention installation / scaling -->
+                <section style="width:58vw;left:-25vw;">
+                    <h3>Manual clicks * no. of servers</h3>
+                    <img src="images/xkcd_is_it_worth_the_time.png" width="100%" height="100%" style="padding:0px;margin:0px">
+                    <a style="display:block" href="https://xkcd.com/1205/">https://xkcd.com/1205/</a>
                 </section>
 
                 <section data-background="images/operations-team-crop.jpg" data-background-position="right" data-background-size="contain">
