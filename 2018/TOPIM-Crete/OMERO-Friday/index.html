@@ -1,0 +1,268 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>OME Metadata Workshops</title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <link rel="stylesheet" href="css/ome.css">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <style>
+            img:hover {
+                z-index: 10
+            }
+
+            .ome_theme {
+                background: #f2f6f9;
+            }
+        </style>
+
+    </head>
+
+    <body class="ome_theme">
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section>
+                    <h1>OMERO workshop</h1>
+                    <p>
+                        TOPIM TECH <br>
+                        Chania, July 2018 <br>
+                        Will Moore, Petr Walczysko
+                    </p>
+                </section>
+
+
+                <section>
+                    <h2>Today's workshop</h2>
+                    <img src="images/omero-workshop.png" width="900px"/>
+                </section>
+
+                
+                <section>
+                    <h2>Outline</h2>
+                    <div style="display: grid; grid-template-columns: auto auto; width: 1200px">
+                        <img src="images/omero-workshop.png" width="700px"/>
+                        <ul>
+                            <li>11:20 - 12:55  (1 hour 35 mins)
+                                <ul>
+                                    <li>Introduction to OMERO</li>
+                                    <li>CellProfiler analysis</li>
+                                </ul>
+                            </li>
+                            <li>13:25 - 14:10 (45 mins)
+                                <ul>
+                                    <li>Image analysis in Orbit</li>
+                                    <li>Coding in Orbit</li>
+                                </ul>
+                            </li>
+                            <li>Lunch</li>
+                            <li>18:00 - 18:45 (45 mins)
+                                <ul>
+                                    <li>Fiji analysis</li>
+                                    <li>Python script</li>
+                                    <li>R analysis</li>
+                                </ul>
+                            </li>
+                            <li>19:10 - 20:15 (1 hour 5 mins)
+                                <ul>
+                                    <li>OMERO.parade</li>
+                                    <li>OMERO.figure</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+
+                <section>
+                    <h2>Client-side vs Server-side analysis</h2>
+                    <img src="images/omero-workshop-client-server.png"/>
+                </section>
+
+
+                <section>
+                    <h2>Analysis data in OMERO</h2>
+                    <ul>
+                        <li>OMERO.tables
+                            <ul>
+                                <li>HDF tables</li>
+                                <li>1 row per Image / Well - flexible columns</li>
+                                <li>Saved as a File-Annotation</li>
+                            </ul>
+                        </li>
+                        <li>
+                            Regions of Interest (ROIs)
+                            <ul><li>Contain 1 or more Shape e.g. Polygon</li></ul>
+                        </li>
+                        <li>
+                            Map Annotations
+                            <ul><li>List of Key: Value pairs</li>
+                                <li>Each map annotation linked to 1 object</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>
+                        Session 1: OMERO intro & CellProfiler
+                        <img style="vertical-align:text-bottom; height: 50px" src="images/logos/cellprofiler.png" />
+                    </h2>
+                    <ul>
+                        <li>OMERO.webclient
+                            <ul>
+                                <li>Browse data</li>
+                                <li>View images</li>
+                                <li>Add annotations</li>
+                            </ul>
+                        </li>
+                        <li>
+                            CellProfiler
+                            <ul>
+                                <li>Running headless in Jupyter notebook</li>
+                                <li>Analyse
+                                    <a href="http://idr.openmicroscopy.org/webclient/?show=screen-102">
+                                        Data in IDR
+                                    </a> from RNAi screen:
+                                    <a href="http://dx.doi.org/10.1091/mbc.E13-04-0221">
+                                        Heriche et al, 2014</a>
+                                </li>
+                                <li>Use CellProfiler Example pipeline:
+                                    <a href="http://cellprofiler.org/examples/#PercentPositive">
+                                        Percent Positive
+                                    </a>
+                                </li>
+                                <li>Save CellProfiler results as OMERO.table</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>
+                        Session 2: Orbit
+                        <img style="vertical-align:text-bottom; height: 50px" src="images/logos/orbit.png" />
+                    </h2>
+                    <ul>
+                        <li>Orbit as an OMERO client, using Java API</li>
+                        <li>Create a segmentation model in Orbit
+                            <ul><li>Saved as a File Annotation to OMERO</li></ul>
+                        </li>
+                        <li>Segment an Image, save Polygons as OMERO ROIs</li>
+                        <li>Use Orbit script editor to access OMERO Java API</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>
+                        Session 3: Fiji, python scripts & R
+                        <img style="vertical-align:text-bottom; height: 50px" src="images/logos/fiji.jpeg" />
+                        <img style="vertical-align:text-bottom; height: 50px" src="images/logos/python.png" />
+                        <img style="vertical-align:text-bottom; height: 50px" src="images/logos/R.svg" />
+                    </h2>
+                    <ul>
+                        <li>Fiji as an OMERO client, using Java API</li>
+                        <li>Segment images, save Polygons as OMERO ROIs</li>
+                        <li>Python script on OMERO server summarises ROIs to OMERO.table</li>
+                        <li>Analyse OMERO.table data in R, plot results</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>
+                        Session 4: OMERO.web: parade & figure
+                    </h2>
+                    <ul>
+                        <li>OMERO.parade: app for filtering and plotting data
+                            <ul><li>Uses OMERO.table data from Fiji/Python scripts previously</li></ul>
+                        </li>
+                        <li>OMERO.figure: tool for creating figures
+                            <ul>
+                                <li>Uses metadata for speed & accuracy</li>
+                                <li>ROIs, Channel names, Pixel sizes, Tags etc.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h1>Getting started: Importing</h1>
+                </section>
+
+
+                <!-- Series of Insight screenshots -->
+                <section data-background="images/insightBg.png">
+                </section>
+
+                <section data-background="images/insightBg.png">
+                        <img src="images/insightImport.png"/>
+                </section>
+
+                <section data-background="images/insightBg.png">
+                </section>
+            </div>
+
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
