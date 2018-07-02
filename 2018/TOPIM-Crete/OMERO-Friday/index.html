@@ -236,6 +236,36 @@
 
                 <section data-background="images/insightBg.png">
                 </section>
+
+
+                <section>
+                    <h2>Command-line import</h2>
+
+                    <pre><code style="font-size: 150%; overflow: hidden;">
+$ bin/omero import image.lsm
+
+</code></pre>
+
+                    <a href="https://docs.openmicroscopy.org/latest/omero/users/cli/import.html">
+                        CLI import docs
+                    </a>
+                </section>
+
+
+                <section>
+                    <h2>In-place import</h2>
+
+                    <p>Files remain in-place during import</p>
+                    <pre><code style="font-size: 150%; overflow: hidden;">
+# e.g. Transfer file using 'soft' link
+$ bin/omero import -- --transfer=ln_s image.lsm
+
+</code></pre>
+
+                    <a href="https://docs.openmicroscopy.org/latest/omero/sysadmins/in-place-import.html">
+                        In-place import docs
+                    </a>
+                </section>
             </div>
 
         </div>
