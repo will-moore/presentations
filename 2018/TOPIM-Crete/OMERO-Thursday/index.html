@@ -65,7 +65,7 @@
                 <section>
                     <h2>Outline</h2>
                     <ul>
-                        <li>OME: Interoperability</li>
+                        <li>What is OME?</li>
                         <li>What is OMERO?</li>
                         <li>Workshop overview</li>
                     </ul>
@@ -110,15 +110,17 @@
                     </div>
                 </section> -->
 
+                <!-- TCGS set, pathology
+                mention DICOM,  -->
 
                 <section data-background-size="971px" data-background="images/omero-platform-bg-1.png">
-                    <h2>Image Data - Read by BioFormats</h2>
+                    <h2>Image Data - Read by Bio-Formats</h2>
 
                     <div style="height: 350px">
                     <ul>
                         <li>Support for reading > 150 image formats</li>
                         <li>Read pixel data and metadata</li>
-                        <li>Includes 5D images, HCS data, tiled images</li>
+                        <li>Includes 5D images, HCS data, Tiled WSI images</li>
                         <li>Domains: biological, medical, general (tiff, png etc)</li>
                     </ul>
                     </div>
@@ -133,6 +135,7 @@
                         <li>Stored in Relational Database</li>
                         <li>Acquisition metadata</li>
                         <li>User-added Annotations</li>
+                        <li>ROIs / Segmentations</li> <!-- Masks -->
                     </ul>
                     </div>
                 </section>
@@ -185,13 +188,15 @@
                     <img src="images/client-viz.svg">
                     <ul>
                         <li>OMERO.insight</li>
-                        <li>OMERO webclient
+                        <li>OMERO.webclient
                             <ul>
                                 <li>Browsing images</li>
                                 <li>Viewing metadata</li>
+                                <li>Data management</li>
+                                <li>Searching</li>
                             </ul>
                         </li>
-                        <li>OMERO.web apps
+                        <li>OMERO web apps
                             <ul>
                                 <li>OMERO.iviewer</li>
                                 <li>OMERO.figure</li>
@@ -202,7 +207,13 @@
                 </section>
 
 
-                <section data-background="images/webclient3.png">
+                <section data-background="images/webclient-plate2.png">
+                </section>
+
+                <section data-background="images/webclient-svs2.png">
+                </section>
+
+                <section data-background="images/webclient-dicom2.png">
                 </section>
 
 
@@ -245,12 +256,12 @@
 
 
                 <section>
-                    <h2>ImageJ/Fiji</h2>
+                    <h2>Fiji</h2>
                     <img src="images/imagej-client.png" width="900px"/>
                 </section>
 
                 <section>
-                    <h2>CellProfiler and R in python notebooks</h2>
+                    <h2>CellProfiler and R in Jupyter notebooks</h2>
                     <div style="position: relative; width: 1100px; height: 600px;">
                         <img style="position: absolute; width: 800px; left: 0;" src="images/CellProfiler-notebook.png" />
                         <img style="position: absolute; width: 800px; right: 0; bottom: 0"
@@ -282,6 +293,10 @@
                             <ul>
                                 <li>User accounts set-up</li>
                                 <li>Sample data already imported</li>
+                                <li>Data from IDR:
+                                    <a href="https://idr.openmicroscopy.org/webclient/?show=screen-102">idr0002</a> and
+                                    <a href="https://idr.openmicroscopy.org/webclient/?show=project-51">idr0021</a>
+                                </li>
                             </ul>
                         </li>
                         <li>Everything is web-based except:
