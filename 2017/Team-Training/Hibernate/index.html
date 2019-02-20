@@ -1016,8 +1016,8 @@ class: center, middle
 - `onFlushDirty` checks
   [`OriginalFile`](https://docs.openmicroscopy.org/latest/omero5.4/developers/Model/EveryObject.html#originalfile)
   filepaths for violations of
-  [2017-SV1](http://www.openmicroscopy.org/security/advisories/2017-SV1-filename/) and
-  [2017-SV5](http://www.openmicroscopy.org/security/advisories/2017-SV5-filename-2/).
+  [2017-SV1](https://www.openmicroscopy.org/security/advisories/2017-SV1-filename/) and
+  [2017-SV5](https://www.openmicroscopy.org/security/advisories/2017-SV5-filename-2/).
   - It also checks for changes in the value of the `repo` property.
 - `postFlush` populates the ` _current_admin_privileges` database table.
   - At the end of a transaction, database triggers may check users'
@@ -1061,7 +1061,7 @@ class: center, middle
   reads model object property values *without* loading the object instances
   themselves.
 - Must somehow prevent
-  [2016-SV2](http://www.openmicroscopy.org/security/advisories/2016-SV2-share/) and:
+  [2016-SV2](https://www.openmicroscopy.org/security/advisories/2016-SV2-share/) and:
 ```sql
 SELECT uuid FROM Session WHERE owner.omeName = 'root'
 ```
