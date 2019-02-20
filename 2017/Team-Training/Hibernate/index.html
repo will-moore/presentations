@@ -143,9 +143,9 @@ SELECT i.id, i.name
 
 - Used `name` property in both `SELECT` and `WHERE`.
 - The server accesses values of those properties.
-- Use [`projection`](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/api/IQuery.html#projection)
+- Use [`projection`](https://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/api/IQuery.html#projection)
   instead of
-  [`findAllByQuery`](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/api/IQuery.html#findAllByQuery).
+  [`findAllByQuery`](https://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/api/IQuery.html#findAllByQuery).
   - This gives us simple values, not whole model objects.
 - Selecting only certain properties can reduce size of query results.
 
@@ -817,12 +817,12 @@ if (object instanceof HibernateProxy) {
 
 - [`IRequest`](https://downloads.openmicroscopy.org/latest/omero5.4/api/omero/cmd/IRequest.html)
   defines the lifecycle for
-  [`Request`](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/cmd/Request.html)
+  [`Request`](https://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/cmd/Request.html)
   implementations.
 - Its `init`, `step`, `finish` methods are called with the same Hibernate
   session open.
 - These are the same requests that you
-  [submit](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/cmd/Session.html#submit)
+  [submit](https://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/cmd/Session.html#submit)
   to an OMERO.blitz service factory.
 - Each request implementation has access to the
   [`Session`](https://docs.jboss.org/hibernate/orm/3.5/api/org/hibernate/Session.html)
@@ -988,7 +988,7 @@ class: center, middle
   model objects.
   - Check which owner and group, memberships, etc.
   - [Basis for](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/blitz/src/omero/model/PermissionsI.java#L95)
-    clients' [`can*`](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/model/Permissions.html#canAnnotate)
+    clients' [`can*`](https://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/model/Permissions.html#canAnnotate)
     permissions methods.
 
 ---
@@ -1057,7 +1057,7 @@ class: center, middle
 - [`OmeroInterceptor`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/security/basic/OmeroInterceptor.html) 
   and [`BasicACLVoter`](https://downloads.openmicroscopy.org/latest/omero5.4/api/ome/security/basic/BasicACLVoter.html)
   work with model object instances only.
-- [`IQuery.projection`](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/api/IQuery.html#projection)
+- [`IQuery.projection`](https://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/api/IQuery.html#projection)
   reads model object property values *without* loading the object instances
   themselves.
 - Must somehow prevent
@@ -1092,9 +1092,9 @@ SELECT uuid FROM Session WHERE owner.omeName = 'root'
   often include explicit permissions checks.
   - Many examples can be found in [the
     implementation](https://github.com/openmicroscopy/openmicroscopy/tree/v5.4.0/components/server/src/ome/logic/AdminImpl.java)
-    of [IAdmin](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/api/IAdmin.html).
+    of [IAdmin](https://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/api/IAdmin.html).
 - Some
-  [model graph operations](http://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/cmd/GraphModify2.html)
+  [model graph operations](https://downloads.openmicroscopy.org/latest/omero5.4/api/slice2html/omero/cmd/GraphModify2.html)
   include permissions checks in their
   [`IRequest.init`](https://downloads.openmicroscopy.org/latest/omero5.4/api/omero/cmd/IRequest.html#init-omero.cmd.Helper-)
   method.
