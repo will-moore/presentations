@@ -1,3 +1,6 @@
 [submodule "2017/20171110-gre-symposium"]
 	path = 2017/20171110-gre-symposium
 	url = https://github.com/ome/presentation-20171110-gre-symposium.git
+[submodule "2019/rseconuk2019-idr"]
+	path = 2019/rseconuk2019-idr
+	url = https://github.com/ome/rseconuk2019-idr.git
