@@ -1,0 +1,297 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title></title>
+
+
+        <style>
+            body, html {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            .inputs {
+                position: absolute;
+                color: darkgrey;
+            }
+            .inputs input {
+                font-size: 18px;
+                margin: 2px;
+            }
+            pre {
+                margin: 0;
+                padding: 0;
+            }
+            .hoverExpand {
+                opacity: 0.01;
+                background: transparent;
+                position: absolute;
+                width: 100px;
+                height: 50px;
+                overflow: auto;
+                color: white;
+                font-size: 18px;
+                border-radius: 6px;
+                transition: opacity 0.2s ease-in-out;
+                /* transition: width 0.2s ease-in-out; */
+            }
+            .hoverExpand:hover {
+                opacity: 1;
+                background: black;
+                position: absolute;
+                width: 300px;
+                height: 50px;
+                padding: 10px;
+            }
+            .hoverExpand a {
+                color: white;
+                text-decoration: none;
+            }
+            .hoverExpand a:hover {
+                text-decoration: underline;
+            }
+            #bioformats2raw {
+                top: 412px;
+                left: 27px;
+                width: 150px;
+            }
+            #bioformats2raw:hover {
+                width: 550px;
+                height: 170px;
+            }
+            #aws {
+                top: 232px;
+                left: 298px;
+                width: 70px;
+            }
+            #aws:hover {
+                width: 600px;
+                height: 140px;
+            }
+            #omero-ms-zarr {
+                top: 69px;
+                left: 478px;
+                width: 225px;
+            }
+            #omero-ms-zarr:hover {
+                left: 83px;
+                width: 630px;
+                height: 230px;
+            }
+            #ome-zarr-download {
+                top: 232px;
+                left: 175px;
+                width: 112px;
+            }
+            #ome-zarr-download:hover {
+                width: 850px;
+                height: 100px;
+                left: 75px;
+            }
+            #ome-zarr-data {
+                top: 414px;
+                left: 535px;
+                width: 112px;
+            }
+            #ome-zarr-data:hover {
+                width: 700px;
+                height: 120px;
+                left: 175px;
+            }
+            #napari {
+                top: 551px;
+                left: 551px;
+                width: 80px;
+            }
+            #napari:hover {
+                width: 750px;
+                height: 30px;
+                left: 75px;
+            }
+            #dask {
+                top: 485px;
+                left: 516px;
+                width: 148px;
+            }
+            #dask:hover {
+                top: 300px;
+                width: 780px;
+                height: 300px;
+                left: 75px;
+            }
+        </style>
+        </style>
+
+    </head>
+
+    <body style="display: flex; justify-content: center; align-items: center;">
+
+
+        <div style="width:747px; height:627px; position: relative;">
+            <img src="images/zarr-ome-diagram.png" style="position:absolute; top:0; left:0"/>
+
+            <div class="inputs" style="top: 0">
+                <label>Image ID: </label>
+                <input id="imageid" placeholder="IMAGEID" value="6001240" style="width:150px"/>
+            </div>
+
+            <div class="inputs" style="top: 178px; left:175px">
+                <input id="endpoint" placeholder="endpoint-url" value="https://s3.embassy.ebi.ac.uk" style="width:250px" />
+            </div>
+
+            <div class="inputs" style="top: 178px; left:475px">
+                <input id="server" placeholder="server-url" value="https://workshop.openmicroscopy.org/image" style="width:250px" />
+            </div>
+
+
+            <div id="bioformats2raw" class="hoverExpand">
+                <code><pre>$ build/bioformats2raw-0.2.1/bin/bioformats2raw \
+  --file_type=zarr \
+  --dimension-order=XYZCT \
+  a.fake \
+  output
+
+$ find output
+output
+output/METADATA.ome.xml
+output/data.zarr
+output/data.zarr/.zattrs
+output/data.zarr/.zgroup
+output/data.zarr/0
+output/data.zarr/0/.zattrs
+output/data.zarr/0/.zgroup
+output/data.zarr/0/0
+output/data.zarr/0/0/0.0.0.0.0
+output/data.zarr/0/0/.zarray
+output/data.zarr/0/1
+output/data.zarr/0/1/0.0.0.0.0
+output/data.zarr/0/1/.zarray
+
+$ mv output/data.zarr/0 /data/v0.1/<span class="imageId">6001240</span>.zarr
+                </pre></code>
+            </div>
+
+
+            <div id="aws" class="hoverExpand">
+                <code><pre>$ pip install awscli
+
+# upload
+aws --endpoint-url <span class='endpoint'>https://s3.embassy.ebi.ac.uk</span> cp \
+    --acl public-read --recursive \
+    /data/v0.1/<span class="imageId">6001240</span>.zarr/  \
+    s3://idr/zarr/v0.1/<span class="imageId">6001240</span>.zarr
+
+# download
+$ aws --endpoint-url --no-sign-request \
+    <span class='endpoint'>https://s3.embassy.ebi.ac.uk</span> \
+    s3 cp --recursive s3://idr/zarr/v0.1/<span class="imageId">6001240</span>.zarr \
+    /tmp/
+</pre></code>
+            </div>
+
+
+            <div id="omero-ms-zarr" class="hoverExpand">
+                <code><pre>$ git clone -b v0.1.1 <a href="https://github.com/ome/omero-ms-zarr" target="_blank">git://github.com/ome/omero-ms-zarr</a>
+$ gradle build -x test
+$ cat &lt;&lt;EOF > cfg
+omero.data.dir=/tmp/ome1
+omero.db.name=ome1
+omero.db.user=postgres
+omero.ms.zarr.net.path.image=/idr/zarr/v0.1/<span class="imageId">6001240</span>.zarr/
+EOF
+$ gradle run --args=cfg
+# <a target="_blank" href="https://workshop.openmicroscopy.org/image/">https://workshop.openmicroscopy.org/image/<span class="imageId">6001240</span>.zarr</a></pre></code>
+            </div>
+
+
+
+            <div id="ome-zarr-download" class="hoverExpand">
+                <code><pre>$ pip install ome-zarr
+
+$ ome_zarr download <a href="test" class='endpoint_link'><span class='endpoint'>https://s3.embassy.ebi.ac.uk</span>/<span class="imageId">6001240</span>.zarr</a>
+$ ome_zarr info <span class="imageId">6001240</span>.zarr</pre></code>
+            </div>
+
+
+            <div id="ome-zarr-data" class="hoverExpand">
+                <code><pre>url = '<span class='endpoint server'>https://s3.embassy.ebi.ac.uk</span>/<span class="imageId">6001240</span>.zarr'
+zarr = ome_zarr.parse_url(url)
+zarr.is_ome_zarr()
+data = zarr.load_ome_zarr()
+pyramid = data[0]</pre></code>
+            </div>
+
+
+            <div id="napari" class="hoverExpand">
+                <code><pre>$ napari '<span class='endpoint server'>https://s3.embassy.ebi.ac.uk</span>/<span class="imageId">6001240</span>.zarr'</pre></code>
+            </div>
+
+
+            <div id="dask" class="hoverExpand">
+                <code><pre>from dask.diagnostics import ProgressBar
+import dask.array as da
+import numpy as np
+
+with ProgressBar():
+    array = "<span class='endpoint server'>https://s3.embassy.ebi.ac.uk</span>/<span class="imageId">6001240</span>.zarr/1"
+    print(np.asarray(da.from_zarr(array)))
+
+[########################################] | 100% Completed | 16.5s
+[[[[[ 8  8  8 ... 16 15  9]
+    [ 8  8  9 ... 13  9 26]
+    [ 9  8  9 ...  9  8  8]
+    ...
+...</pre></code>
+            </div>
+
+
+        </div>
+
+        <script>
+
+            function updateLinks() {
+                let iid = document.getElementById('imageid').value;
+                let endpt = document.getElementById('endpoint').value;
+                let url = `${ endpt }/idr/zarr/v0.1/${ iid }`
+                'endpoint_link'
+                document.querySelectorAll('a.endpoint_link').forEach(el => {
+                    el.href = url;
+                })
+            }
+
+            function updateEndpoint(event) {
+                document.querySelectorAll('span.endpoint').forEach(el => {
+                    el.innerHTML = event.target.value + "/idr/zarr/v0.1";
+                });
+                updateLinks();
+            };
+            document.getElementById('endpoint').addEventListener('keyup', updateEndpoint);
+            document.getElementById('endpoint').addEventListener('click', updateEndpoint);
+
+
+            function updateServer(event) {
+                document.querySelectorAll('span.server').forEach(el => {
+                    el.innerHTML = event.target.value;
+                });
+                updateLinks();
+            };
+            document.getElementById('server').addEventListener('keyup', updateServer);
+            document.getElementById('server').addEventListener('click', updateServer);
+
+            document.getElementById('imageid').addEventListener('keyup', (event) => {
+                document.querySelectorAll('span.imageId').forEach(el => {
+                    el.innerHTML = event.target.value;
+                });
+                updateLinks();
+            });
+
+        </script>
+
+    </body>
+</html>
