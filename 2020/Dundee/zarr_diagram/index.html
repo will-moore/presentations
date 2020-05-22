@@ -23,6 +23,7 @@
             .inputs input {
                 font-size: 18px;
                 margin: 2px;
+                z-index: 1;
             }
             pre {
                 margin: 0;
@@ -33,12 +34,13 @@
                 background: transparent;
                 position: absolute;
                 width: 100px;
-                height: 50px;
-                overflow: auto;
-                color: white;
+                height: 40px;
+                color: black;
                 font-size: 18px;
                 border-radius: 6px;
                 transition: opacity 0.2s ease-in-out;
+                overflow: hidden;
+                /* opacity: 1; */
                 /* transition: width 0.2s ease-in-out; */
             }
             .hoverExpand:hover {
@@ -48,6 +50,8 @@
                 width: 300px;
                 height: 50px;
                 padding: 10px;
+                overflow: auto;
+                color: white;
             }
             .hoverExpand a {
                 color: white;
@@ -125,6 +129,64 @@
                 height: 300px;
                 left: 75px;
             }
+
+            #chooseImage {
+                z-index: 10;
+                opacity: 0.01;
+                position: absolute;
+                top: 32px;
+                left: -20px;
+                width: 200px;
+                height: 23px;
+                color: black;
+                font-size: 18px;
+                border-radius: 3px;
+                transition: opacity 0.2s ease-in-out;
+                overflow: hidden;
+                opacity: 1;
+                border: solid #333 1px;
+                background: white;
+                padding: 5px;
+            }
+            #chooseImage:hover {
+                opacity: 1;
+                position: absolute;
+                width: 600px;
+                height: 350px;
+                overflow: auto;
+            }
+            #chooseImage ul {
+                padding: 0;
+                width: calc(100% - 10px);
+            }
+            #chooseImage li {
+                list-style: none;
+                height: 80px;
+            }
+            #chooseImage li:hover {
+                background:rgb(232, 237, 240);
+            }
+            #chooseImage label {
+                display: flex;
+                align-items: center;
+            }
+            #chooseImage img {
+                max-height: 70px;
+                /* border: solid rebeccapurple 3px; */
+                margin: 3px;
+            }
+            /* #chooseImage a {
+                color: black;
+                text-decoration: none;
+            }
+            #chooseImage a:hover {
+                text-decoration: underline;
+            } */
+            .dims {
+                color: lightslategrey;
+                margin-left: 5px;
+                font-size: 90%;
+            }
         </style>
         </style>
 
@@ -139,6 +201,14 @@
             <div class="inputs" style="top: 0">
                 <label>Image ID: </label>
                 <input id="imageid" placeholder="IMAGEID" value="6001240" style="width:150px"/>
+            </div>
+
+            <div id="chooseImage">
+                <div style='position: absolute; top:0; padding: 5px; width: 450px;'>&#9776; Choose Image
+                    <div class='dims' style='float:right'>Dimensions (X x Y x Z x C x T)</div>
+                </div>
+                <ul style='height: 310px; overflow: auto; position: absolute; top: 35px; margin: 0' id="imageList">
+                </ul>
             </div>
 
             <div class="inputs" style="top: 178px; left:175px">
@@ -255,6 +325,40 @@ with ProgressBar():
 
         <script>
 
+            IMG_IDS = [179706, 1884807, 4007801, 4495402, 6001240, 6001254, 9798462, 9822151, 9822152]
+            IDR_IDS = ["idr0002", "idr0021", "idr0044", "idr0053", "idr0062", "idr0062", "idr0073", "idr0083", "idr0083"]
+            IDR_NAMES = [
+                "plate1_1_013 <span class='dims'>(1344 x 1024 x 1 x 3 x 329)</span>",
+                "Centrin_PCNT.dv <span class='dims'>(256 x 256 x 1 x 3 x 1)</span>",
+                "embryo.klb <span class='dims'>(2169 x 2048 x 988 x 2 x 532)</span>",
+                "zebrafish TEM <span class='dims'>(921600 x 380928 x 1 x 1 x 1)</span>",
+                "blastocysts.tif <span class='dims'>(271 x 275 x 236 x 2 x 1)</span>",
+                "E875_Zone_1.tif <span class='dims'>(393 x 354 51 x 4 x 1)</span>",
+                "lung08 <span class='dims'>(21115 x 16433 x 1 x 3 x 1)</span>",
+                "sarscov2 <span class='dims'>(79360 x 167424 x 1 x 1 x 1)</span>",
+                "sarscov2 <span class='dims'>(144384 x 93184 x 1 x 1 x 1)</span>"
+            ]
+
+            let imgsHtml = IMG_IDS.map((iid, idx) => {
+                return `<li>
+                    <label><input type='radio' name='idrImageId' value='${ iid }'/>
+                        <img src='https://idr.openmicroscopy.org/webclient/render_thumbnail/${ iid }/' />
+                    <a target='_blank' href='https://idr.openmicroscopy.org/webclient/?show=image-${ iid }'>
+                        ${ IDR_IDS[idx] }
+                    </a>&nbsp
+                    ${ IDR_NAMES[idx] }
+                    </label>
+                    </li>`
+            }).join('');
+            document.getElementById('imageList').innerHTML = imgsHtml;
+
+            document.querySelectorAll('input[name="idrImageId"]').forEach((el) => {
+                el.addEventListener('change', (event) => {
+                    document.getElementById('imageid').value = event.target.value;
+                    updateIds();
+                });
+            });
+
             function updateLinks() {
                 let iid = document.getElementById('imageid').value;
                 let endpt = document.getElementById('endpoint').value;
@@ -263,6 +367,12 @@ with ProgressBar():
                 document.querySelectorAll('a.endpoint_link').forEach(el => {
                     el.href = url;
                 })
+            }
+            function updateIds() {
+                let iid = document.getElementById('imageid').value;
+                document.querySelectorAll('span.imageId').forEach(el => {
+                    el.innerHTML = iid;
+                });
             }
 
             function updateEndpoint(event) {
@@ -285,10 +395,8 @@ with ProgressBar():
             document.getElementById('server').addEventListener('click', updateServer);
 
             document.getElementById('imageid').addEventListener('keyup', (event) => {
-                document.querySelectorAll('span.imageId').forEach(el => {
-                    el.innerHTML = event.target.value;
-                });
                 updateLinks();
+                updateIds();
             });
 
         </script>
