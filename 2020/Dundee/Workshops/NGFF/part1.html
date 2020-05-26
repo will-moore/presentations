@@ -1,0 +1,276 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>OME Next Generataion File Formats Workshops</title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <link rel="stylesheet" href="css/ome.css">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+    </head>
+
+    <body class="ome_theme">
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section>
+                    <h1>Bio-Formats: Pyramidal OME-TIFF</h1>
+                    <p>
+                        OME Community Meeting<br>
+                        Dundee May 2020<br>
+                        OME Team
+                    </p>
+                </section>
+                <section>
+                    <h2>What we will cover</h2>
+                    <ul>
+                        <li>How to work with large images using the existing toolsets</li>
+                        <li>Converting to Pyramidal OME-TIFF</li>
+                        <li>Using the command line tools</li>
+                        <li>Scripting in the ImageJ environment</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Pyramidal OME-TIFF</h2>
+                    <ul>
+                        <li>Originally designed for dealing with large whole slide images (WSI)</li>
+                        <li>Introduced as an extension to OME-TIFF in Bio-Formats 6.0.0</li>
+                        <li>Full support for reading and writing multi resolution pyramids</li>
+                        <li>Additional resolutions created through down-sampling</li>
+                        <li>Now used in many applications such as OMERO, IDR, QuPath</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Command line tools</h2>
+                    <ul>
+                        <li>Can be downloaded from <a href="https://www.openmicroscopy.org/bio-formats/downloads/">https://www.openmicroscopy.org/bio-formats/downloads/</a></li>
+                        <li>Large variety of options for conversions</li>
+                        <li>Using compression:</li>
+              
+                    <pre style="font-size:50%"><code>bfconvert -compression LZW  /path/to/input out.ome.tiff
+    </code></pre>
+              
+                        <li >Using tiled writing for larger images:</li>
+
+                    <pre style="font-size:50%"><code>bfconvert -tilex 512 -tiley 512 /path/to/input out.ome.tiff
+                    </code></pre>
+
+                        <li>Converting to pyramidal OME-TIFF:</li>
+                    </ul>
+                    <pre style="font-size:50%"><code>bfconvert -noflat -pyramid-resolutions 4 -pyramid-scale 2 /path/to/input out.ome.tiff
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>Command line tools options</h2>
+                    <ul>
+                        <li>-noflat
+                            <ul>
+                                <li>Do not flatten resolutions into individual series. This option is mandatory to read images with pyramidal levels using the sub-resolution API and generate an output image with sub-resolutions.</li>
+                            </ul>
+                        </li>
+                        <li>-pyramid-resolutions
+                            <ul>
+                                <li>The number of expected resolutions</li>
+                                <li>If the input file is not multi resolution then additional resolutions calculated by downsampling</li>
+                            </ul>
+                        </li>
+                        <li>-pyramid-scale
+                            <ul>
+                                <li>The downsampling factor to be used when generating additional resolutions</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Working with large images in ImageJ/FIJI</h2>
+                    <ul>
+                        <li>Bio-Formats Macro extensions offer basic functionality</li>
+                        <li>Currently a limit when trying to open a single plane greater than 2GB</li>
+                        <li>One current option to deal with this would be to convert to smaller sub resolutions</li>
+                        <li>Full Bio-Formats Java API is available through scripting</li>
+                        <li>New examples are available in Jython or Groovy</li>
+                        <li>The examples can be found on <a href="https://github.com/ome/bio-formats-examples">GitHub</a> </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Scripting in ImageJ</h2>
+                    <ul>
+                        <li>Image reading, writing and the full Java API is available through scripting</li>
+                    </ul>
+                    <pre style="font-size:50%"><code>
+# setup reader
+reader = ImageReader()
+omeMeta = MetadataTools.createOMEXMLMetadata()
+reader.setMetadataStore(omeMeta)
+reader.setId(file)
+                    </code></pre>
+
+                    <pre style="font-size:50%"><code>
+# setup writer
+writer = PyramidOMETiffWriter()
+writer.setMetadataRetrieve(omeMeta)
+writer.setId(outFile)
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>Converting to OME-TIFF</h2>
+                    <ul>
+                        <li>Basic conversions for smaller images are straight forward</li>
+                    </ul>
+                    <pre style="font-size:50%"><code>
+for series in range(reader.getSeriesCount()):
+    reader.setSeries(series)
+    writer.setSeries(series)
+                        
+    # convert each image in the current series
+    for image in range(reader.getImageCount())
+        # read and write image planes
+        img = reader.openBytes(image)
+        writer.saveBytes(image, img)
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Using tiling to convert large images</h2>
+                    <ul>
+                        <li>For larger planes it is recommended to use tiling</li>
+                    </ul>
+                    <pre style="font-size:50%"><code>
+width = reader.getSizeX();
+height = reader.getSizeY();
+
+# Determined the number of tiles to read and write
+nXTiles = int(math.floor(width / tileSizeX))
+nYTiles = int(math.floor(height / tileSizeY))
+if nXTiles * tileSizeX != width:
+    nXTiles = nXTiles + 1
+if nYTiles * tileSizeY != height:
+    nYTiles = nYTiles + 1
+                    </code></pre>
+                    <pre style="font-size:50%"><code>
+for y in range(nYTiles):
+    for x in range(nXTiles):
+        # The x and y coordinates for the current tile
+        tileX = x * tileSizeX
+        tileY = y * tileSizeY
+                    
+        # Read tiles from the input file and write them to the output OME-Tiff
+        buf = reader.openBytes(image, tileX, tileY, tileSizeX, tileSizeY)
+        writer.saveBytes(image, buf, tileX, tileY, tileSizeX, tileSizeY)
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>Converting to Pyramidal OME-TIFF</h2>
+                    <ul>
+                        <li>First set the resolution sizes in metadata</li>
+                    </ul>
+                    <pre style="font-size:50%"><code>
+# setup resolutions
+for i in range(resolutions):
+    divScale = Math.pow(scale, i + 1)
+    omeMeta.setResolutionSizeX(PositiveInteger(int(reader.getSizeX() / divScale)), 0, i + 1)
+    omeMeta.setResolutionSizeY(PositiveInteger(int(reader.getSizeY() / divScale)), 0, i + 1)
+                    </code></pre>
+                    <ul>
+                        <li>Create a scaler to handle the down-sampling</li>
+                    </ul>
+                    <pre style="font-size:50%"><code>
+# create ImageScaler for down-sampling
+scaler = SimpleImageScaler()
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>Converting to Pyramidal OME-TIFF</h2>
+                    <ul>
+                        <li>First write the full resolution plane as before</li>
+                    </ul>
+                    <pre style="font-size:50%"><code>
+# read and write main image
+img = reader.openBytes(0)
+writer.saveBytes(0, img)
+                    </code></pre>
+                    <ul>
+                        <li>Then create and write each sub resolution</li>
+                    </ul>
+                    <pre style="font-size:50%"><code>
+# generate downsampled resolutions and write to output
+for i in range(resolutions):
+    writer.setResolution(i + 1)
+    x = omeMeta.getResolutionSizeX(0, i + 1).getValue()
+    y = omeMeta.getResolutionSizeY(0, i + 1).getValue()
+    downsample = scaler.downsample(img, reader.getSizeX(), reader.getSizeY(), Math.pow(scale, i + 1),
+        FormatTools.getBytesPerPixel(type), reader.isLittleEndian(),
+        FormatTools.isFloatingPoint(type), reader.getRGBChannelCount(),reader.isInterleaved())
+   writer.saveBytes(0, downsample)
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>Combining techniques</h2>
+                    <ul>
+                        <li>Combine these techniques to handle large planes greater than 2GB</li>
+                        <li>Using tiled reading and writing</li>
+                        <li>Generate sub resolutions</li>
+                        <li>Write to a new pyramidal OME-TIFF</li>
+                        <li>Now the lower resolutions can be opened and viewed in ImageJ</li>
+                    </ul>
+                </section>
+            </div>
+
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
