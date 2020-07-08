@@ -73,3 +73,7 @@ table.centre {
 .funding_logo {
     width:250px;
 }
+
+.guides {
+    justify-self: top;
+}

@@ -1,0 +1,220 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title></title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <link rel="stylesheet" href="css/ome.css">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <style>
+            img:hover {
+                z-index: 10
+            }
+
+            body {
+                background: #f2f6f9;
+            }
+
+            .ome-theme body {
+                background-image: url(images/ome-icon-opacity.png);
+                background-color: #f2f6f9;
+                background-repeat: no-repeat;
+                background-position: right -270px top -120px;
+            }
+
+            .lionheart_ref {
+                position: absolute;
+                bottom: 20px;
+                right: 40px;
+                visibility: hidden;
+                z-index: 100;
+            }
+
+            .show_lionheart_ref .lionheart_ref {
+                visibility: visible;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section data-state="ome-theme">
+                    <h1>OMERO tutorial</h1>
+                    <p>German Bioimaging meeting</p>
+                    <p>
+                        online meeting in Münster, July 2020 <br>
+                        OME Team
+                    </p>
+                </section>
+                
+                <section data-state="ome-theme">
+                    <h2>Outline</h2>
+                    <ul>
+                        <li>How does OME Team do trainings?</li>
+                        <li>How can you do OME trainings?</li>
+                        <li>How to set up a server for training?</li>
+                        <li>What should OME user know?</li>
+                        <li>Features to attract OME users?</li>
+                    </ul>
+                </section>
+                <section data-state="ome-theme">
+                    <h2>OME trainings</h2>
+                    <ul>
+                        <li>Public materials</li>
+                        <li>Available online during and after workshop</li>
+                        <li>All content is in omero-guides</li>
+                        <li>Public data on training server</li>
+                        <li>Training server set up in a transparent manner</li>
+                    </ul>
+                </section>
+                <section data-state="ome-theme">
+                    <h2>Public materials</h2>
+                    <ul>
+                        <li><a target="_blank" href="https://downloads.openmicroscopy.org/presentations/2020/TIM-Munsingen/OMERO-workshop/#/">Web (reveal.js) based presentations</a></li>
+                        <li><a target="_blank" href="https://downloads.openmicroscopy.org/presentations/2020/TIM-Munsingen/TIM_Munsingen_walkthrough.pdf">Walkthrough of the workshop</a> points to <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/">OMERO guide</a></li>
+                        <img src="images/walkthrough.png">
+                    </ul>
+                </section>
+                <section data-state="ome-theme">
+                    <h2>OMERO guide</h2>
+                    <ul>
+                        <li>All real content is in <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/">OMERO guides</a></li>
+                        <div class="guides_container">
+                            <img src="images/guide1.png" class="guides" />
+                            <img src="images/guide3.png" class="guides" />
+                            <img src="images/guide4.png" class="guides" />
+                            <img src="images/guide5.png" class="guides" />
+                        </div>
+                        <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/">https://omero-guides.readthedocs.io</a>
+                    </ul>
+                </section>
+    
+                <section data-state="ome-theme">
+                    <h2>Training server: public data</h2>
+                    <ul>
+                        <li>Images are in <a target="_blank" href="https://downloads.openmicroscopy.org/images/">our downloads</a></li>
+                        <li>Images are from IDR <a target="_blank" href="https://idr.openmicroscopy.org/">idr.openmicroscopy.org</a></li>
+                        <li>See about how to download data from IDR <a target="_blank" href="https://idr.openmicroscopy.org/about/download.html">on IDR webpage </a> </li>
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Prepare training server</h2>
+                    <ul>
+                        <li>For a dedicated server from scratch: see <a target="_blank" href="https://github.com/ome/omero-deployment-examples">ansible examples </a></li>
+                        <li>You might use your existing server</li>
+                        <li>Prepare groups and users <a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/create_groups_users.sh">using a script </a></li>
+                        <li>Import data <a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/in_place_import_as.sh">using a script </a></li>
+                        <li>Import metadata, annotate images <a target="_blank" href="https://github.com/ome/training-scripts/tree/master/maintenance/scripts"> using these scripts </a></li>
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Prepare the training: 1</h2>
+                    <ul>
+                        <li>Set a date</li>
+                        <li>Book a room</li>
+                        <li>Test internet connection inside the room</li>
+                        <li>Check that <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/upload/docs/import-desktop-client.html#setup">OMERO.insight</a> imports an image from the training room</li>
+                        <li>Think about what setup you need, whether you ask users to bring their laptop</li>
+                     </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Prepare the training: 2</h2>
+                    <ul>
+                        <li>Plan the content of the workshop: <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/example.html">OMERO guide walkthroughs </a></li>
+                        <li>Plan the content of the workshop: <a target="_blank" href="https://downloads.openmicroscopy.org/presentations/">see past workshops </a></li>
+                        <li>Plan the installation of <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/upload/docs/import-desktop-client.html#setup">OMERO.insight</a> if you want to show imports</li>
+                        <li>Plan the <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/web_addons.html"> OMERO extensions</a> and <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/add_ons.html"> OMERO add-ons</a> you need to install on the training machines and on the server</li>
+                        <li>Plan the <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/external_tools.html"> 3rd party software</a> you need to install on the training machines</li>
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>What should OME user know ?</h2>
+                    <ul>
+                    <p>Routine training and user inductions</p>
+                    <p>Attracting users to OMERO</p>
+                        <li>See <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/example_facility_manager.html">the OMERO guide for facility managers </a></li>
+                        <li>Especially see <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/example_facility_manager.html#get-users-started"> getting users started guide</a></li>
+                        <li>See <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/example.html">the OMERO guide for users </a></li>
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Thank you</h2>
+                    <div class="funding_logo_container">
+                        <img src="images/logos/bbsrc.png" class="funding_logo" />
+                        <img src="images/logos/corbel.png" class="funding_logo" />
+                        <img src="images/logos/wellcome.png" class="funding_logo" />
+                        <img src="images/logos/global_bioimaging.png" class="funding_logo" />
+                        <img src="images/logos/horizon_2020.png" class="funding_logo" />
+                        <img src="images/logos/multimot.png" class="funding_logo" />
+                        <img src="images/logos/euro_bioimaging.png" class="funding_logo" />
+                    </div>
+                </section>
+            </div>
+
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
