@@ -75,12 +75,5 @@ table.centre {
 }
 
 .guides {
-    width:300px;
-    position: relative;
-    right: 100;
-    left: 100;
-    top: 100;
-    bottom: 100;
-    display: inline-block;
-    overflow: visible;
+    justify-self: top;
 }

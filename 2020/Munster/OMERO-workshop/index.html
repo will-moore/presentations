@@ -107,127 +107,66 @@
                     <ul>
                         <li>All real content is in <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/">OMERO guides</a></li>
                         <div class="guides_container">
+                            <img src="images/guide1.png" class="guides" />
                             <img src="images/guide3.png" class="guides" />
-                            <img src="images/guide2.png" class="guides" />
+                            <img src="images/guide4.png" class="guides" />
                             <img src="images/guide5.png" class="guides" />
                         </div>
-                    </ul>
-                </section>
-                <section data-state="ome-theme">
-                    <h2>OMERO guide</h2>
-                    <ul>
-                        <li><a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/">https://omero-guides.readthedocs.io</a></li>
-                        <img src="images/guide1.png" width="600px" />
+                        <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/">https://omero-guides.readthedocs.io</a>
                     </ul>
                 </section>
     
                 <section data-state="ome-theme">
-                    <h2>OME: Interoperability</h2>
-
-                    <img src="images/ome-informatics.png">
-                </section>
-
-
-                <section data-background-size="971px" data-background="images/omero-platform-bg-0.png">
-                    <h2>OMERO is a server with clients</h2>
-                    <div style="width: 600px; height: 600px"></div>
-                </section>
-
-
-
-                <section data-background-size="971px" data-background="images/omero-platform-bg-1.png">
-                    <h2>Image Data - Read by Bio-Formats</h2>
-
-                    <div style="height: 350px">
+                    <h2>Training server: public data</h2>
                     <ul>
-                        <li>Support for reading > <b>150 image formats</b></li>
-                        <li>Read pixel data and metadata</li>
-                        <li>Includes 5D images, HCS data, Tiled WSI images</li>
-                        <li>Domains: biological, medical, general (tiff, png, etc.)</li>
+                        <li>Images are in <a target="_blank" href="https://downloads.openmicroscopy.org/images/">our downloads</a></li>
+                        <li>Images are from IDR <a target="_blank" href="https://idr.openmicroscopy.org/">idr.openmicroscopy.org</a></li>
+                        <li>See about how to download data from IDR <a target="_blank" href="https://idr.openmicroscopy.org/about/download.html">on IDR webpage </a> </li>
                     </ul>
-                    </div>
-                </section>
-
-
-                <section data-background-size="971px" data-background="images/omero-platform-bg-2.png">
-                    <h2>Metadata</h2>
-
-                    <div style="height: 350px">
-                    <ul>
-                        <li>Stored in a Relational Database</li>
-                        <li>Acquisition Metadata</li>
-                        <li>User-added Annotations</li>
-                        <li>ROIs / Segmentations</li> <!-- Masks -->
-                    </ul>
-                    </div>
-                </section>
-
-
-
-                <section data-background-size="971px" data-background="images/omero-platform-bg-5.png">
-                    <h2>Search</h2>
-
-                    <div style="height: 350px">
-                    <ul>
-                        <li>Text and Annotations indexed with Lucene</li>
-                        <li>Allows keyword searches</li>
-                    </ul>
-                    </div>
-                </section>
-
-
-
-                <section data-background-size="971px" data-background="images/omero-platform-bg-3.png">
-                    <h2>OMERO.tables</h2>
-
-                    <div style="height: 350px">
-                    <ul>
-                        <li>HDF5 tables for analysis results</li>
-                        <li>Flexible columns</li>
-                    </ul>
-                    </div>
-                </section>
-
-                <section data-background="images/webclient-plate2.png">
-                </section>
-
-                <section data-background="images/webclient-svs2.png">
-                </section>
-
-                <section data-state="show_lionheart_ref" data-background="images/webclient-dicom2.png">
-                </section>
-
-                <section data-background-size="971px" data-background="images/omero-platform-bg-4.png">
-                    <h2>OMERO API</h2>
-
-                    <div style="height: 350px">
-                    Python | Java | Matlab | R | C++
-                    </div>
                 </section>
 
                 <section data-state="ome-theme">
-                    <h2>Integration</h2>
-                    <img src="images/omero-workshop-integration-all.png" width="900px"/>
+                    <h2>Prepare training server</h2>
+                    <ul>
+                        <li>For a dedicated server from scratch: see <a target="_blank" href="https://github.com/ome/omero-deployment-examples">ansible examples </a></li>
+                        <li>You might use your existing server</li>
+                        <li>Prepare groups and users <a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/create_groups_users.sh">using a script </a></li>
+                        <li>Import data <a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/in_place_import_as.sh">using a script </a></li>
+                        <li>Import metadata, annotate images <a target="_blank" href="https://github.com/ome/training-scripts/tree/master/maintenance/scripts"> using these scripts </a></li>
+                    </ul>
                 </section>
 
                 <section data-state="ome-theme">
-                    <h2>Open with... Web apps</h2>
-                    <img src="images/openwith_viewers.png" width="900px"/>
-                </section>    
-
-                <section data-state="ome-theme" style="width:120%">
-                    <h2><a target="_blank" href="https://idr.openmicroscopy.org/">idr.openmicroscopy.org</a></h2>
-                    <img src="images/idr.png" width="1900px"/>
+                    <h2>Prepare the training: 1</h2>
+                    <ul>
+                        <li>Set a date</li>
+                        <li>Book a room</li>
+                        <li>Test internet connection inside the room</li>
+                        <li>Check that <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/upload/docs/import-desktop-client.html#setup">OMERO.insight</a> imports an image from the training room</li>
+                        <li>Think about what setup you need, whether you ask users to bring their laptop</li>
+                     </ul>
                 </section>
 
                 <section data-state="ome-theme">
-                    <h2>Today's workshop</h2>
-                    <img src="images/omero-workshop-setup-all2.png" width="900px"/>
+                    <h2>Prepare the training: 2</h2>
+                    <ul>
+                        <li>Plan the content of the workshop: <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/example.html">OMERO guide walkthroughs </a></li>
+                        <li>Plan the content of the workshop: <a target="_blank" href="https://downloads.openmicroscopy.org/presentations/">see past workshops </a></li>
+                        <li>Plan the installation of <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/upload/docs/import-desktop-client.html#setup">OMERO.insight</a> if you want to show imports</li>
+                        <li>Plan the <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/web_addons.html"> OMERO extensions</a> and <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/add_ons.html"> OMERO add-ons</a> you need to install on the training machines and on the server</li>
+                        <li>Plan the <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/external_tools.html"> 3rd party software</a> you need to install on the training machines</li>
+                    </ul>
                 </section>
 
                 <section data-state="ome-theme">
-                    <h2>Each other's data – read-annotate setup</h2>
-                    <img src="images/permissions3-en.jpg" width="900px" height="600px"/>
+                    <h2>What should OME user know ?</h2>
+                    <ul>
+                    <p>Routine training and user inductions</p>
+                    <p>Attracting users to OMERO</p>
+                        <li>See <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/example_facility_manager.html">the OMERO guide for facility managers </a></li>
+                        <li>Especially see <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/example_facility_manager.html#get-users-started"> getting users started guide</a></li>
+                        <li>See <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/example.html">the OMERO guide for users </a></li>
+                    </ul>
                 </section>
 
                 <section data-state="ome-theme">
