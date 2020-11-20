@@ -74,6 +74,14 @@ table.centre {
     width:250px;
 }
 
-.guides {
-    justify-self: top;
+.guides1 {
+    transform: translate(-40%, -50%);
+}
+
+.guides2 {
+    transform: translate(-50%, -25%);
+}
+
+.guides3 {
+    transform: translate(-60%, 0%);
 }
