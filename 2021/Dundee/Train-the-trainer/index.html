@@ -1,0 +1,345 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title></title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <link rel="stylesheet" href="css/ome.css">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <style>
+            img:hover {
+                z-index: 10
+            }
+
+            body {
+                background: #f2f6f9;
+            }
+
+            .ome-theme body {
+                background-image: url(images/ome-icon-opacity.png);
+                background-color: #f2f6f9;
+                background-repeat: no-repeat;
+                background-position: right -270px top -120px;
+            }
+
+            .lionheart_ref {
+                position: absolute;
+                bottom: 20px;
+                right: 40px;
+                visibility: hidden;
+                z-index: 100;
+            }
+
+            .show_lionheart_ref .lionheart_ref {
+                visibility: visible;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section data-state="ome-theme">
+                    <h1>Train the trainer workshop</h1>
+                    <p>OME 2021 Community meeting</p>
+                    <p>
+                        June 2021 <br>
+                        OME Team
+                    </p>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Aims of this workshop</h2>
+                    <ul>
+                        <img src="images/train8.png">
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Training landscape</h2>
+                    <ul>
+                        <img src="images/train9.png">
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Important questions</h2>
+                    <ul>
+                        <li>How does OME Team do workshops?</li>
+                        <li>What is important for a workshop?</li>
+                        <li>What resources of the OME Team can I reuse for my workshop?</li>
+                        <li>What does community have and want? (Discussions)</li>
+                        <ul>
+                            <li><a target="_blank" href="https://github.com/ome/omero-guides/issues/107">GitHub issue</a></li>
+                            <li>Breakout rooms</li>
+
+                        </ul>
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>What do I need for an OMERO training?</h2>
+                    <ul>
+                        <li>Guides for participants</li>
+                        <li>Server</li>
+                        <li>User/group setup</li>
+                        <li>Image data</li>
+                        <li>Annotations</li>
+                        <li>Analytical results</li>
+                        <li>3rd party software setup</li>
+                        <li>Analysis environments</li>
+                        <li>Strategy for cleanup or re-deployment of the server</li>
+
+                    </ul>
+                </section>
+                <section data-state="ome-theme">
+                    <h2>What can I get from OME Team?</h2>
+                    <ul>
+                        <li>OMERO.guides? <span style='color: green'>&#10003;</span></li>
+                        <li>Servers? <span style='color: orange'>&#127763;  &#9888;</span></li>
+                        <li>Blueprint for setting up your training server? <span style='color: green'>&#10003;</span></li>
+                        <li>Image data? <span style='color: green'>&#10003;</span></li>
+                        <li>The setup scripts for
+                            <ul>
+                                <li>Users/Groups <span style='color: green'>&#10003;</span></li>
+                                <li>Image imports <span style='color: green'>&#10003;</span></li>
+                                <li>Metadata import and handling <span style='color: green'>&#10003;</span></li>
+                                <li>Creation of annotations <span style='color: green'>&#10003;</span></li>
+                            </ul></li>
+                        <li>Scripts for cleanup of the server? <span style='color: green'>&#10003;</span></li>
+                        <li>Analysis and 3rd party tools envirnoments? <span style='color: green'>&#10003;</span></li>
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>OME Team: walkthroughs, presentations, guides: Public</h2>
+                    <ul>
+                        <li><a target="_blank" href="https://downloads.openmicroscopy.org/presentations/2020/TIM-Munsingen/OMERO-workshop/#/">Web (reveal.js) based presentations</a></li>
+                        <li><a target="_blank" href="https://downloads.openmicroscopy.org/presentations/2020/TIM-Munsingen/TIM_Munsingen_walkthrough.pdf">Walkthrough of the workshop</a> points to <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/">OMERO guide</a></li>
+                        <img src="images/walkthrough.png">
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>OMERO guides</h2>
+                    <ul>
+                        <img src="images/train7.png">
+                        <li>Walkthroughs, not a documentation</li>
+                        <li>Each guide a separate project, bundled with code</li>
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>OME: IDR as training server</h2>
+                    <ul>
+                        <img src="images/train1.png">
+                    </ul>
+                    <ul>
+                        <li>All images imported and annotated <span style='color: green'>&#10003;</span></li>
+                        <li>Simple group/user setup, read-only server <span style='color: orange'>&#9888;</span></li>
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>OME: Main training servers</h2>
+                    <ul>
+                        <img src="images/train2.png">
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Prepare training server - OME Team 1</h2>
+                    <ul>
+                        <li>Get a server, then <a target="_blank" href="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/OME2020-OMERO-Installation/#/"> deploy OMERO </a> using <a target="_blank" href="https://github.com/ome/prod-playbooks/blob/master/omero/training-server/playbook.yml">ansible playbook </a></li>
+                        <li>Prepare <a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/create_groups_users.sh"> groups and users </a> as listed in the <a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/create_groups_users_setup"> template sheet </a></li>
+                        <li> <a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/rename_users.py"> Rename users </a> to have nice first and last names </a></li>
+                        <li>Import data in-place for all users <a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/in_place_import_as.sh">using a bash script </a></li>
+                        <ul>
+                            <li>Can use a <a target="_blank" href="https://github.com/IDR/idr0079-hartmann-lateralline/blob/master/experimentA/idr0079-experimentA-bulk.yml">bulk file </a> pointing to a <a target="_blank" href="https://github.com/IDR/idr0079-hartmann-lateralline/blob/master/experimentA/idr0079-experimentA-filePaths.tsv">list of paths </a> of the image files for reproducibility.</li>
+
+                        <pre><code>$ ssh $SERVERNAME
+$ su $USERNAME # Unix user with in-place import setup
+$ OMEUSER=user NUMBER=50 # imports for each of the 50 OMERO users
+$ PROJECTNAME=idr0079/experimentA # name of target container in OMERO
+$ HOST=localhost 
+$ BULKFILE=/path/to//idr0079-experimentA-bulk.yml 
+$ bash /path/to/in_place_import_as.sh</code></pre>
+                            <li>For "classsical", non-in-place import delete the <i style='color: red', font-style: italic !important >--transfer=ln_s</i> from <a target="_blank" href="https://github.com/ome/training-scripts/blob/2f81f752c434b0398e85359b65afcb9353c83694/maintenance/scripts/in_place_import_as.sh#L53">the script lines </a> or comment out <a target="_blank" href="https://github.com/IDR/idr0079-hartmann-lateralline/blob/8b3d83c9efce492699884baea73252d615c5fc1d/experimentA/idr0079-experimentA-bulk.yml#L4"> the transfer line </a> from the bulk file.</li>
+                        </ul>
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Prepare training server - OME Team 2</h2>
+                    <ul>
+                        <li>Lightweight imports can be achieved by <a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/idr_copy_plate.py">a python script </a> copying images as pixeldata from IDR or other OMERO.servers.</li>
+                        <li>Import metadata, annotate images <a target="_blank" href="https://github.com/ome/training-scripts/tree/master/maintenance/scripts"> using training-scripts: </a></li>
+                        <ul>
+                            <li> <a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/idr_get_map_annotations.py"> Copy Key-Value pairs</a> from IDR or other OMERO server.</li>
+                           <li><a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/key_value_pairs.py"> Add new Key-Value pairs.</a></li>
+                           <li><a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/calibrate_images.py"> Calibrate images.</a></li>
+                           <li><a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/set_timestamps.py"> Add timestamps.</a></li>
+                           <li> <a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/copy_tags_ratings.py"> Propagate tags and ratings</a> to all users.</li>
+                        </ul>
+                        <li>Import metadata from a CSV via <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/upload/docs/metadata-ui.html"> OMERO.web </a> or <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/upload/docs/metadata.html"> Command line.</a></li>
+                        <li>Create an analysis results table using a <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/fiji/docs/index.html"> script run from a 3rd party tool.</a></li>
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Training servers - alternative for you: 1</h2>
+                    <ul>
+                        <img src="images/train3.png">
+                        <li>Download IDR data using <a target="_blank" href="https://idr.openmicroscopy.org/about/download.html"> Aspera </a> </li>
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Training servers - alternative for you: 2</h2>
+                    <ul>
+                        <img src="images/train4.png">
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Example setup 1 - IDR only</h2>
+                    <ul>
+                        <img src="images/train10.png">
+                        <li>No setup required, all components ready <span style='color: green'>&#10003;</span></li>
+                        <li>Limited audience, read-only server, only API workflows <span style='color: orange'>&#9888;</span> </li>
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Example setup 2 - empty server</h2>
+                    <ul>
+                        <img src="images/train11.png">
+                        <li>Very little setup required, larger audience <span style='color: green'>&#10003;</span></li>
+                        <li>Very limited workflows, low user satisfaction <span style='color: orange'>&#9888;</span> </li>
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Example setup 3 - server with few images</h2>
+                    <ul>
+                        <img src="images/train12.png">
+                        <li>No IDR data import needed <span style='color: green'>&#10003;</span></li>
+                        <li>Little setup, large audience, crucial workflows covered <span style='color: green'>&#10003;</span></li>
+                        <li>Basic analysis, limited scripting, no OMERO.parade <span style='color: orange'>&#9888;</span> </li>
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Example setup 4 - OME server copy</h2>
+                    <ul>
+                        <img src="images/train13.png">
+                        <li>Full audience, workflows and analysis <span style='color: green'>&#10003;</span></li>
+                        <li>Need to import IDR data to match workflows <span style='color: orange'>&#9888;</span> </li>
+                        <li>Setup needs planning, space, maintenance <span style='color: orange'>&#9888;</span> </li>
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Training servers - for the discussion</h2>
+                    <ul>
+                        <li>A docker, possibly based on <a target="_blank" href="https://github.com/ome/omero-deployment-examples" >OME deployment examples </a></li>
+                        <li>A docker-compose with all the data included (a wish from community) </li>
+                        <ul>
+                            <li> Import of data (costly) </li>
+                            <li> Transfer of data between OMERO servers (not solved) </li>
+                            <li> Size of data and complexity (accrued value vs. lightweight setup) </li>
+                            <li> Keep indefinitely up and cleanup or spin up and delete </li>
+                            <li> Maintenance and upgrades </li>
+                        </ul>
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>What now?</h2>
+                    <ul>
+                        <li>General discussion</li>
+                        <li>Breakout rooms</li>
+                        <ul>
+                            <li>OME training servers</li>
+                            <li>Analysis environment</li>
+                            <li>...</li>
+                        </ul>
+                    </ul>
+
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Thank you</h2>
+                    <div class="funding_logo_container">
+                        <img src="images/logos/bbsrc.png" class="funding_logo" />
+                        <img src="images/logos/corbel.png" class="funding_logo" />
+                        <img src="images/logos/wellcome.png" class="funding_logo" />
+                        <img src="images/logos/global_bioimaging.png" class="funding_logo" />
+                        <img src="images/logos/horizon_2020.png" class="funding_logo" />
+                        <img src="images/logos/multimot.png" class="funding_logo" />
+                        <img src="images/logos/euro_bioimaging.png" class="funding_logo" />
+                    </div>
+                </section>
+            </div>
+
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
