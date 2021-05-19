@@ -1,0 +1,184 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title></title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <link rel="stylesheet" href="css/ome.css">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <style>
+            img:hover {
+                z-index: 10
+            }
+
+            body {
+                background: #f2f6f9;
+            }
+
+            .ome-theme body {
+                background-image: url(images/ome-icon-opacity.png);
+                background-color: #f2f6f9;
+                background-repeat: no-repeat;
+                background-position: right -270px top -120px;
+            }
+
+            .lionheart_ref {
+                position: absolute;
+                bottom: 20px;
+                right: 40px;
+                visibility: hidden;
+                z-index: 100;
+            }
+
+            .show_lionheart_ref .lionheart_ref {
+                visibility: visible;
+            }
+
+            .reveal h1,
+            .reveal h2,
+            .reveal h3,
+            .reveal h4,
+            .reveal h5,
+            .reveal h6 {
+                word-wrap: normal;
+                -webkit-hyphens: manual;
+                -moz-hyphens: manual;
+                hyphens: manual;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section data-state="ome-theme">
+                    <h1>IDR workshop</h1>
+                    <p>OME 2021 Community meeting</p>
+                    <p>
+                        June 2021 <br>
+                        OME Team
+                    </p>
+                </section>
+                
+                <section data-state="ome-theme">
+                    <h2>Workshop overview</h2>
+                    <ul>
+                        <li>IDR user interface – hands on</li>
+                        <li>Analysis with IDR</li>
+                        <li>Breakout rooms</li>
+                    </ul>
+                </section>
+
+                
+                <section data-background-size="971px" data-background="images/IDR-gallery.png">
+                    <h2>Search for studies by term</h2>
+                    <div style="width: 600px; height: 600px"></div>
+                </section>
+
+
+                <section data-background-size="971px" data-background="images/IDR-webclient.png">
+                    <h2>OMERO.web: Explore a study</h2>
+                    <div style="width: 600px; height: 600px"></div>
+                </section>
+
+
+
+                <section data-background-size="971px" data-background="images/IDR-mapr.png">
+                    <h2>Search for images by term
+                        and compare
+                        </h2>
+                    <div style="width: 600px; height: 600px"></div>
+                </section>
+
+
+                <section data-background-size="1500px" data-background="images/IDR-analysis-integration.png">
+                    <div style="width: 600px; height: 600px"></div>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Breakout rooms</h2>
+                    <ul>
+                        <li>Room 1: Submission process
+                        </li>
+                        <li>Room 2: Metadata import
+                        </li>
+                        <li>Room 3: Curation, ontologies</li>
+                        <li>Room 4: Analysis in detail</li>
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Thank you</h2>
+                    <div class="funding_logo_container">
+                        <img src="images/logos/bbsrc.png" class="funding_logo" />
+                        <img src="images/logos/corbel.png" class="funding_logo" />
+                        <img src="images/logos/wellcome.png" class="funding_logo" />
+                        <img src="images/logos/global_bioimaging.png" class="funding_logo" />
+                        <img src="images/logos/horizon_2020.png" class="funding_logo" />
+                        <img src="images/logos/multimot.png" class="funding_logo" />
+                        <img src="images/logos/euro_bioimaging.png" class="funding_logo" />
+                    </div>
+                </section>
+            </div>
+
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
