@@ -91,9 +91,9 @@
                 <section data-state="ome-theme">
                     <h2>Important questions</h2>
                     <ul>
-                        <li>How does OME Team do workshops?</li>
                         <li>What is important for a workshop?</li>
-                        <li>What resources of the OME Team can I reuse for my workshop?</li>
+                        <li>What can I get from the OME Team for my workshop?</li>
+                        <li>How does OME Team do workshops?</li>
                         <li>What does community have and want? (Discussions)</li>
                         <ul>
                             <li><a target="_blank" href="https://github.com/ome/omero-guides/issues/107">GitHub issue</a></li>
@@ -108,13 +108,10 @@
                     <ul>
                         <li>Guides for participants</li>
                         <li>Server</li>
-                        <li>User/group setup</li>
-                        <li>Image data</li>
-                        <li>Annotations</li>
-                        <li>Analytical results</li>
+                        <li>Server setup</li>
                         <li>3rd party software setup</li>
                         <li>Analysis environments</li>
-                        <li>Strategy for cleanup or re-deployment of the server</li>
+                        <li>Server cleanup or re-deployment strategy</li>
 
                     </ul>
                 </section>
@@ -156,44 +153,35 @@
                 </section>
 
                 <section data-state="ome-theme">
-                    <h2>OME: IDR as training server</h2>
-                    <ul>
-                        <img src="images/train1.png">
-                    </ul>
-                    <ul>
-                        <li>All images imported and annotated <span style='color: green'>&#10003;</span></li>
-                        <li>Simple group/user setup, read-only server <span style='color: orange'>&#9888;</span></li>
-                    </ul>
-                </section>
-
-                <section data-state="ome-theme">
                     <h2>OME: Main training servers</h2>
                     <ul>
                         <img src="images/train2.png">
+                        <li>All images publicly available</li>
+                        <li><i font-style: italic !important >Accrued value</i> approach</li>
                     </ul>
                 </section>
-
-                <section data-state="ome-theme">
-                    <h2>Prepare training server - OME Team 1</h2>
-                    <ul>
-                        <li>Get a server, then <a target="_blank" href="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/OME2020-OMERO-Installation/#/"> deploy OMERO </a> using <a target="_blank" href="https://github.com/ome/prod-playbooks/blob/master/omero/training-server/playbook.yml">ansible playbook </a></li>
-                        <li>Prepare <a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/create_groups_users.sh"> groups and users </a> as listed in the <a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/create_groups_users_setup"> template sheet </a></li>
-                        <li> <a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/rename_users.py"> Rename users </a> to have nice first and last names </a></li>
-                        <li>Import data in-place for all users <a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/in_place_import_as.sh">using a bash script </a></li>
+                <section>
+                    <section data-state="ome-theme">
+                        <h2>Prepare training server - OME Team 1</h2>
                         <ul>
-                            <li>Can use a <a target="_blank" href="https://github.com/IDR/idr0079-hartmann-lateralline/blob/master/experimentA/idr0079-experimentA-bulk.yml">bulk file </a> pointing to a <a target="_blank" href="https://github.com/IDR/idr0079-hartmann-lateralline/blob/master/experimentA/idr0079-experimentA-filePaths.tsv">list of paths </a> of the image files for reproducibility.</li>
+                            <li>Get a server, then <a target="_blank" href="https://downloads.openmicroscopy.org/presentations/2020/Dundee/Workshops/OME2020-OMERO-Installation/#/"> deploy OMERO </a> using <a target="_blank" href="https://github.com/ome/prod-playbooks/blob/master/omero/training-server/playbook.yml">ansible playbook </a></li>
+                            <li>Prepare <a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/create_groups_users.sh"> groups and users </a> as listed in the <a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/create_groups_users_setup"> template sheet </a></li>
+                            <li> <a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/rename_users.py"> Rename users </a> to have nice first and last names </a></li>
+                            <li>Import data in-place for all users <a target="_blank" href="https://github.com/ome/training-scripts/blob/master/maintenance/scripts/in_place_import_as.sh">using a bash script </a></li>
+                            <ul>
+                                <li>Can use a <a target="_blank" href="https://github.com/IDR/idr0079-hartmann-lateralline/blob/master/experimentA/idr0079-experimentA-bulk.yml">bulk file </a> pointing to a <a target="_blank" href="https://github.com/IDR/idr0079-hartmann-lateralline/blob/master/experimentA/idr0079-experimentA-filePaths.tsv">list of paths </a> of the image files for reproducibility.</li>
 
-                        <pre><code>$ ssh $SERVERNAME
+                            <pre><code>$ ssh $SERVERNAME
 $ su $USERNAME # Unix user with in-place import setup
 $ OMEUSER=user NUMBER=50 # imports for each of the 50 OMERO users
 $ PROJECTNAME=idr0079/experimentA # name of target container in OMERO
 $ HOST=localhost 
 $ BULKFILE=/path/to//idr0079-experimentA-bulk.yml 
 $ bash /path/to/in_place_import_as.sh</code></pre>
-                            <li>For "classsical", non-in-place import delete the <i style='color: red', font-style: italic !important >--transfer=ln_s</i> from <a target="_blank" href="https://github.com/ome/training-scripts/blob/2f81f752c434b0398e85359b65afcb9353c83694/maintenance/scripts/in_place_import_as.sh#L53">the script lines </a> or comment out <a target="_blank" href="https://github.com/IDR/idr0079-hartmann-lateralline/blob/8b3d83c9efce492699884baea73252d615c5fc1d/experimentA/idr0079-experimentA-bulk.yml#L4"> the transfer line </a> from the bulk file.</li>
+                                <li>For "classsical", non-in-place import delete the <i style='color: red', font-style: italic !important >--transfer=ln_s</i> from <a target="_blank" href="https://github.com/ome/training-scripts/blob/2f81f752c434b0398e85359b65afcb9353c83694/maintenance/scripts/in_place_import_as.sh#L53">the script lines </a> or comment out <a target="_blank" href="https://github.com/IDR/idr0079-hartmann-lateralline/blob/8b3d83c9efce492699884baea73252d615c5fc1d/experimentA/idr0079-experimentA-bulk.yml#L4"> the transfer line </a> from the bulk file.</li>
+                            </ul>
                         </ul>
-                    </ul>
-                </section>
+                    </section>
 
                 <section data-state="ome-theme">
                     <h2>Prepare training server - OME Team 2</h2>
@@ -211,7 +199,7 @@ $ bash /path/to/in_place_import_as.sh</code></pre>
                         <li>Create an analysis results table using a <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/fiji/docs/index.html"> script run from a 3rd party tool.</a></li>
                     </ul>
                 </section>
-
+                </section>
                 <section data-state="ome-theme">
                     <h2>Training servers - alternative for you: 1</h2>
                     <ul>
@@ -228,7 +216,7 @@ $ bash /path/to/in_place_import_as.sh</code></pre>
                 </section>
 
                 <section data-state="ome-theme">
-                    <h2>Example setup 1 - IDR only</h2>
+                    <h2>Example setup 1 - IDR and S3</h2>
                     <ul>
                         <img src="images/train10.png">
                         <li>No setup required, all components ready <span style='color: green'>&#10003;</span></li>
@@ -297,13 +285,12 @@ $ bash /path/to/in_place_import_as.sh</code></pre>
                 <section data-state="ome-theme">
                     <h2>Thank you</h2>
                     <div class="funding_logo_container">
-                        <img src="images/logos/bbsrc.png" class="funding_logo" />
-                        <img src="images/logos/corbel.png" class="funding_logo" />
+                        <img src="images/logos/eosc-life.png" class="funding_logo" />
                         <img src="images/logos/wellcome.png" class="funding_logo" />
                         <img src="images/logos/global_bioimaging.png" class="funding_logo" />
                         <img src="images/logos/horizon_2020.png" class="funding_logo" />
-                        <img src="images/logos/multimot.png" class="funding_logo" />
                         <img src="images/logos/euro_bioimaging.png" class="funding_logo" />
+                        <img src="images/logos/bbsrc.png" class="funding_logo" />
                     </div>
                 </section>
             </div>
