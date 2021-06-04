@@ -1,0 +1,239 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title></title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <link rel="stylesheet" href="css/ome.css">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <style>
+            img:hover {
+                z-index: 10
+            }
+
+            body {
+                background: #f2f6f9;
+            }
+
+            .ome-theme body {
+                background-image: url(images/ome-icon-opacity.png);
+                background-color: #f2f6f9;
+                background-repeat: no-repeat;
+                background-position: right -270px top -120px;
+            }
+
+            .reveal h1,
+            .reveal h2,
+            .reveal h3,
+            .reveal h4,
+            .reveal h5,
+            .reveal h6 {
+                word-wrap: normal;
+                -webkit-hyphens: manual;
+                -moz-hyphens: manual;
+                hyphens: manual;
+            }
+            .reveal h1 {
+                font-size: 2.5em;
+            }
+            .ome-theme body {
+                background-image: none;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section data-state="ome-theme">
+                    <h1>Research Data Management</h1>
+                    <h2>OMERO.figure workshop</h2>
+                    <img style="width:150px;" src="images/ome-icon-opacity.png"/>
+                    <p>2021 OME Community Meeting</p>
+                    <p>
+                        9th June 2021 | Will Moore
+                    </p>
+                </section>
+                
+                <section data-state="ome-theme">
+                    <h2>Outline</h2>
+                    <ul>
+                        <li>Intro: OME & OMERO</li>
+                        <li>Workshop overview</li>
+                        <li>Workshop...</li>
+                        <li>Breakout Rooms
+                            <ul>
+                                <li>OMERO.figure UI</li>
+                                <li>Scripting (Python & JavaScript)</li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </section>
+
+                
+                <section data-state="ome-theme" data-background="none">
+                    <h2>OME: Interoperability</h2>
+
+                    <img src="images/ome-informatics.png">
+                </section>
+
+
+                <section data-background-size="971px" data-background="images/omero-platform-bg-0.png">
+                    <h2>OMERO is a server with clients</h2>
+                    <div style="width: 600px; height: 600px"></div>
+                </section>
+
+                <section data-background="images/webclient-plate2.png">
+                </section>
+
+                <section data-background-size="971px" data-background="images/omero-platform-bg-4.png">
+                    <h2>OMERO API</h2>
+
+                    <div style="height: 350px">
+                    Python | Java | Matlab | R | JavaScript
+                    </div>
+                </section>
+
+                <section data-state="ome-theme" style="width:120%; left:-60%">
+                    <h2><a target="_blank" href="https://idr.openmicroscopy.org/">idr.openmicroscopy.org</a></h2>
+                    <img src="images/idr.png" width="1900px"/>
+                </section>
+
+                <section data-state="ome-theme" style="color: white" data-background="images/idr0079-pLLP_in_whole_embryo.png">
+                    <h2 style="color: white">Today's workshop:</h2>
+                    <p>Using data from Jonas Hartmann:
+                        <a href="http://idr.openmicroscopy.org/webclient/?show=project-1102" target="_blank">
+                        idr0079 experimentA</a>
+                        <br>
+                        Zebrafish embryo: posterior Lateral Line Primordium (pLLP)
+                    </p>
+                    <p style="margin-top:50px">
+                        "An image-based data-driven analysis of cellular architecture in a developing tissue"
+                        <br>
+                        <a href="https://elifesciences.org/articles/55913" target="_blank">eLife 2020</a>
+                    </p>
+                </section>
+
+                <section data-state="ome-theme" style="color: white;" data-background="images/idr0079-pLLP_in_whole_embryo.png">
+                    <img style="border: solid white 2px; width: 750px; position: relative; top: 90px;"
+                        src="http://idr.openmicroscopy.org/webclient/render_image/9836998/71/0/?c=1|3:122$00FF00,2|11:94$FF0000" />
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Using image metadata to build a figure:</h2>
+                    <ul>
+                        <li>Pixel sizes & Time-stamps</li>
+                        <li>Channel Names</li>
+                        <li>User Annotations (Tags, Key-Value pairs)</li>
+                        <li>Regions of Interest (ROIs)</li>
+                        <li>Analysis results</li>
+                    </ul>
+                    <img style="height: 375px" src="images/figure-idr0079.png" />
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>OMERO.figure scripting</h2>
+                    <ul>
+                        <li><i>Create</i> figures with Python scripts on the server</li>
+                        <li><i>Edit</i> figures with JavaScript in the client (web browser)</li>
+                        <img style="width: 550px; margin-left:100px" src="images/omero-figure-scripts.png" />
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme" data-background="images/figure-scripting-idr0079.png">
+                    <a href="https://github.com/ome/omero-figure/issues/431" target="_blank"
+                        style="position: absolute; right: 0; bottom: -600px;"
+                    >More Info</a>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Workshop content</h2>
+                    <ul>
+                        <li>Main content is in <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/">OMERO guides</a>
+                        </li>
+                        <img src="images/guide1.png" />
+                        <img src="images/guide3.png" class="guides1" />
+                        <img src="images/guide4.png" class="guides2" />
+                        <img src="images/guide5.png" class="guides3" />
+                        <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/">https://omero-guides.readthedocs.io</a>
+                        <li>Watch videos on <a target="_blank"
+                                href="https://www.youtube.com/c/OpenMicroscopyEnvironment">openmicroscopy YouTube
+                                channel</a>
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Thank you</h2>
+                    <div class="funding_logo_container">
+                        <img src="images/logos/eosc-life.png" class="funding_logo" />
+                        <img src="images/logos/wellcome.png" class="funding_logo" />
+                        <img src="images/logos/global_bioimaging.png" class="funding_logo" />
+                        <img src="images/logos/horizon_2020.png" class="funding_logo" />
+                        <img src="images/logos/euro_bioimaging.png" class="funding_logo" />
+                        <img src="images/logos/bbsrc.png" class="funding_logo" />
+                    </div>
+                </section>
+            </div>
+
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
