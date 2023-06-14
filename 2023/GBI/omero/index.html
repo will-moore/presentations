@@ -1,0 +1,307 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title></title>
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="reveal-js/css/reveal.min.css">
+        <link rel="stylesheet" href="reveal-js/css/theme/default.css" id="theme">
+
+        <!-- OME presentation overrides of the default theme -->
+        <link rel="stylesheet" href="css/ome.css">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="reveal-js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="reveal-js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <style>
+            img:hover {
+                z-index: 10
+            }
+
+            body {
+                background: #f2f6f9;
+            }
+
+            .ome-theme body {
+                background-image: url(images/ome-icon-opacity.png);
+                background-color: #f2f6f9;
+                background-repeat: no-repeat;
+                background-position: right -270px top -120px;
+            }
+
+            .lionheart_ref {
+                position: absolute;
+                bottom: 20px;
+                right: 40px;
+                visibility: hidden;
+                z-index: 100;
+            }
+
+            .show_lionheart_ref .lionheart_ref {
+                visibility: visible;
+            }
+
+            .reveal h1,
+            .reveal h2,
+            .reveal h3,
+            .reveal h4,
+            .reveal h5,
+            .reveal h6 {
+                word-wrap: normal;
+                -webkit-hyphens: manual;
+                -moz-hyphens: manual;
+                hyphens: manual;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <!-- title page -->
+                <section data-state="ome-theme">
+                    <h1>OMERO seminar</h1>
+                    <p>Okazaki</p>
+                    <p>July 2023</p>
+                        OME Team
+                    </p>
+                </section>
+                
+                <section data-state="ome-theme">
+                    <h2>Outline</h2>
+                    <ul>
+                        <li>What is OME?</li>
+                        <li>What is OMERO?</li>
+                        <li>Workshop overview</li>
+                    </ul>
+                </section>
+
+                
+                <section data-state="ome-theme">
+                    <h2>OME: Interoperability</h2>
+
+                    <img src="images/ome-informatics.png">
+                </section>
+
+
+                <section data-background-size="971px" data-background="images/omero-platform-bg-0.png">
+                    <h2>OMERO is a server with clients</h2>
+                    <div style="width: 600px; height: 600px"></div>
+                </section>
+
+
+
+                <section data-background-size="971px" data-background="images/omero-platform-bg-1.png">
+                    <h2>Image Data - Read by Bio-Formats</h2>
+
+                    <div style="height: 350px">
+                    <ul>
+                        <li>Support for reading > <b>160 image formats</b></li>
+                        <li>Read pixel data and metadata</li>
+                        <li>Includes 5D images, HCS data, Tiled WSI images</li>
+                        <li>Domains: biological, medical, general (tiff, png, etc.)</li>
+                    </ul>
+                    </div>
+                </section>
+
+
+                <section data-background-size="971px" data-background="images/omero-platform-bg-2.png">
+                    <h2>Metadata</h2>
+
+                    <div style="height: 350px">
+                    <ul>
+                        <li>Stored in a Relational Database</li>
+                        <li>Acquisition Metadata</li>
+                        <li>User-added Annotations</li>
+                        <li>ROIs / Segmentations</li> <!-- Masks -->
+                    </ul>
+                    </div>
+                </section>
+
+
+
+                <section data-background-size="971px" data-background="images/omero-platform-bg-5.png">
+                    <h2>Search</h2>
+
+                    <div style="height: 350px">
+                    <ul>
+                        <li>Text and Annotations indexed with Lucene</li>
+                        <li>Allows keyword searches</li>
+                    </ul>
+                    </div>
+                </section>
+
+
+
+                <section data-background-size="971px" data-background="images/omero-platform-bg-3.png">
+                    <h2>OMERO.tables</h2>
+
+                    <div style="height: 350px">
+                    <ul>
+                        <li>HDF5 tables for analysis results</li>
+                        <li>Flexible columns</li>
+                    </ul>
+                    </div>
+                </section>
+
+                <section data-background="images/webclient-plate2.png">
+                </section>
+
+                <section data-background="images/webclient-svs2.png">
+                </section>
+
+                <section data-state="show_lionheart_ref" data-background="images/webclient-dicom2.png">
+                </section>
+
+                <section data-background-size="971px" data-background="images/omero-platform-bg-4.png">
+                    <h2>OMERO API</h2>
+
+                    <div style="height: 350px">
+                    Python | Java | Matlab | R | C++
+                    </div>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Integration</h2>
+                    <img src="images/omero-workshop-integration-all.png" width="900px"/>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Open with... Web apps</h2>
+                    <img src="images/openwith_viewers.png" width="900px"/>
+                </section>    
+
+                <section data-state="ome-theme" style="width:120%">
+                    <h2><a target="_blank" href="https://idr.openmicroscopy.org/">idr.openmicroscopy.org</a></h2>
+                    <img src="images/idr.png" width="1900px"/>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>OMERO guide</h2>
+                    <ul>
+                        <li>Workshop content is in <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/">OMERO guides</a></li>
+                        <img src="images/guide1.png" />
+                        <img src="images/guide3.png" class="guides1" />
+                        <img src="images/guide4.png" class="guides2" />
+                        <img src="images/guide5.png" class="guides3" />
+                        <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/">https://omero-guides.readthedocs.io</a>
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>What should OME user know ?</h2>
+                    <ul>
+                    <p>Routine training and user inductions</p>
+                    <p>Attracting users to OMERO</p>
+                        <li>See <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/example_facility_manager.html">the OMERO guide for facility managers </a></li>
+                        <li>Especially see <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/example_facility_manager.html#get-users-started"> getting users started guide</a></li>
+                        <li>See <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/example.html">the OMERO guide for users </a></li>
+                        <li><a target="_blank" href="https://www.youtube.com/c/OpenMicroscopyEnvironment/videos/#/">Videos</a></li>
+                        <li>See <a target="_blank" href="https://downloads.openmicroscopy.org/presentations/2021/Dundee/Train-the-trainer/#/">Train-the-trainer presentation </a></li>
+                    </ul>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Support on <a target="_blank" href="https://forum.image.sc">image.sc</a>  - community</h2>
+                    <ul>
+                        <li><a target="_blank" href="https://forum.image.sc/t/setting-up-omero-in-a-new-lab-suggestions-stories-and-advice-welcome/25626/19">Discussion about setting up OMERO </a></li>
+                        <li><a target="_blank" href="https://forum.image.sc/t/omero-for-admins-meeting-29-june-2022/68520"> Meetings for OMERO admins</a></li>
+                    </ul>
+                    <img src="images/omero-discuss-imagesc.png" width="900px"/>
+                    <img src="images/omero-for-admins-imagesc.png" width="900px"/>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>OMERO setups  <a target="_blank" href="https://forum.image.sc"></a>  - community</h2>
+                    <ul>
+                        <li>Implementation of OMERO at the Münster Imaging Network, setup from <a target="_blank" href="https://analyticalscience.wiley.com/do/10.1002/was.0004000267"> Zobel et al. 2022:</a></li>
+                    </ul>
+                    <img src="images/munster-omero-setup.jpg" width="900px"/>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Read-annotate setup example</h2>
+
+                    <li>Group Owner (PI) can always see all data in every setup</li>
+                    <img src="images/permissions3-en.jpg" width="900px" height="600px"/>
+
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Import: Desktop Application</h2>
+                    <img src="images/insightImport.png" width="900px"/>
+                    Read the <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/upload/docs/import-desktop-client.html">import guide</a> or watch the <a target="_blank" href="https://www.youtube.com/watch?v=U5rH7ZmyIAI&t=149s">import video</a>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Import: Advanced options</h2>
+                    <img src="images/inplace-schema.png" width="400px"/>
+                    <p>Read the <a target="_blank" href="https://omero-guides.readthedocs.io/en/latest/upload/docs/import.html">import guides</a></p>
+                </section>
+
+                <section data-state="ome-theme">
+                    <h2>Thank you</h2>
+                    <div class="funding_logo_container">
+                        <img src="images/logos/eosc-life.png" class="funding_logo" />
+                        <img src="images/logos/wellcome.png" class="funding_logo" />
+                        <img src="images/logos/global_bioimaging.png" class="funding_logo" />
+                        <img src="images/logos/horizon_2020.png" class="funding_logo" />
+                        <img src="images/logos/euro_bioimaging.png" class="funding_logo" />
+                        <img src="images/logos/bbsrc.png" class="funding_logo" />
+                    </div>
+                </section>
+            </div>
+
+        </div>
+
+        <script src="reveal-js/lib/js/head.min.js"></script>
+        <script src="reveal-js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: 'sky', //Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    // { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    // { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'reveal-js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
