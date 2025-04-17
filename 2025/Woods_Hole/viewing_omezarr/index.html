@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Viewing OME-Zarr Collections</title>
+    
+    <meta name="description" content="impress.js is a presentation tool based on the power of CSS3 transforms and transitions in modern browsers and inspired by the idea behind prezi.com." />
+    <meta name="author" content="Will Moore" />
+
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+
+    <link href="css/ome.css" rel="stylesheet" />
+    <link href="css/impress-common.css" rel="stylesheet" />
+    
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+</head>
+
+<body class="impress-not-supported">
+
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+<div id="impress"
+    data-transition-duration="1000"
+    
+    data-width="1024"
+    data-height="768"
+    data-max-scale="3"
+    data-min-scale="0"
+    data-perspective="1000">
+
+
+    <!-- <div class="thumbnail" id="thumbnail1"></div>
+    <div class="thumbnail" id="thumbnail2"></div> -->
+
+    <div class="step slide" data-x="0" data-y="0">
+        <h1 style="margin-top: 180px">How to display OME-Zarr <span class="strikethrough">Collections?</span></h1>
+        <p style="text-align: center; margin-top: 50px;">
+            Will Moore<br>
+            #OME2025, Wood's Hole
+        </p>
+    </div>
+
+    <div id="thumbnails" class="step slide" data-x="0" data-y="0">
+        <h1 style="margin-top: 250px; transform: rotate(-15deg) translate(133px, 53px);">Thumbnails</h1>
+    </div>
+
+    <div class="step slide" data-x="1500" data-y="0">
+        <h1>OME-Zarr Collections</h1>
+        <p style="text-align: center;">With pre-generated thumbnails</p>
+        <iframe style="top: 30%; left: 45%" src="https://zebrahub.sf.czbiohub.org/imaging" class="small"></iframe>
+        <iframe style="top: -10%; left: -40%" src="https://idr.github.io/ome-ngff-samples/" class="small"></iframe>
+        <iframe style="top: 30%; left: -35%" src="https://ssbd.riken.jp/ssbd-ome-ngff-samples" class="small"></iframe>
+        <iframe style="top: 10%; left: 0" src="https://zarr.webknossos.org/" class="small"></iframe>
+        <!-- <iframe style="top: 30%; left: 35%" src="https://images.jax.org/webclient/?show=image-190714" class="small"></iframe> -->
+        <iframe style="top: -10%; left: 40%" src="https://uk1s3.embassy.ebi.ac.uk/bia-integrator-data/pages/omengff.html" class="small"></iframe>
+    </div>
+
+    <div class="step slide" data-x="3000" data-y="0">
+        <h1>OME-2024-NGFF-Challenge</h1>
+        <p style="text-align: center;">Thumbnails generated from OME-Zarr data on the fly</p>
+        <iframe style="width: 1080px; top: 15%; left: -10%; transform: scale(0.8);" src="https://ome.github.io/ome2024-ngff-challenge/"></iframe>
+    </div>
+
+
+    <div class="step slide" data-x="4500" data-y="0">
+        <h1>ome-zarr.js</h1>
+        <p style="text-align: center;"><a href="https://github.com/BioNGFF/ome-zarr.js">https://github.com/BioNGFF/ome-zarr.js</a></p>
+        <iframe style="width: 1080px; top: 15%; left: -10%; transform: scale(0.8);" src="https://biongff.github.io/ome-zarr.js/"></iframe>
+    </div>
+
+    
+    <div id="overview" class="step" data-x="3000" data-y="1500" data-z="0" data-scale="5">
+    </div>
+
+</div>
+
+<div id="impress-toolbar"></div>
+
+<script>
+if ("ontouchstart" in document.documentElement) { 
+    document.querySelector(".hint").innerHTML = "<p>Swipe left or right to navigate</p>";
+}
+</script>
+
+
+<script src="js/impress.js"></script>
+<script>
+    impress().init();
+</script>
+
+<script type="module">
+    import * as omezarr from "https://cdn.jsdelivr.net/npm/ome-zarr.js/+esm";
+
+    // document.addEventListener( "impress:stepenter", function( event ) {
+    //     var step = event.target;
+    //     if (step.id == "thumbnails") {
+
+        // we load thumbnails immediately, but only shown when the #thumbnails step is entered
+        let urls = ["https://uk1s3.embassy.ebi.ac.uk/idr/share/ome2024-ngff-challenge/idr0036/20633.ome.zarr/A/3/0",
+            "https://uk1s3.embassy.ebi.ac.uk/idr/share/ome2024-ngff-challenge/idr0033/41755_illum_corrected.ome.zarr/A/1/8",
+            "https://uk1s3.embassy.ebi.ac.uk/idr/share/ome2024-ngff-challenge/idr0048/9846151_3D_chunks.zarr",
+            "https://uk1s3.embassy.ebi.ac.uk/idr/share/ome2024-ngff-challenge/idr0157/Asterella gracilis SWE/IMG_1033-1112 Asterella gracilis (Mannia gracilis) stature.ome.zarr",
+            "https://uk1s3.embassy.ebi.ac.uk/idr/share/ome2024-ngff-challenge/idr0066/ExpD_chicken_embryo_MIP.ome.zarr",
+            "https://uk1s3.embassy.ebi.ac.uk/idr/share/ome2024-ngff-challenge/idr0035/Week5_29301.ome.zarr/B/2/0",
+            "https://uk1s3.embassy.ebi.ac.uk/idr/share/ome2024-ngff-challenge/idr0090/190628.zarr/B/2/8",
+            "https://radosgw.public.os.wwu.de/n4bi-wp1/challenge/riken/71df7f94-2661-4438-9a6d-3b317cd23409.zarr",
+            "https://radosgw.public.os.wwu.de/n4bi-wp1/challenge/riken/038d16f4-af14-47b0-a70d-f6349f00b046.zarr",
+            "https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0048A/9846152.zarr/",
+            "https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.3/9836842.zarr",
+            "https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.3/idr0079A/9836998.zarr",
+            "https://ssbd.riken.jp/100118-dcacbb41/zarr/v0.4/wt-N2-030303-01.zarr",
+
+        ]
+        
+        urls.forEach((url, i) => {
+            let thumbSrc = omezarr.renderThumbnail(url, 150, true).then((thumbSrc) => {
+                let y = Math.floor(i / 4) * 200;
+                let thumb = document.createElement("img");
+                thumb.src = thumbSrc;
+                let d = document.createElement("div");
+                d.appendChild(thumb);
+                d.className = "thumbnail";
+                d.style.transform = `translate3d(${(i % 4) * 200}px, ${y - 250}px, 200px)`;
+                document.getElementById("thumbnails").appendChild(d);
+            });
+        });
+    //     }
+    // }, false );
+</script>
+
+</body>
+</html>
