@@ -110,6 +110,10 @@ a {
     transition:         0.5s;
 }
 
+a:hover {
+    text-decoration: underline;
+}
+
 /*
     Because the main point behind the impress.js demo is to demo impress.js
     we display a fallback message for users with browsers that don't support
@@ -706,4 +710,16 @@ iframe.small {
 /* The thumbnails slide is ONLY hidden before we load it */
 #thumbnails.next {
     opacity: 0;
+}
+
+code pre {
+    font-family: courier;
+    color: wheat;
+    background: #333;
+    padding: 15px;
+}
+
+.screenshot {
+    position: absolute;
+    transform: scale(0.8);
 }

@@ -70,8 +70,35 @@
 
     <div class="step slide" data-x="4500" data-y="0">
         <h1>ome-zarr.js</h1>
-        <p style="text-align: center;"><a href="https://github.com/BioNGFF/ome-zarr.js">https://github.com/BioNGFF/ome-zarr.js</a></p>
+        <p style="text-align: center;">
+            <a href="https://github.com/BioNGFF/ome-zarr.js">https://github.com/BioNGFF/ome-zarr.js</a>
+            | <a href="https://codepen.io/will-moore/pen/raaaVvL?editors=1010" target="_blank">Demo</a>
+        </p>
         <iframe style="width: 1080px; top: 15%; left: -10%; transform: scale(0.8);" src="https://biongff.github.io/ome-zarr.js/"></iframe>
+    </div>
+
+
+    <div class="step slide" data-x="4500" data-y="1000">
+        <h1>ome-zarr.js in action: ome-ngff-validator </h1>
+        <p style="text-align: center;">Thumbnails from ome-zarr.js: <a target="_blank" href="https://github.com/ome/ome-ngff-validator/pull/46">(PR #46)</a></p>
+        <iframe style="width: 1080px; top: 20%; left: -10%; transform: scale(0.8);" src="https://deploy-preview-46--ome-ngff-validator.netlify.app/?source=https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.2/idr0070A/9838562.zarr"></iframe>
+    </div>
+
+
+    <div class="step slide" data-x="3000" data-y="1000">
+        <h1>ome-zarr.js in action: OMERO.figure</h1>
+        <p style="text-align: center;">Rendering OME-Zarr with ome-zarr.js: <a target="_blank" href="https://github.com/ome/omero-figure/pull/619">(PR #619)</a></p>
+        <iframe style="width: 1080px; top: 15%; left: -10%; transform: scale(0.8);" src="https://will-moore.github.io/omero-figure/?file=https://gist.githubusercontent.com/will-moore/fe0e260544b46af6e1e523b288fc85bc/raw/30547e61d4d8753ef0016f0a70435f1aafb43c2f/OMERO.figure_NGFF_demo.json"></iframe>
+    </div>
+
+
+    <div class="step slide" data-x="1500" data-y="1000">
+        <h1>How do you view a local collection of OME-Zarr data?</h1>
+        <code><pre>
+ $ pip install ome-zarr
+ $ ome_zarr finder path/to/data/</pre></code>
+        <img class="screenshot" style="transform: scale(0.6); left: -10%; top: 120px;" src="images/local_zarr_filesystem.png">
+        <img class="screenshot" style="transform: scale(0.5); left: -20%; top: 20px" src="images/biofile_finder.png">
     </div>
 
     
@@ -119,14 +146,20 @@ if ("ontouchstart" in document.documentElement) {
         ]
         
         urls.forEach((url, i) => {
+            let row = Math.floor(i / 4);
+            let col = i % 4;
+            if (row == 1 && (col == 1 || col == 2)) {
+                // skip this one
+                return;
+            }
             let thumbSrc = omezarr.renderThumbnail(url, 150, true).then((thumbSrc) => {
-                let y = Math.floor(i / 4) * 200;
+                let y = row * 200;
                 let thumb = document.createElement("img");
                 thumb.src = thumbSrc;
                 let d = document.createElement("div");
                 d.appendChild(thumb);
                 d.className = "thumbnail";
-                d.style.transform = `translate3d(${(i % 4) * 200}px, ${y - 250}px, 200px)`;
+                d.style.transform = `translate3d(${col * 200}px, ${y - 250}px, 200px)`;
                 document.getElementById("thumbnails").appendChild(d);
             });
         });
