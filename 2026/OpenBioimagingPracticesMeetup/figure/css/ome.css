@@ -86,7 +86,9 @@ body {
     font-weight: 100;
     min-height: 740px;
 
-    background: white;
+    /* background: white; */
+    /* background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); */
+    background-image: linear-gradient(to top, #ffffff 0%, #eef1f5 100%);
 }
 
 /*
@@ -669,7 +671,7 @@ h1 {
 
 iframe {
     border: solid 1px #ccc;
-    box-shadow: 0 0 15px rgba(0, 0, 0, .5);
+    box-shadow: 20px 20px 50px rgba(150, 150, 150, .5);
     width: 924px;
     height: 768px;
     position: absolute;
@@ -703,11 +705,11 @@ h1.omero, h1.figure {
 }
 
 .left_arrow {
-    transform: translateX(calc(-50% - 170px));
+    transform: translateX(calc(-50% - 160px));
     transition: transform 1s;
 }
 .right_arrow {
-    transform: translateX(calc(-50% + 170px));
+    transform: translateX(calc(-50% + 160px));
     transition: transform 1s;
 }
 /* Both arrows overlaid in the center for 'omero' slides */
