@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Viewing OME-Zarr Collections</title>
+    
+    <meta name="description" content="impress.js is a presentation tool based on the power of CSS3 transforms and transitions in modern browsers and inspired by the idea behind prezi.com." />
+    <meta name="author" content="Will Moore" />
+
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+
+    <link href="css/ome.css" rel="stylesheet" />
+    <link href="css/impress-common.css" rel="stylesheet" />
+    
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+</head>
+
+<body class="impress-not-supported">
+
+<div class="fallback-message">
+    <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+    <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+<div id="impress"
+    data-transition-duration="1000"
+    
+    data-width="1024"
+    data-height="768"
+    data-max-scale="3"
+    data-min-scale="0"
+    data-perspective="1000">
+
+
+    <!-- <div class="thumbnail" id="thumbnail1"></div>
+    <div class="thumbnail" id="thumbnail2"></div> -->
+
+    <div class="step slide" data-x="0" data-y="0">
+        <img src="images/ome-logomark.svg" style="display: block; margin:90px; height: 65px; width: auto; position: absolute; top: 20px; left: 20px;" />
+        <h1 style="margin-top: 140px">OME Figure:<br>OME-Zarr images to figures</h1>
+        <p style="text-align: center; margin-top: 50px;">
+            Will Moore: OME team, Dundee, UK<br>
+            Open Bioimaging Practices Meetup: 30th September 2026
+        </p>
+    </div>
+
+    <div class="step slide" data-x="0" data-y="700" data-z="-1500">
+        <iframe style="width: 1080px; top: -5%; left: -10%; transform: scale(0.9);" src="https://ome.github.io/figure/?file=https://raw.githubusercontent.com/will-moore/figure/refs/heads/figure_json_from_gist/sample_figures/ngff_images_figure.json"></iframe>
+    </div>
+
+
+    <div class="step slide" data-x="0" data-y="1000" data-z="200">
+        <h1 class="omero-figure-title">OMERO.figure</h1>
+        
+        <div class="omero" style="position: absolute; bottom: 0px; left: 50%; transform: translateX(-50%); width: 500px; height: 200px; border: solid rgb(189, 188, 188) 0.5px; border-radius: 30px; background: rgba(200, 200, 200, 0.3); box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);">
+            <img src="images/anemone_16-cell_stage_embryo.svg" style="width: auto; height: 40px; border: rgb(31,76,133) 2px solid; position: absolute; top: 130px; left: 50px; border-radius: 0px" background: #eeeeee; />
+            <img src="images/c-elegans_small_mutant.svg" style="width: auto; height: 40px; border: rgb(31,76,133) 2px solid; position: absolute; top: 110px; left: 70px; border-radius: 0px; background: #eeeeee;" />
+            <div style="position: absolute; top: 10px; right: 20px; text-align: center; font-size: 14px; display: flex; flex-direction: column; align-items: center;">
+                <img src="images/json_icon.png" style="width: auto; height: 55px; opacity: 0.5;" />
+                <div style="margin-top: -2px; color: rgb(128, 127, 127); margin-bottom: 10px;">figure.json</div>
+                <img src="images/python-logo.svg" style="width: auto; height: 55px;" />
+                <div style="margin-top: -12px; color: rgb(128, 127, 127)">Figure_to_Pdf.py</div>
+            </div>
+        </div>
+        <img class="omero" src="images/omero_txt.svg" style="position: absolute; bottom: 10px; left: calc(50% - 38px); transform: translateX(-50%); width: auto; height: 50px;" />
+        <img class="omero" src="images/omero-logomark.svg" style="position: absolute; bottom: 70px; left:50%; transform: translateX(-50%); width: auto; height: 100px;" />
+
+        <img src="images/HTML_logo.svg" style="position: absolute; bottom: 130px; left:50%; transform: translateX(-200px); width: auto; height: 50px;" />
+        <img src="images/CSS_logo.svg" style="position: absolute; bottom: 130px; left:50%; transform: translateX(-170px); width: auto; height: 50px;" />
+        <img src="images/JS_logo.svg" style="position: absolute; bottom: 120px; left:50%; transform: translateX(-145px); width: auto; height: 45px;" />
+
+        <!-- duplicate arrows -->
+        <svg class="left_arrow" style="position: absolute; height: 135px; width: auto; bottom:200px; left: 50%;" xmlns="http://www.w3.org/2000/svg" fill="rgba(39,142,203, 0.5)" class="bi bi-arrows-vertical" viewBox="0 0 16 16">
+            <path d="M8.354 14.854a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 13.293V2.707L6.354 3.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 2.707v10.586l1.146-1.147a.5.5 0 0 1 .708.708z"/>
+        </svg>
+        <svg class="right_arrow" style="position: absolute; height: 135px; width: auto; bottom:200px; left: 50%;" xmlns="http://www.w3.org/2000/svg" fill="rgba(39,142,203, 0.5)" class="bi bi-arrows-vertical" viewBox="0 0 16 16">
+            <path d="M8.354 14.854a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 13.293V2.707L6.354 3.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 2.707v10.586l1.146-1.147a.5.5 0 0 1 .708.708z"/>
+        </svg>
+    </div>
+
+    <div class="step slide" data-x="0" data-y="1000" data-z="200">
+        <h1 class="figure-title">figure</h1>
+        <img class="github" src="images/GitHub_logo.svg" style="position: absolute; bottom: 70px; left:50%; transform: translateX(-200px); width: auto; height: 45px;" />
+
+        <div class="github" style="position: absolute; bottom: 70px; right: 155px; display:flex; flex-direction: row; align-items: center;">
+            <img class="github" src="images/ome-logo-txt.svg" style="width: 125px; height: auto;" />
+            <img class="github" src="images/zarr_logo.svg" style="width: 175px; height: auto;" />
+        </div>
+    </div>
+
+    <div class="step slide" data-x="0" data-y="1030" data-z="-1500" data-scale="0.01">
+        <div style="position: absolute; top: 300px; left:50%; transform: translateX(-50%); text-align: center; width: 100%;">
+            <h1>Demo</h1>
+            <p style="margin: 20px;">
+                Figure app: <a href="https://ome.github.io/figure" target="_blank">https://ome.github.io/figure</a>
+            </p>
+            <p>
+                Homepage: <a href="https://github.com/ome/figure" target="_blank">https://github.com/ome/figure</a>
+            </p>
+        </div>
+    </div>
+
+    
+    <div id="overview" class="step" data-x="3000" data-y="1500" data-z="0" data-scale="5">
+    </div>
+
+</div>
+
+<div id="impress-toolbar"></div>
+
+<script>
+if ("ontouchstart" in document.documentElement) { 
+    document.querySelector(".hint").innerHTML = "<p>Swipe left or right to navigate</p>";
+}
+</script>
+
+
+<script src="js/impress.js"></script>
+<script>
+    impress().init();
+</script>
+
+<script type="module">
+    import * as omezarr from "https://cdn.jsdelivr.net/npm/ome-zarr.js/+esm";
+
+    // document.addEventListener( "impress:stepenter", function( event ) {
+    //     var step = event.target;
+    //     if (step.id == "thumbnails") {
+
+        // we load thumbnails immediately, but only shown when the #thumbnails step is entered
+        let urls = ["https://livingobjects.ebi.ac.uk/idr/share/ome2024-ngff-challenge/idr0036/20633.ome.zarr/A/3/0",
+            "https://livingobjects.ebi.ac.uk/idr/share/ome2024-ngff-challenge/idr0033/41755_illum_corrected.ome.zarr/A/1/8",
+            "https://livingobjects.ebi.ac.uk/idr/share/ome2024-ngff-challenge/idr0048/9846151_3D_chunks.zarr",
+            "https://livingobjects.ebi.ac.uk/idr/share/ome2024-ngff-challenge/idr0157/Asterella gracilis SWE/IMG_1033-1112 Asterella gracilis (Mannia gracilis) stature.ome.zarr",
+            "https://livingobjects.ebi.ac.uk/idr/share/ome2024-ngff-challenge/idr0066/ExpD_chicken_embryo_MIP.ome.zarr",
+            "https://livingobjects.ebi.ac.uk/idr/share/ome2024-ngff-challenge/idr0035/Week5_29301.ome.zarr/B/2/0",
+            "https://livingobjects.ebi.ac.uk/idr/share/ome2024-ngff-challenge/idr0090/190628.zarr/B/2/8",
+            "https://radosgw.public.os.wwu.de/n4bi-wp1/challenge/riken/71df7f94-2661-4438-9a6d-3b317cd23409.zarr",
+            "https://radosgw.public.os.wwu.de/n4bi-wp1/challenge/riken/038d16f4-af14-47b0-a70d-f6349f00b046.zarr",
+            "https://livingobjects.ebi.ac.uk/idr/zarr/v0.4/idr0048A/9846152.zarr/",
+            "https://livingobjects.ebi.ac.uk/idr/zarr/v0.3/9836842.zarr",
+            "https://livingobjects.ebi.ac.uk/idr/zarr/v0.3/idr0079A/9836998.zarr",
+            "https://ssbd.riken.jp/100118-dcacbb41/zarr/v0.4/wt-N2-030303-01.zarr",
+
+        ]
+        
+        urls.forEach((url, i) => {
+            let row = Math.floor(i / 4);
+            let col = i % 4;
+            if (row == 1 && (col == 1 || col == 2)) {
+                // skip this one
+                return;
+            }
+            let thumbSrc = omezarr.renderThumbnail(url, 150, true).then((thumbSrc) => {
+                let y = row * 200;
+                let thumb = document.createElement("img");
+                thumb.src = thumbSrc;
+                let d = document.createElement("div");
+                d.appendChild(thumb);
+                d.className = "thumbnail";
+                d.style.transform = `translate3d(${col * 200}px, ${y - 250}px, 200px)`;
+                document.getElementById("thumbnails").appendChild(d);
+            });
+        });
+    //     }
+    // }, false );
+</script>
+
+</body>
+</html>
